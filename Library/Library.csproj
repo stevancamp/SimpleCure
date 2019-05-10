@@ -1,0 +1,136 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{D6B6B737-E30B-4786-B4A7-D0770336BAD7}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Library</RootNamespace>
+    <AssemblyName>Library</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.12.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="DataModel\AppError.cs">
+      <DependentUpon>SimpleCureDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModel\BusinessType.cs">
+      <DependentUpon>SimpleCureDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModel\OrderActivityHistory.cs">
+      <DependentUpon>SimpleCureDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModel\OrderActivityType.cs">
+      <DependentUpon>SimpleCureDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModel\OrderInfo.cs">
+      <DependentUpon>SimpleCureDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModel\OrderInfo_Product.cs">
+      <DependentUpon>SimpleCureDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModel\OrderInfo_Product_Types.cs">
+      <DependentUpon>SimpleCureDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModel\SimpleCureDataModel.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SimpleCureDataModel.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModel\SimpleCureDataModel.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SimpleCureDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModel\SimpleCureDataModel.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SimpleCureDataModel.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Email\Methods\EmailMessage.cs" />
+    <Compile Include="ErrorLogging\Methods\ApplicationError.cs" />
+    <Compile Include="Orders\Methods\Order.cs" />
+    <Compile Include="Orders\Methods\OrderProduct.cs" />
+    <Compile Include="Generic.cs" />
+    <Compile Include="ResponseBase.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.Config" />
+    <EntityDeploy Include="DataModel\SimpleCureDataModel.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>SimpleCureDataModel.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="DataModel\SimpleCureDataModel.edmx.diagram">
+      <DependentUpon>SimpleCureDataModel.edmx</DependentUpon>
+    </None>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Email\Classes\" />
+    <Folder Include="Email\Models\" />
+    <Folder Include="ErrorLogging\Classes\" />
+    <Folder Include="ErrorLogging\Models\" />
+    <Folder Include="Orders\Classes\" />
+    <Folder Include="Orders\Models\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="DataModel\SimpleCureDataModel.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>SimpleCureDataModel.edmx</DependentUpon>
+      <LastGenOutput>SimpleCureDataModel.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="DataModel\SimpleCureDataModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>SimpleCureDataModel.edmx</DependentUpon>
+      <LastGenOutput>SimpleCureDataModel.cs</LastGenOutput>
+    </Content>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>
