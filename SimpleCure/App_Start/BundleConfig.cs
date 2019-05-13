@@ -9,22 +9,29 @@ namespace SimpleCure
         public static void RegisterBundles(BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
-                        "~/Scripts/jquery-{version}.js"));
+                        "~/distribution/vendor/jquery/jquery.min.js",
+                        "~/distribution/vendor/popper.js/popper.min.js",
+                        "~/distribution/vendor/bootstrap/js/bootstrap.min.js",
+                        "~/distribution/js/grasp_mobile_progress_circle - 1.0.0.min.js",
+                        "~/distribution/vendor/jquery.cookie/jquery.cookie.js",
+                        "~/distribution/vendor/chart.js/Chart.min.js",
+                        "~/distribution/vendor/jquery-validation/jquery.validate.min.js",
+                        "~/distribution/vendor/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js",
+                        "~/distribution/js/front.js"
+                        ));
 
-            bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
-                        "~/Scripts/jquery.validate*"));
-
-            // Use the development version of Modernizr to develop with and learn from. Then, when you're
-            // ready for production, use the build tool at https://modernizr.com to pick only the tests you need.
             bundles.Add(new ScriptBundle("~/bundles/modernizr").Include(
                         "~/Scripts/modernizr-*"));
 
-            bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
-                      "~/Scripts/bootstrap.js"));
-
             bundles.Add(new StyleBundle("~/Content/css").Include(
-                      "~/Content/bootstrap.css",
-                      "~/Content/site.css"));
+                      "~/distribution/vendor/bootstrap/css/bootstrap.min.css",
+                      "~/distribution/vendor/font-awesome/css/font-awesome.min.css",
+                      "~/distribution/css/fontastic.css",
+                      "~/distribution/css/grasp_mobile_progress_circle-1.0.0.min.css",
+                      "~/distribution/vendor/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.css",
+                      "~/distribution/css/style.green.css",
+                      "~/distribution/css/custom.css"));
+
         }
     }
 }
