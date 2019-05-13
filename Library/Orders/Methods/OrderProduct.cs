@@ -100,7 +100,7 @@ namespace Library.Orders.Methods
             return response;
         }
 
-        public ResponseBase Delete(OrderInfo_Product Product)
+        public ResponseBase Delete(int orderProductID)
         {
             ResponseBase response = new ResponseBase();
 
@@ -108,7 +108,11 @@ namespace Library.Orders.Methods
             {
                 using (var ctx = new SimpleCureEntities())
                 {
-                    ctx.OrderInfo_Product.Remove(Product);
+                    var OrderProductInfo = ctx.OrderInfo_Product.Where(s => s.ID == orderProductID).FirstOrDefault();
+
+                    if (OrderProductInfo != null && OrderProductInfo.ID > 0)
+
+                    ctx.OrderInfo_Product.Remove(OrderProductInfo);
                     var Deleted = ctx.SaveChanges();
 
                     if (Deleted > 0)
@@ -117,22 +121,21 @@ namespace Library.Orders.Methods
                     }
                     else
                     {
-                        response.ResponseMessage = "Unable to Delete Product Order with ID " + Product.ID;
+                        response.ResponseMessage = "Unable to Delete Product Order with ID " + OrderProductInfo.ID;
                     }
                 }
             }
             catch (Exception ex)
             {
-                string obj = JsonConvert.SerializeObject(Product);
                 string methodName = System.Reflection.MethodBase.GetCurrentMethod().Name;
                 string source = ex.Source;
                 string stacktrace = ex.StackTrace;
                 string targetsite = ex.TargetSite.ToString();
                 string error = ex.InnerException.ToString();
-                string ErrorMessage = $"There was an error at {DateTime.Now} {Environment.NewLine} Method: {methodName} {Environment.NewLine} Source: {source} {Environment.NewLine} StackTrace: {stacktrace} {Environment.NewLine} TargetSite: {targetsite} {Environment.NewLine} Error: {error}{Environment.NewLine} Object: {obj}";
+                string ErrorMessage = $"There was an error at {DateTime.Now} {Environment.NewLine} Method: {methodName} {Environment.NewLine} Source: {source} {Environment.NewLine} StackTrace: {stacktrace} {Environment.NewLine} TargetSite: {targetsite} {Environment.NewLine} Error: {error}{Environment.NewLine} Product Order ID : {orderProductID}";
                 _applicationError.Log(ErrorMessage, string.Empty);
 
-                response.ResponseMessage = "Unable to Delete Product Order with ID " + Product.ID;
+                response.ResponseMessage = "Unable to Delete Product Order with ID " + orderProductID;
             }
 
             return response;
@@ -196,7 +199,7 @@ namespace Library.Orders.Methods
             }
             catch (Exception ex)
             {
-                 
+
                 string methodName = System.Reflection.MethodBase.GetCurrentMethod().Name;
                 string source = ex.Source;
                 string stacktrace = ex.StackTrace;
@@ -231,7 +234,7 @@ namespace Library.Orders.Methods
                 }
             }
             catch (Exception ex)
-            {                
+            {
                 string methodName = System.Reflection.MethodBase.GetCurrentMethod().Name;
                 string source = ex.Source;
                 string stacktrace = ex.StackTrace;

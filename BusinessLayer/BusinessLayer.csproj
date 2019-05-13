@@ -44,6 +44,7 @@
     <Compile Include="Functions\Email\Functions.cs" />
     <Compile Include="Functions\ErrorLogging\Functions.cs" />
     <Compile Include="Functions\Orders\Functions.cs" />
+    <Compile Include="Functions\Types\Functions.cs" />
     <Compile Include="Mappings\MapAppErrors.cs" />
     <Compile Include="Mappings\MapBusinessTypes.cs" />
     <Compile Include="Mappings\MapOrderActivityHistory.cs" />
@@ -57,6 +58,10 @@
     <ProjectReference Include="..\Library\Library.csproj">
       <Project>{d6b6b737-e30b-4786-b4a7-d0770336bad7}</Project>
       <Name>Library</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SimpleCure\SimpleCure.csproj">
+      <Project>{b00368dd-aa90-4c90-ac2c-d2ce19d3b93b}</Project>
+      <Name>SimpleCure</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup />

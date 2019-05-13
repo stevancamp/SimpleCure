@@ -182,11 +182,16 @@
     </Compile>
     <Compile Include="Helpers\Helper.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\ErrorModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\OrderModels\OrderActivityHistory_Model.cs" />
     <Compile Include="Models\OrderModels\OrderProduct_Model.cs" />
     <Compile Include="Models\OrderModels\Order_Model.cs" />
     <Compile Include="Models\ResponeBase.cs" />
+    <Compile Include="Models\TypeModels\BusinessTypeModel.cs" />
+    <Compile Include="Models\TypeModels\OrderActivityTypeModel.cs" />
+    <Compile Include="Models\TypeModels\OrderInfo_Product_TypesModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -296,12 +301,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\BusinessLayer\BusinessLayer.csproj">
-      <Project>{8ff8d0bf-54d8-4f26-a948-aa27d9cd1a31}</Project>
-      <Name>BusinessLayer</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
