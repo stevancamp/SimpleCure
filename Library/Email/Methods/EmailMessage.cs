@@ -9,12 +9,12 @@ namespace Library.Email.Methods
     public class EmailMessage
     {
         #region Injection
-        private ApplicationError _applicaitonError;
+        //private ApplicationError _applicaitonError;
 
-        public EmailMessage()
-        {
-            _applicaitonError = new ApplicationError();
-        }
+        //public EmailMessage()
+        //{
+        //    _applicaitonError = new ApplicationError();
+        //}
         #endregion
 
         public ResponseBase SendMessage(string To, string Subject, string Message)
@@ -33,16 +33,25 @@ namespace Library.Email.Methods
                 smtpServer.Credentials = new NetworkCredential(ConfigurationManager.AppSettings["EmailAddress"], ConfigurationManager.AppSettings["EmailPassword"]);
                 smtpServer.EnableSsl = true;
                 smtpServer.Send(mail);
+
+                response.ResponseSuccess = true;
+                response.ResponseMessage = "Email sent successfully";
+                response.responseTypes = ResponseTypes.Success;
             }
             catch (Exception ex)
-            {                
+            {
+                ApplicationError _applicaitonError = new ApplicationError();
                 string methodName = System.Reflection.MethodBase.GetCurrentMethod().Name;
                 string source = ex.Source;
                 string stacktrace = ex.StackTrace;
                 string targetsite = ex.TargetSite.ToString();
                 string error = ex.InnerException.ToString();
                 string ErrorMessage = $"There was an error at {DateTime.Now} {Environment.NewLine} Method: {methodName} {Environment.NewLine} Source: {source} {Environment.NewLine} StackTrace: {stacktrace} {Environment.NewLine} TargetSite: {targetsite} {Environment.NewLine} Error: {error}{Environment.NewLine} To: {To}{Environment.NewLine} Subject: {Subject}{Environment.NewLine} Message: {Message} ";
-                _applicaitonError.Log(ErrorMessage, string.Empty);                       
+                _applicaitonError.Log(ErrorMessage, string.Empty);
+
+                response.ResponseSuccess = false;
+                response.ResponseMessage = "Email not sent successfully";
+                response.responseTypes = ResponseTypes.Failure;
             }
 
             return response;
@@ -65,9 +74,14 @@ namespace Library.Email.Methods
                 smtpServer.Credentials = new NetworkCredential(ConfigurationManager.AppSettings["EmailAddress"], ConfigurationManager.AppSettings["EmailPassword"]);
                 smtpServer.EnableSsl = true;
                 smtpServer.Send(mail);
+
+                response.ResponseSuccess = true;
+                response.ResponseMessage = "Email with Attachment sent successfully.";
+                response.responseTypes = ResponseTypes.Success;
             }
             catch (Exception ex)
             {
+                ApplicationError _applicaitonError = new ApplicationError();
                 string methodName = System.Reflection.MethodBase.GetCurrentMethod().Name;
                 string source = ex.Source;
                 string stacktrace = ex.StackTrace;
@@ -75,6 +89,10 @@ namespace Library.Email.Methods
                 string error = ex.InnerException.ToString();
                 string ErrorMessage = $"There was an error at {DateTime.Now} {Environment.NewLine} Method: {methodName} {Environment.NewLine} Source: {source} {Environment.NewLine} StackTrace: {stacktrace} {Environment.NewLine} TargetSite: {targetsite} {Environment.NewLine} Error: {error}{Environment.NewLine} To: {To}{Environment.NewLine} Subject: {Subject}{Environment.NewLine} Message: {Message} ";
                 _applicaitonError.Log(ErrorMessage, string.Empty);
+
+                response.ResponseSuccess = false;
+                response.ResponseMessage = "Email with attachment not sent successfully";
+                response.responseTypes = ResponseTypes.Failure;
             }
 
             return response;

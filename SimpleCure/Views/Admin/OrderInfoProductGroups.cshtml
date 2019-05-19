@@ -1,0 +1,102 @@
+﻿@model SimpleCure.Models.AdminModels.OrderInfoProductGroups_ViewModel
+@{
+    ViewBag.Title = "Order Info Product Groups";
+}
+<input type="hidden" value="@Url.Action("CreateOrderInfoProductGroup", "Admin")" id="UrlCreateOrderInfoProductGroup" />
+<input type="hidden" value="@Url.Action("EditOrderInfoProductGroup", "Admin")" id="UrlEditOrderInfoProductGroup" />
+<input type="hidden" value="@Url.Action("OrderInfoProductGroups", "Admin")" id="UrlOrderInfoProductGroups" />
+
+@if (Model.ResponseSuccess == false && Model.responseTypes == SimpleCure.Models.ResponseTypes.Failure)
+{
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        <strong>There was an error!</strong> @Model.ResponseMessage
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+}
+
+@if (Model.responseTypes == SimpleCure.Models.ResponseTypes.Information)
+{
+    <div class="alert alert-info alert-dismissible fade show" role="alert">
+        @Model.ResponseMessage
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+}
+
+@if (Model.responseTypes == SimpleCure.Models.ResponseTypes.Success && !string.IsNullOrEmpty(Model.ResponseMessage))
+{
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        @Model.ResponseMessage
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+}
+ 
+<div class="breadcrumb-holder">
+    <div class="container-fluid">
+        <ul class="breadcrumb">
+            <li class="breadcrumb-item">
+                @Html.ActionLink(" Home", "Index", "Home")
+            </li>
+            <li class="breadcrumb-item active">Order Info Product Groups</li>
+        </ul>
+    </div>
+</div>
+<section class="forms">
+    <div class="container-fluid">
+        <header>
+            <h1 class="h3 display">Order Info Product Groups</h1>
+        </header>
+        <div class="row">
+            <div class="col-md-8">
+
+                <div class="card">
+                    <div class="card-header">
+                        <h4>Order Info Product Groups Table <a href="#" class="pull-right" data-toggle="tooltip" data-placement="top" title="Create New Product Group" onclick="ShowCreate();"><i class="fa fa-plus-circle"></i></a></h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Group name</th>                                      
+                                        <th>Edit</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @if (Model.ListOrderInfoProductGroups != null && Model.ListOrderInfoProductGroups.Count > 0)
+                                    {
+                                        foreach (var item in Model.ListOrderInfoProductGroups)
+                                        {
+                                            <tr>
+                                                <td>@item.GroupName</td>                                            
+                                                <td><a href="#" onclick="ShowEdit(@item.ID)"><i class="fa fa-edit"></i></a></td>
+                                            </tr>
+                                        }
+                                    }
+                                    else
+                                    {
+                                        <tr>
+                                            <td colspan="3" class="text-center">There are no Order Info Product Groups</td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div id="OrderInfoProductGroupWorkDiv"></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+@section scripts {
+    <script src="~/Scripts/ViewScripts/OrderInfoProductGroupViewScirpt.js"></script>
+}

@@ -1,6 +1,6 @@
-﻿namespace SimpleCure.Models.TypeModels
+﻿namespace BusinessLayer.Models.TypeModels
 {
-    public class OrderActivityTypeModel
+    public class BusinessType_Model
     {
         public int ID { get; set; }
         public string Type { get; set; }

@@ -20,7 +20,7 @@
           </Key>
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Type" Type="varchar(max)" Nullable="false" />
-          <Property Name="IsActvie" Type="bit" Nullable="false" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="OrderActivityHistory">
           <Key>
@@ -68,16 +68,21 @@
           <Property Name="Type" Type="int" Nullable="false" />
           <Property Name="Quantity" Type="int" Nullable="false" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'SimpleCure.dbo.OrderInfo_Product_Types' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="OrderInfo_Product_Groups">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="GroupName" Type="varchar" MaxLength="500" />
+        </EntityType>
         <EntityType Name="OrderInfo_Product_Types">
           <Key>
             <PropertyRef Name="ID" />
-            <PropertyRef Name="Type" />
-            <PropertyRef Name="IsActive" />
           </Key>
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="OrderInfo_Product_Group" Type="int" Nullable="false" />
           <Property Name="Type" Type="varchar(max)" Nullable="false" />
+          <Property Name="Price" Type="money" Nullable="false" />
           <Property Name="IsActive" Type="bit" Nullable="false" />
         </EntityType>
         <EntityContainer Name="SimpleCureModelStoreContainer">
@@ -87,13 +92,8 @@ warning 6002: The table/view 'SimpleCure.dbo.OrderInfo_Product_Types' does not h
           <EntitySet Name="OrderActivityTypes" EntityType="Self.OrderActivityTypes" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="OrderInfo" EntityType="Self.OrderInfo" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="OrderInfo_Product" EntityType="Self.OrderInfo_Product" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="OrderInfo_Product_Types" EntityType="Self.OrderInfo_Product_Types" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [OrderInfo_Product_Types].[ID] AS [ID], 
-    [OrderInfo_Product_Types].[Type] AS [Type], 
-    [OrderInfo_Product_Types].[IsActive] AS [IsActive]
-    FROM [dbo].[OrderInfo_Product_Types] AS [OrderInfo_Product_Types]</DefiningQuery>
-          </EntitySet>
+          <EntitySet Name="OrderInfo_Product_Groups" EntityType="Self.OrderInfo_Product_Groups" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="OrderInfo_Product_Types" EntityType="Self.OrderInfo_Product_Types" Schema="dbo" store:Type="Tables" />
         </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
@@ -114,7 +114,7 @@ warning 6002: The table/view 'SimpleCure.dbo.OrderInfo_Product_Types' does not h
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Type" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="IsActvie" Type="Boolean" Nullable="false" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
         </EntityType>
         <EntityType Name="OrderActivityHistory">
           <Key>
@@ -165,12 +165,12 @@ warning 6002: The table/view 'SimpleCure.dbo.OrderInfo_Product_Types' does not h
         <EntityType Name="OrderInfo_Product_Types">
           <Key>
             <PropertyRef Name="ID" />
-            <PropertyRef Name="Type" />
-            <PropertyRef Name="IsActive" />
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Type" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="IsActive" Type="Boolean" Nullable="false" />
+          <Property Name="Price" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+          <Property Name="OrderInfo_Product_Group" Type="Int32" Nullable="false" />
         </EntityType>
         <EntityContainer Name="SimpleCureEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="AppErrors" EntityType="Self.AppError" />
@@ -180,7 +180,15 @@ warning 6002: The table/view 'SimpleCure.dbo.OrderInfo_Product_Types' does not h
           <EntitySet Name="OrderInfoes" EntityType="Self.OrderInfo" />
           <EntitySet Name="OrderInfo_Product" EntityType="Self.OrderInfo_Product" />
           <EntitySet Name="OrderInfo_Product_Types" EntityType="Self.OrderInfo_Product_Types" />
+          <EntitySet Name="OrderInfo_Product_Groups" EntityType="SimpleCureModel.OrderInfo_Product_Groups" />
         </EntityContainer>
+        <EntityType Name="OrderInfo_Product_Groups">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="GroupName" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -202,7 +210,7 @@ warning 6002: The table/view 'SimpleCure.dbo.OrderInfo_Product_Types' does not h
               <MappingFragment StoreEntitySet="BusinessTypes">
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="Type" ColumnName="Type" />
-                <ScalarProperty Name="IsActvie" ColumnName="IsActvie" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -259,9 +267,19 @@ warning 6002: The table/view 'SimpleCure.dbo.OrderInfo_Product_Types' does not h
           <EntitySetMapping Name="OrderInfo_Product_Types">
             <EntityTypeMapping TypeName="SimpleCureModel.OrderInfo_Product_Types">
               <MappingFragment StoreEntitySet="OrderInfo_Product_Types">
+                <ScalarProperty Name="OrderInfo_Product_Group" ColumnName="OrderInfo_Product_Group" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="Type" ColumnName="Type" />
                 <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="OrderInfo_Product_Groups">
+            <EntityTypeMapping TypeName="SimpleCureModel.OrderInfo_Product_Groups">
+              <MappingFragment StoreEntitySet="OrderInfo_Product_Groups">
+                <ScalarProperty Name="GroupName" ColumnName="GroupName" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

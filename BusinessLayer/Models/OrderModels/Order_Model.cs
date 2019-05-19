@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace SimpleCure.Models.OrderModels
+namespace BusinessLayer.Models.OrderModels
 {
     public class Order_Model
     {

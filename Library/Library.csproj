@@ -72,6 +72,9 @@
     <Compile Include="DataModel\OrderInfo_Product.cs">
       <DependentUpon>SimpleCureDataModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="DataModel\OrderInfo_Product_Groups.cs">
+      <DependentUpon>SimpleCureDataModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="DataModel\OrderInfo_Product_Types.cs">
       <DependentUpon>SimpleCureDataModel.tt</DependentUpon>
     </Compile>
@@ -98,7 +101,9 @@
     <Compile Include="Generic.cs" />
     <Compile Include="ResponseBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ResponseTypes.cs" />
     <Compile Include="Types\Methods\Business_Type.cs" />
+    <Compile Include="Types\Methods\OrderInfo_Product_Group.cs" />
     <Compile Include="Types\Methods\Order_Activity_Type.cs" />
     <Compile Include="Types\Methods\Order_Info_Product_Type.cs" />
   </ItemGroup>

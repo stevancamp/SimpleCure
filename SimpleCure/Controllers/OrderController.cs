@@ -8,18 +8,19 @@ namespace SimpleCure.Controllers
 {
     public class OrderController : Controller
     {
-        //Search for Order but by Default show todays orders that have been submitted that are not complete
-        public ActionResult Index()
+        
+        public ActionResult NewOrder()
         {
             return View();
         }
 
-        //Create New Order
-
-
         //Edit a Order
 
         //
+
+        //view orders
+
+        //delete order
        
     }
 }

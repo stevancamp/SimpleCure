@@ -182,16 +182,24 @@
     </Compile>
     <Compile Include="Helpers\Helper.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
-    <Compile Include="Models\ErrorModel.cs" />
+    <Compile Include="Models\AdminModels\ApplicaitonLogs_ViewModel.cs" />
+    <Compile Include="Models\AdminModels\BusinessTypes_ViewModel.cs" />
+    <Compile Include="Models\AdminModels\CreateBusinessType_ViewModel.cs" />
+    <Compile Include="Models\AdminModels\CreateOrderActivityType_ViewModel.cs" />
+    <Compile Include="Models\AdminModels\CreateOrderInfoProductGroup_ViewModel.cs" />
+    <Compile Include="Models\AdminModels\CreateOrderInfoProductType_ViewModel.cs" />
+    <Compile Include="Models\AdminModels\EditBusinessType_ViewModel.cs" />
+    <Compile Include="Models\AdminModels\EditOrderActivityType_ViewModel.cs" />
+    <Compile Include="Models\AdminModels\EditOrderInfoProductGroup_ViewModel.cs" />
+    <Compile Include="Models\AdminModels\EditOrderInfoProductType_ViewModel.cs" />
+    <Compile Include="Models\AdminModels\OrderActivityType_ViewModel.cs" />
+    <Compile Include="Models\AdminModels\OrderInfoProductGroups_ViewModel.cs" />
+    <Compile Include="Models\AdminModels\OrderInfoProductType_ViewModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
-    <Compile Include="Models\OrderModels\OrderActivityHistory_Model.cs" />
-    <Compile Include="Models\OrderModels\OrderProduct_Model.cs" />
-    <Compile Include="Models\OrderModels\Order_Model.cs" />
+    <Compile Include="Models\OrderModels\NewOrder_ViewModel.cs" />
     <Compile Include="Models\ResponeBase.cs" />
-    <Compile Include="Models\TypeModels\BusinessTypeModel.cs" />
-    <Compile Include="Models\TypeModels\OrderActivityTypeModel.cs" />
-    <Compile Include="Models\TypeModels\OrderInfo_Product_TypesModel.cs" />
+    <Compile Include="Models\ResultTypes.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -522,6 +530,8 @@
     <Content Include="distribution\js\charts-home.js" />
     <Content Include="distribution\js\front.js" />
     <Content Include="distribution\js\grasp_mobile_progress_circle-1.0.0.min.js" />
+    <Content Include="distribution\vendor\bootstrap-datetimepicker\bootstrap-4-datetimepicker.min.css" />
+    <Content Include="distribution\vendor\bootstrap-datetimepicker\bootstrap-4-datetimepicker.min.js" />
     <Content Include="distribution\vendor\bootstrap\css\bootstrap-grid.css" />
     <Content Include="distribution\vendor\bootstrap\css\bootstrap-grid.min.css" />
     <Content Include="distribution\vendor\bootstrap\css\bootstrap-reboot.css" />
@@ -679,6 +689,7 @@
     <Content Include="distribution\vendor\malihu-custom-scrollbar-plugin\jquery.mCustomScrollbar.css" />
     <Content Include="distribution\vendor\malihu-custom-scrollbar-plugin\jquery.mCustomScrollbar.js" />
     <Content Include="distribution\vendor\malihu-custom-scrollbar-plugin\mCSB_buttons.png" />
+    <Content Include="distribution\vendor\moment\moment.js" />
     <Content Include="distribution\vendor\popper.js\esm\popper-utils.js" />
     <Content Include="distribution\vendor\popper.js\esm\popper-utils.min.js" />
     <Content Include="distribution\vendor\popper.js\esm\popper.js" />
@@ -752,6 +763,11 @@
     <Content Include="Scripts\umd\popper-utils.min.js" />
     <Content Include="Scripts\umd\popper.js" />
     <Content Include="Scripts\umd\popper.min.js" />
+    <Content Include="Scripts\ViewScripts\ApplicationLogsViewScript.js" />
+    <Content Include="Scripts\ViewScripts\OrderInfoProductGroupViewScirpt.js" />
+    <Content Include="Scripts\ViewScripts\OrderActivityTypesViewScirpt.js" />
+    <Content Include="Scripts\ViewScripts\OrderInfoProductTypesViewScirpt.js" />
+    <Content Include="Scripts\ViewScripts\BusinessTypesViewScirpt.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -793,14 +809,25 @@
     <Content Include="Scripts\popper.js.map" />
     <Content Include="Scripts\popper-utils.min.js.map" />
     <Content Include="Scripts\popper-utils.js.map" />
+    <Content Include="Views\Order\NewOrder.cshtml" />
+    <Content Include="Views\Admin\BusinessTypes.cshtml" />
+    <Content Include="Views\Admin\OrderActivityTypes.cshtml" />
+    <Content Include="Views\Admin\OrderInfoProductTypes.cshtml" />
+    <Content Include="Views\Admin\ApplicaitonLogs.cshtml" />
+    <Content Include="Views\Admin\_CreateBusinessType.cshtml" />
+    <Content Include="Views\Admin\_EditBusinessType.cshtml" />
+    <Content Include="Views\Admin\_CreateOrderActivityType.cshtml" />
+    <Content Include="Views\Admin\_EditOrderActivityType.cshtml" />
+    <Content Include="Views\Admin\_CreateOrderInfoProductType.cshtml" />
+    <Content Include="Views\Admin\_EditOrderInfoProductType.cshtml" />
+    <Content Include="Views\Admin\_CreateOrderInfoProductGroup.cshtml" />
+    <Content Include="Views\Admin\_EditOrderInfoProductGroup.cshtml" />
+    <Content Include="Views\Admin\OrderInfoProductGroups.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="distribution\vendor\font-awesome\less\" />
     <Folder Include="distribution\vendor\font-awesome\scss\" />
-    <Folder Include="Models\AdminModels\" />
-    <Folder Include="Views\Admin\" />
-    <Folder Include="Views\Order\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -810,6 +837,12 @@
   </ItemGroup>
   <ItemGroup>
     <TypeScriptCompile Include="Scripts\index.d.ts" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\BusinessLayer\BusinessLayer.csproj">
+      <Project>{8ff8d0bf-54d8-4f26-a948-aa27d9cd1a31}</Project>
+      <Name>BusinessLayer</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

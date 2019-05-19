@@ -1,5 +1,5 @@
-﻿using Library.DataModel;
-using SimpleCure.Models.OrderModels;
+﻿using BusinessLayer.Models.OrderModels;
+using Library.DataModel;
 
 namespace BusinessLayer.Mappings
 {

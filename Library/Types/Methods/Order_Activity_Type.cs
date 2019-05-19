@@ -29,17 +29,32 @@ namespace Library.Types.Methods
             {
                 using (var ctx = new SimpleCureEntities())
                 {
-                    var Added = ctx.OrderActivityTypes.Add(orderActivityType);
-
-                    if (Added.ID > 0)
+                    var Exist = ctx.OrderActivityTypes.Where(s => s.Type == orderActivityType.Type).FirstOrDefault();
+                    if (Exist == null)
                     {
-                        response.ResponseSuccess = true;
-                        response.ResponseInt = Added.ID;
 
+                        ctx.OrderActivityTypes.Add(orderActivityType);
+                        var Added = ctx.SaveChanges();
+
+                        if (orderActivityType.ID > 0)
+                        {
+                            response.ResponseSuccess = true;
+                            response.ResponseInt = orderActivityType.ID;
+                            response.responseTypes = ResponseTypes.Success;
+                            response.ResponseMessage = "Successfully added Order Activity Type";
+
+                        }
+                        else
+                        {
+                            response.ResponseMessage = "Unable to add Order Activity Type: " + JsonConvert.SerializeObject(orderActivityType);
+                            response.responseTypes = ResponseTypes.Information;
+                        }
                     }
                     else
                     {
-                        response.ResponseMessage = "Unable to add Order Activity Type: " + JsonConvert.SerializeObject(orderActivityType);
+                        response.ResponseSuccess = false;
+                        response.ResponseMessage = "The Order Activity Type " + orderActivityType.Type + " already exists, please enter another.";
+                        response.responseTypes = ResponseTypes.Information;
                     }
                 }
             }
@@ -55,6 +70,7 @@ namespace Library.Types.Methods
                 _applicationError.Log(ErrorMessage, string.Empty);
 
                 response.ResponseMessage = "Unable to add Order Activity Type: " + JsonConvert.SerializeObject(orderActivityType);
+                response.responseTypes = ResponseTypes.Failure;
             }
 
             return response;
@@ -68,17 +84,30 @@ namespace Library.Types.Methods
             {
                 using (var ctx = new SimpleCureEntities())
                 {
-                    ctx.Entry(orderActivityType).State = EntityState.Modified;
-                    var updated = ctx.SaveChanges();
-
-                    if (updated > 0)
+                    var Exist = ctx.OrderActivityTypes.Where(s => s.Type == orderActivityType.Type && s.ID != orderActivityType.ID).FirstOrDefault();
+                    if (Exist == null)
                     {
-                        response.ResponseSuccess = true;
-                        response.ResponseInt = orderActivityType.ID;
+                        ctx.Entry(orderActivityType).State = EntityState.Modified;
+                        var updated = ctx.SaveChanges();
+
+                        if (updated > 0)
+                        {
+                            response.ResponseSuccess = true;
+                            response.ResponseInt = orderActivityType.ID;
+                            response.responseTypes = ResponseTypes.Success;
+                            response.ResponseMessage = "Successfully udpated Order Activity Type";
+                        }
+                        else
+                        {
+                            response.ResponseMessage = "Unable to update Order Activity Type with " + JsonConvert.SerializeObject(orderActivityType);
+                            response.responseTypes = ResponseTypes.Information;
+                        }
                     }
                     else
                     {
-                        response.ResponseMessage = "Unable to update Order Activity Type with " + JsonConvert.SerializeObject(orderActivityType);
+                        response.ResponseSuccess = false;
+                        response.ResponseMessage = "The Order Activity Type " + orderActivityType.Type + " already exists, please enter another.";
+                        response.responseTypes = ResponseTypes.Information;
                     }
                 }
             }
@@ -94,6 +123,7 @@ namespace Library.Types.Methods
                 _applicationError.Log(ErrorMessage, string.Empty);
 
                 response.ResponseMessage = "Unable to update Order Activity Type with " + JsonConvert.SerializeObject(orderActivityType);
+                response.responseTypes = ResponseTypes.Failure;
             }
 
             return response;
@@ -117,15 +147,19 @@ namespace Library.Types.Methods
                         if (Deleted > 0)
                         {
                             response.ResponseSuccess = true;
+                            response.responseTypes = ResponseTypes.Success;
+                            response.ResponseMessage = "Successfully deleted Order Activity Type";
                         }
                         else
                         {
                             response.ResponseMessage = "Unable to Delete Order Activity Type ID " + orderActivityType.ID;
+                            response.responseTypes = ResponseTypes.Information;
                         }
                     }
                     else
                     {
                         response.ResponseMessage = "Unable to find Type for Order Activity Type ID " + orderActivityType.ID;
+                        response.responseTypes = ResponseTypes.Information;
                     }
                 }
             }
@@ -141,6 +175,7 @@ namespace Library.Types.Methods
                 _applicationError.Log(ErrorMessage, string.Empty);
 
                 response.ResponseMessage = "Unable to Delete Order Activity Type ID " + ID.ToString();
+                response.responseTypes = ResponseTypes.Failure;
             }
 
             return response;
@@ -159,10 +194,12 @@ namespace Library.Types.Methods
                     if (response.GenericClassList != null && response.GenericClassList.Count > 0)
                     {
                         response.ResponseSuccess = true;
+                        response.responseTypes = ResponseTypes.Success;
                     }
                     else
                     {
                         response.ResponseMessage = "Unable to get all Order Activity Types";
+                        response.responseTypes = ResponseTypes.Information;
                     }
                 }
             }
@@ -177,9 +214,50 @@ namespace Library.Types.Methods
                 _applicationError.Log(ErrorMessage, string.Empty);
 
                 response.ResponseMessage = "Unable to get all Order Activity Types";
+                response.responseTypes = ResponseTypes.Failure;
             }
 
             return response;
         }
+
+        public Generic<OrderActivityType> GetByID(int ID)
+        {
+            Generic<OrderActivityType> response = new Generic<OrderActivityType>();
+
+            try
+            {
+                using (var ctx = new SimpleCureEntities())
+                {
+                    response.GenericClass = ctx.OrderActivityTypes.Where(s => s.ID == ID).FirstOrDefault();
+
+                    if (response.GenericClass != null && response.GenericClass.ID > 0)
+                    {
+                        response.ResponseSuccess = true;
+                        response.responseTypes = ResponseTypes.Success;
+                    }
+                    else
+                    {
+                        response.ResponseMessage = "Unable to get Order Activity Type for ID " + ID;
+                        response.responseTypes = ResponseTypes.Information;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ApplicationError errors = new ApplicationError();
+                string methodName = System.Reflection.MethodBase.GetCurrentMethod().Name;
+                string source = ex.Source;
+                string stacktrace = ex.StackTrace;
+                string targetsite = ex.TargetSite.ToString();
+                string error = ex.InnerException.ToString();
+                string ErrorMessage = $"There was an error at {DateTime.Now} {Environment.NewLine} Method: {methodName} {Environment.NewLine} Source: {source} {Environment.NewLine} StackTrace: {stacktrace} {Environment.NewLine} TargetSite: {targetsite} {Environment.NewLine} Error: {error}{Environment.NewLine} For Order Activity Type ID: {ID} {Environment.NewLine}";
+                errors.Log(ErrorMessage, string.Empty);
+                response.ResponseMessage = "Unable to get Order Activity Type for ID " + ID;
+                response.responseTypes = ResponseTypes.Failure;
+            }
+
+            return response;
+        }
+
     }
 }

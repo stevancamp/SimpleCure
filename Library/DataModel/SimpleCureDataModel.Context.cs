@@ -32,5 +32,6 @@ namespace Library.DataModel
         public virtual DbSet<OrderInfo> OrderInfoes { get; set; }
         public virtual DbSet<OrderInfo_Product> OrderInfo_Product { get; set; }
         public virtual DbSet<OrderInfo_Product_Types> OrderInfo_Product_Types { get; set; }
+        public virtual DbSet<OrderInfo_Product_Groups> OrderInfo_Product_Groups { get; set; }
     }
 }

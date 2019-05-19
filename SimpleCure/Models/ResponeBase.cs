@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Collections.Generic;
 
 namespace SimpleCure.Models
 {
@@ -13,5 +10,6 @@ namespace SimpleCure.Models
         public string ResponseString { get; set; }
         public List<string> ResponseListString { get; set; }
         public List<int> ResponseListInt { get; set; }
+        public ResponseTypes responseTypes { get; set; }
     }
 }

@@ -1,0 +1,22 @@
+﻿@model SimpleCure.Models.AdminModels.CreateOrderInfoProductType_ViewModel
+@using (Html.BeginForm("SaveOrderInfoProductType", "Admin"))
+{
+    <div class="card">
+        <div class="card-header d-flex align-items-center">
+            <h4>Create a new Order Info Product Type</h4>
+        </div>
+        <div class="card-body">
+            <div class="form-group">
+                @Html.LabelFor(m => m.OrderInfoProductType, new { @class = "form-control-label" })
+                @Html.TextBoxFor(m => m.OrderInfoProductType, new { @class = "form-control", type = "text", required = "required" })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.Price, new { @class = "form-control-label" })
+                @Html.TextBoxFor(m => m.Price, new { @class = "form-control", type = "number", required = "required", step=".01" })
+            </div>
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary">Create</button>
+            </div>
+        </div>
+    </div>
+}

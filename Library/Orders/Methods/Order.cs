@@ -30,18 +30,23 @@ namespace Library.Orders.Methods
             {
                 using (var ctx = new SimpleCureEntities())
                 {
-                    var Added = ctx.OrderInfoes.Add(Order);
+                    ctx.OrderInfoes.Add(Order);
+                    var Added = ctx.SaveChanges();
 
-                    if (Added.ID > 0)
+                    if (Added > 0)
                     {
                         response.ResponseSuccess = true;
-                        response.ResponseInt = Added.ID;
+                        response.ResponseInt = Order.ID;
                         //confirm if they want this or not and if so change it to a PDF attachement that is sent which means we will have to conver the Order just received into a pdf then stream it to the email message piece as a attachment
-                        _emailMessage.SendMessage(ConfigurationManager.AppSettings["EmailAddress"], "New Order Created", "A new order has been created.");
+                        //_emailMessage.SendMessage(ConfigurationManager.AppSettings["EmailAddress"], "New Order Created", "A new order has been created.");
+                        response.responseTypes = ResponseTypes.Success;
+                        response.ResponseMessage = "Successfully added new Order";
+
                     }
                     else
                     {
                         response.ResponseMessage = "Unable to add Order: " + JsonConvert.SerializeObject(Order);
+                        response.responseTypes = ResponseTypes.Information;
                     }
                 }
             }
@@ -57,6 +62,7 @@ namespace Library.Orders.Methods
                 _applicationError.Log(ErrorMessage, string.Empty);
 
                 response.ResponseMessage = "Unable to add Order: " + JsonConvert.SerializeObject(Order);
+                response.responseTypes = ResponseTypes.Failure;
             }
 
             return response;
@@ -77,10 +83,13 @@ namespace Library.Orders.Methods
                     {
                         response.ResponseSuccess = true;
                         response.ResponseInt = Order.ID;
+                        response.responseTypes = ResponseTypes.Success;
+                        response.ResponseMessage = "Successfully updated Order";
                     }
                     else
                     {
                         response.ResponseMessage = "Unable to update Order Info for Order: " + JsonConvert.SerializeObject(Order);
+                        response.responseTypes = ResponseTypes.Information;
                     }
                 }
             }
@@ -96,6 +105,7 @@ namespace Library.Orders.Methods
                 _applicationError.Log(ErrorMessage, string.Empty);
 
                 response.ResponseMessage = "Unable to update Order Info for Order: " + JsonConvert.SerializeObject(Order);
+                response.responseTypes = ResponseTypes.Failure;
             }
 
             return response;
@@ -119,15 +129,19 @@ namespace Library.Orders.Methods
                         if (Deleted > 0)
                         {
                             response.ResponseSuccess = true;
+                            response.responseTypes = ResponseTypes.Success;
+                            response.ResponseMessage = "Order " + OrderID + " has been successfully deleted";
                         }
                         else
                         {
                             response.ResponseMessage = "Unable to Delete Order ID " + Order.ID;
+                            response.responseTypes = ResponseTypes.Information;
                         }
                     }
                     else
                     {
                         response.ResponseMessage = "Unable to find Order Info for Order ID " + Order.ID;
+                        response.responseTypes = ResponseTypes.Information;
                     }
                 }
             }
@@ -143,6 +157,7 @@ namespace Library.Orders.Methods
                 _applicationError.Log(ErrorMessage, string.Empty);
 
                 response.ResponseMessage = "Unable to Delete Order ID " + OrderID.ToString();
+                response.responseTypes = ResponseTypes.Failure;
             }
 
             return response;
@@ -161,10 +176,12 @@ namespace Library.Orders.Methods
                     if (response.GenericClassList != null && response.GenericClassList.Count > 0)
                     {
                         response.ResponseSuccess = true;
+                        response.responseTypes = ResponseTypes.Success;
                     }
                     else
                     {
                         response.ResponseMessage = "Unable to get all Order Info";
+                        response.responseTypes = ResponseTypes.Information;
                     }
                 }
             }
@@ -179,6 +196,7 @@ namespace Library.Orders.Methods
                 string ErrorMessage = $"There was an error at {DateTime.Now} {Environment.NewLine} Method: {methodName} {Environment.NewLine} Source: {source} {Environment.NewLine} StackTrace: {stacktrace} {Environment.NewLine} TargetSite: {targetsite} {Environment.NewLine} Error: {error}{Environment.NewLine} IsComplete: {IsComplete.ToString()}";
                 _applicationError.Log(ErrorMessage, string.Empty);
                 response.ResponseMessage = "Unable to get all Order Info";
+                response.responseTypes = ResponseTypes.Failure;
             }
 
             return response;
@@ -197,10 +215,12 @@ namespace Library.Orders.Methods
                     if (response.GenericClass != null && response.GenericClass.ID > 0)
                     {
                         response.ResponseSuccess = true;
+                        response.responseTypes = ResponseTypes.Success;
                     }
                     else
                     {
                         response.ResponseMessage = "Unable to get Order Info for ID " + ID;
+                        response.responseTypes = ResponseTypes.Information;
                     }
                 }
             }
@@ -215,6 +235,7 @@ namespace Library.Orders.Methods
                 _applicationError.Log(ErrorMessage, string.Empty);
 
                 response.ResponseMessage = "Unable to get Order Info for ID " + ID;
+                response.responseTypes = ResponseTypes.Failure;
             }
 
             return response;
@@ -233,10 +254,12 @@ namespace Library.Orders.Methods
                     if (response.GenericClassList != null && response.GenericClassList.Count > 0)
                     {
                         response.ResponseSuccess = true;
+                        response.responseTypes = ResponseTypes.Success;
                     }
                     else
                     {
                         response.ResponseMessage = "Unable to get Order Info by Company Name " + CompanyName;
+                        response.responseTypes = ResponseTypes.Information;
                     }
                 }
             }
@@ -252,12 +275,12 @@ namespace Library.Orders.Methods
                 _applicationError.Log(ErrorMessage, string.Empty);
 
                 response.ResponseMessage = "Unable to get Order Info by Company Name " + CompanyName;
+                response.responseTypes = ResponseTypes.Failure;
             }
 
             return response;
         }
-
-        //check on this date search piece
+    
         public Generic<OrderInfo> GetByDate(DateTime OrderDate, bool IsComplete)
         {
             Generic<OrderInfo> response = new Generic<OrderInfo>();
@@ -266,15 +289,17 @@ namespace Library.Orders.Methods
             {
                 using (var ctx = new SimpleCureEntities())
                 {                   
-                    response.GenericClassList = ctx.OrderInfoes.Where(s => DbFunctions.TruncateTime(s.OrderSubmissionDate) == OrderDate && s.Completed == IsComplete).ToList();
+                    response.GenericClassList = ctx.OrderInfoes.Where(s => DbFunctions.TruncateTime(s.OrderSubmissionDate) == DbFunctions.TruncateTime(OrderDate) && s.Completed == IsComplete).ToList();
 
                     if (response.GenericClassList != null && response.GenericClassList.Count > 0)
                     {
                         response.ResponseSuccess = true;
+                        response.responseTypes = ResponseTypes.Success;
                     }
                     else
                     {
                         response.ResponseMessage = "Unable to get Order Info by Order Date " + OrderDate;
+                        response.responseTypes = ResponseTypes.Information;
                     }
                 }
             }
@@ -290,6 +315,7 @@ namespace Library.Orders.Methods
                 _applicationError.Log(ErrorMessage, string.Empty);
 
                 response.ResponseMessage = "Unable to get Order Info by Order Date " + OrderDate;
+                response.responseTypes = ResponseTypes.Failure;
             }
 
             return response;
@@ -318,10 +344,12 @@ namespace Library.Orders.Methods
                     if (response.GenericClassList != null && response.GenericClassList.Count > 0)
                     {
                         response.ResponseSuccess = true;
+                        response.responseTypes = ResponseTypes.Success;
                     }
                     else
                     {
                         response.ResponseMessage = "Unable to find any Orders with the search term " + SearchTerm + " where is completed is " + IsCompleted.ToString();
+                        response.responseTypes = ResponseTypes.Information;
                     }
                 }
             }
@@ -335,6 +363,7 @@ namespace Library.Orders.Methods
                 string ErrorMessage = $"There was an error at {DateTime.Now} {Environment.NewLine} Method: {methodName} {Environment.NewLine} Source: {source} {Environment.NewLine} StackTrace: {stacktrace} {Environment.NewLine} TargetSite: {targetsite} {Environment.NewLine} Error: {error}{Environment.NewLine} Search Term: {SearchTerm} {Environment.NewLine} IsCompleted {IsCompleted.ToString()}";
                 _applicationError.Log(ErrorMessage, string.Empty);
                 response.ResponseMessage = "Unable to find any Orders with the search term " + SearchTerm + " where is complted = " + IsCompleted.ToString();
+                response.responseTypes = ResponseTypes.Failure;
             }
 
             return response;

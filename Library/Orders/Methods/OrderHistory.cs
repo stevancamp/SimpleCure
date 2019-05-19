@@ -30,16 +30,20 @@ namespace Library.Orders.Methods
             {
                 using (var ctx = new SimpleCureEntities())
                 {
-                    var Added = ctx.OrderActivityHistories.Add(history);
+                    ctx.OrderActivityHistories.Add(history);
+                    var Added = ctx.SaveChanges();
 
-                    if (Added.ID > 0)
+                    if (Added > 0)
                     {
                         response.ResponseSuccess = true;
-                        response.ResponseInt = Added.ID;
+                        response.ResponseInt = history.ID;
+                        response.responseTypes = ResponseTypes.Success;
+                        response.ResponseMessage = "Successfully added Order History";
                     }
                     else
                     {
                         response.ResponseMessage = "Unable to Add Order History with " + JsonConvert.SerializeObject(history);
+                        response.responseTypes = ResponseTypes.Information;
                     }
                 }
             }
@@ -55,6 +59,7 @@ namespace Library.Orders.Methods
                 _applicationErrors.Log(ErrorMessage, string.Empty);
 
                 response.ResponseMessage = "Unable to Add Order History with " + JsonConvert.SerializeObject(history);
+                response.responseTypes = ResponseTypes.Failure;
             }
 
             return response;
@@ -75,10 +80,13 @@ namespace Library.Orders.Methods
                     {
                         response.ResponseSuccess = true;
                         response.ResponseInt = history.ID;
+                        response.responseTypes = ResponseTypes.Success;
+                        response.ResponseMessage = "Successfully Updated Order History";
                     }
                     else
                     {
                         response.ResponseMessage = "Unable to update Order Activity History with: " + JsonConvert.SerializeObject(history);
+                        response.responseTypes = ResponseTypes.Information;
                     }
 
                 }
@@ -95,6 +103,7 @@ namespace Library.Orders.Methods
                 _applicationErrors.Log(ErrorMessage, string.Empty);
 
                 response.ResponseMessage = "Unable to update Order Activity History with: " + JsonConvert.SerializeObject(history);
+                response.responseTypes = ResponseTypes.Failure;
             }
 
             return response;
@@ -118,15 +127,19 @@ namespace Library.Orders.Methods
                         if (Deleted > 0)
                         {
                             response.ResponseSuccess = true;
+                            response.responseTypes = ResponseTypes.Success;
+                            response.ResponseMessage = "Successfully Deleted Order History";
                         }
                         else
                         {
                             response.ResponseMessage = "Unable to Delete Order Activity History ID " + History.ID;
+                            response.responseTypes = ResponseTypes.Information;
                         }
                     }
                     else
                     {
                         response.ResponseMessage = "Unable to find History Info for Order Activity History ID " + History.ID;
+                        response.responseTypes = ResponseTypes.Information;
                     }
                 }
             }
@@ -142,6 +155,7 @@ namespace Library.Orders.Methods
                 _applicationErrors.Log(ErrorMessage, string.Empty);
 
                 response.ResponseMessage = "Unable to Delete Order Activity History ID " + HistoryID.ToString();
+                response.responseTypes = ResponseTypes.Failure;
             }
 
             return response;
@@ -160,10 +174,13 @@ namespace Library.Orders.Methods
                     if (response.GenericClassList != null && response.GenericClassList.Count > 0)
                     {
                         response.ResponseSuccess = true;
+                        response.responseTypes = ResponseTypes.Success;
+                     
                     }
                     else
                     {
                         response.ResponseMessage = "Unable to get all Order Activity History Info";
+                        response.responseTypes = ResponseTypes.Information;
                     }
                 }
             }
@@ -178,6 +195,7 @@ namespace Library.Orders.Methods
                 string ErrorMessage = $"There was an error at {DateTime.Now} {Environment.NewLine} Method: {methodName} {Environment.NewLine} Source: {source} {Environment.NewLine} StackTrace: {stacktrace} {Environment.NewLine} TargetSite: {targetsite} {Environment.NewLine} Error: {error}{Environment.NewLine}";
                 _applicationErrors.Log(ErrorMessage, string.Empty);
                 response.ResponseMessage = "Unable to get all Order Activity History Info";
+                response.responseTypes = ResponseTypes.Failure;
             }
 
             return response;
@@ -196,10 +214,13 @@ namespace Library.Orders.Methods
                     if (response.GenericClassList != null && response.GenericClassList.Count > 0)
                     {
                         response.ResponseSuccess = true;
+                        response.responseTypes = ResponseTypes.Success;
+                        
                     }
                     else
                     {
                         response.ResponseMessage = "Unable to Get Order Activity History by Order ID: " + OrderID;
+                        response.responseTypes = ResponseTypes.Information;
                     }
                 }
             }
@@ -214,6 +235,7 @@ namespace Library.Orders.Methods
                 _applicationErrors.Log(ErrorMessage, string.Empty);
 
                 response.ResponseMessage = "Unable to Get Order Activity History by Order ID: " + OrderID;
+                response.responseTypes = ResponseTypes.Failure;
             }
 
             return response;

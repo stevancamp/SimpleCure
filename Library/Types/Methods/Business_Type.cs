@@ -28,18 +28,32 @@ namespace Library.Types.Methods
             try
             {
                 using (var ctx = new SimpleCureEntities())
-                {
-                    var Added = ctx.BusinessTypes.Add(businessType);
-
-                    if (Added.ID > 0)
+                {                    
+                    var Exist = ctx.BusinessTypes.Where(s => s.Type == businessType.Type).FirstOrDefault();
+                    if (Exist == null)
                     {
-                        response.ResponseSuccess = true;
-                        response.ResponseInt = Added.ID;
+                        ctx.BusinessTypes.Add(businessType);
+                        var Added = ctx.SaveChanges();
 
+                        if (Added > 0)
+                        {
+                            response.ResponseSuccess = true;
+                            response.ResponseInt = businessType.ID;
+                            response.responseTypes = ResponseTypes.Success;
+                            response.ResponseMessage = "Successfully added Business Type";
+
+                        }
+                        else
+                        {
+                            response.ResponseMessage = "Unable to add Business Type: " + JsonConvert.SerializeObject(businessType);
+                            response.responseTypes = ResponseTypes.Information;
+                        }
                     }
                     else
                     {
-                        response.ResponseMessage = "Unable to add Business Type: " + JsonConvert.SerializeObject(businessType);
+                        response.ResponseSuccess = false;
+                        response.ResponseMessage = "The Business Type " + businessType.Type + " already exists, please enter another.";
+                        response.responseTypes = ResponseTypes.Information;
                     }
                 }
             }
@@ -55,6 +69,7 @@ namespace Library.Types.Methods
                 _applicationError.Log(ErrorMessage, string.Empty);
 
                 response.ResponseMessage = "Unable to add Business Type: " + JsonConvert.SerializeObject(businessType);
+                response.responseTypes = ResponseTypes.Failure;
             }
 
             return response;
@@ -68,17 +83,30 @@ namespace Library.Types.Methods
             {
                 using (var ctx = new SimpleCureEntities())
                 {
-                    ctx.Entry(businessType).State = EntityState.Modified;
-                    var updated = ctx.SaveChanges();
-
-                    if (updated > 0)
+                    var Exist = ctx.BusinessTypes.Where(s => s.Type == businessType.Type && s.ID != businessType.ID).FirstOrDefault();
+                    if (Exist == null)
                     {
-                        response.ResponseSuccess = true;
-                        response.ResponseInt = businessType.ID;
+                        ctx.Entry(businessType).State = EntityState.Modified;
+                        var updated = ctx.SaveChanges();
+
+                        if (updated > 0)
+                        {
+                            response.ResponseSuccess = true;
+                            response.ResponseInt = businessType.ID;
+                            response.responseTypes = ResponseTypes.Success;
+                            response.ResponseMessage = "Successfully updated Business Type";
+                        }
+                        else
+                        {
+                            response.ResponseMessage = "Unable to update Business Type with " + JsonConvert.SerializeObject(businessType);
+                            response.responseTypes = ResponseTypes.Information;
+                        }
                     }
                     else
                     {
-                        response.ResponseMessage = "Unable to update Business Type with " + JsonConvert.SerializeObject(businessType);
+                        response.ResponseSuccess = false;
+                        response.ResponseMessage = "The Business Type " + businessType.Type + " already exists, please enter another.";
+                        response.responseTypes = ResponseTypes.Information;
                     }
                 }
             }
@@ -94,6 +122,7 @@ namespace Library.Types.Methods
                 _applicationError.Log(ErrorMessage, string.Empty);
 
                 response.ResponseMessage = "Unable to update Business Type with " + JsonConvert.SerializeObject(businessType);
+                response.responseTypes = ResponseTypes.Failure;
             }
 
             return response;
@@ -117,15 +146,19 @@ namespace Library.Types.Methods
                         if (Deleted > 0)
                         {
                             response.ResponseSuccess = true;
+                            response.responseTypes = ResponseTypes.Success;
+                            response.ResponseMessage = "Successfully deleted Business Type";
                         }
                         else
                         {
                             response.ResponseMessage = "Unable to Delete Business Type ID " + businessType.ID;
+                            response.responseTypes = ResponseTypes.Information;
                         }
                     }
                     else
                     {
                         response.ResponseMessage = "Unable to find Type for Business Type ID " + businessType.ID;
+                        response.responseTypes = ResponseTypes.Information;
                     }
                 }
             }
@@ -141,6 +174,7 @@ namespace Library.Types.Methods
                 _applicationError.Log(ErrorMessage, string.Empty);
 
                 response.ResponseMessage = "Unable to Delete Business Type ID " + ID.ToString();
+                response.responseTypes = ResponseTypes.Failure;
             }
 
             return response;
@@ -154,15 +188,18 @@ namespace Library.Types.Methods
             {
                 using (var ctx = new SimpleCureEntities())
                 {
-                    response.GenericClassList = ctx.BusinessTypes.Where(s => s.IsActvie == IsActive).ToList();
+                    response.GenericClassList = ctx.BusinessTypes.Where(s => s.IsActive == IsActive).ToList();
 
                     if (response.GenericClassList != null && response.GenericClassList.Count > 0)
                     {
                         response.ResponseSuccess = true;
+                        response.responseTypes = ResponseTypes.Success;
+                        
                     }
                     else
                     {
                         response.ResponseMessage = "Unable to get all Business Types";
+                        response.responseTypes = ResponseTypes.Information;
                     }
                 }
             }
@@ -177,9 +214,50 @@ namespace Library.Types.Methods
                 _applicationError.Log(ErrorMessage, string.Empty);
 
                 response.ResponseMessage = "Unable to get all Business Types";
+                response.responseTypes = ResponseTypes.Failure;
             }
 
             return response;
         }
+
+        public Generic<BusinessType> GetByID(int ID)
+        {
+            Generic<BusinessType> response = new Generic<BusinessType>();
+
+            try
+            {
+                using (var ctx = new SimpleCureEntities())
+                {
+                    response.GenericClass = ctx.BusinessTypes.Where(s => s.ID == ID).FirstOrDefault();
+
+                    if (response.GenericClass != null && response.GenericClass.ID > 0)
+                    {
+                        response.ResponseSuccess = true;
+                        response.responseTypes = ResponseTypes.Success;
+                    }
+                    else
+                    {
+                        response.ResponseMessage = "Unable to get Business Type for ID " + ID;
+                        response.responseTypes = ResponseTypes.Information;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ApplicationError errors = new ApplicationError();
+                string methodName = System.Reflection.MethodBase.GetCurrentMethod().Name;
+                string source = ex.Source;
+                string stacktrace = ex.StackTrace;
+                string targetsite = ex.TargetSite.ToString();
+                string error = ex.InnerException.ToString();
+                string ErrorMessage = $"There was an error at {DateTime.Now} {Environment.NewLine} Method: {methodName} {Environment.NewLine} Source: {source} {Environment.NewLine} StackTrace: {stacktrace} {Environment.NewLine} TargetSite: {targetsite} {Environment.NewLine} Error: {error}{Environment.NewLine} For Business Type ID: {ID} {Environment.NewLine}";
+                errors.Log(ErrorMessage, string.Empty);
+                response.ResponseMessage = "Unable to get Business Type for ID " + ID;
+                response.responseTypes = ResponseTypes.Failure;
+            }
+
+            return response;
+        }
+
     }
 }

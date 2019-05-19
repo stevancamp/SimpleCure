@@ -1,0 +1,106 @@
+﻿@model SimpleCure.Models.AdminModels.OrderActivityType_ViewModel
+@{
+    ViewBag.Title = "Order Activity Types";
+}
+<input type="hidden" value="@Url.Action("CreateOrderActivityType", "Admin")" id="UrlCreateOrderActivityType" />
+<input type="hidden" value="@Url.Action("EditOrderActivityType", "Admin")" id="UrlEditOrderActivityType" />
+<input type="hidden" value="@Url.Action("OrderActivityTypes", "Admin")" id="UrlOrderActivityTypes" />
+
+@if (Model.ResponseSuccess == false && Model.responseTypes == SimpleCure.Models.ResponseTypes.Failure)
+{
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        <strong>There was an error!</strong> @Model.ResponseMessage
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+}
+
+@if (Model.responseTypes == SimpleCure.Models.ResponseTypes.Information)
+{
+    <div class="alert alert-info alert-dismissible fade show" role="alert">
+        @Model.ResponseMessage
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+}
+
+@if (Model.responseTypes == SimpleCure.Models.ResponseTypes.Success && !string.IsNullOrEmpty(Model.ResponseMessage))
+{
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        @Model.ResponseMessage
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+}
+
+<input type="hidden" id="ToggleActiveStatus" value="@Model.ActiveStatus.ToString()" />
+
+<div class="breadcrumb-holder">
+    <div class="container-fluid">
+        <ul class="breadcrumb">
+            <li class="breadcrumb-item">
+                @Html.ActionLink(" Home", "Index", "Home")
+            </li>
+            <li class="breadcrumb-item active">Order Activity Types</li>
+        </ul>
+    </div>
+</div>
+<section class="forms">
+    <div class="container-fluid">
+        <header>
+            <h1 class="h3 display">Order Activity Types</h1>
+        </header>
+        <div class="row">
+            <div class="col-md-8">
+
+                <div class="card">
+                    <div class="card-header">
+                        <h4>Order Activity Types Table <a href="#" data-toggle="tooltip" data-placement="top" title="Toggle Active" onclick="ToggleActive();"><i class="fa fa-arrows-h"></i></a> <a href="#" class="pull-right" data-toggle="tooltip" data-placement="top" title="Create New Order Activity Type Type" onclick="ShowCreate();"><i class="fa fa-plus-circle"></i></a></h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Type</th>
+                                        <th>IsActive</th>
+                                        <th>Edit</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @if (Model.ListOrderActivityTypes != null && Model.ListOrderActivityTypes.Count > 0)
+                                    {
+                                        foreach (var item in Model.ListOrderActivityTypes)
+                                        {
+                                            <tr>
+                                                <td>@item.Type</td>
+                                                <td>@item.IsActive</td>
+                                                <td><a href="#" onclick="ShowEdit(@item.ID)"><i class="fa fa-edit"></i></a></td>
+                                            </tr>
+                                        }
+                                    }
+                                    else
+                                    {
+                                        <tr>
+                                            <td colspan="3" class="text-center">There are no Order Activity Types</td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div id="OrderActivityTypeWorkDiv"></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+@section scripts {
+    <script src="~/Scripts/ViewScripts/OrderActivityTypesViewScirpt.js"></script>
+}

@@ -29,17 +29,31 @@ namespace Library.Types.Methods
             {
                 using (var ctx = new SimpleCureEntities())
                 {
-                    var Added = ctx.OrderInfo_Product_Types.Add(orderInfo_Product_Types);
-
-                    if (Added.ID > 0)
+                    var Exist = ctx.OrderInfo_Product_Types.Where(s => s.Type == orderInfo_Product_Types.Type).FirstOrDefault();
+                    if (Exist == null)
                     {
-                        response.ResponseSuccess = true;
-                        response.ResponseInt = Added.ID;
+                        ctx.OrderInfo_Product_Types.Add(orderInfo_Product_Types);
+                        var Added = ctx.SaveChanges();
 
+                        if (Added > 0)
+                        {
+                            response.ResponseSuccess = true;
+                            response.ResponseInt = orderInfo_Product_Types.ID;
+                            response.responseTypes = ResponseTypes.Success;
+                            response.ResponseMessage = "Successfully added Order Product Info Type";
+
+                        }
+                        else
+                        {
+                            response.ResponseMessage = "Unable to add Order Info Product Type: " + JsonConvert.SerializeObject(orderInfo_Product_Types);
+                            response.responseTypes = ResponseTypes.Information;
+                        }
                     }
                     else
                     {
-                        response.ResponseMessage = "Unable to add Order Info Product Type: " + JsonConvert.SerializeObject(orderInfo_Product_Types);
+                        response.ResponseSuccess = false;
+                        response.ResponseMessage = "The Order Product Info Type " + orderInfo_Product_Types.Type + " already exists, please enter another.";
+                        response.responseTypes = ResponseTypes.Information;
                     }
                 }
             }
@@ -55,6 +69,7 @@ namespace Library.Types.Methods
                 _applicationError.Log(ErrorMessage, string.Empty);
 
                 response.ResponseMessage = "Unable to add Order Info Product Type: " + JsonConvert.SerializeObject(orderInfo_Product_Types);
+                response.responseTypes = ResponseTypes.Failure;
             }
 
             return response;
@@ -68,17 +83,30 @@ namespace Library.Types.Methods
             {
                 using (var ctx = new SimpleCureEntities())
                 {
-                    ctx.Entry(orderInfo_Product_Types).State = EntityState.Modified;
-                    var updated = ctx.SaveChanges();
-
-                    if (updated > 0)
+                    var Exist = ctx.OrderInfo_Product_Types.Where(s => s.Type == orderInfo_Product_Types.Type && s.ID != orderInfo_Product_Types.ID).FirstOrDefault();
+                    if (Exist == null)
                     {
-                        response.ResponseSuccess = true;
-                        response.ResponseInt = orderInfo_Product_Types.ID;
+                        ctx.Entry(orderInfo_Product_Types).State = EntityState.Modified;
+                        var updated = ctx.SaveChanges();
+
+                        if (updated > 0)
+                        {
+                            response.ResponseSuccess = true;
+                            response.ResponseInt = orderInfo_Product_Types.ID;
+                            response.responseTypes = ResponseTypes.Success;
+                            response.ResponseMessage = "Successfully updated Order Product Info Type";
+                        }
+                        else
+                        {
+                            response.ResponseMessage = "Unable to update Order Info Producy Type with " + JsonConvert.SerializeObject(orderInfo_Product_Types);
+                            response.responseTypes = ResponseTypes.Information;
+                        }
                     }
                     else
                     {
-                        response.ResponseMessage = "Unable to update Order Info Producy Type with " + JsonConvert.SerializeObject(orderInfo_Product_Types);
+                        response.ResponseSuccess = false;
+                        response.ResponseMessage = "The Order Product Info Type " + orderInfo_Product_Types.Type + " already exists, please enter another.";
+                        response.responseTypes = ResponseTypes.Information;
                     }
                 }
             }
@@ -94,6 +122,7 @@ namespace Library.Types.Methods
                 _applicationError.Log(ErrorMessage, string.Empty);
 
                 response.ResponseMessage = "Unable to update Order Info Producy Type with " + JsonConvert.SerializeObject(orderInfo_Product_Types);
+                response.responseTypes = ResponseTypes.Failure;
             }
 
             return response;
@@ -117,15 +146,19 @@ namespace Library.Types.Methods
                         if (Deleted > 0)
                         {
                             response.ResponseSuccess = true;
+                            response.responseTypes = ResponseTypes.Success;
+                            response.ResponseMessage = "Successfully deleted Order Product Info Type";
                         }
                         else
                         {
                             response.ResponseMessage = "Unable to Delete Order Info Product Type ID " + orderInfo_Product_Types.ID;
+                            response.responseTypes = ResponseTypes.Information;
                         }
                     }
                     else
                     {
                         response.ResponseMessage = "Unable to find Type for Order Info Product Type ID " + orderInfo_Product_Types.ID;
+                        response.responseTypes = ResponseTypes.Information;
                     }
                 }
             }
@@ -141,6 +174,7 @@ namespace Library.Types.Methods
                 _applicationError.Log(ErrorMessage, string.Empty);
 
                 response.ResponseMessage = "Unable to Delete Order Info Product Type ID " + ID;
+                response.responseTypes = ResponseTypes.Failure;
             }
 
             return response;
@@ -159,10 +193,12 @@ namespace Library.Types.Methods
                     if (response.GenericClassList != null && response.GenericClassList.Count > 0)
                     {
                         response.ResponseSuccess = true;
+                        response.responseTypes = ResponseTypes.Success;
                     }
                     else
                     {
                         response.ResponseMessage = "Unable to get all Order Info Product Types";
+                        response.responseTypes = ResponseTypes.Information;
                     }
                 }
             }
@@ -177,9 +213,50 @@ namespace Library.Types.Methods
                 _applicationError.Log(ErrorMessage, string.Empty);
 
                 response.ResponseMessage = "Unable to get all Order Info Product Types";
+                response.responseTypes = ResponseTypes.Failure;
             }
 
             return response;
         }
+
+        public Generic<OrderInfo_Product_Types> GetByID(int ID)
+        {
+            Generic<OrderInfo_Product_Types> response = new Generic<OrderInfo_Product_Types>();
+
+            try
+            {
+                using (var ctx = new SimpleCureEntities())
+                {
+                    response.GenericClass = ctx.OrderInfo_Product_Types.Where(s => s.ID == ID).FirstOrDefault();
+
+                    if (response.GenericClass != null && response.GenericClass.ID > 0)
+                    {
+                        response.ResponseSuccess = true;
+                        response.responseTypes = ResponseTypes.Success;
+                    }
+                    else
+                    {
+                        response.ResponseMessage = "Unable to get Order Info Product Type for ID " + ID;
+                        response.responseTypes = ResponseTypes.Information;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ApplicationError errors = new ApplicationError();
+                string methodName = System.Reflection.MethodBase.GetCurrentMethod().Name;
+                string source = ex.Source;
+                string stacktrace = ex.StackTrace;
+                string targetsite = ex.TargetSite.ToString();
+                string error = ex.InnerException.ToString();
+                string ErrorMessage = $"There was an error at {DateTime.Now} {Environment.NewLine} Method: {methodName} {Environment.NewLine} Source: {source} {Environment.NewLine} StackTrace: {stacktrace} {Environment.NewLine} TargetSite: {targetsite} {Environment.NewLine} Error: {error}{Environment.NewLine} For Order Info Product Type ID: {ID} {Environment.NewLine}";
+                errors.Log(ErrorMessage, string.Empty);
+                response.ResponseMessage = "Unable to get Order Info Product Type for ID " + ID;
+                response.responseTypes = ResponseTypes.Failure;
+            }
+
+            return response;
+        }
+
     }
 }

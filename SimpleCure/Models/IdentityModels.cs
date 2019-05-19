@@ -29,5 +29,7 @@ namespace SimpleCure.Models
         {
             return new ApplicationDbContext();
         }
+
+        public System.Data.Entity.DbSet<SimpleCure.Models.AdminModels.EditBusinessType_ViewModel> EditBusinessType_ViewModel { get; set; }
     }
 }

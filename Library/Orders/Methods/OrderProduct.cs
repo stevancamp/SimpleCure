@@ -29,18 +29,22 @@ namespace Library.Orders.Methods
             {
                 using (var ctx = new SimpleCureEntities())
                 {
-                    var Added = ctx.OrderInfo_Product.Add(Product);
+                    ctx.OrderInfo_Product.Add(Product);
+                    var Added = ctx.SaveChanges();
 
-                    if (Added.ID > 0)
+                    if (Added > 0)
                     {
                         response.ResponseSuccess = true;
-                        response.ResponseInt = Added.ID;
+                        response.ResponseInt = Product.ID;
                         //confirm if this is needed or not
                         //_emailMessage.SendMessage(ConfigurationManager.AppSettings["EmailAddress"], "Product added to Order", "A product has been added to a order.");
+                        response.responseTypes = ResponseTypes.Success;
+                        response.ResponseMessage = "Successfully added Product Order";
                     }
                     else
                     {
                         response.ResponseMessage = "Unable to add Products to Order with Product Info: " + Product;
+                        response.responseTypes = ResponseTypes.Information;
                     }
                 }
             }
@@ -56,6 +60,7 @@ namespace Library.Orders.Methods
                 _applicationError.Log(ErrorMessage, string.Empty);
 
                 response.ResponseMessage = "Unable to add Products to Order with Product Info: " + Product;
+                response.responseTypes = ResponseTypes.Failure;
             }
 
             return response;
@@ -76,10 +81,13 @@ namespace Library.Orders.Methods
                     {
                         response.ResponseSuccess = true;
                         response.ResponseInt = Product.ID;
+                        response.responseTypes = ResponseTypes.Success;
+                        response.ResponseMessage = "Successfully Updated Product Order";
                     }
                     else
                     {
                         response.ResponseMessage = "Unable to update Product Order Info for Product: " + Product;
+                        response.responseTypes = ResponseTypes.Information;
                     }
                 }
             }
@@ -95,6 +103,7 @@ namespace Library.Orders.Methods
                 _applicationError.Log(ErrorMessage, string.Empty);
 
                 response.ResponseMessage = "Unable to update Product Order Info for Product: " + Product;
+                response.responseTypes = ResponseTypes.Failure;
             }
 
             return response;
@@ -118,10 +127,13 @@ namespace Library.Orders.Methods
                     if (Deleted > 0)
                     {
                         response.ResponseSuccess = true;
+                        response.responseTypes = ResponseTypes.Success;
+                        response.ResponseMessage = "Successfully Deleted Product Order";
                     }
                     else
                     {
                         response.ResponseMessage = "Unable to Delete Product Order with ID " + OrderProductInfo.ID;
+                        response.responseTypes = ResponseTypes.Information;
                     }
                 }
             }
@@ -136,6 +148,7 @@ namespace Library.Orders.Methods
                 _applicationError.Log(ErrorMessage, string.Empty);
 
                 response.ResponseMessage = "Unable to Delete Product Order with ID " + orderProductID;
+                response.responseTypes = ResponseTypes.Failure;
             }
 
             return response;
@@ -154,10 +167,12 @@ namespace Library.Orders.Methods
                     if (response.GenericClassList != null && response.GenericClassList.Count > 0)
                     {
                         response.ResponseSuccess = true;
+                        response.responseTypes = ResponseTypes.Success;
                     }
                     else
                     {
                         response.ResponseMessage = "Unable to get all Product Order Info";
+                        response.responseTypes = ResponseTypes.Information;
                     }
                 }
             }
@@ -172,6 +187,7 @@ namespace Library.Orders.Methods
                 _applicationError.Log(ErrorMessage, string.Empty);
 
                 response.ResponseMessage = "Unable to get all Product Order Info";
+                response.responseTypes = ResponseTypes.Failure;
             }
 
             return response;
@@ -190,10 +206,12 @@ namespace Library.Orders.Methods
                     if (response.GenericClass != null && response.GenericClass.ID > 0)
                     {
                         response.ResponseSuccess = true;
+                        response.responseTypes = ResponseTypes.Success;
                     }
                     else
                     {
                         response.ResponseMessage = "Unable to get Product Order Info for ID " + ID;
+                        response.responseTypes = ResponseTypes.Information;
                     }
                 }
             }
@@ -208,6 +226,7 @@ namespace Library.Orders.Methods
                 string ErrorMessage = $"There was an error at {DateTime.Now} {Environment.NewLine} Method: {methodName} {Environment.NewLine} Source: {source} {Environment.NewLine} StackTrace: {stacktrace} {Environment.NewLine} TargetSite: {targetsite} {Environment.NewLine} Error: {error}{Environment.NewLine} Order Product ID: {ID.ToString()}";
                 _applicationError.Log(ErrorMessage, string.Empty);
                 response.ResponseMessage = "Unable to get Product Order Info for ID " + ID;
+                response.responseTypes = ResponseTypes.Failure;
             }
 
             return response;
@@ -226,10 +245,12 @@ namespace Library.Orders.Methods
                     if (response.GenericClassList != null && response.GenericClassList.Count > 0)
                     {
                         response.ResponseSuccess = true;
+                        response.responseTypes = ResponseTypes.Success;
                     }
                     else
                     {
                         response.ResponseMessage = "Unable to get Product Order Info by Order ID " + OrderID;
+                        response.responseTypes = ResponseTypes.Information;
                     }
                 }
             }
@@ -244,6 +265,7 @@ namespace Library.Orders.Methods
                 _applicationError.Log(ErrorMessage, string.Empty);
 
                 response.ResponseMessage = "Unable to get Product Order Info by Order ID " + OrderID;
+                response.responseTypes = ResponseTypes.Failure;
             }
 
             return response;

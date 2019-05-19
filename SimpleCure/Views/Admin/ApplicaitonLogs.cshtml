@@ -1,0 +1,124 @@
+﻿@model SimpleCure.Models.AdminModels.ApplicaitonLogs_ViewModel
+@{
+    ViewBag.Title = "ApplicaitonLogs";
+}
+
+<input type="hidden" value="@Url.Action("ApplicaitonLogs", "Admin")" id="UrlApplicationLogs" />
+
+@if (Model.ResponseSuccess == false && Model.responseTypes == SimpleCure.Models.ResponseTypes.Failure)
+{
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        <strong>There was an error!</strong> @Model.ResponseMessage
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+}
+
+@if (Model.responseTypes == SimpleCure.Models.ResponseTypes.Information)
+{
+    <div class="alert alert-info alert-dismissible fade show" role="alert">
+          @Model.ResponseMessage
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+}
+
+@if (Model.responseTypes == SimpleCure.Models.ResponseTypes.Success && !string.IsNullOrEmpty(Model.ResponseMessage))
+{
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+          @Model.ResponseMessage
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+}
+
+<div class="breadcrumb-holder">
+    <div class="container-fluid">
+        <ul class="breadcrumb">
+            <li class="breadcrumb-item">
+                @Html.ActionLink(" Home", "Index", "Home")
+            </li>
+            <li class="breadcrumb-item active">Application Logs</li>
+        </ul>
+    </div>
+</div>
+<section class="forms">
+    <div class="container-fluid">
+        <header>
+            <h1 class="h3 display">Applicaiton Logs</h1>
+        </header>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card updates activities" id="recent-activities-wrapper">
+                    <div class="card-header d-flex justify-content-between align-items-center" id="activites-header">
+                        <h2 class="h5 display">Recent Activities</h2>
+                        <div class="right-column">
+                            <button class="btn btn-primary" type="button" data-toggle="modal" data-target="#SearchModal">Search Logs</button>
+                            <div tabindex="-1" class="modal fade text-left" id="SearchModal" role="dialog" aria-hidden="true" aria-labelledby="exampleModalLabel">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel">Search Logs</h5>
+                                            <button class="close" aria-label="Close" type="button" data-dismiss="modal"><span aria-hidden="true">×</span></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <p>Search the Application Error Logs by date</p>
+                                            <div>
+                                                <div class="form-group">
+                                                    <div class="form-group">
+                                                        <div class="input-group date" id="LogDate" data-target-input="nearest">
+                                                            <input type="text" id="AppLogDate" class="form-control datetimepicker-input" data-target="#LogDate" />
+                                                            <div class="input-group-append" data-target="#LogDate" data-toggle="datetimepicker">
+                                                                <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <input class="btn btn-primary" type="button" id="SearchDateButton" onclick="SearchLogByDate();" value="Search Date">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="collapse show" id="activities-box" role="tabpanel">
+                        @if (Model.ListLogs != null && Model.ListLogs.Count > 0)
+                        {
+                            <ul class="activities list-unstyled">
+                                @foreach (var item in Model.ListLogs)
+                                {
+                                    <li>
+                                        <div class="row">
+                                            <div class="col-4 date-holder text-right">
+                                                <div class="icon"><i class="icon-clock"></i></div>
+                                                <div class="date"> <span>@item.ErrorTime</span></div>
+                                            </div>
+                                            <div class="col-8 content">
+                                                <strong>IPAddress: @item.IP_Address</strong>
+                                                <p><b>Log Message:</b> @item.ErrorMessage</p>
+                                            </div>
+                                        </div>
+                                    </li>
+                                }
+                            </ul>
+                        }
+                        else
+                        {
+                            <p class="text-lg-center">No Logs for the Search Criteria entered</p>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+@section scripts {
+    <script src="~/Scripts/ViewScripts/ApplicationLogsViewScript.js"></script>
+}

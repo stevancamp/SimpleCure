@@ -1,11 +1,11 @@
-﻿using Library.DataModel;
-using SimpleCure.Models.TypeModels;
+﻿using BusinessLayer.Models.TypeModels;
+using Library.DataModel;
 
 namespace BusinessLayer.Mappings
 {
     public class MapOrderActivityTypes
     {
-        public OrderActivityType MapToLibrary(OrderActivityTypeModel model)
+        public OrderActivityType MapToLibrary(OrderActivityType_Model model)
         {
             OrderActivityType orderActivityType = new OrderActivityType();
             orderActivityType.ID = model.ID;
@@ -15,9 +15,9 @@ namespace BusinessLayer.Mappings
             return orderActivityType;
         }
 
-        public OrderActivityTypeModel MapToUI(OrderActivityType model)
+        public OrderActivityType_Model MapToUI(OrderActivityType model)
         {
-            OrderActivityTypeModel orderActivityType = new OrderActivityTypeModel();
+            OrderActivityType_Model orderActivityType = new OrderActivityType_Model();
             orderActivityType.ID = model.ID;
             orderActivityType.IsActive = model.IsActive;
             orderActivityType.Type = model.Type;

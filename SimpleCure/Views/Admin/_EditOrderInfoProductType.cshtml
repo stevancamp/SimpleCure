@@ -1,0 +1,60 @@
+﻿@model SimpleCure.Models.AdminModels.EditOrderInfoProductType_ViewModel
+@using (Html.BeginForm("SaveOrderInfoProductTypeEdit", "Admin"))
+{
+    <div class="card">
+        <div class="card-header d-flex align-items-center">
+            <h4>Edit a Order Info Product type</h4>
+        </div>
+        <div class="card-body">
+            @Html.HiddenFor(m => m.ID)
+            <div class="form-group">
+                @Html.LabelFor(m => m.OrderInfoProductType, new { @class = "form-control-label" })
+                @Html.TextBoxFor(m => m.OrderInfoProductType, new { @class = "form-control" })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.Price, new { @class = "form-control-label" })
+                @Html.TextBoxFor(m => m.Price, new {  @class = "form-control", type = "number", required = "required", step=".01" })              
+            </div>
+            <div class="form-group">
+                <div class="i-checks">
+                    @Html.CheckBoxFor(m => m.IsActive, new { @checked = Model.IsActive })
+                    @Html.LabelFor(c => c.IsActive)
+                </div>
+            </div>
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary">Save Change</button>
+                <a href="#DeleteModal" role="button" class="btn btn-danger" data-toggle="modal">Delete</a>
+            </div>
+        </div>
+    </div>
+}
+
+<div class="modal fade" id="DeleteModal" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="myModalLabel">
+                    Delete Business Type
+                </h5>
+                <button type="button" class="close" data-dismiss="modal">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                Are you sure that you want to delete this Business Type @Model.OrderInfoProductType from the database forever?
+            </div>
+            <div class="modal-footer">
+                @using (Html.BeginForm("DeleteBusinessType", "Admin"))
+                {
+                    @Html.HiddenFor(m => m.ID)
+                    <button type="submit" class="btn btn-danger">Delete</button>
+                }
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                    Close
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+

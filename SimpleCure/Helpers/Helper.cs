@@ -1,4 +1,5 @@
-﻿using System.Web;
+﻿using System;
+using System.Web;
 
 namespace SimpleCure.Helpers
 {
@@ -12,6 +13,12 @@ namespace SimpleCure.Helpers
                 ip = HttpContext.Current.Request.ServerVariables["REMOTE_ADDR"];
             }
             return ip;
+        }
+
+        public bool IsDateTime(string txtDate)
+        {
+            DateTime tempDate;
+            return DateTime.TryParse(txtDate, out tempDate);
         }
     }
 }

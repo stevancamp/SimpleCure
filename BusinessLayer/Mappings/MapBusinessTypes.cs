@@ -1,25 +1,25 @@
-﻿using Library.DataModel;
-using SimpleCure.Models.TypeModels;
-
+﻿using BusinessLayer.Models.TypeModels;
+using Library.DataModel;
+ 
 namespace BusinessLayer.Mappings
 {
     public class MapBusinessTypes
     {
-        public BusinessType MapToLibrary(BusinessTypeModel model)
+        public BusinessType MapToLibrary(BusinessType_Model model)
         {
             BusinessType businessType = new BusinessType();
             businessType.ID = model.ID;
-            businessType.IsActvie = model.IsActvie;
+            businessType.IsActive = model.IsActive;
             businessType.Type = model.Type;
 
             return businessType; 
         }
 
-        public BusinessTypeModel MapToUI(BusinessType model)
+        public BusinessType_Model MapToUI(BusinessType model)
         {
-            BusinessTypeModel businessTypeModel = new BusinessTypeModel();
+            BusinessType_Model businessTypeModel = new BusinessType_Model();
             businessTypeModel.ID = model.ID;
-            businessTypeModel.IsActvie = model.IsActvie;
+            businessTypeModel.IsActive = model.IsActive;
             businessTypeModel.Type = model.Type;
 
             return businessTypeModel;
