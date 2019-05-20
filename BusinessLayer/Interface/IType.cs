@@ -20,6 +20,7 @@ namespace BusinessLayer.Interface
         ResponseBase DeleteOrderInfoProductType(int ID);
         Generic<OrderInfoProductTypes_Model> GetOrderInfoProductTypeByID(int ID);
         Generic<OrderInfoProductTypes_Model> GetAllOrderInfoProductTypes(bool IsActive);
+        Generic<Order_Info_Product_Types_With_GroupName_Model> GetAllOrderInfoProductTypesWithGroupName(bool IsActive);
         ResponseBase AddOrderInfoProductGroup(OrderInfoProductGroups_Model orderInfo_Product_Groups);
         ResponseBase UpdateOrderInfoProductGroup(OrderInfoProductGroups_Model orderInfo_Product_Groups);
         ResponseBase DeleteOrderInfoProductGroup(int ID);

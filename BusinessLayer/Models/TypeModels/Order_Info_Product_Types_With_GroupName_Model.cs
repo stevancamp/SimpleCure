@@ -1,6 +1,6 @@
 ﻿namespace BusinessLayer.Models.TypeModels
 {
-    public class OrderInfoProductTypes_Model
+    public class Order_Info_Product_Types_With_GroupName_Model
     {
         public int ID { get; set; }
         public string Type { get; set; }

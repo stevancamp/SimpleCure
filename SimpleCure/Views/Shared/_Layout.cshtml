@@ -44,7 +44,15 @@
                         )
                         @*<a href="#"> <i class="icon-home"></i>Home</a>*@
                     </li>
-                    <li><a href="#"> <i class="icon-form"></i>New Order</a></li>
+                    <li>
+                        @Html.ActionLink(" New Order",
+                          "NewOrder",   // <-- ActionMethod
+                          "Order",  // <-- Controller Name.
+                          null, // <-- Route arguments.
+                          new { @class = "icon-form" }
+
+                          )                      
+                    </li>
                     <li><a href="#"> <i class="icon-screen"></i>Orders</a></li>
                     @*<li><a href="charts.html"> <i class="fa fa-bar-chart"></i>Charts</a></li>
                         <li><a href="tables.html"> <i class="icon-grid"></i>Tables</a></li>*@

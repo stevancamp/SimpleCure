@@ -3,7 +3,6 @@ using Library.Email.Methods;
 using Library.ErrorLogging.Methods;
 using Newtonsoft.Json;
 using System;
-using System.Configuration;
 using System.Linq;
 
 namespace Library.Orders.Methods

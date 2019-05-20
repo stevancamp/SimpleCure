@@ -1,4 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using BusinessLayer.Models.TypeModels;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace SimpleCure.Models.AdminModels
 {
@@ -11,5 +13,8 @@ namespace SimpleCure.Models.AdminModels
         [Required(ErrorMessage = "Price is required")]
         [DisplayFormat(DataFormatString = "{0:n2}", ApplyFormatInEditMode = true)]
         public decimal Price { get; set; }
+        public int OrderInfo_Product_Group { get; set; }
+        public string OrderInfoProductSubType { get; set; }
+        public List<OrderInfoProductGroups_Model> ListOrderInfoProductGroups { get; set; }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using Library.DataModel;
 using Library.Email.Methods;
 using Library.ErrorLogging.Methods;
+using Library.Types.Models;
 using Newtonsoft.Json;
 using System;
 using System.Data.Entity;
@@ -258,5 +259,70 @@ namespace Library.Types.Methods
             return response;
         }
 
+        public Generic<Order_Info_Product_Types_With_GroupName> GetAllWithGroupName(bool IsActive)
+        {
+            Generic<Order_Info_Product_Types_With_GroupName> response = new Generic<Order_Info_Product_Types_With_GroupName>();
+
+            try
+            {
+                using (var ctx = new SimpleCureEntities())
+                {
+                   
+                    var GetObj = (from s in ctx.OrderInfo_Product_Types
+                                  join d in ctx.OrderInfo_Product_Groups on s.OrderInfo_Product_Group equals d.ID
+                                  select new
+                                  {
+                                      s.ID,
+                                      s.IsActive,
+                                      s.OrderInfo_Product_Group,
+                                      s.Price,
+                                      s.Type,
+                                      s.Type_SubHeader,
+                                      d.GroupName
+                                  }).ToList();
+
+                    if (GetObj != null && GetObj.Count > 0)
+                    {
+                      
+                        foreach (var item in GetObj)
+                        {                           
+                            Order_Info_Product_Types_With_GroupName obj = new Order_Info_Product_Types_With_GroupName();
+                            obj.GroupName = item.GroupName;
+                            obj.ID = item.ID;
+                            obj.IsActive = item.IsActive;
+                            obj.OrderInfo_Product_Group = item.OrderInfo_Product_Group;
+                            obj.Price = item.Price;
+                            obj.Type = item.Type;
+                            obj.Type_SubHeader = item.Type_SubHeader;
+                            response.GenericClassList.Add(obj);
+                        }
+ 
+                        response.ResponseSuccess = true;
+                        response.responseTypes = ResponseTypes.Success;
+                    }
+                    else
+                    {
+                        response.ResponseMessage = "Unable to get all Order Info Product Types With Group Name";
+                        response.responseTypes = ResponseTypes.Information;
+                    }
+
+                }
+            }
+            catch (Exception ex)
+            {
+                string methodName = System.Reflection.MethodBase.GetCurrentMethod().Name;
+                string source = ex.Source;
+                string stacktrace = ex.StackTrace;
+                string targetsite = ex.TargetSite.ToString();
+                string error = ex.InnerException.ToString();
+                string ErrorMessage = $"There was an error at {DateTime.Now} {Environment.NewLine} Method: {methodName} {Environment.NewLine} Source: {source} {Environment.NewLine} StackTrace: {stacktrace} {Environment.NewLine} TargetSite: {targetsite} {Environment.NewLine} Error: {error}{Environment.NewLine} IsActive: {IsActive.ToString()}";
+                _applicationError.Log(ErrorMessage, string.Empty);
+
+                response.ResponseMessage = "Unable to get all Order Info Product Types With Group Name";
+                response.responseTypes = ResponseTypes.Failure;
+            }
+
+            return response;
+        }
     }
 }

@@ -2,7 +2,6 @@
 using BusinessLayer.Mappings;
 using BusinessLayer.Models;
 using BusinessLayer.Models.TypeModels;
-using Library.DataModel;
 using Library.Types.Methods;
 
 namespace BusinessLayer.Functions.Types
@@ -19,6 +18,7 @@ namespace BusinessLayer.Functions.Types
         private MapOrderActivityTypes _mapOrderActivityTypes;
         private MapOrderInfoProductTypes _mapOrderInfoProductTypes;
         private MapOrderInfoProductGroups _mapOrderInfoProductGroups;
+        private MapOrderInfoProductTypesWithGroupName _mapOrderInfoProductTypesWithGroupName;
         private MapResponseBase _mapResponseBase;
 
         public TypeFunctions()
@@ -32,6 +32,7 @@ namespace BusinessLayer.Functions.Types
             _mapOrderActivityTypes = new MapOrderActivityTypes();
             _mapOrderInfoProductTypes = new MapOrderInfoProductTypes();
             _mapOrderInfoProductGroups = new MapOrderInfoProductGroups();
+            _mapOrderInfoProductTypesWithGroupName = new MapOrderInfoProductTypesWithGroupName();
             _mapResponseBase = new MapResponseBase();
         }
         #endregion
@@ -179,6 +180,23 @@ namespace BusinessLayer.Functions.Types
             foreach (var item in OrderInfoProductTypes.GenericClassList)
             {
                 model.GenericClassList.Add(_mapOrderInfoProductTypes.MapToUI(item));
+            }
+            return model;
+        }
+
+        public Generic<Order_Info_Product_Types_With_GroupName_Model> GetAllOrderInfoProductTypesWithGroupName(bool IsActive)
+        {
+            var OrderInfoProductTypes = _order_Info_Product_Type.GetAllWithGroupName(IsActive);
+            Generic<Order_Info_Product_Types_With_GroupName_Model> model = new Generic<Order_Info_Product_Types_With_GroupName_Model>();
+            model.ResponseInt = OrderInfoProductTypes.ResponseInt;
+            model.ResponseListInt = OrderInfoProductTypes.ResponseListInt;
+            model.ResponseListString = OrderInfoProductTypes.ResponseListString;
+            model.ResponseMessage = OrderInfoProductTypes.ResponseMessage;
+            model.ResponseString = OrderInfoProductTypes.ResponseString;
+            model.ResponseSuccess = OrderInfoProductTypes.ResponseSuccess;
+            foreach (var item in OrderInfoProductTypes.GenericClassList)
+            {
+                model.GenericClassList.Add(_mapOrderInfoProductTypesWithGroupName.MapToUI(item));
             }
             return model;
         }

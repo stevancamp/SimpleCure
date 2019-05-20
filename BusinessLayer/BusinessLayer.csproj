@@ -57,6 +57,7 @@
     <Compile Include="Mappings\MapOrderInfoProduct.cs" />
     <Compile Include="Mappings\MapOrderInfoProductGroups.cs" />
     <Compile Include="Mappings\MapOrderInfoProductTypes.cs" />
+    <Compile Include="Mappings\MapOrderInfoProductTypesWithGroupName.cs" />
     <Compile Include="Mappings\MapResponseBase.cs" />
     <Compile Include="Models\AdminModels\ApplicationLog_Model.cs" />
     <Compile Include="Models\ErrorModel.cs" />
@@ -70,6 +71,7 @@
     <Compile Include="Models\TypeModels\OrderActivityType_Model.cs" />
     <Compile Include="Models\TypeModels\OrderInfoProductGroups_Model.cs" />
     <Compile Include="Models\TypeModels\OrderInfoProductTypes_Model.cs" />
+    <Compile Include="Models\TypeModels\Order_Info_Product_Types_With_GroupName_Model.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

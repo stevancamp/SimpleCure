@@ -633,7 +633,7 @@ namespace SimpleCure.Controllers
             model.ActiveStatus = ActiveStatus;
             try
             {
-                var OrderInfoProductTypes = _typeFunctions.GetAllOrderInfoProductTypes(ActiveStatus);
+                var OrderInfoProductTypes = _typeFunctions.GetAllOrderInfoProductTypesWithGroupName(ActiveStatus);
                 if (string.IsNullOrEmpty(model.ResponseMessage))
                 {
                     model.ResponseSuccess = OrderInfoProductTypes.ResponseSuccess;
@@ -669,11 +669,14 @@ namespace SimpleCure.Controllers
             return View(model);
         }
         public ActionResult CreateOrderInfoProductType()
-        {
-            return PartialView("_CreateOrderInfoProductType");
+        {     
+            //what if there are no groups set up??
+            CreateOrderInfoProductType_ViewModel model = new CreateOrderInfoProductType_ViewModel();
+            model.ListOrderInfoProductGroups = _typeFunctions.GetAllOrderInfoProductGroups().GenericClassList;
+            return PartialView("_CreateOrderInfoProductType", model);
         }
         [HttpPost]
-        public ActionResult SaveOrderInfoProductType(string OrderInfoProductType, decimal Price)
+        public ActionResult SaveOrderInfoProductType(string OrderInfoProductType, string OrderInfoProductSubType, decimal Price, int OrderInfo_Product_Group)
         {
             OrderInfoProductType_ViewModel model = new OrderInfoProductType_ViewModel();
             model.ActiveStatus = true;
@@ -685,6 +688,8 @@ namespace SimpleCure.Controllers
                     OrderInfoProductType_Model.Type = OrderInfoProductType;
                     OrderInfoProductType_Model.IsActive = true;
                     OrderInfoProductType_Model.Price = Price;
+                    OrderInfoProductType_Model.OrderInfo_Product_Group = OrderInfo_Product_Group;
+                    OrderInfoProductType_Model.Type_SubHeader = OrderInfoProductSubType;
                     var Saved = _typeFunctions.AddOrderInfoProductType(OrderInfoProductType_Model);
                     if (Saved.ResponseSuccess)
                     {
@@ -726,7 +731,11 @@ namespace SimpleCure.Controllers
                     model.ID = OrderInfoProductType.GenericClass.ID;
                     model.OrderInfoProductType = OrderInfoProductType.GenericClass.Type;
                     model.IsActive = OrderInfoProductType.GenericClass.IsActive;
-                    model.Price = Math.Round(OrderInfoProductType.GenericClass.Price, 2); 
+                    model.Price = Math.Round(OrderInfoProductType.GenericClass.Price, 2);
+                    model.OrderInfo_Product_Group = OrderInfoProductType.GenericClass.OrderInfo_Product_Group;
+                    model.OrderInfoProductSubType = OrderInfoProductType.GenericClass.Type_SubHeader;
+                    //what if there are no groups set up??
+                    model.ListOrderInfoProductGroups = _typeFunctions.GetAllOrderInfoProductGroups().GenericClassList;
                 }
                 else
                 {
@@ -757,6 +766,8 @@ namespace SimpleCure.Controllers
                 var BTtype = formCollection["OrderInfoProductType"];
                 var BTisactive = Convert.ToBoolean(formCollection["IsActive"].Split(',')[0]);
                 var BTPrice = Convert.ToDecimal(formCollection["Price"]);
+                var BTOrderInfoProductGroup = Convert.ToInt32(formCollection["OrderInfo_Product_Group"]);
+                var BTsubType = formCollection["OrderInfoProductSubType"];
 
                 try
                 {
@@ -765,6 +776,8 @@ namespace SimpleCure.Controllers
                     OrderInfoProductType_Model.Type = BTtype;
                     OrderInfoProductType_Model.IsActive = BTisactive;
                     OrderInfoProductType_Model.Price = BTPrice;
+                    OrderInfoProductType_Model.OrderInfo_Product_Group = BTOrderInfoProductGroup;
+                    OrderInfoProductType_Model.Type_SubHeader = BTsubType;
                     var Updated = _typeFunctions.UpdateOrderInfoProductType(OrderInfoProductType_Model);
                     if (Updated.ResponseSuccess)
                     {
@@ -833,9 +846,6 @@ namespace SimpleCure.Controllers
         }
         #endregion
         
-     
-
-
         //if role is web admin
         public ActionResult ApplicaitonLogs(DateTime? dateTime = null)
         {

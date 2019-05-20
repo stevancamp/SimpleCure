@@ -68,6 +68,7 @@
                                         <th>Type</th>
                                         <th>IsActive</th>
                                         <th>Price</th>
+                                        <th>Group Name</th>
                                         <th>Edit</th>
                                     </tr>
                                 </thead>
@@ -80,6 +81,7 @@
                                                 <td>@item.Type</td>
                                                 <td>@item.IsActive</td>
                                                 <td>@string.Format("{0:C}", item.Price)</td>
+                                                <td>@item.GroupName</td>
                                                 <td><a href="#" onclick="ShowEdit(@item.ID)"><i class="fa fa-edit"></i></a></td>
                                             </tr>
                                         }

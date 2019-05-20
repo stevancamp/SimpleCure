@@ -82,6 +82,7 @@
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="OrderInfo_Product_Group" Type="int" Nullable="false" />
           <Property Name="Type" Type="varchar(max)" Nullable="false" />
+          <Property Name="Type_SubHeader" Type="varchar(max)" />
           <Property Name="Price" Type="money" Nullable="false" />
           <Property Name="IsActive" Type="bit" Nullable="false" />
         </EntityType>
@@ -171,6 +172,7 @@
           <Property Name="IsActive" Type="Boolean" Nullable="false" />
           <Property Name="Price" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
           <Property Name="OrderInfo_Product_Group" Type="Int32" Nullable="false" />
+          <Property Name="Type_SubHeader" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityContainer Name="SimpleCureEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="AppErrors" EntityType="Self.AppError" />
@@ -267,6 +269,7 @@
           <EntitySetMapping Name="OrderInfo_Product_Types">
             <EntityTypeMapping TypeName="SimpleCureModel.OrderInfo_Product_Types">
               <MappingFragment StoreEntitySet="OrderInfo_Product_Types">
+                <ScalarProperty Name="Type_SubHeader" ColumnName="Type_SubHeader" />
                 <ScalarProperty Name="OrderInfo_Product_Group" ColumnName="OrderInfo_Product_Group" />
                 <ScalarProperty Name="Price" ColumnName="Price" />
                 <ScalarProperty Name="ID" ColumnName="ID" />

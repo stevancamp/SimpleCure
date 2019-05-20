@@ -5,7 +5,8 @@ namespace SimpleCure.Models.AdminModels
 {
     public class OrderInfoProductType_ViewModel : ResponeBase
     {
-        public List<OrderInfoProductTypes_Model> ListOrderInfoProductTypes { get; set; }
+        public List<Order_Info_Product_Types_With_GroupName_Model> ListOrderInfoProductTypes { get; set; }
+        public List<OrderInfoProductGroups_Model> ListOrderInfoProductGroups { get; set; }
         public bool ActiveStatus { get; set; }
     }
 }
