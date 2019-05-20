@@ -31,6 +31,20 @@ namespace SimpleCure.Controllers
             return View(model);
         }
 
+        [HttpPost]
+        public ActionResult SubmitOrder(FormCollection formCollection)
+        {
+            if (ModelState.IsValid)
+            {
+                return View();
+            }
+            else
+            {
+                return View(); 
+                    
+            }
+        }
+
         //Edit a Order
 
         //
