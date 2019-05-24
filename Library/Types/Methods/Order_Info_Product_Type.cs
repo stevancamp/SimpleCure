@@ -278,6 +278,7 @@ namespace Library.Types.Methods
                                       s.Price,
                                       s.Type,
                                       s.Type_SubHeader,
+                                      s.ProductImage,
                                       d.GroupName
                                   }).ToList();
 
@@ -294,6 +295,7 @@ namespace Library.Types.Methods
                             obj.Price = item.Price;
                             obj.Type = item.Type;
                             obj.Type_SubHeader = item.Type_SubHeader;
+                            obj.ProductImage = item.ProductImage;
                             response.GenericClassList.Add(obj);
                         }
  

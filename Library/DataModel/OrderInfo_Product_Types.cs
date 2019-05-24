@@ -20,5 +20,6 @@ namespace Library.DataModel
         public decimal Price { get; set; }
         public int OrderInfo_Product_Group { get; set; }
         public string Type_SubHeader { get; set; }
+        public byte[] ProductImage { get; set; }
     }
 }

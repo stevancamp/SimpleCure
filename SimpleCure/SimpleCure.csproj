@@ -764,6 +764,7 @@
     <Content Include="Scripts\umd\popper.js" />
     <Content Include="Scripts\umd\popper.min.js" />
     <Content Include="Scripts\ViewScripts\ApplicationLogsViewScript.js" />
+    <Content Include="Scripts\ViewScripts\NewOrderViewScript.js" />
     <Content Include="Scripts\ViewScripts\OrderInfoProductGroupViewScirpt.js" />
     <Content Include="Scripts\ViewScripts\OrderActivityTypesViewScirpt.js" />
     <Content Include="Scripts\ViewScripts\OrderInfoProductTypesViewScirpt.js" />

@@ -9,5 +9,6 @@
         public int OrderInfo_Product_Group { get; set; }
         public string GroupName { get; set; }
         public string Type_SubHeader { get; set; }
+        public byte[] ProductImage { get; set; }
     }
 }

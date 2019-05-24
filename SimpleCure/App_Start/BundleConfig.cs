@@ -26,6 +26,7 @@ namespace SimpleCure
                         "~/Scripts/modernizr-*"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
+                      "~/Content/Site.css",
                       "~/distribution/vendor/bootstrap/css/bootstrap.min.css",
                       "~/distribution/vendor/font-awesome/css/font-awesome.min.css",
                       "~/distribution/css/fontastic.css",

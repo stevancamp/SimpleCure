@@ -15,6 +15,7 @@ namespace BusinessLayer.Mappings
             orderInfo_Product_Types.Price = model.Price;
             orderInfo_Product_Types.OrderInfo_Product_Group = model.OrderInfo_Product_Group;
             orderInfo_Product_Types.Type_SubHeader = model.Type_SubHeader;
+            orderInfo_Product_Types.ProductImage = model.ProductImage;
             return orderInfo_Product_Types;
         }
 
@@ -27,6 +28,7 @@ namespace BusinessLayer.Mappings
             orderInfo_Product_TypesModel.Price = model.Price;
             orderInfo_Product_TypesModel.OrderInfo_Product_Group = model.OrderInfo_Product_Group;
             orderInfo_Product_TypesModel.Type_SubHeader = model.Type_SubHeader;
+            orderInfo_Product_TypesModel.ProductImage = model.ProductImage;
             return orderInfo_Product_TypesModel;
         }
     }
