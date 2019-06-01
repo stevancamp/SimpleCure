@@ -134,13 +134,13 @@ namespace Library.Orders.Methods
                         }
                         else
                         {
-                            response.ResponseMessage = "Unable to Delete Order ID " + Order.ID;
+                            response.ResponseMessage = "Unable to Delete Order ID " + OrderID;
                             response.responseTypes = ResponseTypes.Information;
                         }
                     }
                     else
                     {
-                        response.ResponseMessage = "Unable to find Order Info for Order ID " + Order.ID;
+                        response.ResponseMessage = "Unable to find Order Info for Order ID " + OrderID;
                         response.responseTypes = ResponseTypes.Information;
                     }
                 }
@@ -333,10 +333,10 @@ namespace Library.Orders.Methods
                                                  where
                                                  s.CompanyName.ToLower().Contains(SearchTerm.ToLower()) ||
                                                  s.ContactName.ToLower().Contains(SearchTerm.ToLower()) ||
-                                                 s.OMMANumber.ToLower().Contains(SearchTerm.ToLower()) ||
-                                                 s.EINNumber.ToLower().Contains(SearchTerm.ToLower()) ||
-                                                 s.OBNDDNumber.ToLower().Contains(SearchTerm.ToLower()) ||
-                                                 s.PhoneNumber.ToLower().Contains(SearchTerm.ToLower()) ||
+                                                 //s.OMMANumber.ToLower().Contains(SearchTerm.ToLower()) ||
+                                                 //s.EINNumber.ToLower().Contains(SearchTerm.ToLower()) ||
+                                                 //s.OBNDDNumber.ToLower().Contains(SearchTerm.ToLower()) ||
+                                                 //s.PhoneNumber.ToLower().Contains(SearchTerm.ToLower()) ||
                                                  s.EmailAddress.ToLower().Contains(SearchTerm.ToLower()) ||
                                                  s.StreetAddress.ToLower().Contains(SearchTerm.ToLower())
                                                  && s.Completed == IsCompleted

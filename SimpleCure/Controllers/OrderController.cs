@@ -10,6 +10,7 @@ using System.Web.Mvc;
 
 namespace SimpleCure.Controllers
 {
+    [Authorize]
     public class OrderController : Controller
     {
         #region Injection
@@ -128,6 +129,35 @@ namespace SimpleCure.Controllers
         //
 
         //view orders
+
+        public ActionResult ViewOrders(string searchTerm = null)
+        {
+            ViewOrdersViewModel model = new ViewOrdersViewModel();
+
+
+            try
+            {
+                if (!string.IsNullOrEmpty(searchTerm))
+                {
+                    model.ListOrders = _orderFunctions.GetOrdersBySearchParams(searchTerm, false).GenericClassList;
+                }
+                else
+                {
+                    model.ListOrders = _orderFunctions.GetAllOrders(false).GenericClassList;
+                }
+            }
+            catch (Exception ex)
+            {
+
+                throw;
+            }
+
+
+
+
+            model.SearchTerm = string.Empty;
+            return View(model);
+        }
 
         //delete order
 

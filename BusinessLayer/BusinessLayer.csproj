@@ -41,16 +41,23 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Functions\Customer\CustomerFunctions.cs" />
     <Compile Include="Functions\Email\EmailFunctions.cs" />
     <Compile Include="Functions\ErrorLogging\LoggerFunctions.cs" />
+    <Compile Include="Functions\LoginLogger\LoginAttemptFunctions.cs" />
     <Compile Include="Functions\Orders\OrderFunctions.cs" />
     <Compile Include="Functions\Types\TypeFunctions.cs" />
     <Compile Include="Interface\IApplicationErrors.cs" />
+    <Compile Include="Interface\ICustomer.cs" />
     <Compile Include="Interface\IEmail.cs" />
+    <Compile Include="Interface\ILoginAttempts.cs" />
     <Compile Include="Interface\IOrder.cs" />
     <Compile Include="Interface\IType.cs" />
     <Compile Include="Mappings\MapAppErrors.cs" />
     <Compile Include="Mappings\MapBusinessTypes.cs" />
+    <Compile Include="Mappings\MapChangeLogAccount.cs" />
+    <Compile Include="Mappings\MapCustomers.cs" />
+    <Compile Include="Mappings\MapLoginAttempts.cs" />
     <Compile Include="Mappings\MapOrderActivityHistory.cs" />
     <Compile Include="Mappings\MapOrderActivityTypes.cs" />
     <Compile Include="Mappings\MapOrderInfo.cs" />
@@ -60,8 +67,12 @@
     <Compile Include="Mappings\MapOrderInfoProductTypesWithGroupName.cs" />
     <Compile Include="Mappings\MapResponseBase.cs" />
     <Compile Include="Models\AdminModels\ApplicationLog_Model.cs" />
+    <Compile Include="Models\CustomerModels\CustomersLite_Model.cs" />
+    <Compile Include="Models\CustomerModels\Customers_Model.cs" />
     <Compile Include="Models\ErrorModel.cs" />
     <Compile Include="Models\Generic.cs" />
+    <Compile Include="Models\LoginAttemptModels\AccountChangeLog_Model.cs" />
+    <Compile Include="Models\LoginAttemptModels\AspNetUsersLoginAttempt_Model.cs" />
     <Compile Include="Models\OrderModels\OrderActivityHistory_Model.cs" />
     <Compile Include="Models\OrderModels\OrderProduct_Model.cs" />
     <Compile Include="Models\OrderModels\Order_Model.cs" />

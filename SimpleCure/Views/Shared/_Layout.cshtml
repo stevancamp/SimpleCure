@@ -24,103 +24,127 @@
             <div class="sidenav-header d-flex align-items-center justify-content-center">
                 <!-- User Info-->
                 <div class="sidenav-header-inner text-center">
-                    <img src="https://c7.uihere.com/files/416/62/448/login-google-account-computer-icons-user-activity.jpg" alt="person" class="img-fluid rounded-circle">
-                    <h2 class="h5">Short UserName</h2><span>Company Name</span>
+                    <img src="~/Content/Images/UserSilhouette.png" alt="person" class="img-fluid rounded-circle">                   
                 </div>
                 <!-- Small Brand information, appears on minimized sidebar-->
                 <div class="sidenav-header-logo"><a href="index.html" class="brand-small text-center"> <strong>S</strong><strong class="text-primary">C</strong></a></div>
             </div>
             <!-- Sidebar Navigation Menus-->
             <div class="main-menu">
+                @*@User.Identity.Name
+                <br />
+                <span>Company Name</span>*@
                 <h5 class="sidenav-heading">Main</h5>
-                <ul id="side-main-menu" class="side-menu list-unstyled">
-                    <li>
-                        @Html.ActionLink(" Home",
-                        "Index",   // <-- ActionMethod
-                        "Home",  // <-- Controller Name.
-                        null, // <-- Route arguments.
-                        new { @class = "icon-home" }
+                <ul id="side-main-menu" class="side-menu list-unstyled">                  
+                    @if (User.IsInRole("Employee") || User.IsInRole("Owner") || User.IsInRole("WebAdmin"))
+                    {
+                        <li>
+                            @Html.ActionLink(" Home",
+                            "Index",   // <-- ActionMethod
+                            "Home",  // <-- Controller Name.
+                            null, // <-- Route arguments.
+                            new { @class = "icon-home" }
 
-                        )
-                        @*<a href="#"> <i class="icon-home"></i>Home</a>*@
-                    </li>
-                    <li>
-                        @Html.ActionLink(" New Order",
-                          "NewOrder",   // <-- ActionMethod
-                          "Order",  // <-- Controller Name.
-                          null, // <-- Route arguments.
-                          new { @class = "icon-form" }
+                            )
+                            @*<a href="#"> <i class="icon-home"></i>Home</a>*@
+                        </li>
+                        <li>
+                            @Html.ActionLink(" Orders",
+                             "ViewOrders",   // <-- ActionMethod
+                             "Order",  // <-- Controller Name.
+                             null, // <-- Route arguments.
+                             new { @class = "icon-screen" }
 
-                          )                      
-                    </li>
-                    <li><a href="#"> <i class="icon-screen"></i>Orders</a></li>
+                             )
+                        </li>
+                    }
+                    @if (User.IsInRole("Customer") || User.IsInRole("Employee") || User.IsInRole("Owner") || User.IsInRole("WebAdmin"))
+                    {
+                        <li>
+                            @Html.ActionLink(" New Order",
+                              "NewOrder",   // <-- ActionMethod
+                              "Order",  // <-- Controller Name.
+                              null, // <-- Route arguments.
+                              new { @class = "icon-form" }
+
+                              )
+                        </li>
+                    }
+
+
                     @*<li><a href="charts.html"> <i class="fa fa-bar-chart"></i>Charts</a></li>
-                        <li><a href="tables.html"> <i class="icon-grid"></i>Tables</a></li>*@
+            <li><a href="tables.html"> <i class="icon-grid"></i>Tables</a></li>*@
                     @*<li>
-                            <a href="#exampledropdownDropdown" aria-expanded="false" data-toggle="collapse"> <i class="icon-interface-windows"></i>Administration </a>
-                            <ul id="exampledropdownDropdown" class="collapse list-unstyled ">
-                                <li><a href="#">Business Types</a></li>
-                                <li><a href="#">Activity Types</a></li>
-                                <li><a href="#">Product Types</a></li>
-                            </ul>
-                        </li>*@
+                <a href="#exampledropdownDropdown" aria-expanded="false" data-toggle="collapse"> <i class="icon-interface-windows"></i>Administration </a>
+                <ul id="exampledropdownDropdown" class="collapse list-unstyled ">
+                    <li><a href="#">Business Types</a></li>
+                    <li><a href="#">Activity Types</a></li>
+                    <li><a href="#">Product Types</a></li>
+                </ul>
+            </li>*@
                     @*<li><a href="login.html"> <i class="icon-interface-windows"></i>Login page                             </a></li>*@
                     @*<li>
-                            <a href="#">
-                                <i class="icon-mail"></i>Demo
-                                <div class="badge badge-warning">6 New</div>
-                            </a>
-                        </li>*@
+                <a href="#">
+                    <i class="icon-mail"></i>Demo
+                    <div class="badge badge-warning">6 New</div>
+                </a>
+            </li>*@
                 </ul>
             </div>
-            <div class="admin-menu">
-                <h5 class="sidenav-heading">Admin</h5>
-                <ul id="side-admin-menu" class="side-menu list-unstyled">
-                    <li>
-                        <a href="#exampledropdownDropdown" aria-expanded="false" data-toggle="collapse"> <i class="icon-interface-windows"></i>Types </a>
-                        <ul id="exampledropdownDropdown" class="collapse list-unstyled ">
+            @if (User.IsInRole("Owner") || User.IsInRole("WebAdmin"))
+            {
+                <div class="admin-menu">
+                    <h5 class="sidenav-heading">Admin</h5>
+                    <ul id="side-admin-menu" class="side-menu list-unstyled">
+                        <li>
+                            <a href="#exampledropdownDropdown" aria-expanded="false" data-toggle="collapse"> <i class="icon-interface-windows"></i>Types </a>
+                            <ul id="exampledropdownDropdown" class="collapse list-unstyled ">
+                                <li>
+                                    @Html.ActionLink(" Business Types",
+                     "BusinessTypes",
+                     "Admin"
+                     )
+                                </li>
+                                <li>
+                                    @Html.ActionLink(" Activity Types",
+                   "OrderActivityTypes",
+                   "Admin"
+                   )
+                                </li>
+                                <li>
+                                    @Html.ActionLink(" Product Groups",
+                 "OrderInfoProductGroups",
+                 "Admin"
+                 )
+                                </li>
+                                <li>
+                                    @Html.ActionLink(" Product Types",
+                 "OrderInfoProductTypes",
+                 "Admin"
+                 )
+                                </li>
+                            </ul>
+                        </li>
+
+                    </ul>
+                </div>
+                if (User.IsInRole("WebAdmin"))
+                {
+                    <div class="admin-menu">
+                        <h5 class="sidenav-heading">Web Admin</h5>
+                        <ul id="side-admin-menu" class="side-menu list-unstyled">
                             <li>
-                                @Html.ActionLink(" Business Types",
-                                "BusinessTypes",
-                                "Admin"
-                                )
-                            </li>
-                            <li>
-                                @Html.ActionLink(" Activity Types",
-                              "OrderActivityTypes",
-                              "Admin"
-                              )
-                            </li>
-                            <li>
-                                @Html.ActionLink(" Product Groups",
-                            "OrderInfoProductGroups",
-                            "Admin"
-                            )
-                            </li>
-                            <li>
-                                @Html.ActionLink(" Product Types",
-                            "OrderInfoProductTypes",
-                            "Admin"
-                            )
+                                @Html.ActionLink(" Logs",
+                          "ApplicaitonLogs",
+                          "Admin",
+                          null,
+                          new { @class = "icon-screen" }
+                          )
                             </li>
                         </ul>
-                    </li>
-
-                </ul>
-            </div>
-            <div class="admin-menu">
-                <h5 class="sidenav-heading">Web Admin</h5>
-                <ul id="side-admin-menu" class="side-menu list-unstyled">
-                    <li>
-                        @Html.ActionLink(" Logs",
-                        "ApplicaitonLogs",
-                        "Admin",
-                        null,
-                        new { @class = "icon-screen" }
-                        )
-                    </li>
-                </ul>
-            </div>
+                    </div>
+                }
+            }
         </div>
     </nav>
     <div class="page">
@@ -205,6 +229,18 @@
                                         <li><a rel="nofollow" href="#" class="dropdown-item all-notifications text-center"> <strong> <i class="fa fa-envelope"></i>Read all messages    </strong></a></li>
                                     </ul>
                                 </li>*@
+
+                            <!-- Manage Account -->
+                            <li class="nav-item">
+
+                                @Html.ActionLink(" Account",
+                          "Index",
+                          "Manage",
+                          null,
+                          new { @class = "d-none d-sm-inline-block nav-link fa fa-gear" }
+                          )
+
+                            </li>
                             <!-- Log out-->
                             <li class="nav-item">
 

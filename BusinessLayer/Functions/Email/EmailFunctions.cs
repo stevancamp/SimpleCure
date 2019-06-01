@@ -21,7 +21,6 @@ namespace BusinessLayer.Functions.Email
         public ResponseBase SendMail(string To, string Subject, string Message)
         {
             return _mapResponseBase.MapToUI(_emailMessage.SendMessage(To, Subject, Message));
-
         }
 
         //send email with attachment

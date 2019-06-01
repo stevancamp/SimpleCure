@@ -5,6 +5,58 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="SimpleCureModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="__MigrationHistory">
+          <Key>
+            <PropertyRef Name="MigrationId" />
+            <PropertyRef Name="ContextKey" />
+          </Key>
+          <Property Name="MigrationId" Type="nvarchar" MaxLength="150" Nullable="false" />
+          <Property Name="ContextKey" Type="nvarchar" MaxLength="300" Nullable="false" />
+          <Property Name="Model" Type="varbinary(max)" Nullable="false" />
+          <Property Name="ProductVersion" Type="nvarchar" MaxLength="32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AccountChangeLog">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserIDChanged" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="ChangedBy" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="ChangedDateTime" Type="datetime" Nullable="false" />
+          <Property Name="ChangeFrom" Type="varchar(max)" Nullable="false" />
+          <Property Name="ChangeTo" Type="varchar(max)" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'Testing.dbo.ALL' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="ALL">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="Field1" Type="nvarchar" MaxLength="255" />
+          <Property Name="Field2" Type="nvarchar" MaxLength="255" />
+          <Property Name="Field3" Type="nvarchar" MaxLength="255" />
+          <Property Name="Field4" Type="nvarchar" MaxLength="255" />
+          <Property Name="Type" Type="nvarchar" MaxLength="255" />
+          <Property Name="Field6" Type="nvarchar" MaxLength="255" />
+          <Property Name="Date" Type="datetime" />
+          <Property Name="Field8" Type="nvarchar" MaxLength="255" />
+          <Property Name="Num" Type="nvarchar" MaxLength="255" />
+          <Property Name="Field10" Type="nvarchar" MaxLength="255" />
+          <Property Name="Memo" Type="nvarchar" MaxLength="255" />
+          <Property Name="Field12" Type="nvarchar" MaxLength="255" />
+          <Property Name="Name" Type="nvarchar" MaxLength="255" />
+          <Property Name="Field14" Type="nvarchar" MaxLength="255" />
+          <Property Name="Item" Type="nvarchar" MaxLength="255" />
+          <Property Name="Field16" Type="nvarchar" MaxLength="255" />
+          <Property Name="Qty" Type="float" />
+          <Property Name="Field18" Type="nvarchar" MaxLength="255" />
+          <Property Name="Sales Price" Type="float" />
+          <Property Name="Field20" Type="nvarchar" MaxLength="255" />
+          <Property Name="Amount" Type="float" />
+          <Property Name="Field22" Type="nvarchar" MaxLength="255" />
+          <Property Name="Balance" Type="float" />
+        </EntityType>
         <EntityType Name="AppErrors">
           <Key>
             <PropertyRef Name="ID" />
@@ -13,6 +65,68 @@
           <Property Name="IP_Address" Type="varchar" MaxLength="100" />
           <Property Name="ErrorTime" Type="datetime" Nullable="false" />
           <Property Name="ErrorMessage" Type="varchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AspNetRoles">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="256" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AspNetUserClaims">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="ClaimType" Type="nvarchar(max)" />
+          <Property Name="ClaimValue" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="AspNetUserLogins">
+          <Key>
+            <PropertyRef Name="LoginProvider" />
+            <PropertyRef Name="ProviderKey" />
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="LoginProvider" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="ProviderKey" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AspNetUserRoles">
+          <Key>
+            <PropertyRef Name="UserId" />
+            <PropertyRef Name="RoleId" />
+          </Key>
+          <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="RoleId" Type="nvarchar" MaxLength="128" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AspNetUsers">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="Email" Type="nvarchar" MaxLength="256" />
+          <Property Name="EmailConfirmed" Type="bit" Nullable="false" />
+          <Property Name="PasswordHash" Type="nvarchar(max)" />
+          <Property Name="SecurityStamp" Type="nvarchar(max)" />
+          <Property Name="PhoneNumber" Type="nvarchar(max)" />
+          <Property Name="PhoneNumberConfirmed" Type="bit" Nullable="false" />
+          <Property Name="TwoFactorEnabled" Type="bit" Nullable="false" />
+          <Property Name="LockoutEndDateUtc" Type="datetime" />
+          <Property Name="LockoutEnabled" Type="bit" Nullable="false" />
+          <Property Name="AccessFailedCount" Type="int" Nullable="false" />
+          <Property Name="UserName" Type="nvarchar" MaxLength="256" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AspNetUsersLoginAttempts">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ASPNetUserID" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="IP_Address" Type="varchar(max)" />
+          <Property Name="LoginDatetime" Type="datetime" Nullable="false" />
+          <Property Name="Success" Type="bit" Nullable="false" />
+          <Property Name="Message" Type="varchar(max)" />
         </EntityType>
         <EntityType Name="BusinessTypes">
           <Key>
@@ -87,8 +201,407 @@
           <Property Name="Price" Type="money" Nullable="false" />
           <Property Name="IsActive" Type="bit" Nullable="false" />
         </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'Testing.dbo.Tbl_Activity_Main' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="Tbl_Activity_Main">
+          <Key>
+            <PropertyRef Name="ID" />
+            <PropertyRef Name="Paid" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="ActDate" Type="datetime" />
+          <Property Name="Customer" Type="int" />
+          <Property Name="EnterDate" Type="datetime" />
+          <Property Name="QBInvoice" Type="nvarchar" MaxLength="255" />
+          <Property Name="Paid" Type="bit" Nullable="false" />
+          <Property Name="InvoiceNote" Type="nvarchar" MaxLength="255" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'Testing.dbo.Tbl_Activity_Sub' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="Tbl_Activity_Sub">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="MainID" Type="smallint" />
+          <Property Name="Item" Type="smallint" />
+          <Property Name="Quantity" Type="int" />
+          <Property Name="Price" Type="money" />
+          <Property Name="Note" Type="nvarchar" MaxLength="255" />
+          <Property Name="EnterDate" Type="datetime" />
+          <Property Name="Type" Type="nvarchar" MaxLength="255" />
+          <Property Name="NewItem" Type="int" />
+          <Property Name="BatchID" Type="nvarchar" MaxLength="255" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6013: The table/view 'Testing.dbo.Tbl_BS' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+        <EntityType Name="Tbl_BS">
+          <Property Name="Company" Type="nvarchar" MaxLength="255" />
+          <Property Name="Year" Type="int" />
+          <Property Name="Month" Type="int" />
+          <Property Name="CreditAmount" Type="money" />
+          <Property Name="DebitAmount" Type="money" />
+          <Property Name="Group" Type="nvarchar" MaxLength="255" />
+          <Property Name="NoteAccount" Type="nvarchar" MaxLength="255" />
+          <Property Name="BatchID" Type="nvarchar" MaxLength="255" />
+        </EntityType>-->
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'Testing.dbo.Tbl_BudTrim' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="Tbl_BudTrim">
+          <Key>
+            <PropertyRef Name="Type" />
+          </Key>
+          <Property Name="Type" Type="nvarchar" MaxLength="255" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'Testing.dbo.Tbl_Company' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="Tbl_Company">
+          <Key>
+            <PropertyRef Name="Abbrev" />
+          </Key>
+          <Property Name="Abbrev" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="ShortName" Type="nvarchar" MaxLength="255" />
+          <Property Name="CompName" Type="nvarchar" MaxLength="255" />
+          <Property Name="AddressStreet" Type="nvarchar" MaxLength="255" />
+          <Property Name="AddressCity" Type="nvarchar" MaxLength="255" />
+          <Property Name="AddressSt" Type="nvarchar" MaxLength="255" />
+          <Property Name="AddressZip" Type="nvarchar" MaxLength="255" />
+          <Property Name="Contact" Type="nvarchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="Tbl_Customers">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Company" Type="nvarchar" MaxLength="255" />
+          <Property Name="Customer" Type="nvarchar" MaxLength="255" />
+          <Property Name="MainPhone" Type="nvarchar" MaxLength="255" />
+          <Property Name="Mobile" Type="nvarchar" MaxLength="255" />
+          <Property Name="MainEmail" Type="nvarchar(max)" />
+          <Property Name="AltEmail1" Type="nvarchar(max)" />
+          <Property Name="Street1" Type="nvarchar" MaxLength="255" />
+          <Property Name="City" Type="nvarchar" MaxLength="255" />
+          <Property Name="State" Type="nvarchar" MaxLength="255" />
+          <Property Name="Zip" Type="nvarchar" MaxLength="255" />
+          <Property Name="IndustryType" Type="nvarchar" MaxLength="255" />
+          <Property Name="OMMALicense" Type="nvarchar" MaxLength="255" />
+          <Property Name="EIN" Type="nvarchar" MaxLength="255" />
+          <Property Name="DocLink" Type="nvarchar(max)" />
+          <Property Name="EnterDate" Type="datetime" />
+          <Property Name="FEIN" Type="nvarchar" MaxLength="255" />
+          <Property Name="OBN" Type="nvarchar" MaxLength="255" />
+          <Property Name="AspNetUsersID" Type="nvarchar" MaxLength="128" />
+          <Property Name="JenBillTo" Type="nvarchar" MaxLength="255" />
+          <Property Name="JenEmail" Type="nvarchar" MaxLength="255" />
+          <Property Name="JenFirst" Type="nvarchar" MaxLength="255" />
+          <Property Name="JenLast" Type="nvarchar" MaxLength="255" />
+          <Property Name="JenEIN" Type="nvarchar" MaxLength="255" />
+          <Property Name="JenPhone" Type="nvarchar" MaxLength="255" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'Testing.dbo.Tbl_Employees' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="Tbl_Employees">
+          <Key>
+            <PropertyRef Name="Employee" />
+          </Key>
+          <Property Name="Employee" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="HireDate" Type="datetime" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'Testing.dbo.Tbl_Finances' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="Tbl_Finances">
+          <Key>
+            <PropertyRef Name="ID" />
+            <PropertyRef Name="FlagshipAccount" />
+            <PropertyRef Name="PriorMonth" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="Company" Type="nvarchar" MaxLength="255" />
+          <Property Name="Date" Type="datetime" />
+          <Property Name="Check" Type="nvarchar" MaxLength="255" />
+          <Property Name="Description" Type="nvarchar" MaxLength="255" />
+          <Property Name="Debit Amount" Type="money" />
+          <Property Name="Credit Amount" Type="money" />
+          <Property Name="Group" Type="nvarchar" MaxLength="255" />
+          <Property Name="NoteAccount" Type="nvarchar" MaxLength="255" />
+          <Property Name="Employee" Type="nvarchar" MaxLength="255" />
+          <Property Name="File" Type="nvarchar" MaxLength="255" />
+          <Property Name="FlagshipAccount" Type="bit" Nullable="false" />
+          <Property Name="InvoiceNote" Type="nvarchar" MaxLength="255" />
+          <Property Name="InvoiceID" Type="nvarchar" MaxLength="255" />
+          <Property Name="InvoiceAmt" Type="money" />
+          <Property Name="PriorMonth" Type="bit" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6013: The table/view 'Testing.dbo.Tbl_Finances_All' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+        <EntityType Name="Tbl_Finances_All">
+          <Property Name="Date" Type="datetime" />
+          <Property Name="Check" Type="nvarchar" MaxLength="255" />
+          <Property Name="Description" Type="nvarchar" MaxLength="255" />
+          <Property Name="Amount" Type="money" />
+          <Property Name="Group" Type="nvarchar" MaxLength="255" />
+          <Property Name="NoteAccount" Type="nvarchar" MaxLength="255" />
+          <Property Name="InvoiceID" Type="nvarchar" MaxLength="255" />
+          <Property Name="Employee" Type="nvarchar" MaxLength="255" />
+          <Property Name="CreditDebit" Type="nvarchar" MaxLength="255" />
+          <Property Name="CashLedger" Type="nvarchar" MaxLength="255" />
+          <Property Name="Company" Type="nvarchar" MaxLength="255" />
+          <Property Name="BatchID" Type="nvarchar" MaxLength="255" />
+        </EntityType>-->
+        <!--Errors Found During Generation:
+warning 6013: The table/view 'Testing.dbo.Tbl_Finances_Groiup_DD' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+        <EntityType Name="Tbl_Finances_Groiup_DD">
+          <Property Name="Group" Type="nvarchar" MaxLength="255" />
+        </EntityType>-->
+        <!--Errors Found During Generation:
+warning 6013: The table/view 'Testing.dbo.Tbl_Finances_Note_DD' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+        <EntityType Name="Tbl_Finances_Note_DD">
+          <Property Name="NoteAccount" Type="nvarchar" MaxLength="255" />
+        </EntityType>-->
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'Testing.dbo.Tbl_IndustryType' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="Tbl_IndustryType">
+          <Key>
+            <PropertyRef Name="Type" />
+          </Key>
+          <Property Name="Type" Type="nvarchar" MaxLength="255" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'Testing.dbo.Tbl_InvoiceIDs' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="Tbl_InvoiceIDs">
+          <Key>
+            <PropertyRef Name="InvID" />
+          </Key>
+          <Property Name="InvID" Type="nvarchar" MaxLength="255" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'Testing.dbo.Tbl_Lots_Purchased' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="Tbl_Lots_Purchased">
+          <Key>
+            <PropertyRef Name="ID" />
+            <PropertyRef Name="Complete" />
+            <PropertyRef Name="CBD" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="Lot/Set" Type="nvarchar" MaxLength="255" />
+          <Property Name="BuyDate" Type="datetime" />
+          <Property Name="Provider" Type="int" />
+          <Property Name="Cost" Type="money" />
+          <Property Name="Pounds" Type="float" />
+          <Property Name="Grams" Type="float" />
+          <Property Name="EnterDate" Type="datetime" />
+          <Property Name="Strains" Type="nvarchar" MaxLength="255" />
+          <Property Name="Notes" Type="nvarchar" MaxLength="255" />
+          <Property Name="BudTrim" Type="nvarchar" MaxLength="255" />
+          <Property Name="SatPackages" Type="int" />
+          <Property Name="IndPackages" Type="int" />
+          <Property Name="PricePerPound" Type="money" />
+          <Property Name="PricePerGram" Type="money" />
+          <Property Name="Complete" Type="bit" Nullable="false" />
+          <Property Name="CBD" Type="bit" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'Testing.dbo.Tbl_Month' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="Tbl_Month">
+          <Key>
+            <PropertyRef Name="MonthNum" />
+          </Key>
+          <Property Name="MonthNum" Type="int" Nullable="false" />
+          <Property Name="MonthName" Type="nvarchar" MaxLength="255" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'Testing.dbo.Tbl_Products' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="Tbl_Products">
+          <Key>
+            <PropertyRef Name="ID" />
+            <PropertyRef Name="Active" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="Type" Type="nvarchar" MaxLength="255" />
+          <Property Name="Strain" Type="nvarchar" MaxLength="255" />
+          <Property Name="BatchID" Type="nvarchar" MaxLength="255" />
+          <Property Name="Dominant" Type="nvarchar" MaxLength="255" />
+          <Property Name="CartGram" Type="float" />
+          <Property Name="Group" Type="nvarchar" MaxLength="255" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'Testing.dbo.Tbl_Products_Dominant' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="Tbl_Products_Dominant">
+          <Key>
+            <PropertyRef Name="ProdDom" />
+          </Key>
+          <Property Name="ProdDom" Type="nvarchar" MaxLength="255" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'Testing.dbo.Tbl_Products_Type' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="Tbl_Products_Type">
+          <Key>
+            <PropertyRef Name="ProdType" />
+          </Key>
+          <Property Name="ProdType" Type="nvarchar" MaxLength="255" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'Testing.dbo.Tbl_RunTypes' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="Tbl_RunTypes">
+          <Key>
+            <PropertyRef Name="RunType" />
+          </Key>
+          <Property Name="RunType" Type="nvarchar" MaxLength="255" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'Testing.dbo.Tbl_SC_Extractions' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="Tbl_SC_Extractions">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="SID" Type="int" />
+          <Property Name="SupplyID" Type="int" />
+          <Property Name="RunOrder" Type="int" />
+          <Property Name="RunType" Type="nvarchar" MaxLength="255" />
+          <Property Name="RunDate" Type="datetime" />
+          <Property Name="Operators" Type="nvarchar" MaxLength="255" />
+          <Property Name="RunBeginTime" Type="datetime" />
+          <Property Name="RunEndTime" Type="datetime" />
+          <Property Name="RunMinutes" Type="int" />
+          <Property Name="GramsYield" Type="int" />
+          <Property Name="RunNotes" Type="nvarchar(max)" />
+          <Property Name="ExtPSI" Type="nvarchar" MaxLength="255" />
+          <Property Name="ExtTemp" Type="nvarchar" MaxLength="255" />
+          <Property Name="SepPSI" Type="nvarchar" MaxLength="255" />
+          <Property Name="SepTemp" Type="nvarchar" MaxLength="255" />
+          <Property Name="EnterDate" Type="datetime" />
+          <Property Name="GramsIn" Type="int" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'Testing.dbo.Tbl_SC_Supply' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="Tbl_SC_Supply">
+          <Key>
+            <PropertyRef Name="ID" />
+            <PropertyRef Name="Split" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="Customer" Type="int" />
+          <Property Name="ProcessDate" Type="datetime" />
+          <Property Name="Strain" Type="nvarchar" MaxLength="255" />
+          <Property Name="Amount" Type="float" />
+          <Property Name="Unit" Type="nvarchar" MaxLength="255" />
+          <Property Name="Cost" Type="float" />
+          <Property Name="THC" Type="float" />
+          <Property Name="THCA" Type="float" />
+          <Property Name="D9THC" Type="float" />
+          <Property Name="TotalPotTHC" Type="float" />
+          <Property Name="CBD" Type="float" />
+          <Property Name="CBG" Type="float" />
+          <Property Name="CBN" Type="float" />
+          <Property Name="CBC" Type="float" />
+          <Property Name="TestDate" Type="datetime" />
+          <Property Name="Tester" Type="nvarchar" MaxLength="255" />
+          <Property Name="ProductNotes" Type="nvarchar" MaxLength="255" />
+          <Property Name="ExtractionNotes" Type="nvarchar(max)" />
+          <Property Name="ExtractionLog" Type="nvarchar(max)" />
+          <Property Name="MainBatch" Type="nvarchar" MaxLength="255" />
+          <Property Name="Batch" Type="nvarchar" MaxLength="255" />
+          <Property Name="Waste" Type="float" />
+          <Property Name="CartsCreated" Type="int" />
+          <Property Name="CartSize" Type="float" />
+          <Property Name="EnterDate" Type="datetime" />
+          <Property Name="LotNumber" Type="int" />
+          <Property Name="GramsCartableOil" Type="float" />
+          <Property Name="RefinedTerps" Type="float" />
+          <Property Name="GramsAfterDecarb" Type="float" />
+          <Property Name="GramsAfterTerp" Type="float" />
+          <Property Name="GramsTerpenesReintroduced" Type="float" />
+          <Property Name="CentrifugeMin" Type="float" />
+          <Property Name="Split" Type="bit" Nullable="false" />
+          <Property Name="SplitNote" Type="nvarchar" MaxLength="255" />
+          <Property Name="CandyGrams" Type="float" />
+          <Property Name="CandyMaker" Type="nvarchar" MaxLength="255" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'Testing.dbo.Tbl_Units' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="Tbl_Units">
+          <Key>
+            <PropertyRef Name="Unit" />
+          </Key>
+          <Property Name="Unit" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="UnitDesc" Type="nvarchar" MaxLength="255" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'Testing.dbo.Tbl_Vendors' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="Tbl_Vendors">
+          <Key>
+            <PropertyRef Name="Vendor" />
+          </Key>
+          <Property Name="Vendor" Type="nvarchar" MaxLength="255" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AspNetUserClaims" Type="Self.AspNetUserClaims" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserClaims">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AspNetUserLogins" Type="Self.AspNetUserLogins" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserLogins">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_AspNetUserRoles_dbo_AspNetRoles_RoleId">
+          <End Role="AspNetRoles" Type="Self.AspNetRoles" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AspNetUserRoles" Type="Self.AspNetUserRoles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetRoles">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserRoles">
+              <PropertyRef Name="RoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AspNetUserRoles" Type="Self.AspNetUserRoles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserRoles">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="SimpleCureModelStoreContainer">
+          <EntitySet Name="__MigrationHistory" EntityType="Self.__MigrationHistory" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AccountChangeLog" EntityType="Self.AccountChangeLog" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AppErrors" EntityType="Self.AppErrors" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AspNetRoles" EntityType="Self.AspNetRoles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AspNetUserClaims" EntityType="Self.AspNetUserClaims" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AspNetUserLogins" EntityType="Self.AspNetUserLogins" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AspNetUserRoles" EntityType="Self.AspNetUserRoles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUsers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AspNetUsersLoginAttempts" EntityType="Self.AspNetUsersLoginAttempts" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="BusinessTypes" EntityType="Self.BusinessTypes" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="OrderActivityHistory" EntityType="Self.OrderActivityHistory" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="OrderActivityTypes" EntityType="Self.OrderActivityTypes" Schema="dbo" store:Type="Tables" />
@@ -96,6 +609,257 @@
           <EntitySet Name="OrderInfo_Product" EntityType="Self.OrderInfo_Product" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="OrderInfo_Product_Groups" EntityType="Self.OrderInfo_Product_Groups" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="OrderInfo_Product_Types" EntityType="Self.OrderInfo_Product_Types" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tbl_Customers" EntityType="Self.Tbl_Customers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ALL" EntityType="Self.ALL" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [ALL].[ID] AS [ID], 
+    [ALL].[Field1] AS [Field1], 
+    [ALL].[Field2] AS [Field2], 
+    [ALL].[Field3] AS [Field3], 
+    [ALL].[Field4] AS [Field4], 
+    [ALL].[Type] AS [Type], 
+    [ALL].[Field6] AS [Field6], 
+    [ALL].[Date] AS [Date], 
+    [ALL].[Field8] AS [Field8], 
+    [ALL].[Num] AS [Num], 
+    [ALL].[Field10] AS [Field10], 
+    [ALL].[Memo] AS [Memo], 
+    [ALL].[Field12] AS [Field12], 
+    [ALL].[Name] AS [Name], 
+    [ALL].[Field14] AS [Field14], 
+    [ALL].[Item] AS [Item], 
+    [ALL].[Field16] AS [Field16], 
+    [ALL].[Qty] AS [Qty], 
+    [ALL].[Field18] AS [Field18], 
+    [ALL].[Sales Price] AS [Sales Price], 
+    [ALL].[Field20] AS [Field20], 
+    [ALL].[Amount] AS [Amount], 
+    [ALL].[Field22] AS [Field22], 
+    [ALL].[Balance] AS [Balance]
+    FROM [dbo].[ALL] AS [ALL]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="Tbl_Activity_Main" EntityType="Self.Tbl_Activity_Main" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [Tbl_Activity_Main].[ID] AS [ID], 
+    [Tbl_Activity_Main].[ActDate] AS [ActDate], 
+    [Tbl_Activity_Main].[Customer] AS [Customer], 
+    [Tbl_Activity_Main].[EnterDate] AS [EnterDate], 
+    [Tbl_Activity_Main].[QBInvoice] AS [QBInvoice], 
+    [Tbl_Activity_Main].[Paid] AS [Paid], 
+    [Tbl_Activity_Main].[InvoiceNote] AS [InvoiceNote]
+    FROM [dbo].[Tbl_Activity_Main] AS [Tbl_Activity_Main]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="Tbl_Activity_Sub" EntityType="Self.Tbl_Activity_Sub" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [Tbl_Activity_Sub].[ID] AS [ID], 
+    [Tbl_Activity_Sub].[MainID] AS [MainID], 
+    [Tbl_Activity_Sub].[Item] AS [Item], 
+    [Tbl_Activity_Sub].[Quantity] AS [Quantity], 
+    [Tbl_Activity_Sub].[Price] AS [Price], 
+    [Tbl_Activity_Sub].[Note] AS [Note], 
+    [Tbl_Activity_Sub].[EnterDate] AS [EnterDate], 
+    [Tbl_Activity_Sub].[Type] AS [Type], 
+    [Tbl_Activity_Sub].[NewItem] AS [NewItem], 
+    [Tbl_Activity_Sub].[BatchID] AS [BatchID]
+    FROM [dbo].[Tbl_Activity_Sub] AS [Tbl_Activity_Sub]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="Tbl_BudTrim" EntityType="Self.Tbl_BudTrim" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [Tbl_BudTrim].[Type] AS [Type]
+    FROM [dbo].[Tbl_BudTrim] AS [Tbl_BudTrim]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="Tbl_Company" EntityType="Self.Tbl_Company" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [Tbl_Company].[Abbrev] AS [Abbrev], 
+    [Tbl_Company].[ShortName] AS [ShortName], 
+    [Tbl_Company].[CompName] AS [CompName], 
+    [Tbl_Company].[AddressStreet] AS [AddressStreet], 
+    [Tbl_Company].[AddressCity] AS [AddressCity], 
+    [Tbl_Company].[AddressSt] AS [AddressSt], 
+    [Tbl_Company].[AddressZip] AS [AddressZip], 
+    [Tbl_Company].[Contact] AS [Contact]
+    FROM [dbo].[Tbl_Company] AS [Tbl_Company]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="Tbl_Employees" EntityType="Self.Tbl_Employees" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [Tbl_Employees].[Employee] AS [Employee], 
+    [Tbl_Employees].[HireDate] AS [HireDate]
+    FROM [dbo].[Tbl_Employees] AS [Tbl_Employees]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="Tbl_Finances" EntityType="Self.Tbl_Finances" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [Tbl_Finances].[ID] AS [ID], 
+    [Tbl_Finances].[Company] AS [Company], 
+    [Tbl_Finances].[Date] AS [Date], 
+    [Tbl_Finances].[Check] AS [Check], 
+    [Tbl_Finances].[Description] AS [Description], 
+    [Tbl_Finances].[Debit Amount] AS [Debit Amount], 
+    [Tbl_Finances].[Credit Amount] AS [Credit Amount], 
+    [Tbl_Finances].[Group] AS [Group], 
+    [Tbl_Finances].[NoteAccount] AS [NoteAccount], 
+    [Tbl_Finances].[Employee] AS [Employee], 
+    [Tbl_Finances].[File] AS [File], 
+    [Tbl_Finances].[FlagshipAccount] AS [FlagshipAccount], 
+    [Tbl_Finances].[InvoiceNote] AS [InvoiceNote], 
+    [Tbl_Finances].[InvoiceID] AS [InvoiceID], 
+    [Tbl_Finances].[InvoiceAmt] AS [InvoiceAmt], 
+    [Tbl_Finances].[PriorMonth] AS [PriorMonth]
+    FROM [dbo].[Tbl_Finances] AS [Tbl_Finances]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="Tbl_IndustryType" EntityType="Self.Tbl_IndustryType" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [Tbl_IndustryType].[Type] AS [Type]
+    FROM [dbo].[Tbl_IndustryType] AS [Tbl_IndustryType]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="Tbl_InvoiceIDs" EntityType="Self.Tbl_InvoiceIDs" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [Tbl_InvoiceIDs].[InvID] AS [InvID]
+    FROM [dbo].[Tbl_InvoiceIDs] AS [Tbl_InvoiceIDs]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="Tbl_Lots_Purchased" EntityType="Self.Tbl_Lots_Purchased" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [Tbl_Lots_Purchased].[ID] AS [ID], 
+    [Tbl_Lots_Purchased].[Lot/Set] AS [Lot/Set], 
+    [Tbl_Lots_Purchased].[BuyDate] AS [BuyDate], 
+    [Tbl_Lots_Purchased].[Provider] AS [Provider], 
+    [Tbl_Lots_Purchased].[Cost] AS [Cost], 
+    [Tbl_Lots_Purchased].[Pounds] AS [Pounds], 
+    [Tbl_Lots_Purchased].[Grams] AS [Grams], 
+    [Tbl_Lots_Purchased].[EnterDate] AS [EnterDate], 
+    [Tbl_Lots_Purchased].[Strains] AS [Strains], 
+    [Tbl_Lots_Purchased].[Notes] AS [Notes], 
+    [Tbl_Lots_Purchased].[BudTrim] AS [BudTrim], 
+    [Tbl_Lots_Purchased].[SatPackages] AS [SatPackages], 
+    [Tbl_Lots_Purchased].[IndPackages] AS [IndPackages], 
+    [Tbl_Lots_Purchased].[PricePerPound] AS [PricePerPound], 
+    [Tbl_Lots_Purchased].[PricePerGram] AS [PricePerGram], 
+    [Tbl_Lots_Purchased].[Complete] AS [Complete], 
+    [Tbl_Lots_Purchased].[CBD] AS [CBD]
+    FROM [dbo].[Tbl_Lots_Purchased] AS [Tbl_Lots_Purchased]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="Tbl_Month" EntityType="Self.Tbl_Month" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [Tbl_Month].[MonthNum] AS [MonthNum], 
+    [Tbl_Month].[MonthName] AS [MonthName]
+    FROM [dbo].[Tbl_Month] AS [Tbl_Month]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="Tbl_Products" EntityType="Self.Tbl_Products" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [Tbl_Products].[ID] AS [ID], 
+    [Tbl_Products].[Type] AS [Type], 
+    [Tbl_Products].[Strain] AS [Strain], 
+    [Tbl_Products].[BatchID] AS [BatchID], 
+    [Tbl_Products].[Dominant] AS [Dominant], 
+    [Tbl_Products].[CartGram] AS [CartGram], 
+    [Tbl_Products].[Group] AS [Group], 
+    [Tbl_Products].[Active] AS [Active]
+    FROM [dbo].[Tbl_Products] AS [Tbl_Products]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="Tbl_Products_Dominant" EntityType="Self.Tbl_Products_Dominant" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [Tbl_Products_Dominant].[ProdDom] AS [ProdDom]
+    FROM [dbo].[Tbl_Products_Dominant] AS [Tbl_Products_Dominant]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="Tbl_Products_Type" EntityType="Self.Tbl_Products_Type" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [Tbl_Products_Type].[ProdType] AS [ProdType]
+    FROM [dbo].[Tbl_Products_Type] AS [Tbl_Products_Type]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="Tbl_RunTypes" EntityType="Self.Tbl_RunTypes" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [Tbl_RunTypes].[RunType] AS [RunType]
+    FROM [dbo].[Tbl_RunTypes] AS [Tbl_RunTypes]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="Tbl_SC_Extractions" EntityType="Self.Tbl_SC_Extractions" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [Tbl_SC_Extractions].[ID] AS [ID], 
+    [Tbl_SC_Extractions].[SID] AS [SID], 
+    [Tbl_SC_Extractions].[SupplyID] AS [SupplyID], 
+    [Tbl_SC_Extractions].[RunOrder] AS [RunOrder], 
+    [Tbl_SC_Extractions].[RunType] AS [RunType], 
+    [Tbl_SC_Extractions].[RunDate] AS [RunDate], 
+    [Tbl_SC_Extractions].[Operators] AS [Operators], 
+    [Tbl_SC_Extractions].[RunBeginTime] AS [RunBeginTime], 
+    [Tbl_SC_Extractions].[RunEndTime] AS [RunEndTime], 
+    [Tbl_SC_Extractions].[RunMinutes] AS [RunMinutes], 
+    [Tbl_SC_Extractions].[GramsYield] AS [GramsYield], 
+    [Tbl_SC_Extractions].[RunNotes] AS [RunNotes], 
+    [Tbl_SC_Extractions].[ExtPSI] AS [ExtPSI], 
+    [Tbl_SC_Extractions].[ExtTemp] AS [ExtTemp], 
+    [Tbl_SC_Extractions].[SepPSI] AS [SepPSI], 
+    [Tbl_SC_Extractions].[SepTemp] AS [SepTemp], 
+    [Tbl_SC_Extractions].[EnterDate] AS [EnterDate], 
+    [Tbl_SC_Extractions].[GramsIn] AS [GramsIn]
+    FROM [dbo].[Tbl_SC_Extractions] AS [Tbl_SC_Extractions]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="Tbl_SC_Supply" EntityType="Self.Tbl_SC_Supply" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [Tbl_SC_Supply].[ID] AS [ID], 
+    [Tbl_SC_Supply].[Customer] AS [Customer], 
+    [Tbl_SC_Supply].[ProcessDate] AS [ProcessDate], 
+    [Tbl_SC_Supply].[Strain] AS [Strain], 
+    [Tbl_SC_Supply].[Amount] AS [Amount], 
+    [Tbl_SC_Supply].[Unit] AS [Unit], 
+    [Tbl_SC_Supply].[Cost] AS [Cost], 
+    [Tbl_SC_Supply].[THC] AS [THC], 
+    [Tbl_SC_Supply].[THCA] AS [THCA], 
+    [Tbl_SC_Supply].[D9THC] AS [D9THC], 
+    [Tbl_SC_Supply].[TotalPotTHC] AS [TotalPotTHC], 
+    [Tbl_SC_Supply].[CBD] AS [CBD], 
+    [Tbl_SC_Supply].[CBG] AS [CBG], 
+    [Tbl_SC_Supply].[CBN] AS [CBN], 
+    [Tbl_SC_Supply].[CBC] AS [CBC], 
+    [Tbl_SC_Supply].[TestDate] AS [TestDate], 
+    [Tbl_SC_Supply].[Tester] AS [Tester], 
+    [Tbl_SC_Supply].[ProductNotes] AS [ProductNotes], 
+    [Tbl_SC_Supply].[ExtractionNotes] AS [ExtractionNotes], 
+    [Tbl_SC_Supply].[ExtractionLog] AS [ExtractionLog], 
+    [Tbl_SC_Supply].[MainBatch] AS [MainBatch], 
+    [Tbl_SC_Supply].[Batch] AS [Batch], 
+    [Tbl_SC_Supply].[Waste] AS [Waste], 
+    [Tbl_SC_Supply].[CartsCreated] AS [CartsCreated], 
+    [Tbl_SC_Supply].[CartSize] AS [CartSize], 
+    [Tbl_SC_Supply].[EnterDate] AS [EnterDate], 
+    [Tbl_SC_Supply].[LotNumber] AS [LotNumber], 
+    [Tbl_SC_Supply].[GramsCartableOil] AS [GramsCartableOil], 
+    [Tbl_SC_Supply].[RefinedTerps] AS [RefinedTerps], 
+    [Tbl_SC_Supply].[GramsAfterDecarb] AS [GramsAfterDecarb], 
+    [Tbl_SC_Supply].[GramsAfterTerp] AS [GramsAfterTerp], 
+    [Tbl_SC_Supply].[GramsTerpenesReintroduced] AS [GramsTerpenesReintroduced], 
+    [Tbl_SC_Supply].[CentrifugeMin] AS [CentrifugeMin], 
+    [Tbl_SC_Supply].[Split] AS [Split], 
+    [Tbl_SC_Supply].[SplitNote] AS [SplitNote], 
+    [Tbl_SC_Supply].[CandyGrams] AS [CandyGrams], 
+    [Tbl_SC_Supply].[CandyMaker] AS [CandyMaker]
+    FROM [dbo].[Tbl_SC_Supply] AS [Tbl_SC_Supply]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="Tbl_Units" EntityType="Self.Tbl_Units" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [Tbl_Units].[Unit] AS [Unit], 
+    [Tbl_Units].[UnitDesc] AS [UnitDesc]
+    FROM [dbo].[Tbl_Units] AS [Tbl_Units]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="Tbl_Vendors" EntityType="Self.Tbl_Vendors" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [Tbl_Vendors].[Vendor] AS [Vendor]
+    FROM [dbo].[Tbl_Vendors] AS [Tbl_Vendors]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="AspNetUserClaims" EntitySet="AspNetUserClaims" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="AspNetUserLogins" EntitySet="AspNetUserLogins" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AspNetUserRoles_dbo_AspNetRoles_RoleId" Association="Self.FK_dbo_AspNetUserRoles_dbo_AspNetRoles_RoleId">
+            <End Role="AspNetRoles" EntitySet="AspNetRoles" />
+            <End Role="AspNetUserRoles" EntitySet="AspNetUserRoles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="AspNetUserRoles" EntitySet="AspNetUserRoles" />
+          </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
@@ -185,6 +949,45 @@
           <EntitySet Name="OrderInfo_Product" EntityType="Self.OrderInfo_Product" />
           <EntitySet Name="OrderInfo_Product_Types" EntityType="Self.OrderInfo_Product_Types" />
           <EntitySet Name="OrderInfo_Product_Groups" EntityType="SimpleCureModel.OrderInfo_Product_Groups" />
+          <EntitySet Name="ALL" EntityType="SimpleCureModel.ALL" />
+          <EntitySet Name="Tbl_Activity_Main" EntityType="SimpleCureModel.Tbl_Activity_Main" />
+          <EntitySet Name="Tbl_Activity_Sub" EntityType="SimpleCureModel.Tbl_Activity_Sub" />
+          <EntitySet Name="Tbl_BudTrim" EntityType="SimpleCureModel.Tbl_BudTrim" />
+          <EntitySet Name="Tbl_Company" EntityType="SimpleCureModel.Tbl_Company" />
+          <EntitySet Name="Tbl_Customers" EntityType="SimpleCureModel.Tbl_Customers" />
+          <EntitySet Name="Tbl_Employees" EntityType="SimpleCureModel.Tbl_Employees" />
+          <EntitySet Name="Tbl_Finances" EntityType="SimpleCureModel.Tbl_Finances" />
+          <EntitySet Name="Tbl_IndustryType" EntityType="SimpleCureModel.Tbl_IndustryType" />
+          <EntitySet Name="Tbl_InvoiceIDs" EntityType="SimpleCureModel.Tbl_InvoiceIDs" />
+          <EntitySet Name="Tbl_Lots_Purchased" EntityType="SimpleCureModel.Tbl_Lots_Purchased" />
+          <EntitySet Name="Tbl_Month" EntityType="SimpleCureModel.Tbl_Month" />
+          <EntitySet Name="Tbl_Products" EntityType="SimpleCureModel.Tbl_Products" />
+          <EntitySet Name="Tbl_Products_Dominant" EntityType="SimpleCureModel.Tbl_Products_Dominant" />
+          <EntitySet Name="Tbl_Products_Type" EntityType="SimpleCureModel.Tbl_Products_Type" />
+          <EntitySet Name="Tbl_RunTypes" EntityType="SimpleCureModel.Tbl_RunTypes" />
+          <EntitySet Name="Tbl_SC_Extractions" EntityType="SimpleCureModel.Tbl_SC_Extractions" />
+          <EntitySet Name="Tbl_SC_Supply" EntityType="SimpleCureModel.Tbl_SC_Supply" />
+          <EntitySet Name="Tbl_Units" EntityType="SimpleCureModel.Tbl_Units" />
+          <EntitySet Name="Tbl_Vendors" EntityType="SimpleCureModel.Tbl_Vendors" />
+          <EntitySet Name="C__MigrationHistory" EntityType="SimpleCureModel.C__MigrationHistory" />
+          <EntitySet Name="AspNetRoles" EntityType="SimpleCureModel.AspNetRole" />
+          <EntitySet Name="AspNetUserClaims" EntityType="SimpleCureModel.AspNetUserClaim" />
+          <EntitySet Name="AspNetUserLogins" EntityType="SimpleCureModel.AspNetUserLogin" />
+          <EntitySet Name="AspNetUsers" EntityType="SimpleCureModel.AspNetUser" />
+          <EntitySet Name="AspNetUsersLoginAttempts" EntityType="SimpleCureModel.AspNetUsersLoginAttempt" />
+          <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="SimpleCureModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
+            <End Role="AspNetUser" EntitySet="AspNetUsers" />
+            <End Role="AspNetUserClaim" EntitySet="AspNetUserClaims" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" Association="SimpleCureModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+            <End Role="AspNetUser" EntitySet="AspNetUsers" />
+            <End Role="AspNetUserLogin" EntitySet="AspNetUserLogins" />
+          </AssociationSet>
+          <AssociationSet Name="AspNetUserRoles" Association="SimpleCureModel.AspNetUserRoles">
+            <End Role="AspNetRole" EntitySet="AspNetRoles" />
+            <End Role="AspNetUser" EntitySet="AspNetUsers" />
+          </AssociationSet>
+          <EntitySet Name="AccountChangeLogs" EntityType="SimpleCureModel.AccountChangeLog" />
         </EntityContainer>
         <EntityType Name="OrderInfo_Product_Groups">
           <Key>
@@ -192,6 +995,409 @@
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="GroupName" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="ALL">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="Field1" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Field2" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Field3" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Field4" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Type" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Field6" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Date" Type="DateTime" Precision="3" />
+          <Property Name="Field8" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Num" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Field10" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Memo" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Field12" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Field14" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Item" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Field16" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Qty" Type="Double" />
+          <Property Name="Field18" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Sales_Price" Type="Double" />
+          <Property Name="Field20" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Amount" Type="Double" />
+          <Property Name="Field22" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Balance" Type="Double" />
+        </EntityType>
+        <EntityType Name="Tbl_Activity_Main">
+          <Key>
+            <PropertyRef Name="ID" />
+            <PropertyRef Name="Paid" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="ActDate" Type="DateTime" Precision="3" />
+          <Property Name="Customer" Type="Int32" />
+          <Property Name="EnterDate" Type="DateTime" Precision="3" />
+          <Property Name="QBInvoice" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Paid" Type="Boolean" Nullable="false" />
+          <Property Name="InvoiceNote" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Tbl_Activity_Sub">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="MainID" Type="Int16" />
+          <Property Name="Item" Type="Int16" />
+          <Property Name="Quantity" Type="Int32" />
+          <Property Name="Price" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="Note" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="EnterDate" Type="DateTime" Precision="3" />
+          <Property Name="Type" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="NewItem" Type="Int32" />
+          <Property Name="BatchID" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Tbl_BudTrim">
+          <Key>
+            <PropertyRef Name="Type" />
+          </Key>
+          <Property Name="Type" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Tbl_Company">
+          <Key>
+            <PropertyRef Name="Abbrev" />
+          </Key>
+          <Property Name="Abbrev" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="ShortName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="CompName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="AddressStreet" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="AddressCity" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="AddressSt" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="AddressZip" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Contact" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Tbl_Customers">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="Company" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Customer" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="MainPhone" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Mobile" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="MainEmail" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="AltEmail1" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Street1" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="City" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="State" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Zip" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="IndustryType" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="OMMALicense" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="EIN" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="DocLink" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="EnterDate" Type="DateTime" Precision="3" />
+          <Property Name="FEIN" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="OBN" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="JenBillTo" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="JenEmail" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="JenFirst" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="JenLast" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="JenEIN" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="JenPhone" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="AspNetUsersID" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Tbl_Employees">
+          <Key>
+            <PropertyRef Name="Employee" />
+          </Key>
+          <Property Name="Employee" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="HireDate" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="Tbl_Finances">
+          <Key>
+            <PropertyRef Name="ID" />
+            <PropertyRef Name="FlagshipAccount" />
+            <PropertyRef Name="PriorMonth" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="Company" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Date" Type="DateTime" Precision="3" />
+          <Property Name="Check" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Debit_Amount" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="Credit_Amount" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="Group" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="NoteAccount" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Employee" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="File" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="FlagshipAccount" Type="Boolean" Nullable="false" />
+          <Property Name="InvoiceNote" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="InvoiceID" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="InvoiceAmt" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="PriorMonth" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Tbl_IndustryType">
+          <Key>
+            <PropertyRef Name="Type" />
+          </Key>
+          <Property Name="Type" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Tbl_InvoiceIDs">
+          <Key>
+            <PropertyRef Name="InvID" />
+          </Key>
+          <Property Name="InvID" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Tbl_Lots_Purchased">
+          <Key>
+            <PropertyRef Name="ID" />
+            <PropertyRef Name="Complete" />
+            <PropertyRef Name="CBD" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="Lot_Set" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="BuyDate" Type="DateTime" Precision="3" />
+          <Property Name="Provider" Type="Int32" />
+          <Property Name="Cost" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="Pounds" Type="Double" />
+          <Property Name="Grams" Type="Double" />
+          <Property Name="EnterDate" Type="DateTime" Precision="3" />
+          <Property Name="Strains" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Notes" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="BudTrim" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="SatPackages" Type="Int32" />
+          <Property Name="IndPackages" Type="Int32" />
+          <Property Name="PricePerPound" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="PricePerGram" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="Complete" Type="Boolean" Nullable="false" />
+          <Property Name="CBD" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Tbl_Month">
+          <Key>
+            <PropertyRef Name="MonthNum" />
+          </Key>
+          <Property Name="MonthNum" Type="Int32" Nullable="false" />
+          <Property Name="MonthName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Tbl_Products">
+          <Key>
+            <PropertyRef Name="ID" />
+            <PropertyRef Name="Active" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="Type" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Strain" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="BatchID" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Dominant" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="CartGram" Type="Double" />
+          <Property Name="Group" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Tbl_Products_Dominant">
+          <Key>
+            <PropertyRef Name="ProdDom" />
+          </Key>
+          <Property Name="ProdDom" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Tbl_Products_Type">
+          <Key>
+            <PropertyRef Name="ProdType" />
+          </Key>
+          <Property Name="ProdType" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Tbl_RunTypes">
+          <Key>
+            <PropertyRef Name="RunType" />
+          </Key>
+          <Property Name="RunType" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Tbl_SC_Extractions">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="SID" Type="Int32" />
+          <Property Name="SupplyID" Type="Int32" />
+          <Property Name="RunOrder" Type="Int32" />
+          <Property Name="RunType" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="RunDate" Type="DateTime" Precision="3" />
+          <Property Name="Operators" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="RunBeginTime" Type="DateTime" Precision="3" />
+          <Property Name="RunEndTime" Type="DateTime" Precision="3" />
+          <Property Name="RunMinutes" Type="Int32" />
+          <Property Name="GramsYield" Type="Int32" />
+          <Property Name="RunNotes" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ExtPSI" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="ExtTemp" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="SepPSI" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="SepTemp" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="EnterDate" Type="DateTime" Precision="3" />
+          <Property Name="GramsIn" Type="Int32" />
+        </EntityType>
+        <EntityType Name="Tbl_SC_Supply">
+          <Key>
+            <PropertyRef Name="ID" />
+            <PropertyRef Name="Split" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="Customer" Type="Int32" />
+          <Property Name="ProcessDate" Type="DateTime" Precision="3" />
+          <Property Name="Strain" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Amount" Type="Double" />
+          <Property Name="Unit" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Cost" Type="Double" />
+          <Property Name="THC" Type="Double" />
+          <Property Name="THCA" Type="Double" />
+          <Property Name="D9THC" Type="Double" />
+          <Property Name="TotalPotTHC" Type="Double" />
+          <Property Name="CBD" Type="Double" />
+          <Property Name="CBG" Type="Double" />
+          <Property Name="CBN" Type="Double" />
+          <Property Name="CBC" Type="Double" />
+          <Property Name="TestDate" Type="DateTime" Precision="3" />
+          <Property Name="Tester" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="ProductNotes" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="ExtractionNotes" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ExtractionLog" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="MainBatch" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Batch" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Waste" Type="Double" />
+          <Property Name="CartsCreated" Type="Int32" />
+          <Property Name="CartSize" Type="Double" />
+          <Property Name="EnterDate" Type="DateTime" Precision="3" />
+          <Property Name="LotNumber" Type="Int32" />
+          <Property Name="GramsCartableOil" Type="Double" />
+          <Property Name="RefinedTerps" Type="Double" />
+          <Property Name="GramsAfterDecarb" Type="Double" />
+          <Property Name="GramsAfterTerp" Type="Double" />
+          <Property Name="GramsTerpenesReintroduced" Type="Double" />
+          <Property Name="CentrifugeMin" Type="Double" />
+          <Property Name="Split" Type="Boolean" Nullable="false" />
+          <Property Name="SplitNote" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="CandyGrams" Type="Double" />
+          <Property Name="CandyMaker" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Tbl_Units">
+          <Key>
+            <PropertyRef Name="Unit" />
+          </Key>
+          <Property Name="Unit" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="UnitDesc" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Tbl_Vendors">
+          <Key>
+            <PropertyRef Name="Vendor" />
+          </Key>
+          <Property Name="Vendor" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="C__MigrationHistory">
+          <Key>
+            <PropertyRef Name="MigrationId" />
+            <PropertyRef Name="ContextKey" />
+          </Key>
+          <Property Name="MigrationId" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="ContextKey" Type="String" Nullable="false" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="Model" Type="Binary" Nullable="false" MaxLength="Max" FixedLength="false" />
+          <Property Name="ProductVersion" Type="String" Nullable="false" MaxLength="32" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="AspNetRole">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AspNetUsers" Relationship="SimpleCureModel.AspNetUserRoles" FromRole="AspNetRole" ToRole="AspNetUser" />
+        </EntityType>
+        <EntityType Name="AspNetUserClaim">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="ClaimType" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ClaimValue" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AspNetUser" Relationship="SimpleCureModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" FromRole="AspNetUserClaim" ToRole="AspNetUser" />
+        </EntityType>
+        <EntityType Name="AspNetUserLogin">
+          <Key>
+            <PropertyRef Name="LoginProvider" />
+            <PropertyRef Name="ProviderKey" />
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="LoginProvider" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="ProviderKey" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="UserId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AspNetUser" Relationship="SimpleCureModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUserLogin" ToRole="AspNetUser" />
+        </EntityType>
+        <EntityType Name="AspNetUser">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="EmailConfirmed" Type="Boolean" Nullable="false" />
+          <Property Name="PasswordHash" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="SecurityStamp" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PhoneNumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PhoneNumberConfirmed" Type="Boolean" Nullable="false" />
+          <Property Name="TwoFactorEnabled" Type="Boolean" Nullable="false" />
+          <Property Name="LockoutEndDateUtc" Type="DateTime" Precision="3" />
+          <Property Name="LockoutEnabled" Type="Boolean" Nullable="false" />
+          <Property Name="AccessFailedCount" Type="Int32" Nullable="false" />
+          <Property Name="UserName" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AspNetUserClaims" Relationship="SimpleCureModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" FromRole="AspNetUser" ToRole="AspNetUserClaim" />
+          <NavigationProperty Name="AspNetUserLogins" Relationship="SimpleCureModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUser" ToRole="AspNetUserLogin" />
+          <NavigationProperty Name="AspNetRoles" Relationship="SimpleCureModel.AspNetUserRoles" FromRole="AspNetUser" ToRole="AspNetRole" />
+        </EntityType>
+        <EntityType Name="AspNetUsersLoginAttempt">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ASPNetUserID" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="IP_Address" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="LoginDatetime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Success" Type="Boolean" Nullable="false" />
+          <Property Name="Message" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
+          <End Type="SimpleCureModel.AspNetUser" Role="AspNetUser" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="SimpleCureModel.AspNetUserClaim" Role="AspNetUserClaim" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUser">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserClaim">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+          <End Type="SimpleCureModel.AspNetUser" Role="AspNetUser" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="SimpleCureModel.AspNetUserLogin" Role="AspNetUserLogin" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUser">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserLogin">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="AspNetUserRoles">
+          <End Type="SimpleCureModel.AspNetRole" Role="AspNetRole" Multiplicity="*" />
+          <End Type="SimpleCureModel.AspNetUser" Role="AspNetUser" Multiplicity="*" />
+        </Association>
+        <EntityType Name="AccountChangeLog">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserIDChanged" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="ChangedBy" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="ChangedDateTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ChangeFrom" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="ChangeTo" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -285,6 +1491,396 @@
             <EntityTypeMapping TypeName="SimpleCureModel.OrderInfo_Product_Groups">
               <MappingFragment StoreEntitySet="OrderInfo_Product_Groups">
                 <ScalarProperty Name="GroupName" ColumnName="GroupName" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ALL">
+            <EntityTypeMapping TypeName="SimpleCureModel.ALL">
+              <MappingFragment StoreEntitySet="ALL">
+                <ScalarProperty Name="Balance" ColumnName="Balance" />
+                <ScalarProperty Name="Field22" ColumnName="Field22" />
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+                <ScalarProperty Name="Field20" ColumnName="Field20" />
+                <ScalarProperty Name="Sales_Price" ColumnName="Sales Price" />
+                <ScalarProperty Name="Field18" ColumnName="Field18" />
+                <ScalarProperty Name="Qty" ColumnName="Qty" />
+                <ScalarProperty Name="Field16" ColumnName="Field16" />
+                <ScalarProperty Name="Item" ColumnName="Item" />
+                <ScalarProperty Name="Field14" ColumnName="Field14" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Field12" ColumnName="Field12" />
+                <ScalarProperty Name="Memo" ColumnName="Memo" />
+                <ScalarProperty Name="Field10" ColumnName="Field10" />
+                <ScalarProperty Name="Num" ColumnName="Num" />
+                <ScalarProperty Name="Field8" ColumnName="Field8" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="Field6" ColumnName="Field6" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="Field4" ColumnName="Field4" />
+                <ScalarProperty Name="Field3" ColumnName="Field3" />
+                <ScalarProperty Name="Field2" ColumnName="Field2" />
+                <ScalarProperty Name="Field1" ColumnName="Field1" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tbl_Activity_Main">
+            <EntityTypeMapping TypeName="SimpleCureModel.Tbl_Activity_Main">
+              <MappingFragment StoreEntitySet="Tbl_Activity_Main">
+                <ScalarProperty Name="InvoiceNote" ColumnName="InvoiceNote" />
+                <ScalarProperty Name="Paid" ColumnName="Paid" />
+                <ScalarProperty Name="QBInvoice" ColumnName="QBInvoice" />
+                <ScalarProperty Name="EnterDate" ColumnName="EnterDate" />
+                <ScalarProperty Name="Customer" ColumnName="Customer" />
+                <ScalarProperty Name="ActDate" ColumnName="ActDate" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tbl_Activity_Sub">
+            <EntityTypeMapping TypeName="SimpleCureModel.Tbl_Activity_Sub">
+              <MappingFragment StoreEntitySet="Tbl_Activity_Sub">
+                <ScalarProperty Name="BatchID" ColumnName="BatchID" />
+                <ScalarProperty Name="NewItem" ColumnName="NewItem" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="EnterDate" ColumnName="EnterDate" />
+                <ScalarProperty Name="Note" ColumnName="Note" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="Item" ColumnName="Item" />
+                <ScalarProperty Name="MainID" ColumnName="MainID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tbl_BudTrim">
+            <EntityTypeMapping TypeName="SimpleCureModel.Tbl_BudTrim">
+              <MappingFragment StoreEntitySet="Tbl_BudTrim">
+                <ScalarProperty Name="Type" ColumnName="Type" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tbl_Company">
+            <EntityTypeMapping TypeName="SimpleCureModel.Tbl_Company">
+              <MappingFragment StoreEntitySet="Tbl_Company">
+                <ScalarProperty Name="Contact" ColumnName="Contact" />
+                <ScalarProperty Name="AddressZip" ColumnName="AddressZip" />
+                <ScalarProperty Name="AddressSt" ColumnName="AddressSt" />
+                <ScalarProperty Name="AddressCity" ColumnName="AddressCity" />
+                <ScalarProperty Name="AddressStreet" ColumnName="AddressStreet" />
+                <ScalarProperty Name="CompName" ColumnName="CompName" />
+                <ScalarProperty Name="ShortName" ColumnName="ShortName" />
+                <ScalarProperty Name="Abbrev" ColumnName="Abbrev" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tbl_Customers">
+            <EntityTypeMapping TypeName="SimpleCureModel.Tbl_Customers">
+              <MappingFragment StoreEntitySet="Tbl_Customers">
+                <ScalarProperty Name="AspNetUsersID" ColumnName="AspNetUsersID" />
+                <ScalarProperty Name="JenPhone" ColumnName="JenPhone" />
+                <ScalarProperty Name="JenEIN" ColumnName="JenEIN" />
+                <ScalarProperty Name="JenLast" ColumnName="JenLast" />
+                <ScalarProperty Name="JenFirst" ColumnName="JenFirst" />
+                <ScalarProperty Name="JenEmail" ColumnName="JenEmail" />
+                <ScalarProperty Name="JenBillTo" ColumnName="JenBillTo" />
+                <ScalarProperty Name="OBN" ColumnName="OBN" />
+                <ScalarProperty Name="FEIN" ColumnName="FEIN" />
+                <ScalarProperty Name="EnterDate" ColumnName="EnterDate" />
+                <ScalarProperty Name="DocLink" ColumnName="DocLink" />
+                <ScalarProperty Name="EIN" ColumnName="EIN" />
+                <ScalarProperty Name="OMMALicense" ColumnName="OMMALicense" />
+                <ScalarProperty Name="IndustryType" ColumnName="IndustryType" />
+                <ScalarProperty Name="Zip" ColumnName="Zip" />
+                <ScalarProperty Name="State" ColumnName="State" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="Street1" ColumnName="Street1" />
+                <ScalarProperty Name="AltEmail1" ColumnName="AltEmail1" />
+                <ScalarProperty Name="MainEmail" ColumnName="MainEmail" />
+                <ScalarProperty Name="Mobile" ColumnName="Mobile" />
+                <ScalarProperty Name="MainPhone" ColumnName="MainPhone" />
+                <ScalarProperty Name="Customer" ColumnName="Customer" />
+                <ScalarProperty Name="Company" ColumnName="Company" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tbl_Employees">
+            <EntityTypeMapping TypeName="SimpleCureModel.Tbl_Employees">
+              <MappingFragment StoreEntitySet="Tbl_Employees">
+                <ScalarProperty Name="HireDate" ColumnName="HireDate" />
+                <ScalarProperty Name="Employee" ColumnName="Employee" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tbl_Finances">
+            <EntityTypeMapping TypeName="SimpleCureModel.Tbl_Finances">
+              <MappingFragment StoreEntitySet="Tbl_Finances">
+                <ScalarProperty Name="PriorMonth" ColumnName="PriorMonth" />
+                <ScalarProperty Name="InvoiceAmt" ColumnName="InvoiceAmt" />
+                <ScalarProperty Name="InvoiceID" ColumnName="InvoiceID" />
+                <ScalarProperty Name="InvoiceNote" ColumnName="InvoiceNote" />
+                <ScalarProperty Name="FlagshipAccount" ColumnName="FlagshipAccount" />
+                <ScalarProperty Name="File" ColumnName="File" />
+                <ScalarProperty Name="Employee" ColumnName="Employee" />
+                <ScalarProperty Name="NoteAccount" ColumnName="NoteAccount" />
+                <ScalarProperty Name="Group" ColumnName="Group" />
+                <ScalarProperty Name="Credit_Amount" ColumnName="Credit Amount" />
+                <ScalarProperty Name="Debit_Amount" ColumnName="Debit Amount" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Check" ColumnName="Check" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="Company" ColumnName="Company" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tbl_IndustryType">
+            <EntityTypeMapping TypeName="SimpleCureModel.Tbl_IndustryType">
+              <MappingFragment StoreEntitySet="Tbl_IndustryType">
+                <ScalarProperty Name="Type" ColumnName="Type" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tbl_InvoiceIDs">
+            <EntityTypeMapping TypeName="SimpleCureModel.Tbl_InvoiceIDs">
+              <MappingFragment StoreEntitySet="Tbl_InvoiceIDs">
+                <ScalarProperty Name="InvID" ColumnName="InvID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tbl_Lots_Purchased">
+            <EntityTypeMapping TypeName="SimpleCureModel.Tbl_Lots_Purchased">
+              <MappingFragment StoreEntitySet="Tbl_Lots_Purchased">
+                <ScalarProperty Name="CBD" ColumnName="CBD" />
+                <ScalarProperty Name="Complete" ColumnName="Complete" />
+                <ScalarProperty Name="PricePerGram" ColumnName="PricePerGram" />
+                <ScalarProperty Name="PricePerPound" ColumnName="PricePerPound" />
+                <ScalarProperty Name="IndPackages" ColumnName="IndPackages" />
+                <ScalarProperty Name="SatPackages" ColumnName="SatPackages" />
+                <ScalarProperty Name="BudTrim" ColumnName="BudTrim" />
+                <ScalarProperty Name="Notes" ColumnName="Notes" />
+                <ScalarProperty Name="Strains" ColumnName="Strains" />
+                <ScalarProperty Name="EnterDate" ColumnName="EnterDate" />
+                <ScalarProperty Name="Grams" ColumnName="Grams" />
+                <ScalarProperty Name="Pounds" ColumnName="Pounds" />
+                <ScalarProperty Name="Cost" ColumnName="Cost" />
+                <ScalarProperty Name="Provider" ColumnName="Provider" />
+                <ScalarProperty Name="BuyDate" ColumnName="BuyDate" />
+                <ScalarProperty Name="Lot_Set" ColumnName="Lot/Set" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tbl_Month">
+            <EntityTypeMapping TypeName="SimpleCureModel.Tbl_Month">
+              <MappingFragment StoreEntitySet="Tbl_Month">
+                <ScalarProperty Name="MonthName" ColumnName="MonthName" />
+                <ScalarProperty Name="MonthNum" ColumnName="MonthNum" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tbl_Products">
+            <EntityTypeMapping TypeName="SimpleCureModel.Tbl_Products">
+              <MappingFragment StoreEntitySet="Tbl_Products">
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="Group" ColumnName="Group" />
+                <ScalarProperty Name="CartGram" ColumnName="CartGram" />
+                <ScalarProperty Name="Dominant" ColumnName="Dominant" />
+                <ScalarProperty Name="BatchID" ColumnName="BatchID" />
+                <ScalarProperty Name="Strain" ColumnName="Strain" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tbl_Products_Dominant">
+            <EntityTypeMapping TypeName="SimpleCureModel.Tbl_Products_Dominant">
+              <MappingFragment StoreEntitySet="Tbl_Products_Dominant">
+                <ScalarProperty Name="ProdDom" ColumnName="ProdDom" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tbl_Products_Type">
+            <EntityTypeMapping TypeName="SimpleCureModel.Tbl_Products_Type">
+              <MappingFragment StoreEntitySet="Tbl_Products_Type">
+                <ScalarProperty Name="ProdType" ColumnName="ProdType" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tbl_RunTypes">
+            <EntityTypeMapping TypeName="SimpleCureModel.Tbl_RunTypes">
+              <MappingFragment StoreEntitySet="Tbl_RunTypes">
+                <ScalarProperty Name="RunType" ColumnName="RunType" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tbl_SC_Extractions">
+            <EntityTypeMapping TypeName="SimpleCureModel.Tbl_SC_Extractions">
+              <MappingFragment StoreEntitySet="Tbl_SC_Extractions">
+                <ScalarProperty Name="GramsIn" ColumnName="GramsIn" />
+                <ScalarProperty Name="EnterDate" ColumnName="EnterDate" />
+                <ScalarProperty Name="SepTemp" ColumnName="SepTemp" />
+                <ScalarProperty Name="SepPSI" ColumnName="SepPSI" />
+                <ScalarProperty Name="ExtTemp" ColumnName="ExtTemp" />
+                <ScalarProperty Name="ExtPSI" ColumnName="ExtPSI" />
+                <ScalarProperty Name="RunNotes" ColumnName="RunNotes" />
+                <ScalarProperty Name="GramsYield" ColumnName="GramsYield" />
+                <ScalarProperty Name="RunMinutes" ColumnName="RunMinutes" />
+                <ScalarProperty Name="RunEndTime" ColumnName="RunEndTime" />
+                <ScalarProperty Name="RunBeginTime" ColumnName="RunBeginTime" />
+                <ScalarProperty Name="Operators" ColumnName="Operators" />
+                <ScalarProperty Name="RunDate" ColumnName="RunDate" />
+                <ScalarProperty Name="RunType" ColumnName="RunType" />
+                <ScalarProperty Name="RunOrder" ColumnName="RunOrder" />
+                <ScalarProperty Name="SupplyID" ColumnName="SupplyID" />
+                <ScalarProperty Name="SID" ColumnName="SID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tbl_SC_Supply">
+            <EntityTypeMapping TypeName="SimpleCureModel.Tbl_SC_Supply">
+              <MappingFragment StoreEntitySet="Tbl_SC_Supply">
+                <ScalarProperty Name="CandyMaker" ColumnName="CandyMaker" />
+                <ScalarProperty Name="CandyGrams" ColumnName="CandyGrams" />
+                <ScalarProperty Name="SplitNote" ColumnName="SplitNote" />
+                <ScalarProperty Name="Split" ColumnName="Split" />
+                <ScalarProperty Name="CentrifugeMin" ColumnName="CentrifugeMin" />
+                <ScalarProperty Name="GramsTerpenesReintroduced" ColumnName="GramsTerpenesReintroduced" />
+                <ScalarProperty Name="GramsAfterTerp" ColumnName="GramsAfterTerp" />
+                <ScalarProperty Name="GramsAfterDecarb" ColumnName="GramsAfterDecarb" />
+                <ScalarProperty Name="RefinedTerps" ColumnName="RefinedTerps" />
+                <ScalarProperty Name="GramsCartableOil" ColumnName="GramsCartableOil" />
+                <ScalarProperty Name="LotNumber" ColumnName="LotNumber" />
+                <ScalarProperty Name="EnterDate" ColumnName="EnterDate" />
+                <ScalarProperty Name="CartSize" ColumnName="CartSize" />
+                <ScalarProperty Name="CartsCreated" ColumnName="CartsCreated" />
+                <ScalarProperty Name="Waste" ColumnName="Waste" />
+                <ScalarProperty Name="Batch" ColumnName="Batch" />
+                <ScalarProperty Name="MainBatch" ColumnName="MainBatch" />
+                <ScalarProperty Name="ExtractionLog" ColumnName="ExtractionLog" />
+                <ScalarProperty Name="ExtractionNotes" ColumnName="ExtractionNotes" />
+                <ScalarProperty Name="ProductNotes" ColumnName="ProductNotes" />
+                <ScalarProperty Name="Tester" ColumnName="Tester" />
+                <ScalarProperty Name="TestDate" ColumnName="TestDate" />
+                <ScalarProperty Name="CBC" ColumnName="CBC" />
+                <ScalarProperty Name="CBN" ColumnName="CBN" />
+                <ScalarProperty Name="CBG" ColumnName="CBG" />
+                <ScalarProperty Name="CBD" ColumnName="CBD" />
+                <ScalarProperty Name="TotalPotTHC" ColumnName="TotalPotTHC" />
+                <ScalarProperty Name="D9THC" ColumnName="D9THC" />
+                <ScalarProperty Name="THCA" ColumnName="THCA" />
+                <ScalarProperty Name="THC" ColumnName="THC" />
+                <ScalarProperty Name="Cost" ColumnName="Cost" />
+                <ScalarProperty Name="Unit" ColumnName="Unit" />
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+                <ScalarProperty Name="Strain" ColumnName="Strain" />
+                <ScalarProperty Name="ProcessDate" ColumnName="ProcessDate" />
+                <ScalarProperty Name="Customer" ColumnName="Customer" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tbl_Units">
+            <EntityTypeMapping TypeName="SimpleCureModel.Tbl_Units">
+              <MappingFragment StoreEntitySet="Tbl_Units">
+                <ScalarProperty Name="UnitDesc" ColumnName="UnitDesc" />
+                <ScalarProperty Name="Unit" ColumnName="Unit" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tbl_Vendors">
+            <EntityTypeMapping TypeName="SimpleCureModel.Tbl_Vendors">
+              <MappingFragment StoreEntitySet="Tbl_Vendors">
+                <ScalarProperty Name="Vendor" ColumnName="Vendor" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="C__MigrationHistory">
+            <EntityTypeMapping TypeName="SimpleCureModel.C__MigrationHistory">
+              <MappingFragment StoreEntitySet="__MigrationHistory">
+                <ScalarProperty Name="ProductVersion" ColumnName="ProductVersion" />
+                <ScalarProperty Name="Model" ColumnName="Model" />
+                <ScalarProperty Name="ContextKey" ColumnName="ContextKey" />
+                <ScalarProperty Name="MigrationId" ColumnName="MigrationId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AspNetRoles">
+            <EntityTypeMapping TypeName="SimpleCureModel.AspNetRole">
+              <MappingFragment StoreEntitySet="AspNetRoles">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AspNetUserClaims">
+            <EntityTypeMapping TypeName="SimpleCureModel.AspNetUserClaim">
+              <MappingFragment StoreEntitySet="AspNetUserClaims">
+                <ScalarProperty Name="ClaimValue" ColumnName="ClaimValue" />
+                <ScalarProperty Name="ClaimType" ColumnName="ClaimType" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AspNetUserLogins">
+            <EntityTypeMapping TypeName="SimpleCureModel.AspNetUserLogin">
+              <MappingFragment StoreEntitySet="AspNetUserLogins">
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="ProviderKey" ColumnName="ProviderKey" />
+                <ScalarProperty Name="LoginProvider" ColumnName="LoginProvider" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AspNetUsers">
+            <EntityTypeMapping TypeName="SimpleCureModel.AspNetUser">
+              <MappingFragment StoreEntitySet="AspNetUsers">
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="AccessFailedCount" ColumnName="AccessFailedCount" />
+                <ScalarProperty Name="LockoutEnabled" ColumnName="LockoutEnabled" />
+                <ScalarProperty Name="LockoutEndDateUtc" ColumnName="LockoutEndDateUtc" />
+                <ScalarProperty Name="TwoFactorEnabled" ColumnName="TwoFactorEnabled" />
+                <ScalarProperty Name="PhoneNumberConfirmed" ColumnName="PhoneNumberConfirmed" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="SecurityStamp" ColumnName="SecurityStamp" />
+                <ScalarProperty Name="PasswordHash" ColumnName="PasswordHash" />
+                <ScalarProperty Name="EmailConfirmed" ColumnName="EmailConfirmed" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AspNetUsersLoginAttempts">
+            <EntityTypeMapping TypeName="SimpleCureModel.AspNetUsersLoginAttempt">
+              <MappingFragment StoreEntitySet="AspNetUsersLoginAttempts">
+                <ScalarProperty Name="Message" ColumnName="Message" />
+                <ScalarProperty Name="Success" ColumnName="Success" />
+                <ScalarProperty Name="LoginDatetime" ColumnName="LoginDatetime" />
+                <ScalarProperty Name="IP_Address" ColumnName="IP_Address" />
+                <ScalarProperty Name="ASPNetUserID" ColumnName="ASPNetUserID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="AspNetUserRoles" TypeName="SimpleCureModel.AspNetUserRoles" StoreEntitySet="AspNetUserRoles">
+            <EndProperty Name="AspNetUser">
+              <ScalarProperty Name="Id" ColumnName="UserId" />
+            </EndProperty>
+            <EndProperty Name="AspNetRole">
+              <ScalarProperty Name="Id" ColumnName="RoleId" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <EntitySetMapping Name="AccountChangeLogs">
+            <EntityTypeMapping TypeName="SimpleCureModel.AccountChangeLog">
+              <MappingFragment StoreEntitySet="AccountChangeLog">
+                <ScalarProperty Name="ChangeTo" ColumnName="ChangeTo" />
+                <ScalarProperty Name="ChangeFrom" ColumnName="ChangeFrom" />
+                <ScalarProperty Name="ChangedDateTime" ColumnName="ChangedDateTime" />
+                <ScalarProperty Name="ChangedBy" ColumnName="ChangedBy" />
+                <ScalarProperty Name="UserIDChanged" ColumnName="UserIDChanged" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>

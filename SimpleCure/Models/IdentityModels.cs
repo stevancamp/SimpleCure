@@ -15,13 +15,13 @@ namespace SimpleCure.Models
             var userIdentity = await manager.CreateIdentityAsync(this, DefaultAuthenticationTypes.ApplicationCookie);
             // Add custom user claims here
             return userIdentity;
-        }
+        }      
     }
-
+    
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         public ApplicationDbContext()
-            : base("DefaultConnection", throwIfV1Schema: false)
+            : base("LoginConnection", throwIfV1Schema: false)
         {
         }
 
@@ -29,7 +29,6 @@ namespace SimpleCure.Models
         {
             return new ApplicationDbContext();
         }
-
-        public System.Data.Entity.DbSet<SimpleCure.Models.AdminModels.EditBusinessType_ViewModel> EditBusinessType_ViewModel { get; set; }
+      
     }
 }

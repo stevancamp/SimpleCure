@@ -33,5 +33,32 @@ namespace Library.DataModel
         public virtual DbSet<OrderInfo_Product> OrderInfo_Product { get; set; }
         public virtual DbSet<OrderInfo_Product_Types> OrderInfo_Product_Types { get; set; }
         public virtual DbSet<OrderInfo_Product_Groups> OrderInfo_Product_Groups { get; set; }
+        public virtual DbSet<ALL> ALL { get; set; }
+        public virtual DbSet<Tbl_Activity_Main> Tbl_Activity_Main { get; set; }
+        public virtual DbSet<Tbl_Activity_Sub> Tbl_Activity_Sub { get; set; }
+        public virtual DbSet<Tbl_BudTrim> Tbl_BudTrim { get; set; }
+        public virtual DbSet<Tbl_Company> Tbl_Company { get; set; }
+        public virtual DbSet<Tbl_Customers> Tbl_Customers { get; set; }
+        public virtual DbSet<Tbl_Employees> Tbl_Employees { get; set; }
+        public virtual DbSet<Tbl_Finances> Tbl_Finances { get; set; }
+        public virtual DbSet<Tbl_IndustryType> Tbl_IndustryType { get; set; }
+        public virtual DbSet<Tbl_InvoiceIDs> Tbl_InvoiceIDs { get; set; }
+        public virtual DbSet<Tbl_Lots_Purchased> Tbl_Lots_Purchased { get; set; }
+        public virtual DbSet<Tbl_Month> Tbl_Month { get; set; }
+        public virtual DbSet<Tbl_Products> Tbl_Products { get; set; }
+        public virtual DbSet<Tbl_Products_Dominant> Tbl_Products_Dominant { get; set; }
+        public virtual DbSet<Tbl_Products_Type> Tbl_Products_Type { get; set; }
+        public virtual DbSet<Tbl_RunTypes> Tbl_RunTypes { get; set; }
+        public virtual DbSet<Tbl_SC_Extractions> Tbl_SC_Extractions { get; set; }
+        public virtual DbSet<Tbl_SC_Supply> Tbl_SC_Supply { get; set; }
+        public virtual DbSet<Tbl_Units> Tbl_Units { get; set; }
+        public virtual DbSet<Tbl_Vendors> Tbl_Vendors { get; set; }
+        public virtual DbSet<C__MigrationHistory> C__MigrationHistory { get; set; }
+        public virtual DbSet<AspNetRole> AspNetRoles { get; set; }
+        public virtual DbSet<AspNetUserClaim> AspNetUserClaims { get; set; }
+        public virtual DbSet<AspNetUserLogin> AspNetUserLogins { get; set; }
+        public virtual DbSet<AspNetUser> AspNetUsers { get; set; }
+        public virtual DbSet<AspNetUsersLoginAttempt> AspNetUsersLoginAttempts { get; set; }
+        public virtual DbSet<AccountChangeLog> AccountChangeLogs { get; set; }
     }
 }

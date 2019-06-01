@@ -54,10 +54,36 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Customer\Methods\Customers.cs" />
+    <Compile Include="Customer\Models\CustomersLite.cs" />
+    <Compile Include="DataModel\AccountChangeLog.cs">
+      <DependentUpon>SimpleCureDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModel\ALL.cs">
+      <DependentUpon>SimpleCureDataModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="DataModel\AppError.cs">
       <DependentUpon>SimpleCureDataModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="DataModel\AspNetRole.cs">
+      <DependentUpon>SimpleCureDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModel\AspNetUser.cs">
+      <DependentUpon>SimpleCureDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModel\AspNetUserClaim.cs">
+      <DependentUpon>SimpleCureDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModel\AspNetUserLogin.cs">
+      <DependentUpon>SimpleCureDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModel\AspNetUsersLoginAttempt.cs">
+      <DependentUpon>SimpleCureDataModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="DataModel\BusinessType.cs">
+      <DependentUpon>SimpleCureDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModel\C__MigrationHistory.cs">
       <DependentUpon>SimpleCureDataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="DataModel\OrderActivityHistory.cs">
@@ -93,8 +119,67 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>SimpleCureDataModel.edmx</DependentUpon>
     </Compile>
+    <Compile Include="DataModel\Tbl_Activity_Main.cs">
+      <DependentUpon>SimpleCureDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModel\Tbl_Activity_Sub.cs">
+      <DependentUpon>SimpleCureDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModel\Tbl_BudTrim.cs">
+      <DependentUpon>SimpleCureDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModel\Tbl_Company.cs">
+      <DependentUpon>SimpleCureDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModel\Tbl_Customers.cs">
+      <DependentUpon>SimpleCureDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModel\Tbl_Employees.cs">
+      <DependentUpon>SimpleCureDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModel\Tbl_Finances.cs">
+      <DependentUpon>SimpleCureDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModel\Tbl_IndustryType.cs">
+      <DependentUpon>SimpleCureDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModel\Tbl_InvoiceIDs.cs">
+      <DependentUpon>SimpleCureDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModel\Tbl_Lots_Purchased.cs">
+      <DependentUpon>SimpleCureDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModel\Tbl_Month.cs">
+      <DependentUpon>SimpleCureDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModel\Tbl_Products.cs">
+      <DependentUpon>SimpleCureDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModel\Tbl_Products_Dominant.cs">
+      <DependentUpon>SimpleCureDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModel\Tbl_Products_Type.cs">
+      <DependentUpon>SimpleCureDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModel\Tbl_RunTypes.cs">
+      <DependentUpon>SimpleCureDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModel\Tbl_SC_Extractions.cs">
+      <DependentUpon>SimpleCureDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModel\Tbl_SC_Supply.cs">
+      <DependentUpon>SimpleCureDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModel\Tbl_Units.cs">
+      <DependentUpon>SimpleCureDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModel\Tbl_Vendors.cs">
+      <DependentUpon>SimpleCureDataModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Email\Methods\EmailMessage.cs" />
     <Compile Include="ErrorLogging\Methods\ApplicationError.cs" />
+    <Compile Include="LoginLogging\Methods\ChangeLogAccount.cs" />
+    <Compile Include="LoginLogging\Methods\UserLoginAttempts.cs" />
     <Compile Include="Orders\Methods\Order.cs" />
     <Compile Include="Orders\Methods\OrderHistory.cs" />
     <Compile Include="Orders\Methods\OrderProduct.cs" />
@@ -123,10 +208,13 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Customer\Classes\" />
     <Folder Include="Email\Classes\" />
     <Folder Include="Email\Models\" />
     <Folder Include="ErrorLogging\Classes\" />
     <Folder Include="ErrorLogging\Models\" />
+    <Folder Include="LoginLogging\Classes\" />
+    <Folder Include="LoginLogging\Models\" />
     <Folder Include="Orders\Classes\" />
     <Folder Include="Orders\Models\" />
     <Folder Include="Types\Classes\" />

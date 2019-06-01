@@ -178,7 +178,7 @@ function SubmitOrderHistory() {
            
         },
         function (data, status) {
-            window.location.href = $('#UrlNewOrder').val();
+            window.location.href = $('#UrlViewOrders').val();
         });
 
     

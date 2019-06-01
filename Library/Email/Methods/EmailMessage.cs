@@ -7,16 +7,7 @@ using System.Net.Mail;
 namespace Library.Email.Methods
 {
     public class EmailMessage
-    {
-        #region Injection
-        //private ApplicationError _applicaitonError;
-
-        //public EmailMessage()
-        //{
-        //    _applicaitonError = new ApplicationError();
-        //}
-        #endregion
-
+    {       
         public ResponseBase SendMessage(string To, string Subject, string Message)
         {
             ResponseBase response = new ResponseBase();
@@ -29,6 +20,7 @@ namespace Library.Email.Methods
                 mail.From = new MailAddress(ConfigurationManager.AppSettings["EmailAddress"]);
                 mail.To.Add(To);
                 mail.Body = Message;
+                mail.IsBodyHtml = true;
                 smtpServer.Port = Convert.ToInt32(ConfigurationManager.AppSettings["EmailPortNumber"]);
                 smtpServer.Credentials = new NetworkCredential(ConfigurationManager.AppSettings["EmailAddress"], ConfigurationManager.AppSettings["EmailPassword"]);
                 smtpServer.EnableSsl = true;

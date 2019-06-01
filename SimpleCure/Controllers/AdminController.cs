@@ -8,6 +8,7 @@ using System.Web.Mvc;
 
 namespace SimpleCure.Controllers
 {
+    [Authorize]
     //have to be at least site admin for these functions
     public class AdminController : Controller
     {
