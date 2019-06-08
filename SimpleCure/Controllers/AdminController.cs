@@ -1,10 +1,15 @@
 ﻿using BusinessLayer.Functions.Customer;
+using BusinessLayer.Functions.Discount;
 using BusinessLayer.Functions.Email;
 using BusinessLayer.Functions.ErrorLogging;
 using BusinessLayer.Functions.LoginLogger;
+using BusinessLayer.Functions.OrderProducts;
+using BusinessLayer.Functions.OrderStatus;
+using BusinessLayer.Functions.ProductGroup;
 using BusinessLayer.Functions.Types;
 using BusinessLayer.Models.CustomerModels;
 using BusinessLayer.Models.LoginAttemptModels;
+using BusinessLayer.Models.OrderStatusModels;
 using BusinessLayer.Models.TypeModels;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
@@ -12,6 +17,7 @@ using Newtonsoft.Json;
 using SimpleCure.Helpers;
 using SimpleCure.Models;
 using SimpleCure.Models.AdminModels;
+using SimpleCure.Models.OrderStatusModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -32,6 +38,10 @@ namespace SimpleCure.Controllers
         private ApplicationUserManager _userManager;
         private EmailFunctions _emailFunctions;
         private LoginAttemptFunctions _loginAttemptFunctions;
+        private OrderStatusFunctions _orderStatusFucntions;
+        private OrderProductsFunctions _orderProductFunctions;
+        private ProductGroupFunctions _productGroupFunctions;
+        private DiscountFunctions _discountFunctions;
 
         public AdminController()
         {
@@ -40,7 +50,11 @@ namespace SimpleCure.Controllers
             _helper = new Helper();
             _customerFunctions = new CustomerFunctions();
             _emailFunctions = new EmailFunctions();
-            _loginAttemptFunctions = new LoginAttemptFunctions();          
+            _loginAttemptFunctions = new LoginAttemptFunctions();
+            _orderStatusFucntions = new OrderStatusFunctions();
+            _orderProductFunctions = new OrderProductsFunctions();
+            _productGroupFunctions = new ProductGroupFunctions();
+            _discountFunctions = new DiscountFunctions();
         }
 
         public ApplicationUserManager UserManager
@@ -101,6 +115,37 @@ namespace SimpleCure.Controllers
         {
             return PartialView("_CreateBusinessType");
         }
+        public ActionResult EditBusinessType(int ID)
+        {
+            EditBusinessType_ViewModel model = new EditBusinessType_ViewModel();
+
+            try
+            {
+                var BusinessType = _typeFunctions.GetBusinessTypeByID(ID);
+                if (BusinessType.ResponseSuccess)
+                {
+                    model.ID = BusinessType.GenericClass.ID;
+                    model.EditType = BusinessType.GenericClass.Type;
+                    model.IsActive = BusinessType.GenericClass.IsActive;
+                }
+                else
+                {
+                    BusinessTypes_ViewModel returnModel = new BusinessTypes_ViewModel();
+                    returnModel.ResponseMessage = "Unable to retrieve Business Type by ID " + ID;
+                    return View("BusinessTypes", model);
+                }
+            }
+            catch (Exception ex)
+            {
+                _loggerFunctions.Log(ex.ToString(), _helper.GetIp());
+                BusinessTypes_ViewModel returnModel = new BusinessTypes_ViewModel();
+                returnModel.ResponseMessage = "There was an error while retrieving the Business Type by ID " + ID;
+                returnModel.ResponseSuccess = false;
+                return RedirectToAction("BusinessTypes", model);
+            }
+
+            return PartialView("_EditBusinessType", model);
+        }
         [HttpPost]
         public ActionResult SaveBusinessType(string CreateType)
         {
@@ -142,37 +187,7 @@ namespace SimpleCure.Controllers
 
             return RedirectToAction("BusinessTypes", model);
         }
-        public ActionResult EditBusinessType(int ID)
-        {
-            EditBusinessType_ViewModel model = new EditBusinessType_ViewModel();
-
-            try
-            {
-                var BusinessType = _typeFunctions.GetBusinessTypeByID(ID);
-                if (BusinessType.ResponseSuccess)
-                {
-                    model.ID = BusinessType.GenericClass.ID;
-                    model.EditType = BusinessType.GenericClass.Type;
-                    model.IsActive = BusinessType.GenericClass.IsActive;
-                }
-                else
-                {
-                    BusinessTypes_ViewModel returnModel = new BusinessTypes_ViewModel();
-                    returnModel.ResponseMessage = "Unable to retrieve Business Type by ID " + ID;
-                    return View("BusinessTypes", model);
-                }
-            }
-            catch (Exception ex)
-            {
-                _loggerFunctions.Log(ex.ToString(), _helper.GetIp());
-                BusinessTypes_ViewModel returnModel = new BusinessTypes_ViewModel();
-                returnModel.ResponseMessage = "There was an error while retrieving the Business Type by ID " + ID;
-                returnModel.ResponseSuccess = false;
-                return RedirectToAction("BusinessTypes", model);
-            }
-
-            return PartialView("_EditBusinessType", model);
-        }
+       
         [HttpPost]
         public ActionResult SaveBusinessTypeEdit(FormCollection formCollection)
         {
@@ -812,6 +827,248 @@ namespace SimpleCure.Controllers
             //modelstate is not valid
             return View(model);
         }
+
+        #endregion
+
+        #region Order Status 
+        //intial view
+        public ActionResult OrderStatus(ResponseBase response = null)
+        {          
+            var Status = _orderStatusFucntions.GetAll();
+
+            OrderStatus_ViewModel model = new OrderStatus_ViewModel();
+            model.OrderStatus = Status.GenericClassList;
+
+            if (string.IsNullOrEmpty(response.ResponseMessage) && Status.ResponseSuccess)
+            {
+                model.ResponseSuccess = Status.ResponseSuccess;
+                model.ResponseMessage = Status.ResponseMessage;
+                switch (Status.responseTypes)
+                {
+                    case BusinessLayer.Models.ResponseTypes.Success:
+                        model.responseTypes = ResponseTypes.Success;
+                        break;
+                    case BusinessLayer.Models.ResponseTypes.Failure:
+                        model.responseTypes = ResponseTypes.Failure;
+                        break;
+                    case BusinessLayer.Models.ResponseTypes.Information:
+                        model.responseTypes = ResponseTypes.Information;
+                        break;
+                    default:
+                        model.responseTypes = ResponseTypes.Failure;
+                        break;
+                }
+            }
+            else
+            {
+                model.ResponseSuccess = response.ResponseSuccess;
+                model.ResponseMessage = response.ResponseMessage;
+                switch (response.responseTypes)
+                {
+                    case ResponseTypes.Success:
+                        model.responseTypes = ResponseTypes.Success;
+                        break;
+                    case ResponseTypes.Failure:
+                        model.responseTypes = ResponseTypes.Failure;
+                        break;
+                    case ResponseTypes.Information:
+                        model.responseTypes = ResponseTypes.Information;
+                        break;
+                    default:
+                        model.responseTypes = ResponseTypes.Failure;
+                        break;
+                }
+            }
+
+            return View(model);
+        }
+        //create partial view 
+        public ActionResult CreateOrderStatus()
+        {
+            return PartialView("_CreateOrderStatus");
+        }
+
+        //Edit Partial view
+        public ActionResult EditOrderStatus(int ID)
+        {
+            EditOrderStatus_ViewModel model = new EditOrderStatus_ViewModel();
+            ResponseBase response = new ResponseBase();
+            try
+            {
+                var OrderStatus = _orderStatusFucntions.GetByID(ID);
+                if (OrderStatus.ResponseSuccess)
+                {
+                    model.ID = OrderStatus.GenericClass.ID;
+                    model.Status = OrderStatus.GenericClass.Status;
+                    response.ResponseSuccess = OrderStatus.ResponseSuccess;
+                    response.responseTypes = ResponseTypes.Success;
+                    response.ResponseMessage = OrderStatus.ResponseMessage;
+                }
+                else
+                {                   
+                    response.ResponseSuccess = OrderStatus.ResponseSuccess;
+                    response.responseTypes = ResponseTypes.Information;
+                    response.ResponseMessage = OrderStatus.ResponseMessage;
+                    return RedirectToAction("OrderStatus", response);
+                }
+            }
+            catch (Exception ex)
+            {
+                _loggerFunctions.Log(ex.ToString(), _helper.GetIp());
+               
+                response.ResponseSuccess = false;
+                response.responseTypes = ResponseTypes.Failure;
+                response.ResponseMessage = ex.ToString();
+                return RedirectToAction("OrderStatus", response);
+            }
+
+            return PartialView("_EditOrderStatus", model);
+        }
+        //post new
+        [HttpPost]
+        public ActionResult SaveOrderStatus(CreateOrderStatus_ViewModel model)
+        {                   
+            OrderStatus_Models toAdd = new OrderStatus_Models();
+            toAdd.ID = model.ID;
+            toAdd.Status = model.Status;
+
+            var Saved = _orderStatusFucntions.Add(toAdd);
+
+            ResponseBase response = new ResponseBase();
+            response.ResponseInt = Saved.ResponseInt;
+            response.ResponseListInt = Saved.ResponseListInt;
+            response.ResponseListString = Saved.ResponseListString;
+            response.ResponseMessage = Saved.ResponseMessage;
+            response.ResponseString = Saved.ResponseString;
+            response.ResponseSuccess = Saved.ResponseSuccess;
+            switch (Saved.responseTypes)
+            {
+                case BusinessLayer.Models.ResponseTypes.Success:
+                    response.responseTypes = ResponseTypes.Success;
+                    break;
+                case BusinessLayer.Models.ResponseTypes.Failure:
+                    response.responseTypes = ResponseTypes.Failure;
+                    break;
+                case BusinessLayer.Models.ResponseTypes.Information:
+                    response.responseTypes = ResponseTypes.Information;
+                    break;
+                default:
+                    response.responseTypes = ResponseTypes.Failure;
+                    break;
+            }
+
+            return RedirectToAction("OrderStatus", response);
+        }
+
+        //post update
+        [HttpPost]
+        public ActionResult SaveOrderStatusEdit(EditOrderStatus_ViewModel model)
+        {
+
+            ResponseBase response = new ResponseBase();
+
+            if (model.ID > 0)
+            {
+                OrderStatus_Models OrderStatus = new OrderStatus_Models();
+                OrderStatus.ID = model.ID;
+                OrderStatus.Status = model.Status;
+                    
+                var Updated = _orderStatusFucntions.Update(OrderStatus);
+                if (Updated.ResponseSuccess)
+                {
+                    response.ResponseSuccess = Updated.ResponseSuccess;
+                    response.ResponseMessage = Updated.ResponseMessage;
+                    response.responseTypes = ResponseTypes.Success;
+                }
+                else
+                {
+                    response.ResponseSuccess = Updated.ResponseSuccess;
+                    response.ResponseMessage = Updated.ResponseMessage;
+                    switch (Updated.responseTypes)
+                    {
+                        case BusinessLayer.Models.ResponseTypes.Success:
+                            response.responseTypes = ResponseTypes.Success;
+                            break;
+                        case BusinessLayer.Models.ResponseTypes.Failure:
+                            response.responseTypes = ResponseTypes.Failure;
+                            break;
+                        case BusinessLayer.Models.ResponseTypes.Information:
+                            response.responseTypes = ResponseTypes.Information;
+                            break;
+                        default:
+                            response.responseTypes = ResponseTypes.Failure;
+                            break;
+                    }
+                }
+            }
+            else
+            {
+                response.ResponseSuccess = false;
+                response.ResponseMessage = "You must provide a Order Status ID.";
+                response.responseTypes = ResponseTypes.Failure;
+            }
+
+            return RedirectToAction("OrderStatus", response);
+        }
+
+        //post delete
+        [HttpPost]
+        public ActionResult DeleteOrderStatus(int ID)
+        {
+            ResponseBase response = new ResponseBase();
+
+            if (ID > 0)
+            {
+                var Deleted = _orderStatusFucntions.Delete(ID);
+                if (Deleted.ResponseSuccess)
+                {
+                    response.ResponseSuccess = Deleted.ResponseSuccess;
+                    response.ResponseMessage = Deleted.ResponseMessage;
+                    response.responseTypes = ResponseTypes.Success;
+                }
+                else
+                {
+                    response.ResponseSuccess = Deleted.ResponseSuccess;
+                    response.ResponseMessage = Deleted.ResponseMessage;
+                    switch (Deleted.responseTypes)
+                    {
+                        case BusinessLayer.Models.ResponseTypes.Success:
+                            response.responseTypes = ResponseTypes.Success;
+                            break;
+                        case BusinessLayer.Models.ResponseTypes.Failure:
+                            response.responseTypes = ResponseTypes.Failure;
+                            break;
+                        case BusinessLayer.Models.ResponseTypes.Information:
+                            response.responseTypes = ResponseTypes.Information;
+                            break;
+                        default:
+                            response.responseTypes = ResponseTypes.Failure;
+                            break;
+                    }
+                }
+            }
+            else
+            {
+                response.ResponseSuccess = false;
+                response.ResponseMessage = "You must provide a Order Status ID.";
+                response.responseTypes = ResponseTypes.Failure;
+            }
+
+            return RedirectToAction("OrderStatus", response);
+
+        }
+
+        #endregion
+
+        #region Products 
+
+        #endregion
+
+        #region Product Groups 
+
+        #endregion
+
+        #region Order Discounts
 
         #endregion
 

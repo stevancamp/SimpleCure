@@ -90,7 +90,8 @@
                      "BusinessTypes",
                      "Admin"
                      )
-                                </li>                               
+                                </li>
+                           
                             </ul>
                         </li>
                         <li>
@@ -110,11 +111,19 @@
                         <ul id="side-admin-menu" class="side-menu list-unstyled">
                             <li>
                                 @Html.ActionLink(" Logs",
-                          "ApplicaitonLogs",
-                          "Admin",
-                          null,
-                          new { @class = "icon-screen" }
-                          )
+                                "ApplicaitonLogs",
+                                "Admin",
+                                null,
+                                new { @class = "icon-screen" }
+                                )
+                            </li>
+                            <li>
+                                @Html.ActionLink(" Order Status",
+                                "OrderStatus",
+                                "Admin",
+                                null,
+                                new { @class = "icon-screen" }
+                                )
                             </li>
                         </ul>
                     </div>

@@ -208,6 +208,9 @@
     <Compile Include="Models\Generic.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\OrderStatusModels\CreateOrderStatus_ViewModel.cs" />
+    <Compile Include="Models\OrderStatusModels\EditOrderStatus_ViewModel.cs" />
+    <Compile Include="Models\OrderStatusModels\OrderStatus_ViewModel.cs" />
     <Compile Include="Models\ResponseBase.cs" />
     <Compile Include="Models\ResultTypes.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -775,11 +778,8 @@
     <Content Include="Scripts\umd\popper.js" />
     <Content Include="Scripts\umd\popper.min.js" />
     <Content Include="Scripts\ViewScripts\ApplicationLogsViewScript.js" />
-    <Content Include="Scripts\ViewScripts\NewOrderViewScript.js" />
-    <Content Include="Scripts\ViewScripts\OrderInfoProductGroupViewScirpt.js" />
-    <Content Include="Scripts\ViewScripts\OrderActivityTypesViewScirpt.js" />
-    <Content Include="Scripts\ViewScripts\OrderInfoProductTypesViewScirpt.js" />
     <Content Include="Scripts\ViewScripts\BusinessTypesViewScirpt.js" />
+    <Content Include="Scripts\ViewScripts\OrderStatusViewScript.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -839,6 +839,9 @@
     <Content Include="Views\Admin\UserRoleManagement.cshtml" />
     <Content Include="Views\Admin\RemoveAccount.cshtml" />
     <Content Include="Views\Admin\CreateNewCustomerAccount.cshtml" />
+    <Content Include="Views\Admin\OrderStatus.cshtml" />
+    <Content Include="Views\Admin\_EditOrderStatus.cshtml" />
+    <Content Include="Views\Admin\_CreateOrderStatus.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
