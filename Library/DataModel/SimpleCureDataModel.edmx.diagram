@@ -4,45 +4,47 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="3387fc3308b34f40b96a583a0d7f8b15" Name="Diagram1">
-        <EntityTypeShape EntityType="SimpleCureModel.AppError" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="SimpleCureModel.BusinessType" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="SimpleCureModel.OrderActivityHistory" Width="1.5" PointX="0.75" PointY="3.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="SimpleCureModel.OrderActivityType" Width="1.5" PointX="2.75" PointY="3.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="SimpleCureModel.OrderInfo" Width="1.5" PointX="4.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="SimpleCureModel.OrderInfo_Product" Width="1.5" PointX="4.75" PointY="5.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="SimpleCureModel.OrderInfo_Product_Types" Width="1.5" PointX="6.625" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="SimpleCureModel.OrderInfo_Product_Groups" Width="1.5" PointX="0.75" PointY="6.75" />
-        <EntityTypeShape EntityType="SimpleCureModel.ALL" Width="1.5" PointX="7.75" PointY="4.75" />
-        <EntityTypeShape EntityType="SimpleCureModel.Tbl_Activity_Main" Width="1.5" PointX="3.75" PointY="8.75" />
-        <EntityTypeShape EntityType="SimpleCureModel.Tbl_Activity_Sub" Width="1.5" PointX="9.75" PointY="0.75" />
-        <EntityTypeShape EntityType="SimpleCureModel.Tbl_BudTrim" Width="1.5" PointX="0.75" PointY="9.75" />
-        <EntityTypeShape EntityType="SimpleCureModel.Tbl_Company" Width="1.5" PointX="9.75" PointY="4.75" />
-        <EntityTypeShape EntityType="SimpleCureModel.Tbl_Customers" Width="1.5" PointX="9.75" PointY="8.75" />
-        <EntityTypeShape EntityType="SimpleCureModel.Tbl_Employees" Width="1.5" PointX="11.75" PointY="0.75" />
-        <EntityTypeShape EntityType="SimpleCureModel.Tbl_Finances" Width="1.5" PointX="0.75" PointY="11.75" />
-        <EntityTypeShape EntityType="SimpleCureModel.Tbl_IndustryType" Width="1.5" PointX="11.75" PointY="3.75" />
-        <EntityTypeShape EntityType="SimpleCureModel.Tbl_InvoiceIDs" Width="1.5" PointX="11.75" PointY="5.75" />
-        <EntityTypeShape EntityType="SimpleCureModel.Tbl_Lots_Purchased" Width="1.5" PointX="5.75" PointY="11.75" />
-        <EntityTypeShape EntityType="SimpleCureModel.Tbl_Month" Width="1.5" PointX="11.75" PointY="7.75" />
-        <EntityTypeShape EntityType="SimpleCureModel.Tbl_Products" Width="1.5" PointX="11.75" PointY="10.75" />
-        <EntityTypeShape EntityType="SimpleCureModel.Tbl_Products_Dominant" Width="1.5" PointX="2.75" PointY="12.75" />
-        <EntityTypeShape EntityType="SimpleCureModel.Tbl_Products_Type" Width="1.5" PointX="13.75" PointY="0.75" />
-        <EntityTypeShape EntityType="SimpleCureModel.Tbl_RunTypes" Width="1.5" PointX="13.75" PointY="2.75" />
-        <EntityTypeShape EntityType="SimpleCureModel.Tbl_SC_Extractions" Width="1.5" PointX="13.75" PointY="4.75" />
-        <EntityTypeShape EntityType="SimpleCureModel.Tbl_SC_Supply" Width="1.5" PointX="13.75" PointY="10.75" />
-        <EntityTypeShape EntityType="SimpleCureModel.Tbl_Units" Width="1.5" PointX="2.75" PointY="14.75" />
-        <EntityTypeShape EntityType="SimpleCureModel.Tbl_Vendors" Width="1.5" PointX="15.75" PointY="0.75" />
-        <EntityTypeShape EntityType="SimpleCureModel.C__MigrationHistory" Width="1.5" PointX="8.375" PointY="15.75" />
-        <EntityTypeShape EntityType="SimpleCureModel.AspNetRole" Width="1.5" PointX="16.375" PointY="4.5" />
-        <EntityTypeShape EntityType="SimpleCureModel.AspNetUserClaim" Width="1.5" PointX="20.875" PointY="3" />
-        <EntityTypeShape EntityType="SimpleCureModel.AspNetUserLogin" Width="1.5" PointX="20.875" PointY="5.75" />
-        <EntityTypeShape EntityType="SimpleCureModel.AspNetUser" Width="1.5" PointX="18.625" PointY="3.375" />
-        <EntityTypeShape EntityType="SimpleCureModel.AspNetUsersLoginAttempt" Width="1.5" PointX="10.375" PointY="15.75" />
-        <AssociationConnector Association="SimpleCureModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" />
-        <AssociationConnector Association="SimpleCureModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" />
-        <AssociationConnector Association="SimpleCureModel.AspNetUserRoles" />
-        <EntityTypeShape EntityType="SimpleCureModel.AccountChangeLog" Width="1.5" PointX="16.375" PointY="11.75" />
+      <Diagram DiagramId="b0bc985dcdcc495d853161f0eb04e53e" Name="Diagram1">
+        <EntityTypeShape EntityType="TestingModel.C__MigrationHistory" Width="1.5" PointX="0.75" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TestingModel.AccountChangeLog" Width="1.5" PointX="2.75" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TestingModel.AppError" Width="1.5" PointX="4.75" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TestingModel.AspNetRole" Width="1.5" PointX="0.75" PointY="2.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="TestingModel.AspNetUserClaim" Width="1.5" PointX="5.25" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="TestingModel.AspNetUserLogin" Width="1.5" PointX="5.25" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TestingModel.AspNetUser" Width="1.5" PointX="3" PointY="1.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="TestingModel.AspNetUsersLoginAttempt" Width="1.5" PointX="6.75" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TestingModel.BusinessType" Width="1.5" PointX="7.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TestingModel.Discount" Width="1.5" PointX="7.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TestingModel.Order" Width="1.5" PointX="8.75" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TestingModel.OrderActivity" Width="1.5" PointX="9.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TestingModel.OrderDiscount" Width="1.5" PointX="0.75" PointY="9.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TestingModel.OrderProduct" Width="1.5" PointX="2.75" PointY="9.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TestingModel.OrderStatu" Width="1.5" PointX="9.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TestingModel.ProductGroup" Width="1.5" PointX="4.75" PointY="9.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TestingModel.Product" Width="1.5" PointX="6.75" PointY="9.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TestingModel.Tbl_Customers" Width="1.5" PointX="8.75" PointY="9.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TestingModel.ALL" Width="1.5" PointX="10.75" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TestingModel.Tbl_Activity_Main" Width="1.5" PointX="11.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TestingModel.Tbl_Activity_Sub" Width="1.5" PointX="0.75" PointY="12.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TestingModel.Tbl_BudTrim" Width="1.5" PointX="11.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TestingModel.Tbl_Company" Width="1.5" PointX="2.75" PointY="12.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TestingModel.Tbl_Employees" Width="1.5" PointX="12.75" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TestingModel.Tbl_Finances" Width="1.5" PointX="12.75" PointY="9.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TestingModel.Tbl_IndustryType" Width="1.5" PointX="13.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TestingModel.Tbl_InvoiceIDs" Width="1.5" PointX="13.75" PointY="2.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TestingModel.Tbl_Lots_Purchased" Width="1.5" PointX="4.75" PointY="13.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TestingModel.Tbl_Month" Width="1.5" PointX="14.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TestingModel.Tbl_Products" Width="1.5" PointX="14.75" PointY="7.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TestingModel.Tbl_Products_Dominant" Width="1.5" PointX="10.75" PointY="14.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TestingModel.Tbl_Products_Type" Width="1.5" PointX="14.75" PointY="11.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TestingModel.Tbl_RunTypes" Width="1.5" PointX="12.75" PointY="14.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TestingModel.Tbl_SC_Extractions" Width="1.5" PointX="14.75" PointY="13.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TestingModel.Tbl_SC_Supply" Width="1.5" PointX="16.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TestingModel.Tbl_Units" Width="1.5" PointX="0.75" PointY="16.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TestingModel.Tbl_Vendors" Width="1.5" PointX="6.75" PointY="16.75" IsExpanded="true" />
+        <AssociationConnector Association="TestingModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" ManuallyRouted="false" />
+        <AssociationConnector Association="TestingModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" ManuallyRouted="false" />
+        <AssociationConnector Association="TestingModel.AspNetUserRoles" ManuallyRouted="false" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

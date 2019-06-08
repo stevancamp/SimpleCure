@@ -86,22 +86,28 @@
     <Compile Include="DataModel\C__MigrationHistory.cs">
       <DependentUpon>SimpleCureDataModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="DataModel\OrderActivityHistory.cs">
+    <Compile Include="DataModel\Discount.cs">
       <DependentUpon>SimpleCureDataModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="DataModel\OrderActivityType.cs">
+    <Compile Include="DataModel\Order.cs">
       <DependentUpon>SimpleCureDataModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="DataModel\OrderInfo.cs">
+    <Compile Include="DataModel\OrderActivity.cs">
       <DependentUpon>SimpleCureDataModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="DataModel\OrderInfo_Product.cs">
+    <Compile Include="DataModel\OrderDiscount.cs">
       <DependentUpon>SimpleCureDataModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="DataModel\OrderInfo_Product_Groups.cs">
+    <Compile Include="DataModel\OrderProduct.cs">
       <DependentUpon>SimpleCureDataModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="DataModel\OrderInfo_Product_Types.cs">
+    <Compile Include="DataModel\OrderStatu.cs">
+      <DependentUpon>SimpleCureDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModel\Product.cs">
+      <DependentUpon>SimpleCureDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModel\ProductGroup.cs">
       <DependentUpon>SimpleCureDataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="DataModel\SimpleCureDataModel.Context.cs">
@@ -180,18 +186,19 @@
     <Compile Include="ErrorLogging\Methods\ApplicationError.cs" />
     <Compile Include="LoginLogging\Methods\ChangeLogAccount.cs" />
     <Compile Include="LoginLogging\Methods\UserLoginAttempts.cs" />
-    <Compile Include="Orders\Methods\Order.cs" />
-    <Compile Include="Orders\Methods\OrderHistory.cs" />
-    <Compile Include="Orders\Methods\OrderProduct.cs" />
     <Compile Include="Generic.cs" />
     <Compile Include="ResponseBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ResponseTypes.cs" />
     <Compile Include="Types\Methods\Business_Type.cs" />
-    <Compile Include="Types\Methods\OrderInfo_Product_Group.cs" />
-    <Compile Include="Types\Methods\Order_Activity_Type.cs" />
-    <Compile Include="Types\Methods\Order_Info_Product_Type.cs" />
-    <Compile Include="Types\Models\Order_Info_Product_Types_With_GroupName.cs" />
+    <Compile Include="_Discount\Methods\_Discount.cs" />
+    <Compile Include="_OrderActivity\Methods\_OrderActivity.cs" />
+    <Compile Include="_OrderDiscount\Methods\_OrderDiscount.cs" />
+    <Compile Include="_OrderProducts\Methods\_OrderProducts.cs" />
+    <Compile Include="_OrderStatus\Methods\_OrderStatus.cs" />
+    <Compile Include="_Order\Methods\_Order.cs" />
+    <Compile Include="_ProductGroup\Methods\_ProductGroup.cs" />
+    <Compile Include="_Product\Methods\_Product.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.Config" />
@@ -215,9 +222,24 @@
     <Folder Include="ErrorLogging\Models\" />
     <Folder Include="LoginLogging\Classes\" />
     <Folder Include="LoginLogging\Models\" />
-    <Folder Include="Orders\Classes\" />
-    <Folder Include="Orders\Models\" />
     <Folder Include="Types\Classes\" />
+    <Folder Include="Types\Models\" />
+    <Folder Include="_Discount\Classes\" />
+    <Folder Include="_Discount\Model\" />
+    <Folder Include="_OrderActivity\Classes\" />
+    <Folder Include="_OrderActivity\Model\" />
+    <Folder Include="_OrderDiscount\Classes\" />
+    <Folder Include="_OrderDiscount\Model\" />
+    <Folder Include="_OrderProducts\Classes\" />
+    <Folder Include="_OrderProducts\Model\" />
+    <Folder Include="_OrderStatus\Classes\" />
+    <Folder Include="_OrderStatus\Model\" />
+    <Folder Include="_Order\Classes\" />
+    <Folder Include="_Order\Model\" />
+    <Folder Include="_ProductGroup\Classes\" />
+    <Folder Include="_ProductGroup\Model\" />
+    <Folder Include="_Product\Classes\" />
+    <Folder Include="_Product\Model\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="DataModel\SimpleCureDataModel.Context.tt">

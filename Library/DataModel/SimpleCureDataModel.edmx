@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="SimpleCureModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="TestingModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="__MigrationHistory">
           <Key>
             <PropertyRef Name="MigrationId" />
@@ -136,69 +136,87 @@ warning 6002: The table/view 'Testing.dbo.ALL' does not have a primary key defin
           <Property Name="Type" Type="varchar(max)" Nullable="false" />
           <Property Name="IsActive" Type="bit" Nullable="false" />
         </EntityType>
-        <EntityType Name="OrderActivityHistory">
+        <EntityType Name="Discount">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DiscountAmount" Type="money" Nullable="false" />
+          <Property Name="Type" Type="varchar" MaxLength="500" Nullable="false" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Order">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Tbl_CustomerID" Type="int" Nullable="false" />
+          <Property Name="Notes" Type="varchar(max)" />
+          <Property Name="SubmissionDate" Type="datetime" Nullable="false" />
+          <Property Name="OrderStatus" Type="int" Nullable="false" />
+          <Property Name="CompletionDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="OrderActivity">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="OrderID" Type="int" Nullable="false" />
-          <Property Name="OrderActivityTypeID" Type="int" Nullable="false" />
+          <Property Name="Status" Type="int" Nullable="false" />
           <Property Name="Notes" Type="varchar(max)" />
-          <Property Name="TimeStamp" Type="datetime" Nullable="false" />
+          <Property Name="ActivityDate" Type="datetime" Nullable="false" />
+          <Property Name="ActivityBy" Type="varchar" MaxLength="128" Nullable="false" />
         </EntityType>
-        <EntityType Name="OrderActivityTypes">
+        <EntityType Name="OrderDiscount">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Type" Type="varchar(max)" Nullable="false" />
+          <Property Name="OrderID" Type="int" Nullable="false" />
+          <Property Name="DiscountID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="OrderProducts">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="OrderID" Type="int" Nullable="false" />
+          <Property Name="ProductID" Type="int" Nullable="false" />
+          <Property Name="BatchID" Type="int" />
+          <Property Name="Quantity" Type="int" Nullable="false" />
+          <Property Name="Total" Type="money" Nullable="false" />
+          <Property Name="EntryBy" Type="varchar" MaxLength="128" Nullable="false" />
+          <Property Name="EntryDate" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="OrderStatus">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Status" Type="varchar" MaxLength="500" />
+        </EntityType>
+        <EntityType Name="ProductGroup">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="GroupName" Type="varchar" MaxLength="500" Nullable="false" />
           <Property Name="IsActive" Type="bit" Nullable="false" />
         </EntityType>
-        <EntityType Name="OrderInfo">
+        <EntityType Name="Products">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="CompanyName" Type="varchar(max)" Nullable="false" />
-          <Property Name="ContactName" Type="varchar" MaxLength="500" Nullable="false" />
-          <Property Name="OMMANumber" Type="varchar(max)" />
-          <Property Name="EINNumber" Type="varchar(max)" />
-          <Property Name="OBNDDNumber" Type="varchar(max)" />
-          <Property Name="PhoneNumber" Type="varchar" MaxLength="25" />
-          <Property Name="EmailAddress" Type="varchar(max)" />
-          <Property Name="StreetAddress" Type="varchar(max)" />
-          <Property Name="Notes" Type="varchar(max)" />
-          <Property Name="BusinessType" Type="varchar(max)" />
-          <Property Name="OrderSubmissionDate" Type="datetime" Nullable="false" />
-          <Property Name="Completed" Type="bit" Nullable="false" />
-          <Property Name="CompletionNotes" Type="varchar(max)" />
-        </EntityType>
-        <EntityType Name="OrderInfo_Product">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="OrderInfoID" Type="int" Nullable="false" />
-          <Property Name="Type" Type="int" Nullable="false" />
-          <Property Name="Quantity" Type="int" Nullable="false" />
-        </EntityType>
-        <EntityType Name="OrderInfo_Product_Groups">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="GroupName" Type="varchar" MaxLength="500" />
-        </EntityType>
-        <EntityType Name="OrderInfo_Product_Types">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="OrderInfo_Product_Group" Type="int" Nullable="false" />
+          <Property Name="Type" Type="varchar" MaxLength="500" Nullable="false" />
+          <Property Name="Description" Type="varchar(max)" Nullable="false" />
+          <Property Name="Strain" Type="varchar" MaxLength="500" Nullable="false" />
+          <Property Name="BatchID" Type="int" />
+          <Property Name="Dominant" Type="varchar" MaxLength="500" Nullable="false" />
+          <Property Name="CartGram" Type="decimal" Precision="18" Scale="4" Nullable="false" />
+          <Property Name="ProductGroup" Type="int" Nullable="false" />
+          <Property Name="PricePerGram" Type="money" Nullable="false" />
           <Property Name="ProductImage" Type="image" />
-          <Property Name="Type" Type="varchar(max)" Nullable="false" />
-          <Property Name="Type_SubHeader" Type="varchar(max)" />
-          <Property Name="Price" Type="money" Nullable="false" />
           <Property Name="IsActive" Type="bit" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
@@ -592,7 +610,7 @@ warning 6002: The table/view 'Testing.dbo.Tbl_Vendors' does not have a primary k
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="SimpleCureModelStoreContainer">
+        <EntityContainer Name="TestingModelStoreContainer">
           <EntitySet Name="__MigrationHistory" EntityType="Self.__MigrationHistory" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AccountChangeLog" EntityType="Self.AccountChangeLog" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AppErrors" EntityType="Self.AppErrors" Schema="dbo" store:Type="Tables" />
@@ -603,12 +621,14 @@ warning 6002: The table/view 'Testing.dbo.Tbl_Vendors' does not have a primary k
           <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUsers" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AspNetUsersLoginAttempts" EntityType="Self.AspNetUsersLoginAttempts" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="BusinessTypes" EntityType="Self.BusinessTypes" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="OrderActivityHistory" EntityType="Self.OrderActivityHistory" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="OrderActivityTypes" EntityType="Self.OrderActivityTypes" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="OrderInfo" EntityType="Self.OrderInfo" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="OrderInfo_Product" EntityType="Self.OrderInfo_Product" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="OrderInfo_Product_Groups" EntityType="Self.OrderInfo_Product_Groups" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="OrderInfo_Product_Types" EntityType="Self.OrderInfo_Product_Types" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Discount" EntityType="Self.Discount" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Order" EntityType="Self.Order" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="OrderActivity" EntityType="Self.OrderActivity" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="OrderDiscount" EntityType="Self.OrderDiscount" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="OrderProducts" EntityType="Self.OrderProducts" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="OrderStatus" EntityType="Self.OrderStatus" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ProductGroup" EntityType="Self.ProductGroup" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Products" EntityType="Self.Products" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Tbl_Customers" EntityType="Self.Tbl_Customers" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ALL" EntityType="Self.ALL" store:Type="Tables" store:Schema="dbo">
             <DefiningQuery>SELECT 
@@ -864,7 +884,28 @@ warning 6002: The table/view 'Testing.dbo.Tbl_Vendors' does not have a primary k
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
-      <Schema Namespace="SimpleCureModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+      <Schema Namespace="TestingModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="C__MigrationHistory">
+          <Key>
+            <PropertyRef Name="MigrationId" />
+            <PropertyRef Name="ContextKey" />
+          </Key>
+          <Property Name="MigrationId" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ContextKey" Type="String" MaxLength="300" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Model" Type="Binary" MaxLength="Max" FixedLength="false" Nullable="false" />
+          <Property Name="ProductVersion" Type="String" MaxLength="32" FixedLength="false" Unicode="true" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AccountChangeLog">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserIDChanged" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ChangedBy" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ChangedDateTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ChangeFrom" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ChangeTo" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
         <EntityType Name="AppError">
           <Key>
             <PropertyRef Name="ID" />
@@ -874,6 +915,66 @@ warning 6002: The table/view 'Testing.dbo.Tbl_Vendors' does not have a primary k
           <Property Name="ErrorTime" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="ErrorMessage" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
         </EntityType>
+        <EntityType Name="AspNetRole">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="AspNetUsers" Relationship="Self.AspNetUserRoles" FromRole="AspNetRoles" ToRole="AspNetUsers" />
+        </EntityType>
+        <EntityType Name="AspNetUserClaim">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ClaimType" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ClaimValue" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AspNetUser" Relationship="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" FromRole="AspNetUserClaims" ToRole="AspNetUsers" />
+        </EntityType>
+        <EntityType Name="AspNetUserLogin">
+          <Key>
+            <PropertyRef Name="LoginProvider" />
+            <PropertyRef Name="ProviderKey" />
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="LoginProvider" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ProviderKey" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="UserId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="AspNetUser" Relationship="Self.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUserLogins" ToRole="AspNetUsers" />
+        </EntityType>
+        <EntityType Name="AspNetUser">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Email" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="EmailConfirmed" Type="Boolean" Nullable="false" />
+          <Property Name="PasswordHash" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="SecurityStamp" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PhoneNumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PhoneNumberConfirmed" Type="Boolean" Nullable="false" />
+          <Property Name="TwoFactorEnabled" Type="Boolean" Nullable="false" />
+          <Property Name="LockoutEndDateUtc" Type="DateTime" Precision="3" />
+          <Property Name="LockoutEnabled" Type="Boolean" Nullable="false" />
+          <Property Name="AccessFailedCount" Type="Int32" Nullable="false" />
+          <Property Name="UserName" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="AspNetUserClaims" Relationship="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" FromRole="AspNetUsers" ToRole="AspNetUserClaims" />
+          <NavigationProperty Name="AspNetUserLogins" Relationship="Self.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUsers" ToRole="AspNetUserLogins" />
+          <NavigationProperty Name="AspNetRoles" Relationship="Self.AspNetUserRoles" FromRole="AspNetUsers" ToRole="AspNetRoles" />
+        </EntityType>
+        <EntityType Name="AspNetUsersLoginAttempt">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ASPNetUserID" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="IP_Address" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="LoginDatetime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Success" Type="Boolean" Nullable="false" />
+          <Property Name="Message" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+        </EntityType>
         <EntityType Name="BusinessType">
           <Key>
             <PropertyRef Name="ID" />
@@ -882,119 +983,118 @@ warning 6002: The table/view 'Testing.dbo.Tbl_Vendors' does not have a primary k
           <Property Name="Type" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="IsActive" Type="Boolean" Nullable="false" />
         </EntityType>
-        <EntityType Name="OrderActivityHistory">
+        <EntityType Name="Discount">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Type" Type="String" MaxLength="500" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+          <Property Name="DiscountAmount" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+        </EntityType>
+        <EntityType Name="Order">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Tbl_CustomerID" Type="Int32" Nullable="false" />
+          <Property Name="Notes" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="SubmissionDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="OrderStatus" Type="Int32" Nullable="false" />
+          <Property Name="CompletionDate" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="OrderActivity">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="OrderID" Type="Int32" Nullable="false" />
-          <Property Name="OrderActivityTypeID" Type="Int32" Nullable="false" />
-          <Property Name="TimeStamp" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Status" Type="Int32" Nullable="false" />
           <Property Name="Notes" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="ActivityDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ActivityBy" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="false" />
         </EntityType>
-        <EntityType Name="OrderActivityType">
+        <EntityType Name="OrderDiscount">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Type" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+          <Property Name="OrderID" Type="Int32" Nullable="false" />
+          <Property Name="DiscountID" Type="Int32" Nullable="false" />
         </EntityType>
-        <EntityType Name="OrderInfo">
+        <EntityType Name="OrderProduct">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="CompanyName" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="ContactName" Type="String" MaxLength="500" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="OMMANumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="EINNumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="OBNDDNumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="PhoneNumber" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
-          <Property Name="EmailAddress" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="StreetAddress" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="Notes" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="BusinessType" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="OrderSubmissionDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="Completed" Type="Boolean" Nullable="false" />
-          <Property Name="CompletionNotes" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-        </EntityType>
-        <EntityType Name="OrderInfo_Product">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="OrderInfoID" Type="Int32" Nullable="false" />
-          <Property Name="Type" Type="Int32" Nullable="false" />
+          <Property Name="OrderID" Type="Int32" Nullable="false" />
+          <Property Name="ProductID" Type="Int32" Nullable="false" />
+          <Property Name="BatchID" Type="Int32" />
           <Property Name="Quantity" Type="Int32" Nullable="false" />
+          <Property Name="Total" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+          <Property Name="EntryBy" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="false" />
+          <Property Name="EntryDate" Type="DateTime" Nullable="false" Precision="3" />
         </EntityType>
-        <EntityType Name="OrderInfo_Product_Types">
+        <EntityType Name="OrderStatu">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Type" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Status" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="ProductGroup">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="GroupName" Type="String" MaxLength="500" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="IsActive" Type="Boolean" Nullable="false" />
-          <Property Name="Price" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
-          <Property Name="OrderInfo_Product_Group" Type="Int32" Nullable="false" />
-          <Property Name="Type_SubHeader" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="ProductImage" Type="Binary" MaxLength="Max" FixedLength="false" />
         </EntityType>
-        <EntityContainer Name="SimpleCureEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="AppErrors" EntityType="Self.AppError" />
-          <EntitySet Name="BusinessTypes" EntityType="Self.BusinessType" />
-          <EntitySet Name="OrderActivityHistories" EntityType="Self.OrderActivityHistory" />
-          <EntitySet Name="OrderActivityTypes" EntityType="Self.OrderActivityType" />
-          <EntitySet Name="OrderInfoes" EntityType="Self.OrderInfo" />
-          <EntitySet Name="OrderInfo_Product" EntityType="Self.OrderInfo_Product" />
-          <EntitySet Name="OrderInfo_Product_Types" EntityType="Self.OrderInfo_Product_Types" />
-          <EntitySet Name="OrderInfo_Product_Groups" EntityType="SimpleCureModel.OrderInfo_Product_Groups" />
-          <EntitySet Name="ALL" EntityType="SimpleCureModel.ALL" />
-          <EntitySet Name="Tbl_Activity_Main" EntityType="SimpleCureModel.Tbl_Activity_Main" />
-          <EntitySet Name="Tbl_Activity_Sub" EntityType="SimpleCureModel.Tbl_Activity_Sub" />
-          <EntitySet Name="Tbl_BudTrim" EntityType="SimpleCureModel.Tbl_BudTrim" />
-          <EntitySet Name="Tbl_Company" EntityType="SimpleCureModel.Tbl_Company" />
-          <EntitySet Name="Tbl_Customers" EntityType="SimpleCureModel.Tbl_Customers" />
-          <EntitySet Name="Tbl_Employees" EntityType="SimpleCureModel.Tbl_Employees" />
-          <EntitySet Name="Tbl_Finances" EntityType="SimpleCureModel.Tbl_Finances" />
-          <EntitySet Name="Tbl_IndustryType" EntityType="SimpleCureModel.Tbl_IndustryType" />
-          <EntitySet Name="Tbl_InvoiceIDs" EntityType="SimpleCureModel.Tbl_InvoiceIDs" />
-          <EntitySet Name="Tbl_Lots_Purchased" EntityType="SimpleCureModel.Tbl_Lots_Purchased" />
-          <EntitySet Name="Tbl_Month" EntityType="SimpleCureModel.Tbl_Month" />
-          <EntitySet Name="Tbl_Products" EntityType="SimpleCureModel.Tbl_Products" />
-          <EntitySet Name="Tbl_Products_Dominant" EntityType="SimpleCureModel.Tbl_Products_Dominant" />
-          <EntitySet Name="Tbl_Products_Type" EntityType="SimpleCureModel.Tbl_Products_Type" />
-          <EntitySet Name="Tbl_RunTypes" EntityType="SimpleCureModel.Tbl_RunTypes" />
-          <EntitySet Name="Tbl_SC_Extractions" EntityType="SimpleCureModel.Tbl_SC_Extractions" />
-          <EntitySet Name="Tbl_SC_Supply" EntityType="SimpleCureModel.Tbl_SC_Supply" />
-          <EntitySet Name="Tbl_Units" EntityType="SimpleCureModel.Tbl_Units" />
-          <EntitySet Name="Tbl_Vendors" EntityType="SimpleCureModel.Tbl_Vendors" />
-          <EntitySet Name="C__MigrationHistory" EntityType="SimpleCureModel.C__MigrationHistory" />
-          <EntitySet Name="AspNetRoles" EntityType="SimpleCureModel.AspNetRole" />
-          <EntitySet Name="AspNetUserClaims" EntityType="SimpleCureModel.AspNetUserClaim" />
-          <EntitySet Name="AspNetUserLogins" EntityType="SimpleCureModel.AspNetUserLogin" />
-          <EntitySet Name="AspNetUsers" EntityType="SimpleCureModel.AspNetUser" />
-          <EntitySet Name="AspNetUsersLoginAttempts" EntityType="SimpleCureModel.AspNetUsersLoginAttempt" />
-          <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="SimpleCureModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
-            <End Role="AspNetUser" EntitySet="AspNetUsers" />
-            <End Role="AspNetUserClaim" EntitySet="AspNetUserClaims" />
-          </AssociationSet>
-          <AssociationSet Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" Association="SimpleCureModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
-            <End Role="AspNetUser" EntitySet="AspNetUsers" />
-            <End Role="AspNetUserLogin" EntitySet="AspNetUserLogins" />
-          </AssociationSet>
-          <AssociationSet Name="AspNetUserRoles" Association="SimpleCureModel.AspNetUserRoles">
-            <End Role="AspNetRole" EntitySet="AspNetRoles" />
-            <End Role="AspNetUser" EntitySet="AspNetUsers" />
-          </AssociationSet>
-          <EntitySet Name="AccountChangeLogs" EntityType="SimpleCureModel.AccountChangeLog" />
-        </EntityContainer>
-        <EntityType Name="OrderInfo_Product_Groups">
+        <EntityType Name="Product">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="GroupName" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="Type" Type="String" MaxLength="500" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Strain" Type="String" MaxLength="500" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="BatchID" Type="Int32" />
+          <Property Name="Dominant" Type="String" MaxLength="500" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CartGram" Type="Decimal" Precision="18" Scale="4" Nullable="false" />
+          <Property Name="ProductGroup" Type="Int32" Nullable="false" />
+          <Property Name="PricePerGram" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+          <Property Name="ProductImage" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Tbl_Customers">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Company" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Customer" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="MainPhone" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Mobile" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="MainEmail" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="AltEmail1" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Street1" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="City" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="State" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Zip" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="IndustryType" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="OMMALicense" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="EIN" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="DocLink" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="EnterDate" Type="DateTime" Precision="3" />
+          <Property Name="FEIN" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="OBN" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="AspNetUsersID" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="JenBillTo" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="JenEmail" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="JenFirst" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="JenLast" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="JenEIN" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="JenPhone" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="ALL">
           <Key>
@@ -1057,13 +1157,13 @@ warning 6002: The table/view 'Testing.dbo.Tbl_Vendors' does not have a primary k
           <Key>
             <PropertyRef Name="Type" />
           </Key>
-          <Property Name="Type" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Type" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
         </EntityType>
         <EntityType Name="Tbl_Company">
           <Key>
             <PropertyRef Name="Abbrev" />
           </Key>
-          <Property Name="Abbrev" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Abbrev" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="ShortName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="CompName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="AddressStreet" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
@@ -1072,41 +1172,11 @@ warning 6002: The table/view 'Testing.dbo.Tbl_Vendors' does not have a primary k
           <Property Name="AddressZip" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="Contact" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
         </EntityType>
-        <EntityType Name="Tbl_Customers">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" />
-          <Property Name="Company" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="Customer" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="MainPhone" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="Mobile" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="MainEmail" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="AltEmail1" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="Street1" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="City" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="State" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="Zip" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="IndustryType" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="OMMALicense" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="EIN" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="DocLink" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="EnterDate" Type="DateTime" Precision="3" />
-          <Property Name="FEIN" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="OBN" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="JenBillTo" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="JenEmail" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="JenFirst" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="JenLast" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="JenEIN" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="JenPhone" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="AspNetUsersID" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
-        </EntityType>
         <EntityType Name="Tbl_Employees">
           <Key>
             <PropertyRef Name="Employee" />
           </Key>
-          <Property Name="Employee" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Employee" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="HireDate" Type="DateTime" Precision="3" />
         </EntityType>
         <EntityType Name="Tbl_Finances">
@@ -1136,13 +1206,13 @@ warning 6002: The table/view 'Testing.dbo.Tbl_Vendors' does not have a primary k
           <Key>
             <PropertyRef Name="Type" />
           </Key>
-          <Property Name="Type" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Type" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
         </EntityType>
         <EntityType Name="Tbl_InvoiceIDs">
           <Key>
             <PropertyRef Name="InvID" />
           </Key>
-          <Property Name="InvID" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="InvID" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
         </EntityType>
         <EntityType Name="Tbl_Lots_Purchased">
           <Key>
@@ -1193,19 +1263,19 @@ warning 6002: The table/view 'Testing.dbo.Tbl_Vendors' does not have a primary k
           <Key>
             <PropertyRef Name="ProdDom" />
           </Key>
-          <Property Name="ProdDom" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="ProdDom" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
         </EntityType>
         <EntityType Name="Tbl_Products_Type">
           <Key>
             <PropertyRef Name="ProdType" />
           </Key>
-          <Property Name="ProdType" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="ProdType" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
         </EntityType>
         <EntityType Name="Tbl_RunTypes">
           <Key>
             <PropertyRef Name="RunType" />
           </Key>
-          <Property Name="RunType" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="RunType" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
         </EntityType>
         <EntityType Name="Tbl_SC_Extractions">
           <Key>
@@ -1277,136 +1347,128 @@ warning 6002: The table/view 'Testing.dbo.Tbl_Vendors' does not have a primary k
           <Key>
             <PropertyRef Name="Unit" />
           </Key>
-          <Property Name="Unit" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Unit" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="UnitDesc" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="Tbl_Vendors">
           <Key>
             <PropertyRef Name="Vendor" />
           </Key>
-          <Property Name="Vendor" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
-        </EntityType>
-        <EntityType Name="C__MigrationHistory">
-          <Key>
-            <PropertyRef Name="MigrationId" />
-            <PropertyRef Name="ContextKey" />
-          </Key>
-          <Property Name="MigrationId" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
-          <Property Name="ContextKey" Type="String" Nullable="false" MaxLength="300" FixedLength="false" Unicode="true" />
-          <Property Name="Model" Type="Binary" Nullable="false" MaxLength="Max" FixedLength="false" />
-          <Property Name="ProductVersion" Type="String" Nullable="false" MaxLength="32" FixedLength="false" Unicode="true" />
-        </EntityType>
-        <EntityType Name="AspNetRole">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
-          <Property Name="Name" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="AspNetUsers" Relationship="SimpleCureModel.AspNetUserRoles" FromRole="AspNetRole" ToRole="AspNetUser" />
-        </EntityType>
-        <EntityType Name="AspNetUserClaim">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="UserId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
-          <Property Name="ClaimType" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="ClaimValue" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="AspNetUser" Relationship="SimpleCureModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" FromRole="AspNetUserClaim" ToRole="AspNetUser" />
-        </EntityType>
-        <EntityType Name="AspNetUserLogin">
-          <Key>
-            <PropertyRef Name="LoginProvider" />
-            <PropertyRef Name="ProviderKey" />
-            <PropertyRef Name="UserId" />
-          </Key>
-          <Property Name="LoginProvider" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
-          <Property Name="ProviderKey" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
-          <Property Name="UserId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="AspNetUser" Relationship="SimpleCureModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUserLogin" ToRole="AspNetUser" />
-        </EntityType>
-        <EntityType Name="AspNetUser">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
-          <Property Name="Email" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
-          <Property Name="EmailConfirmed" Type="Boolean" Nullable="false" />
-          <Property Name="PasswordHash" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="SecurityStamp" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="PhoneNumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="PhoneNumberConfirmed" Type="Boolean" Nullable="false" />
-          <Property Name="TwoFactorEnabled" Type="Boolean" Nullable="false" />
-          <Property Name="LockoutEndDateUtc" Type="DateTime" Precision="3" />
-          <Property Name="LockoutEnabled" Type="Boolean" Nullable="false" />
-          <Property Name="AccessFailedCount" Type="Int32" Nullable="false" />
-          <Property Name="UserName" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="AspNetUserClaims" Relationship="SimpleCureModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" FromRole="AspNetUser" ToRole="AspNetUserClaim" />
-          <NavigationProperty Name="AspNetUserLogins" Relationship="SimpleCureModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUser" ToRole="AspNetUserLogin" />
-          <NavigationProperty Name="AspNetRoles" Relationship="SimpleCureModel.AspNetUserRoles" FromRole="AspNetUser" ToRole="AspNetRole" />
-        </EntityType>
-        <EntityType Name="AspNetUsersLoginAttempt">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="ASPNetUserID" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
-          <Property Name="IP_Address" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="LoginDatetime" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="Success" Type="Boolean" Nullable="false" />
-          <Property Name="Message" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Vendor" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
         </EntityType>
         <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
-          <End Type="SimpleCureModel.AspNetUser" Role="AspNetUser" Multiplicity="1">
+          <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
-          <End Type="SimpleCureModel.AspNetUserClaim" Role="AspNetUserClaim" Multiplicity="*" />
+          <End Role="AspNetUserClaims" Type="Self.AspNetUserClaim" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="AspNetUser">
+            <Principal Role="AspNetUsers">
               <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="AspNetUserClaim">
+            <Dependent Role="AspNetUserClaims">
               <PropertyRef Name="UserId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
-          <End Type="SimpleCureModel.AspNetUser" Role="AspNetUser" Multiplicity="1">
+          <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
-          <End Type="SimpleCureModel.AspNetUserLogin" Role="AspNetUserLogin" Multiplicity="*" />
+          <End Role="AspNetUserLogins" Type="Self.AspNetUserLogin" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="AspNetUser">
+            <Principal Role="AspNetUsers">
               <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="AspNetUserLogin">
+            <Dependent Role="AspNetUserLogins">
               <PropertyRef Name="UserId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="AspNetUserRoles">
-          <End Type="SimpleCureModel.AspNetRole" Role="AspNetRole" Multiplicity="*" />
-          <End Type="SimpleCureModel.AspNetUser" Role="AspNetUser" Multiplicity="*" />
+          <End Role="AspNetRoles" Type="Self.AspNetRole" Multiplicity="*" />
+          <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="*" />
         </Association>
-        <EntityType Name="AccountChangeLog">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="UserIDChanged" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
-          <Property Name="ChangedBy" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
-          <Property Name="ChangedDateTime" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="ChangeFrom" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="ChangeTo" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
-        </EntityType>
+        <EntityContainer Name="SimpleCureEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="C__MigrationHistory" EntityType="Self.C__MigrationHistory" />
+          <EntitySet Name="AccountChangeLogs" EntityType="Self.AccountChangeLog" />
+          <EntitySet Name="AppErrors" EntityType="Self.AppError" />
+          <EntitySet Name="AspNetRoles" EntityType="Self.AspNetRole" />
+          <EntitySet Name="AspNetUserClaims" EntityType="Self.AspNetUserClaim" />
+          <EntitySet Name="AspNetUserLogins" EntityType="Self.AspNetUserLogin" />
+          <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUser" />
+          <EntitySet Name="AspNetUsersLoginAttempts" EntityType="Self.AspNetUsersLoginAttempt" />
+          <EntitySet Name="BusinessTypes" EntityType="Self.BusinessType" />
+          <EntitySet Name="Discounts" EntityType="Self.Discount" />
+          <EntitySet Name="Orders" EntityType="Self.Order" />
+          <EntitySet Name="OrderActivities" EntityType="Self.OrderActivity" />
+          <EntitySet Name="OrderDiscounts" EntityType="Self.OrderDiscount" />
+          <EntitySet Name="OrderProducts" EntityType="Self.OrderProduct" />
+          <EntitySet Name="OrderStatus" EntityType="Self.OrderStatu" />
+          <EntitySet Name="ProductGroups" EntityType="Self.ProductGroup" />
+          <EntitySet Name="Products" EntityType="Self.Product" />
+          <EntitySet Name="Tbl_Customers" EntityType="Self.Tbl_Customers" />
+          <EntitySet Name="ALL" EntityType="Self.ALL" />
+          <EntitySet Name="Tbl_Activity_Main" EntityType="Self.Tbl_Activity_Main" />
+          <EntitySet Name="Tbl_Activity_Sub" EntityType="Self.Tbl_Activity_Sub" />
+          <EntitySet Name="Tbl_BudTrim" EntityType="Self.Tbl_BudTrim" />
+          <EntitySet Name="Tbl_Company" EntityType="Self.Tbl_Company" />
+          <EntitySet Name="Tbl_Employees" EntityType="Self.Tbl_Employees" />
+          <EntitySet Name="Tbl_Finances" EntityType="Self.Tbl_Finances" />
+          <EntitySet Name="Tbl_IndustryType" EntityType="Self.Tbl_IndustryType" />
+          <EntitySet Name="Tbl_InvoiceIDs" EntityType="Self.Tbl_InvoiceIDs" />
+          <EntitySet Name="Tbl_Lots_Purchased" EntityType="Self.Tbl_Lots_Purchased" />
+          <EntitySet Name="Tbl_Month" EntityType="Self.Tbl_Month" />
+          <EntitySet Name="Tbl_Products" EntityType="Self.Tbl_Products" />
+          <EntitySet Name="Tbl_Products_Dominant" EntityType="Self.Tbl_Products_Dominant" />
+          <EntitySet Name="Tbl_Products_Type" EntityType="Self.Tbl_Products_Type" />
+          <EntitySet Name="Tbl_RunTypes" EntityType="Self.Tbl_RunTypes" />
+          <EntitySet Name="Tbl_SC_Extractions" EntityType="Self.Tbl_SC_Extractions" />
+          <EntitySet Name="Tbl_SC_Supply" EntityType="Self.Tbl_SC_Supply" />
+          <EntitySet Name="Tbl_Units" EntityType="Self.Tbl_Units" />
+          <EntitySet Name="Tbl_Vendors" EntityType="Self.Tbl_Vendors" />
+          <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="AspNetUserClaims" EntitySet="AspNetUserClaims" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="AspNetUserLogins" EntitySet="AspNetUserLogins" />
+          </AssociationSet>
+          <AssociationSet Name="AspNetUserRoles" Association="Self.AspNetUserRoles">
+            <End Role="AspNetRoles" EntitySet="AspNetRoles" />
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+          </AssociationSet>
+        </EntityContainer>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="SimpleCureModelStoreContainer" CdmEntityContainer="SimpleCureEntities">
+        <EntityContainerMapping StorageEntityContainer="TestingModelStoreContainer" CdmEntityContainer="SimpleCureEntities">
+          <EntitySetMapping Name="C__MigrationHistory">
+            <EntityTypeMapping TypeName="TestingModel.C__MigrationHistory">
+              <MappingFragment StoreEntitySet="__MigrationHistory">
+                <ScalarProperty Name="MigrationId" ColumnName="MigrationId" />
+                <ScalarProperty Name="ContextKey" ColumnName="ContextKey" />
+                <ScalarProperty Name="Model" ColumnName="Model" />
+                <ScalarProperty Name="ProductVersion" ColumnName="ProductVersion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AccountChangeLogs">
+            <EntityTypeMapping TypeName="TestingModel.AccountChangeLog">
+              <MappingFragment StoreEntitySet="AccountChangeLog">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="UserIDChanged" ColumnName="UserIDChanged" />
+                <ScalarProperty Name="ChangedBy" ColumnName="ChangedBy" />
+                <ScalarProperty Name="ChangedDateTime" ColumnName="ChangedDateTime" />
+                <ScalarProperty Name="ChangeFrom" ColumnName="ChangeFrom" />
+                <ScalarProperty Name="ChangeTo" ColumnName="ChangeTo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="AppErrors">
-            <EntityTypeMapping TypeName="SimpleCureModel.AppError">
+            <EntityTypeMapping TypeName="TestingModel.AppError">
               <MappingFragment StoreEntitySet="AppErrors">
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="IP_Address" ColumnName="IP_Address" />
@@ -1415,8 +1477,65 @@ warning 6002: The table/view 'Testing.dbo.Tbl_Vendors' does not have a primary k
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="AspNetRoles">
+            <EntityTypeMapping TypeName="TestingModel.AspNetRole">
+              <MappingFragment StoreEntitySet="AspNetRoles">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AspNetUserClaims">
+            <EntityTypeMapping TypeName="TestingModel.AspNetUserClaim">
+              <MappingFragment StoreEntitySet="AspNetUserClaims">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="ClaimType" ColumnName="ClaimType" />
+                <ScalarProperty Name="ClaimValue" ColumnName="ClaimValue" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AspNetUserLogins">
+            <EntityTypeMapping TypeName="TestingModel.AspNetUserLogin">
+              <MappingFragment StoreEntitySet="AspNetUserLogins">
+                <ScalarProperty Name="LoginProvider" ColumnName="LoginProvider" />
+                <ScalarProperty Name="ProviderKey" ColumnName="ProviderKey" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AspNetUsers">
+            <EntityTypeMapping TypeName="TestingModel.AspNetUser">
+              <MappingFragment StoreEntitySet="AspNetUsers">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="EmailConfirmed" ColumnName="EmailConfirmed" />
+                <ScalarProperty Name="PasswordHash" ColumnName="PasswordHash" />
+                <ScalarProperty Name="SecurityStamp" ColumnName="SecurityStamp" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="PhoneNumberConfirmed" ColumnName="PhoneNumberConfirmed" />
+                <ScalarProperty Name="TwoFactorEnabled" ColumnName="TwoFactorEnabled" />
+                <ScalarProperty Name="LockoutEndDateUtc" ColumnName="LockoutEndDateUtc" />
+                <ScalarProperty Name="LockoutEnabled" ColumnName="LockoutEnabled" />
+                <ScalarProperty Name="AccessFailedCount" ColumnName="AccessFailedCount" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AspNetUsersLoginAttempts">
+            <EntityTypeMapping TypeName="TestingModel.AspNetUsersLoginAttempt">
+              <MappingFragment StoreEntitySet="AspNetUsersLoginAttempts">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="ASPNetUserID" ColumnName="ASPNetUserID" />
+                <ScalarProperty Name="IP_Address" ColumnName="IP_Address" />
+                <ScalarProperty Name="LoginDatetime" ColumnName="LoginDatetime" />
+                <ScalarProperty Name="Success" ColumnName="Success" />
+                <ScalarProperty Name="Message" ColumnName="Message" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="BusinessTypes">
-            <EntityTypeMapping TypeName="SimpleCureModel.BusinessType">
+            <EntityTypeMapping TypeName="TestingModel.BusinessType">
               <MappingFragment StoreEntitySet="BusinessTypes">
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="Type" ColumnName="Type" />
@@ -1424,467 +1543,408 @@ warning 6002: The table/view 'Testing.dbo.Tbl_Vendors' does not have a primary k
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="OrderActivityHistories">
-            <EntityTypeMapping TypeName="SimpleCureModel.OrderActivityHistory">
-              <MappingFragment StoreEntitySet="OrderActivityHistory">
+          <EntitySetMapping Name="Discounts">
+            <EntityTypeMapping TypeName="TestingModel.Discount">
+              <MappingFragment StoreEntitySet="Discount">
+                <ScalarProperty Name="DiscountAmount" ColumnName="DiscountAmount" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Orders">
+            <EntityTypeMapping TypeName="TestingModel.Order">
+              <MappingFragment StoreEntitySet="Order">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Tbl_CustomerID" ColumnName="Tbl_CustomerID" />
                 <ScalarProperty Name="Notes" ColumnName="Notes" />
+                <ScalarProperty Name="SubmissionDate" ColumnName="SubmissionDate" />
+                <ScalarProperty Name="OrderStatus" ColumnName="OrderStatus" />
+                <ScalarProperty Name="CompletionDate" ColumnName="CompletionDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="OrderActivities">
+            <EntityTypeMapping TypeName="TestingModel.OrderActivity">
+              <MappingFragment StoreEntitySet="OrderActivity">
+                <ScalarProperty Name="ActivityBy" ColumnName="ActivityBy" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="OrderID" ColumnName="OrderID" />
-                <ScalarProperty Name="OrderActivityTypeID" ColumnName="OrderActivityTypeID" />
-                <ScalarProperty Name="TimeStamp" ColumnName="TimeStamp" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="OrderActivityTypes">
-            <EntityTypeMapping TypeName="SimpleCureModel.OrderActivityType">
-              <MappingFragment StoreEntitySet="OrderActivityTypes">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="Type" ColumnName="Type" />
-                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="OrderInfoes">
-            <EntityTypeMapping TypeName="SimpleCureModel.OrderInfo">
-              <MappingFragment StoreEntitySet="OrderInfo">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="CompanyName" ColumnName="CompanyName" />
-                <ScalarProperty Name="ContactName" ColumnName="ContactName" />
-                <ScalarProperty Name="OMMANumber" ColumnName="OMMANumber" />
-                <ScalarProperty Name="EINNumber" ColumnName="EINNumber" />
-                <ScalarProperty Name="OBNDDNumber" ColumnName="OBNDDNumber" />
-                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
-                <ScalarProperty Name="EmailAddress" ColumnName="EmailAddress" />
-                <ScalarProperty Name="StreetAddress" ColumnName="StreetAddress" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
                 <ScalarProperty Name="Notes" ColumnName="Notes" />
-                <ScalarProperty Name="BusinessType" ColumnName="BusinessType" />
-                <ScalarProperty Name="OrderSubmissionDate" ColumnName="OrderSubmissionDate" />
-                <ScalarProperty Name="Completed" ColumnName="Completed" />
-                <ScalarProperty Name="CompletionNotes" ColumnName="CompletionNotes" />
+                <ScalarProperty Name="ActivityDate" ColumnName="ActivityDate" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="OrderInfo_Product">
-            <EntityTypeMapping TypeName="SimpleCureModel.OrderInfo_Product">
-              <MappingFragment StoreEntitySet="OrderInfo_Product">
+          <EntitySetMapping Name="OrderDiscounts">
+            <EntityTypeMapping TypeName="TestingModel.OrderDiscount">
+              <MappingFragment StoreEntitySet="OrderDiscount">
                 <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="OrderInfoID" ColumnName="OrderInfoID" />
-                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="OrderID" ColumnName="OrderID" />
+                <ScalarProperty Name="DiscountID" ColumnName="DiscountID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="OrderProducts">
+            <EntityTypeMapping TypeName="TestingModel.OrderProduct">
+              <MappingFragment StoreEntitySet="OrderProducts">
+                <ScalarProperty Name="EntryDate" ColumnName="EntryDate" />
+                <ScalarProperty Name="EntryBy" ColumnName="EntryBy" />
+                <ScalarProperty Name="Total" ColumnName="Total" />
                 <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="BatchID" ColumnName="BatchID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="OrderID" ColumnName="OrderID" />
+                <ScalarProperty Name="ProductID" ColumnName="ProductID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="OrderInfo_Product_Types">
-            <EntityTypeMapping TypeName="SimpleCureModel.OrderInfo_Product_Types">
-              <MappingFragment StoreEntitySet="OrderInfo_Product_Types">
-                <ScalarProperty Name="ProductImage" ColumnName="ProductImage" />
-                <ScalarProperty Name="Type_SubHeader" ColumnName="Type_SubHeader" />
-                <ScalarProperty Name="OrderInfo_Product_Group" ColumnName="OrderInfo_Product_Group" />
-                <ScalarProperty Name="Price" ColumnName="Price" />
+          <EntitySetMapping Name="OrderStatus">
+            <EntityTypeMapping TypeName="TestingModel.OrderStatu">
+              <MappingFragment StoreEntitySet="OrderStatus">
                 <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ProductGroups">
+            <EntityTypeMapping TypeName="TestingModel.ProductGroup">
+              <MappingFragment StoreEntitySet="ProductGroup">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="GroupName" ColumnName="GroupName" />
                 <ScalarProperty Name="IsActive" ColumnName="IsActive" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="OrderInfo_Product_Groups">
-            <EntityTypeMapping TypeName="SimpleCureModel.OrderInfo_Product_Groups">
-              <MappingFragment StoreEntitySet="OrderInfo_Product_Groups">
-                <ScalarProperty Name="GroupName" ColumnName="GroupName" />
+          <EntitySetMapping Name="Products">
+            <EntityTypeMapping TypeName="TestingModel.Product">
+              <MappingFragment StoreEntitySet="Products">
                 <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Strain" ColumnName="Strain" />
+                <ScalarProperty Name="BatchID" ColumnName="BatchID" />
+                <ScalarProperty Name="Dominant" ColumnName="Dominant" />
+                <ScalarProperty Name="CartGram" ColumnName="CartGram" />
+                <ScalarProperty Name="ProductGroup" ColumnName="ProductGroup" />
+                <ScalarProperty Name="PricePerGram" ColumnName="PricePerGram" />
+                <ScalarProperty Name="ProductImage" ColumnName="ProductImage" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tbl_Customers">
+            <EntityTypeMapping TypeName="TestingModel.Tbl_Customers">
+              <MappingFragment StoreEntitySet="Tbl_Customers">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Company" ColumnName="Company" />
+                <ScalarProperty Name="Customer" ColumnName="Customer" />
+                <ScalarProperty Name="MainPhone" ColumnName="MainPhone" />
+                <ScalarProperty Name="Mobile" ColumnName="Mobile" />
+                <ScalarProperty Name="MainEmail" ColumnName="MainEmail" />
+                <ScalarProperty Name="AltEmail1" ColumnName="AltEmail1" />
+                <ScalarProperty Name="Street1" ColumnName="Street1" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="State" ColumnName="State" />
+                <ScalarProperty Name="Zip" ColumnName="Zip" />
+                <ScalarProperty Name="IndustryType" ColumnName="IndustryType" />
+                <ScalarProperty Name="OMMALicense" ColumnName="OMMALicense" />
+                <ScalarProperty Name="EIN" ColumnName="EIN" />
+                <ScalarProperty Name="DocLink" ColumnName="DocLink" />
+                <ScalarProperty Name="EnterDate" ColumnName="EnterDate" />
+                <ScalarProperty Name="FEIN" ColumnName="FEIN" />
+                <ScalarProperty Name="OBN" ColumnName="OBN" />
+                <ScalarProperty Name="AspNetUsersID" ColumnName="AspNetUsersID" />
+                <ScalarProperty Name="JenBillTo" ColumnName="JenBillTo" />
+                <ScalarProperty Name="JenEmail" ColumnName="JenEmail" />
+                <ScalarProperty Name="JenFirst" ColumnName="JenFirst" />
+                <ScalarProperty Name="JenLast" ColumnName="JenLast" />
+                <ScalarProperty Name="JenEIN" ColumnName="JenEIN" />
+                <ScalarProperty Name="JenPhone" ColumnName="JenPhone" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="ALL">
-            <EntityTypeMapping TypeName="SimpleCureModel.ALL">
+            <EntityTypeMapping TypeName="TestingModel.ALL">
               <MappingFragment StoreEntitySet="ALL">
-                <ScalarProperty Name="Balance" ColumnName="Balance" />
-                <ScalarProperty Name="Field22" ColumnName="Field22" />
-                <ScalarProperty Name="Amount" ColumnName="Amount" />
-                <ScalarProperty Name="Field20" ColumnName="Field20" />
-                <ScalarProperty Name="Sales_Price" ColumnName="Sales Price" />
-                <ScalarProperty Name="Field18" ColumnName="Field18" />
-                <ScalarProperty Name="Qty" ColumnName="Qty" />
-                <ScalarProperty Name="Field16" ColumnName="Field16" />
-                <ScalarProperty Name="Item" ColumnName="Item" />
-                <ScalarProperty Name="Field14" ColumnName="Field14" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="Field12" ColumnName="Field12" />
-                <ScalarProperty Name="Memo" ColumnName="Memo" />
-                <ScalarProperty Name="Field10" ColumnName="Field10" />
-                <ScalarProperty Name="Num" ColumnName="Num" />
-                <ScalarProperty Name="Field8" ColumnName="Field8" />
-                <ScalarProperty Name="Date" ColumnName="Date" />
-                <ScalarProperty Name="Field6" ColumnName="Field6" />
-                <ScalarProperty Name="Type" ColumnName="Type" />
-                <ScalarProperty Name="Field4" ColumnName="Field4" />
-                <ScalarProperty Name="Field3" ColumnName="Field3" />
-                <ScalarProperty Name="Field2" ColumnName="Field2" />
-                <ScalarProperty Name="Field1" ColumnName="Field1" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Field1" ColumnName="Field1" />
+                <ScalarProperty Name="Field2" ColumnName="Field2" />
+                <ScalarProperty Name="Field3" ColumnName="Field3" />
+                <ScalarProperty Name="Field4" ColumnName="Field4" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="Field6" ColumnName="Field6" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="Field8" ColumnName="Field8" />
+                <ScalarProperty Name="Num" ColumnName="Num" />
+                <ScalarProperty Name="Field10" ColumnName="Field10" />
+                <ScalarProperty Name="Memo" ColumnName="Memo" />
+                <ScalarProperty Name="Field12" ColumnName="Field12" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Field14" ColumnName="Field14" />
+                <ScalarProperty Name="Item" ColumnName="Item" />
+                <ScalarProperty Name="Field16" ColumnName="Field16" />
+                <ScalarProperty Name="Qty" ColumnName="Qty" />
+                <ScalarProperty Name="Field18" ColumnName="Field18" />
+                <ScalarProperty Name="Sales_Price" ColumnName="Sales Price" />
+                <ScalarProperty Name="Field20" ColumnName="Field20" />
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+                <ScalarProperty Name="Field22" ColumnName="Field22" />
+                <ScalarProperty Name="Balance" ColumnName="Balance" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Tbl_Activity_Main">
-            <EntityTypeMapping TypeName="SimpleCureModel.Tbl_Activity_Main">
+            <EntityTypeMapping TypeName="TestingModel.Tbl_Activity_Main">
               <MappingFragment StoreEntitySet="Tbl_Activity_Main">
-                <ScalarProperty Name="InvoiceNote" ColumnName="InvoiceNote" />
-                <ScalarProperty Name="Paid" ColumnName="Paid" />
-                <ScalarProperty Name="QBInvoice" ColumnName="QBInvoice" />
-                <ScalarProperty Name="EnterDate" ColumnName="EnterDate" />
-                <ScalarProperty Name="Customer" ColumnName="Customer" />
-                <ScalarProperty Name="ActDate" ColumnName="ActDate" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="ActDate" ColumnName="ActDate" />
+                <ScalarProperty Name="Customer" ColumnName="Customer" />
+                <ScalarProperty Name="EnterDate" ColumnName="EnterDate" />
+                <ScalarProperty Name="QBInvoice" ColumnName="QBInvoice" />
+                <ScalarProperty Name="Paid" ColumnName="Paid" />
+                <ScalarProperty Name="InvoiceNote" ColumnName="InvoiceNote" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Tbl_Activity_Sub">
-            <EntityTypeMapping TypeName="SimpleCureModel.Tbl_Activity_Sub">
+            <EntityTypeMapping TypeName="TestingModel.Tbl_Activity_Sub">
               <MappingFragment StoreEntitySet="Tbl_Activity_Sub">
-                <ScalarProperty Name="BatchID" ColumnName="BatchID" />
-                <ScalarProperty Name="NewItem" ColumnName="NewItem" />
-                <ScalarProperty Name="Type" ColumnName="Type" />
-                <ScalarProperty Name="EnterDate" ColumnName="EnterDate" />
-                <ScalarProperty Name="Note" ColumnName="Note" />
-                <ScalarProperty Name="Price" ColumnName="Price" />
-                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
-                <ScalarProperty Name="Item" ColumnName="Item" />
-                <ScalarProperty Name="MainID" ColumnName="MainID" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="MainID" ColumnName="MainID" />
+                <ScalarProperty Name="Item" ColumnName="Item" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="Note" ColumnName="Note" />
+                <ScalarProperty Name="EnterDate" ColumnName="EnterDate" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="NewItem" ColumnName="NewItem" />
+                <ScalarProperty Name="BatchID" ColumnName="BatchID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Tbl_BudTrim">
-            <EntityTypeMapping TypeName="SimpleCureModel.Tbl_BudTrim">
+            <EntityTypeMapping TypeName="TestingModel.Tbl_BudTrim">
               <MappingFragment StoreEntitySet="Tbl_BudTrim">
                 <ScalarProperty Name="Type" ColumnName="Type" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Tbl_Company">
-            <EntityTypeMapping TypeName="SimpleCureModel.Tbl_Company">
+            <EntityTypeMapping TypeName="TestingModel.Tbl_Company">
               <MappingFragment StoreEntitySet="Tbl_Company">
-                <ScalarProperty Name="Contact" ColumnName="Contact" />
-                <ScalarProperty Name="AddressZip" ColumnName="AddressZip" />
-                <ScalarProperty Name="AddressSt" ColumnName="AddressSt" />
-                <ScalarProperty Name="AddressCity" ColumnName="AddressCity" />
-                <ScalarProperty Name="AddressStreet" ColumnName="AddressStreet" />
-                <ScalarProperty Name="CompName" ColumnName="CompName" />
-                <ScalarProperty Name="ShortName" ColumnName="ShortName" />
                 <ScalarProperty Name="Abbrev" ColumnName="Abbrev" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Tbl_Customers">
-            <EntityTypeMapping TypeName="SimpleCureModel.Tbl_Customers">
-              <MappingFragment StoreEntitySet="Tbl_Customers">
-                <ScalarProperty Name="AspNetUsersID" ColumnName="AspNetUsersID" />
-                <ScalarProperty Name="JenPhone" ColumnName="JenPhone" />
-                <ScalarProperty Name="JenEIN" ColumnName="JenEIN" />
-                <ScalarProperty Name="JenLast" ColumnName="JenLast" />
-                <ScalarProperty Name="JenFirst" ColumnName="JenFirst" />
-                <ScalarProperty Name="JenEmail" ColumnName="JenEmail" />
-                <ScalarProperty Name="JenBillTo" ColumnName="JenBillTo" />
-                <ScalarProperty Name="OBN" ColumnName="OBN" />
-                <ScalarProperty Name="FEIN" ColumnName="FEIN" />
-                <ScalarProperty Name="EnterDate" ColumnName="EnterDate" />
-                <ScalarProperty Name="DocLink" ColumnName="DocLink" />
-                <ScalarProperty Name="EIN" ColumnName="EIN" />
-                <ScalarProperty Name="OMMALicense" ColumnName="OMMALicense" />
-                <ScalarProperty Name="IndustryType" ColumnName="IndustryType" />
-                <ScalarProperty Name="Zip" ColumnName="Zip" />
-                <ScalarProperty Name="State" ColumnName="State" />
-                <ScalarProperty Name="City" ColumnName="City" />
-                <ScalarProperty Name="Street1" ColumnName="Street1" />
-                <ScalarProperty Name="AltEmail1" ColumnName="AltEmail1" />
-                <ScalarProperty Name="MainEmail" ColumnName="MainEmail" />
-                <ScalarProperty Name="Mobile" ColumnName="Mobile" />
-                <ScalarProperty Name="MainPhone" ColumnName="MainPhone" />
-                <ScalarProperty Name="Customer" ColumnName="Customer" />
-                <ScalarProperty Name="Company" ColumnName="Company" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="ShortName" ColumnName="ShortName" />
+                <ScalarProperty Name="CompName" ColumnName="CompName" />
+                <ScalarProperty Name="AddressStreet" ColumnName="AddressStreet" />
+                <ScalarProperty Name="AddressCity" ColumnName="AddressCity" />
+                <ScalarProperty Name="AddressSt" ColumnName="AddressSt" />
+                <ScalarProperty Name="AddressZip" ColumnName="AddressZip" />
+                <ScalarProperty Name="Contact" ColumnName="Contact" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Tbl_Employees">
-            <EntityTypeMapping TypeName="SimpleCureModel.Tbl_Employees">
+            <EntityTypeMapping TypeName="TestingModel.Tbl_Employees">
               <MappingFragment StoreEntitySet="Tbl_Employees">
-                <ScalarProperty Name="HireDate" ColumnName="HireDate" />
                 <ScalarProperty Name="Employee" ColumnName="Employee" />
+                <ScalarProperty Name="HireDate" ColumnName="HireDate" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Tbl_Finances">
-            <EntityTypeMapping TypeName="SimpleCureModel.Tbl_Finances">
+            <EntityTypeMapping TypeName="TestingModel.Tbl_Finances">
               <MappingFragment StoreEntitySet="Tbl_Finances">
-                <ScalarProperty Name="PriorMonth" ColumnName="PriorMonth" />
-                <ScalarProperty Name="InvoiceAmt" ColumnName="InvoiceAmt" />
-                <ScalarProperty Name="InvoiceID" ColumnName="InvoiceID" />
-                <ScalarProperty Name="InvoiceNote" ColumnName="InvoiceNote" />
-                <ScalarProperty Name="FlagshipAccount" ColumnName="FlagshipAccount" />
-                <ScalarProperty Name="File" ColumnName="File" />
-                <ScalarProperty Name="Employee" ColumnName="Employee" />
-                <ScalarProperty Name="NoteAccount" ColumnName="NoteAccount" />
-                <ScalarProperty Name="Group" ColumnName="Group" />
-                <ScalarProperty Name="Credit_Amount" ColumnName="Credit Amount" />
-                <ScalarProperty Name="Debit_Amount" ColumnName="Debit Amount" />
-                <ScalarProperty Name="Description" ColumnName="Description" />
-                <ScalarProperty Name="Check" ColumnName="Check" />
-                <ScalarProperty Name="Date" ColumnName="Date" />
-                <ScalarProperty Name="Company" ColumnName="Company" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Company" ColumnName="Company" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="Check" ColumnName="Check" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Debit_Amount" ColumnName="Debit Amount" />
+                <ScalarProperty Name="Credit_Amount" ColumnName="Credit Amount" />
+                <ScalarProperty Name="Group" ColumnName="Group" />
+                <ScalarProperty Name="NoteAccount" ColumnName="NoteAccount" />
+                <ScalarProperty Name="Employee" ColumnName="Employee" />
+                <ScalarProperty Name="File" ColumnName="File" />
+                <ScalarProperty Name="FlagshipAccount" ColumnName="FlagshipAccount" />
+                <ScalarProperty Name="InvoiceNote" ColumnName="InvoiceNote" />
+                <ScalarProperty Name="InvoiceID" ColumnName="InvoiceID" />
+                <ScalarProperty Name="InvoiceAmt" ColumnName="InvoiceAmt" />
+                <ScalarProperty Name="PriorMonth" ColumnName="PriorMonth" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Tbl_IndustryType">
-            <EntityTypeMapping TypeName="SimpleCureModel.Tbl_IndustryType">
+            <EntityTypeMapping TypeName="TestingModel.Tbl_IndustryType">
               <MappingFragment StoreEntitySet="Tbl_IndustryType">
                 <ScalarProperty Name="Type" ColumnName="Type" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Tbl_InvoiceIDs">
-            <EntityTypeMapping TypeName="SimpleCureModel.Tbl_InvoiceIDs">
+            <EntityTypeMapping TypeName="TestingModel.Tbl_InvoiceIDs">
               <MappingFragment StoreEntitySet="Tbl_InvoiceIDs">
                 <ScalarProperty Name="InvID" ColumnName="InvID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Tbl_Lots_Purchased">
-            <EntityTypeMapping TypeName="SimpleCureModel.Tbl_Lots_Purchased">
+            <EntityTypeMapping TypeName="TestingModel.Tbl_Lots_Purchased">
               <MappingFragment StoreEntitySet="Tbl_Lots_Purchased">
-                <ScalarProperty Name="CBD" ColumnName="CBD" />
-                <ScalarProperty Name="Complete" ColumnName="Complete" />
-                <ScalarProperty Name="PricePerGram" ColumnName="PricePerGram" />
-                <ScalarProperty Name="PricePerPound" ColumnName="PricePerPound" />
-                <ScalarProperty Name="IndPackages" ColumnName="IndPackages" />
-                <ScalarProperty Name="SatPackages" ColumnName="SatPackages" />
-                <ScalarProperty Name="BudTrim" ColumnName="BudTrim" />
-                <ScalarProperty Name="Notes" ColumnName="Notes" />
-                <ScalarProperty Name="Strains" ColumnName="Strains" />
-                <ScalarProperty Name="EnterDate" ColumnName="EnterDate" />
-                <ScalarProperty Name="Grams" ColumnName="Grams" />
-                <ScalarProperty Name="Pounds" ColumnName="Pounds" />
-                <ScalarProperty Name="Cost" ColumnName="Cost" />
-                <ScalarProperty Name="Provider" ColumnName="Provider" />
-                <ScalarProperty Name="BuyDate" ColumnName="BuyDate" />
-                <ScalarProperty Name="Lot_Set" ColumnName="Lot/Set" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Lot_Set" ColumnName="Lot/Set" />
+                <ScalarProperty Name="BuyDate" ColumnName="BuyDate" />
+                <ScalarProperty Name="Provider" ColumnName="Provider" />
+                <ScalarProperty Name="Cost" ColumnName="Cost" />
+                <ScalarProperty Name="Pounds" ColumnName="Pounds" />
+                <ScalarProperty Name="Grams" ColumnName="Grams" />
+                <ScalarProperty Name="EnterDate" ColumnName="EnterDate" />
+                <ScalarProperty Name="Strains" ColumnName="Strains" />
+                <ScalarProperty Name="Notes" ColumnName="Notes" />
+                <ScalarProperty Name="BudTrim" ColumnName="BudTrim" />
+                <ScalarProperty Name="SatPackages" ColumnName="SatPackages" />
+                <ScalarProperty Name="IndPackages" ColumnName="IndPackages" />
+                <ScalarProperty Name="PricePerPound" ColumnName="PricePerPound" />
+                <ScalarProperty Name="PricePerGram" ColumnName="PricePerGram" />
+                <ScalarProperty Name="Complete" ColumnName="Complete" />
+                <ScalarProperty Name="CBD" ColumnName="CBD" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Tbl_Month">
-            <EntityTypeMapping TypeName="SimpleCureModel.Tbl_Month">
+            <EntityTypeMapping TypeName="TestingModel.Tbl_Month">
               <MappingFragment StoreEntitySet="Tbl_Month">
-                <ScalarProperty Name="MonthName" ColumnName="MonthName" />
                 <ScalarProperty Name="MonthNum" ColumnName="MonthNum" />
+                <ScalarProperty Name="MonthName" ColumnName="MonthName" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Tbl_Products">
-            <EntityTypeMapping TypeName="SimpleCureModel.Tbl_Products">
+            <EntityTypeMapping TypeName="TestingModel.Tbl_Products">
               <MappingFragment StoreEntitySet="Tbl_Products">
-                <ScalarProperty Name="Active" ColumnName="Active" />
-                <ScalarProperty Name="Group" ColumnName="Group" />
-                <ScalarProperty Name="CartGram" ColumnName="CartGram" />
-                <ScalarProperty Name="Dominant" ColumnName="Dominant" />
-                <ScalarProperty Name="BatchID" ColumnName="BatchID" />
-                <ScalarProperty Name="Strain" ColumnName="Strain" />
-                <ScalarProperty Name="Type" ColumnName="Type" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="Strain" ColumnName="Strain" />
+                <ScalarProperty Name="BatchID" ColumnName="BatchID" />
+                <ScalarProperty Name="Dominant" ColumnName="Dominant" />
+                <ScalarProperty Name="CartGram" ColumnName="CartGram" />
+                <ScalarProperty Name="Group" ColumnName="Group" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Tbl_Products_Dominant">
-            <EntityTypeMapping TypeName="SimpleCureModel.Tbl_Products_Dominant">
+            <EntityTypeMapping TypeName="TestingModel.Tbl_Products_Dominant">
               <MappingFragment StoreEntitySet="Tbl_Products_Dominant">
                 <ScalarProperty Name="ProdDom" ColumnName="ProdDom" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Tbl_Products_Type">
-            <EntityTypeMapping TypeName="SimpleCureModel.Tbl_Products_Type">
+            <EntityTypeMapping TypeName="TestingModel.Tbl_Products_Type">
               <MappingFragment StoreEntitySet="Tbl_Products_Type">
                 <ScalarProperty Name="ProdType" ColumnName="ProdType" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Tbl_RunTypes">
-            <EntityTypeMapping TypeName="SimpleCureModel.Tbl_RunTypes">
+            <EntityTypeMapping TypeName="TestingModel.Tbl_RunTypes">
               <MappingFragment StoreEntitySet="Tbl_RunTypes">
                 <ScalarProperty Name="RunType" ColumnName="RunType" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Tbl_SC_Extractions">
-            <EntityTypeMapping TypeName="SimpleCureModel.Tbl_SC_Extractions">
+            <EntityTypeMapping TypeName="TestingModel.Tbl_SC_Extractions">
               <MappingFragment StoreEntitySet="Tbl_SC_Extractions">
-                <ScalarProperty Name="GramsIn" ColumnName="GramsIn" />
-                <ScalarProperty Name="EnterDate" ColumnName="EnterDate" />
-                <ScalarProperty Name="SepTemp" ColumnName="SepTemp" />
-                <ScalarProperty Name="SepPSI" ColumnName="SepPSI" />
-                <ScalarProperty Name="ExtTemp" ColumnName="ExtTemp" />
-                <ScalarProperty Name="ExtPSI" ColumnName="ExtPSI" />
-                <ScalarProperty Name="RunNotes" ColumnName="RunNotes" />
-                <ScalarProperty Name="GramsYield" ColumnName="GramsYield" />
-                <ScalarProperty Name="RunMinutes" ColumnName="RunMinutes" />
-                <ScalarProperty Name="RunEndTime" ColumnName="RunEndTime" />
-                <ScalarProperty Name="RunBeginTime" ColumnName="RunBeginTime" />
-                <ScalarProperty Name="Operators" ColumnName="Operators" />
-                <ScalarProperty Name="RunDate" ColumnName="RunDate" />
-                <ScalarProperty Name="RunType" ColumnName="RunType" />
-                <ScalarProperty Name="RunOrder" ColumnName="RunOrder" />
-                <ScalarProperty Name="SupplyID" ColumnName="SupplyID" />
-                <ScalarProperty Name="SID" ColumnName="SID" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="SID" ColumnName="SID" />
+                <ScalarProperty Name="SupplyID" ColumnName="SupplyID" />
+                <ScalarProperty Name="RunOrder" ColumnName="RunOrder" />
+                <ScalarProperty Name="RunType" ColumnName="RunType" />
+                <ScalarProperty Name="RunDate" ColumnName="RunDate" />
+                <ScalarProperty Name="Operators" ColumnName="Operators" />
+                <ScalarProperty Name="RunBeginTime" ColumnName="RunBeginTime" />
+                <ScalarProperty Name="RunEndTime" ColumnName="RunEndTime" />
+                <ScalarProperty Name="RunMinutes" ColumnName="RunMinutes" />
+                <ScalarProperty Name="GramsYield" ColumnName="GramsYield" />
+                <ScalarProperty Name="RunNotes" ColumnName="RunNotes" />
+                <ScalarProperty Name="ExtPSI" ColumnName="ExtPSI" />
+                <ScalarProperty Name="ExtTemp" ColumnName="ExtTemp" />
+                <ScalarProperty Name="SepPSI" ColumnName="SepPSI" />
+                <ScalarProperty Name="SepTemp" ColumnName="SepTemp" />
+                <ScalarProperty Name="EnterDate" ColumnName="EnterDate" />
+                <ScalarProperty Name="GramsIn" ColumnName="GramsIn" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Tbl_SC_Supply">
-            <EntityTypeMapping TypeName="SimpleCureModel.Tbl_SC_Supply">
+            <EntityTypeMapping TypeName="TestingModel.Tbl_SC_Supply">
               <MappingFragment StoreEntitySet="Tbl_SC_Supply">
-                <ScalarProperty Name="CandyMaker" ColumnName="CandyMaker" />
-                <ScalarProperty Name="CandyGrams" ColumnName="CandyGrams" />
-                <ScalarProperty Name="SplitNote" ColumnName="SplitNote" />
-                <ScalarProperty Name="Split" ColumnName="Split" />
-                <ScalarProperty Name="CentrifugeMin" ColumnName="CentrifugeMin" />
-                <ScalarProperty Name="GramsTerpenesReintroduced" ColumnName="GramsTerpenesReintroduced" />
-                <ScalarProperty Name="GramsAfterTerp" ColumnName="GramsAfterTerp" />
-                <ScalarProperty Name="GramsAfterDecarb" ColumnName="GramsAfterDecarb" />
-                <ScalarProperty Name="RefinedTerps" ColumnName="RefinedTerps" />
-                <ScalarProperty Name="GramsCartableOil" ColumnName="GramsCartableOil" />
-                <ScalarProperty Name="LotNumber" ColumnName="LotNumber" />
-                <ScalarProperty Name="EnterDate" ColumnName="EnterDate" />
-                <ScalarProperty Name="CartSize" ColumnName="CartSize" />
-                <ScalarProperty Name="CartsCreated" ColumnName="CartsCreated" />
-                <ScalarProperty Name="Waste" ColumnName="Waste" />
-                <ScalarProperty Name="Batch" ColumnName="Batch" />
-                <ScalarProperty Name="MainBatch" ColumnName="MainBatch" />
-                <ScalarProperty Name="ExtractionLog" ColumnName="ExtractionLog" />
-                <ScalarProperty Name="ExtractionNotes" ColumnName="ExtractionNotes" />
-                <ScalarProperty Name="ProductNotes" ColumnName="ProductNotes" />
-                <ScalarProperty Name="Tester" ColumnName="Tester" />
-                <ScalarProperty Name="TestDate" ColumnName="TestDate" />
-                <ScalarProperty Name="CBC" ColumnName="CBC" />
-                <ScalarProperty Name="CBN" ColumnName="CBN" />
-                <ScalarProperty Name="CBG" ColumnName="CBG" />
-                <ScalarProperty Name="CBD" ColumnName="CBD" />
-                <ScalarProperty Name="TotalPotTHC" ColumnName="TotalPotTHC" />
-                <ScalarProperty Name="D9THC" ColumnName="D9THC" />
-                <ScalarProperty Name="THCA" ColumnName="THCA" />
-                <ScalarProperty Name="THC" ColumnName="THC" />
-                <ScalarProperty Name="Cost" ColumnName="Cost" />
-                <ScalarProperty Name="Unit" ColumnName="Unit" />
-                <ScalarProperty Name="Amount" ColumnName="Amount" />
-                <ScalarProperty Name="Strain" ColumnName="Strain" />
-                <ScalarProperty Name="ProcessDate" ColumnName="ProcessDate" />
-                <ScalarProperty Name="Customer" ColumnName="Customer" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Customer" ColumnName="Customer" />
+                <ScalarProperty Name="ProcessDate" ColumnName="ProcessDate" />
+                <ScalarProperty Name="Strain" ColumnName="Strain" />
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+                <ScalarProperty Name="Unit" ColumnName="Unit" />
+                <ScalarProperty Name="Cost" ColumnName="Cost" />
+                <ScalarProperty Name="THC" ColumnName="THC" />
+                <ScalarProperty Name="THCA" ColumnName="THCA" />
+                <ScalarProperty Name="D9THC" ColumnName="D9THC" />
+                <ScalarProperty Name="TotalPotTHC" ColumnName="TotalPotTHC" />
+                <ScalarProperty Name="CBD" ColumnName="CBD" />
+                <ScalarProperty Name="CBG" ColumnName="CBG" />
+                <ScalarProperty Name="CBN" ColumnName="CBN" />
+                <ScalarProperty Name="CBC" ColumnName="CBC" />
+                <ScalarProperty Name="TestDate" ColumnName="TestDate" />
+                <ScalarProperty Name="Tester" ColumnName="Tester" />
+                <ScalarProperty Name="ProductNotes" ColumnName="ProductNotes" />
+                <ScalarProperty Name="ExtractionNotes" ColumnName="ExtractionNotes" />
+                <ScalarProperty Name="ExtractionLog" ColumnName="ExtractionLog" />
+                <ScalarProperty Name="MainBatch" ColumnName="MainBatch" />
+                <ScalarProperty Name="Batch" ColumnName="Batch" />
+                <ScalarProperty Name="Waste" ColumnName="Waste" />
+                <ScalarProperty Name="CartsCreated" ColumnName="CartsCreated" />
+                <ScalarProperty Name="CartSize" ColumnName="CartSize" />
+                <ScalarProperty Name="EnterDate" ColumnName="EnterDate" />
+                <ScalarProperty Name="LotNumber" ColumnName="LotNumber" />
+                <ScalarProperty Name="GramsCartableOil" ColumnName="GramsCartableOil" />
+                <ScalarProperty Name="RefinedTerps" ColumnName="RefinedTerps" />
+                <ScalarProperty Name="GramsAfterDecarb" ColumnName="GramsAfterDecarb" />
+                <ScalarProperty Name="GramsAfterTerp" ColumnName="GramsAfterTerp" />
+                <ScalarProperty Name="GramsTerpenesReintroduced" ColumnName="GramsTerpenesReintroduced" />
+                <ScalarProperty Name="CentrifugeMin" ColumnName="CentrifugeMin" />
+                <ScalarProperty Name="Split" ColumnName="Split" />
+                <ScalarProperty Name="SplitNote" ColumnName="SplitNote" />
+                <ScalarProperty Name="CandyGrams" ColumnName="CandyGrams" />
+                <ScalarProperty Name="CandyMaker" ColumnName="CandyMaker" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Tbl_Units">
-            <EntityTypeMapping TypeName="SimpleCureModel.Tbl_Units">
+            <EntityTypeMapping TypeName="TestingModel.Tbl_Units">
               <MappingFragment StoreEntitySet="Tbl_Units">
-                <ScalarProperty Name="UnitDesc" ColumnName="UnitDesc" />
                 <ScalarProperty Name="Unit" ColumnName="Unit" />
+                <ScalarProperty Name="UnitDesc" ColumnName="UnitDesc" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Tbl_Vendors">
-            <EntityTypeMapping TypeName="SimpleCureModel.Tbl_Vendors">
+            <EntityTypeMapping TypeName="TestingModel.Tbl_Vendors">
               <MappingFragment StoreEntitySet="Tbl_Vendors">
                 <ScalarProperty Name="Vendor" ColumnName="Vendor" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="C__MigrationHistory">
-            <EntityTypeMapping TypeName="SimpleCureModel.C__MigrationHistory">
-              <MappingFragment StoreEntitySet="__MigrationHistory">
-                <ScalarProperty Name="ProductVersion" ColumnName="ProductVersion" />
-                <ScalarProperty Name="Model" ColumnName="Model" />
-                <ScalarProperty Name="ContextKey" ColumnName="ContextKey" />
-                <ScalarProperty Name="MigrationId" ColumnName="MigrationId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="AspNetRoles">
-            <EntityTypeMapping TypeName="SimpleCureModel.AspNetRole">
-              <MappingFragment StoreEntitySet="AspNetRoles">
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="AspNetUserClaims">
-            <EntityTypeMapping TypeName="SimpleCureModel.AspNetUserClaim">
-              <MappingFragment StoreEntitySet="AspNetUserClaims">
-                <ScalarProperty Name="ClaimValue" ColumnName="ClaimValue" />
-                <ScalarProperty Name="ClaimType" ColumnName="ClaimType" />
-                <ScalarProperty Name="UserId" ColumnName="UserId" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="AspNetUserLogins">
-            <EntityTypeMapping TypeName="SimpleCureModel.AspNetUserLogin">
-              <MappingFragment StoreEntitySet="AspNetUserLogins">
-                <ScalarProperty Name="UserId" ColumnName="UserId" />
-                <ScalarProperty Name="ProviderKey" ColumnName="ProviderKey" />
-                <ScalarProperty Name="LoginProvider" ColumnName="LoginProvider" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="AspNetUsers">
-            <EntityTypeMapping TypeName="SimpleCureModel.AspNetUser">
-              <MappingFragment StoreEntitySet="AspNetUsers">
-                <ScalarProperty Name="UserName" ColumnName="UserName" />
-                <ScalarProperty Name="AccessFailedCount" ColumnName="AccessFailedCount" />
-                <ScalarProperty Name="LockoutEnabled" ColumnName="LockoutEnabled" />
-                <ScalarProperty Name="LockoutEndDateUtc" ColumnName="LockoutEndDateUtc" />
-                <ScalarProperty Name="TwoFactorEnabled" ColumnName="TwoFactorEnabled" />
-                <ScalarProperty Name="PhoneNumberConfirmed" ColumnName="PhoneNumberConfirmed" />
-                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
-                <ScalarProperty Name="SecurityStamp" ColumnName="SecurityStamp" />
-                <ScalarProperty Name="PasswordHash" ColumnName="PasswordHash" />
-                <ScalarProperty Name="EmailConfirmed" ColumnName="EmailConfirmed" />
-                <ScalarProperty Name="Email" ColumnName="Email" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="AspNetUsersLoginAttempts">
-            <EntityTypeMapping TypeName="SimpleCureModel.AspNetUsersLoginAttempt">
-              <MappingFragment StoreEntitySet="AspNetUsersLoginAttempts">
-                <ScalarProperty Name="Message" ColumnName="Message" />
-                <ScalarProperty Name="Success" ColumnName="Success" />
-                <ScalarProperty Name="LoginDatetime" ColumnName="LoginDatetime" />
-                <ScalarProperty Name="IP_Address" ColumnName="IP_Address" />
-                <ScalarProperty Name="ASPNetUserID" ColumnName="ASPNetUserID" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <AssociationSetMapping Name="AspNetUserRoles" TypeName="SimpleCureModel.AspNetUserRoles" StoreEntitySet="AspNetUserRoles">
-            <EndProperty Name="AspNetUser">
-              <ScalarProperty Name="Id" ColumnName="UserId" />
-            </EndProperty>
-            <EndProperty Name="AspNetRole">
+          <AssociationSetMapping Name="AspNetUserRoles" TypeName="TestingModel.AspNetUserRoles" StoreEntitySet="AspNetUserRoles">
+            <EndProperty Name="AspNetRoles">
               <ScalarProperty Name="Id" ColumnName="RoleId" />
             </EndProperty>
+            <EndProperty Name="AspNetUsers">
+              <ScalarProperty Name="Id" ColumnName="UserId" />
+            </EndProperty>
           </AssociationSetMapping>
-          <EntitySetMapping Name="AccountChangeLogs">
-            <EntityTypeMapping TypeName="SimpleCureModel.AccountChangeLog">
-              <MappingFragment StoreEntitySet="AccountChangeLog">
-                <ScalarProperty Name="ChangeTo" ColumnName="ChangeTo" />
-                <ScalarProperty Name="ChangeFrom" ColumnName="ChangeFrom" />
-                <ScalarProperty Name="ChangedDateTime" ColumnName="ChangedDateTime" />
-                <ScalarProperty Name="ChangedBy" ColumnName="ChangedBy" />
-                <ScalarProperty Name="UserIDChanged" ColumnName="UserIDChanged" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

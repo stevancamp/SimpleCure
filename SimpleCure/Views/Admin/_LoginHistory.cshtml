@@ -1,0 +1,36 @@
+﻿@model List<BusinessLayer.Models.LoginAttemptModels.AspNetUsersLoginAttempt_Model>
+
+<div class="table-responsive">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Login User ID</th>
+                <th>IP Address</th>
+                <th>Login Date/Time </th>
+                <th>Success</th>
+                <th>Message</th>                
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model != null && Model.Count > 0)
+            {
+                foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.ASPNetUserID</td>
+                        <td>@item.IP_Address</td>
+                        <td>@item.LoginDatetime</td>
+                        <td>@item.Success</td>
+                        <td>@item.Message</td>                         
+                    </tr>
+                }
+            }
+            else
+            {
+                <tr>
+                    <td colspan="3" class="text-center">There are no login attempts today!</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

@@ -32,12 +32,12 @@ namespace Library.DataModel
         public Nullable<System.DateTime> EnterDate { get; set; }
         public string FEIN { get; set; }
         public string OBN { get; set; }
+        public string AspNetUsersID { get; set; }
         public string JenBillTo { get; set; }
         public string JenEmail { get; set; }
         public string JenFirst { get; set; }
         public string JenLast { get; set; }
         public string JenEIN { get; set; }
         public string JenPhone { get; set; }
-        public string AspNetUsersID { get; set; }
     }
 }

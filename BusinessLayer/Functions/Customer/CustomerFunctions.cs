@@ -9,8 +9,8 @@ namespace BusinessLayer.Functions.Customer
     public class CustomerFunctions : ICustomer
     {
         #region Injection
-        private Customers _customers;        
-        private MapCustomers _mapCustomers;    
+        private Customers _customers;
+        private MapCustomers _mapCustomers;
         private MapResponseBase _mapResponseBase;
 
         public CustomerFunctions()
@@ -58,8 +58,8 @@ namespace BusinessLayer.Functions.Customer
             model.ResponseListString = Customers.ResponseListString;
             model.ResponseMessage = Customers.ResponseMessage;
             model.ResponseString = Customers.ResponseString;
-            model.ResponseSuccess = Customers.ResponseSuccess;            
-            model.GenericClass = _mapCustomers.MapToUI(Customers.GenericClass) ?? new Customers_Model();            
+            model.ResponseSuccess = Customers.ResponseSuccess;
+            model.GenericClass = _mapCustomers.MapToUI(Customers.GenericClass) ?? new Customers_Model();
             return model;
         }
 
@@ -139,6 +139,11 @@ namespace BusinessLayer.Functions.Customer
         public ResponseBase Update(Customers_Model customer)
         {
             return _mapResponseBase.MapToUI(_customers.Update(_mapCustomers.MapToLibrary(customer)));
+        }
+
+        public bool IfLoginExists(string UserID)
+        {
+            return _customers.IfLoginExists(UserID);
         }
     }
 }

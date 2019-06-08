@@ -1,0 +1,61 @@
+﻿@model SimpleCure.Models.AdminModels.RemoveAccount_ViewModel
+@{
+    ViewBag.Title = "RemoveAccount";
+}
+
+<div class="breadcrumb-holder">
+    <div class="container-fluid">
+        <ul class="breadcrumb">
+            <li class="breadcrumb-item">
+                @Html.ActionLink(" Home", "Index", "Home")
+            </li>
+            <li class="breadcrumb-item">
+                @Html.ActionLink(
+               " Admin User Functions",
+               "ViewUserInfo",
+               "Admin",
+               new
+               {
+               ID = Model.ID
+               }, null)
+            </li>
+            <li class="breadcrumb-item active">Remove Login Account</li>
+        </ul>
+    </div>
+</div>
+<section class="forms">
+    <div class="container-fluid">
+        <header>
+            <h1 class="h3 display">Remove Login Account</h1>
+        </header>
+        <div class="row">
+            <div class="col-md-12">
+
+                <div class="card">
+                    <div class="card-header">
+                        <h4>Confirm Remove Login Account</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="form-inner">
+                            @using (Html.BeginForm("DeleteAccount", "Admin", FormMethod.Post, new { @class = "text-left form-validate", role = "form" }))
+                            {
+                                @Html.AntiForgeryToken()
+                                @Html.ValidationSummary("", new { @class = "text-danger" })
+                                @Html.HiddenFor(m => m.ID)
+                                <h4 class="text-danger">Are you sure you want to remove this login account?</h4>
+                                <div class="form-group">
+                                    <input type="submit" value="Remove Account" class="btn btn-outline-danger" />
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+

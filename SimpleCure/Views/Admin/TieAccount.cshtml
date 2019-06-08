@@ -1,0 +1,95 @@
+﻿@model SimpleCure.Models.AdminModels.TieAccount_ViewModel
+
+@{
+    ViewBag.Title = "TieAccount";
+}
+
+@if (Model.ResponseSuccess == false && Model.responseTypes == SimpleCure.Models.ResponseTypes.Failure)
+{
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        <strong>There was an error!</strong> @Model.ResponseMessage
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+}
+
+@if (Model.responseTypes == SimpleCure.Models.ResponseTypes.Information && !string.IsNullOrEmpty(Model.ResponseMessage))
+{
+    <div class="alert alert-info alert-dismissible fade show" role="alert">
+        @Model.ResponseMessage
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+}
+
+@if (Model.responseTypes == SimpleCure.Models.ResponseTypes.Success && !string.IsNullOrEmpty(Model.ResponseMessage))
+{
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        @Model.ResponseMessage
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+}
+
+<div class="breadcrumb-holder">
+    <div class="container-fluid">
+        <ul class="breadcrumb">
+            <li class="breadcrumb-item">
+                @Html.ActionLink(" Home", "Index", "Home")
+            </li>
+            <li class="breadcrumb-item">
+                @Html.ActionLink(
+                " Admin User Functions",
+                "ViewUserInfo",
+                "Admin",
+                new
+                {
+                ID = Model.ID
+                }, null)              
+            </li>
+            <li class="breadcrumb-item active">Tie Login To Customer Information</li>
+        </ul>
+    </div>
+</div>
+<section class="forms">
+    <div class="container-fluid">
+        <header>
+            <h1 class="h3 display">Tie Login To Customer Information</h1>
+        </header>
+        <div class="row">
+            <div class="col-md-12">
+
+                <div class="card">
+                    <div class="card-header">
+                        <h4>Tie Login To Customer Information Form</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="form-inner">
+                            @using (Html.BeginForm("SaveTieAccount", "Admin", FormMethod.Post, new { @class = "text-left form-validate", role = "form" }))
+                            {
+                                @Html.AntiForgeryToken()
+                                @Html.ValidationSummary("", new { @class = "text-danger" })
+                                @Html.HiddenFor(m => m.ID)
+                                <div class="form-group-material">
+                                    @Html.TextBoxFor(m => m.Login, new { @class = "input-material" })
+                                    <label for="Login" class="label-material">User Name/Email Address</label>
+                                </div>
+                                <div class="form-group">
+                                    <input type="submit" value="Tie Account" class="btn btn-outline-primary" />
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+

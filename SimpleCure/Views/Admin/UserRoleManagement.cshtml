@@ -1,0 +1,142 @@
+﻿@model SimpleCure.Models.AdminModels.UserRoleManagement_ViewModel
+@{
+    ViewBag.Title = "UserRoleManagement";
+}
+
+@if (Model.ResponseSuccess == false && Model.responseTypes == SimpleCure.Models.ResponseTypes.Failure)
+{
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        <strong>There was an error!</strong> @Model.ResponseMessage
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+}
+
+@if (Model.responseTypes == SimpleCure.Models.ResponseTypes.Information)
+{
+    <div class="alert alert-info alert-dismissible fade show" role="alert">
+        @Model.ResponseMessage
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+}
+
+@if (Model.responseTypes == SimpleCure.Models.ResponseTypes.Success && !string.IsNullOrEmpty(Model.ResponseMessage))
+{
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        @Model.ResponseMessage
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+}
+
+<div class="breadcrumb-holder">
+    <div class="container-fluid">
+        <ul class="breadcrumb">
+            <li class="breadcrumb-item">
+                @Html.ActionLink(" Home", "Index", "Home")
+            </li>
+            <li class="breadcrumb-item">
+                @Html.ActionLink(
+                " Admin User Functions",
+                "ViewUserInfo",
+                "Admin",
+                new
+                {
+                ID = Model.ID
+                }, null)
+            </li>
+            <li class="breadcrumb-item active">User Role Management</li>
+        </ul>
+    </div>
+</div>
+<section class="forms">
+    <div class="container-fluid">
+        <header>
+            <h1 class="h3 display">User Role Management</h1>
+        </header>
+        <div class="row">
+            <div class="col-md-12">
+
+                <div class="card">
+                    <div class="card-header">
+                        <h4>Change Users Role Form</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="container-fluid">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <h3>Users current roles</h3>
+                                            <ul class="list-unstyled">
+                                                @if (Model.UserRoles != null && Model.UserRoles.Count > 0)
+                                                {
+                                                    foreach (var item in Model.UserRoles)
+                                                    {
+                                                        <li>@item</li>
+                                                    }
+                                                }
+                                                else
+                                                {
+                                                    <li>The user has no roles</li>
+                                                }
+                                            </ul>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <h3>Add User to Role</h3>
+                                            <div class="form-inner">
+                                                @using (Html.BeginForm("AddRoleToUser", "Admin", FormMethod.Post, new { @class = "text-left form-validate", role = "form" }))
+                                                {
+                                                    @Html.HiddenFor(s => s.ID)
+                                                    @Html.HiddenFor(s => s.ASPNetUserID)
+                                                    @Html.AntiForgeryToken()
+                                                    @Html.ValidationSummary("", new { @class = "text-danger" })
+                                                    <div class="form-group-material">
+                                                        @*@Html.TextBoxFor(m => m.EmailAddress, new { @class = "input-material" })*@
+                                                        <label for="Role" class="label">Please Select a Role to add to the user</label>
+                                                        @Html.DropDownListFor(m => m.Role, new SelectList(Model.allRoles), "Select Role", new { @class = "form-control" })
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <input type="submit" value="Add to Role" class="btn btn-outline-primary" />
+                                                    </div>
+                                                }
+                                            </div>
+                                            <hr />
+                                            <h3>Remove User from Role</h3>
+                                            <div class="form-inner">
+                                                @using (Html.BeginForm("RemoveRoleFromUser", "Admin", FormMethod.Post, new { @class = "text-left form-validate", role = "form" }))
+                                                {
+                                                    @Html.HiddenFor(s => s.ID)
+                                                    @Html.HiddenFor(s => s.ASPNetUserID)
+                                                    @Html.AntiForgeryToken()
+                                                    @Html.ValidationSummary("", new { @class = "text-danger" })
+                                                    <div class="form-group-material">
+                                                        @*@Html.TextBoxFor(m => m.EmailAddress, new { @class = "input-material" })*@
+                                                        <label for="Role" class="label">Please Select a Role to add to the user</label>
+                                                        @Html.DropDownListFor(m => m.Role, new SelectList(Model.allRoles), "Select Role", new { @class = "form-control" })
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <input type="submit" value="Remove from Role" class="btn btn-outline-danger" />
+                                                    </div>
+                                                }
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>                      
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+

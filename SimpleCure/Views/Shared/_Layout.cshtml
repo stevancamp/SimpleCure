@@ -27,15 +27,12 @@
                     <img src="~/Content/Images/UserSilhouette.png" alt="person" class="img-fluid rounded-circle">                   
                 </div>
                 <!-- Small Brand information, appears on minimized sidebar-->
-                <div class="sidenav-header-logo"><a href="index.html" class="brand-small text-center"> <strong>S</strong><strong class="text-primary">C</strong></a></div>
+                <div class="sidenav-header-logo"><a href="@Url.Action("Index", "Home")" class="brand-small text-center"> <strong>S</strong><strong class="text-primary">C</strong></a></div>
             </div>
             <!-- Sidebar Navigation Menus-->
-            <div class="main-menu">
-                @*@User.Identity.Name
-                <br />
-                <span>Company Name</span>*@
+            <div class="main-menu">               
                 <h5 class="sidenav-heading">Main</h5>
-                <ul id="side-main-menu" class="side-menu list-unstyled">                  
+                <ul id="side-main-menu" class="side-menu list-unstyled">
                     @if (User.IsInRole("Employee") || User.IsInRole("Owner") || User.IsInRole("WebAdmin"))
                     {
                         <li>
@@ -45,17 +42,15 @@
                             null, // <-- Route arguments.
                             new { @class = "icon-home" }
 
-                            )
-                            @*<a href="#"> <i class="icon-home"></i>Home</a>*@
+                            )                         
                         </li>
                         <li>
-                            @Html.ActionLink(" Orders",
-                             "ViewOrders",   // <-- ActionMethod
-                             "Order",  // <-- Controller Name.
-                             null, // <-- Route arguments.
-                             new { @class = "icon-screen" }
-
-                             )
+                            @Html.ActionLink(" Create Customer",
+                            "CreateNewCustomerAccount",
+                            "Admin",
+                            null,
+                            new { @class = "icon-user" }
+                            )
                         </li>
                     }
                     @if (User.IsInRole("Customer") || User.IsInRole("Employee") || User.IsInRole("Owner") || User.IsInRole("WebAdmin"))
@@ -70,25 +65,16 @@
                               )
                         </li>
                     }
+                    <li>
+                        @Html.ActionLink(" Search Orders",
+                         "ViewOrders",   // <-- ActionMethod
+                         "Order",  // <-- Controller Name.
+                         null, // <-- Route arguments.
+                         new { @class = "icon-screen" }
 
+                         )
+                    </li>
 
-                    @*<li><a href="charts.html"> <i class="fa fa-bar-chart"></i>Charts</a></li>
-            <li><a href="tables.html"> <i class="icon-grid"></i>Tables</a></li>*@
-                    @*<li>
-                <a href="#exampledropdownDropdown" aria-expanded="false" data-toggle="collapse"> <i class="icon-interface-windows"></i>Administration </a>
-                <ul id="exampledropdownDropdown" class="collapse list-unstyled ">
-                    <li><a href="#">Business Types</a></li>
-                    <li><a href="#">Activity Types</a></li>
-                    <li><a href="#">Product Types</a></li>
-                </ul>
-            </li>*@
-                    @*<li><a href="login.html"> <i class="icon-interface-windows"></i>Login page                             </a></li>*@
-                    @*<li>
-                <a href="#">
-                    <i class="icon-mail"></i>Demo
-                    <div class="badge badge-warning">6 New</div>
-                </a>
-            </li>*@
                 </ul>
             </div>
             @if (User.IsInRole("Owner") || User.IsInRole("WebAdmin"))
@@ -104,28 +90,17 @@
                      "BusinessTypes",
                      "Admin"
                      )
-                                </li>
-                                <li>
-                                    @Html.ActionLink(" Activity Types",
-                   "OrderActivityTypes",
-                   "Admin"
-                   )
-                                </li>
-                                <li>
-                                    @Html.ActionLink(" Product Groups",
-                 "OrderInfoProductGroups",
-                 "Admin"
-                 )
-                                </li>
-                                <li>
-                                    @Html.ActionLink(" Product Types",
-                 "OrderInfoProductTypes",
-                 "Admin"
-                 )
-                                </li>
+                                </li>                               
                             </ul>
                         </li>
-
+                        <li>
+                            @Html.ActionLink(" User Maintenance",
+                            "UserMaintenance",
+                            "Admin",
+                            null,
+                            new { @class = "icon-user" }
+                            )
+                        </li>                       
                     </ul>
                 </div>
                 if (User.IsInRole("WebAdmin"))
@@ -154,82 +129,11 @@
                 <div class="container-fluid">
                     <div class="navbar-holder d-flex align-items-center justify-content-between">
                         <div class="navbar-header">
-                            <a id="toggle-btn" href="#" class="menu-btn"><i class="icon-bars"> </i></a><a href="index.html" class="navbar-brand">
+                            <a id="toggle-btn" href="#" class="menu-btn"><i class="icon-bars"> </i></a><a href="@Url.Action("Index", "Home")" class="navbar-brand">
                                 <div class="brand-text d-none d-md-inline-block"><span>Simple </span><strong class="text-primary">Cure</strong></div>
                             </a>
                         </div>
-                        <ul class="nav-menu list-unstyled d-flex flex-md-row align-items-md-center">
-                            <!-- Notifications dropdown-->
-                            @*<li class="nav-item dropdown">
-                                    <a id="notifications" rel="nofollow" data-target="#" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link"><i class="fa fa-bell"></i><span class="badge badge-warning">12</span></a>
-                                    <ul aria-labelledby="notifications" class="dropdown-menu">
-                                        <li>
-                                            <a rel="nofollow" href="#" class="dropdown-item">
-                                                <div class="notification d-flex justify-content-between">
-                                                    <div class="notification-content"><i class="fa fa-envelope"></i>You have 6 new messages </div>
-                                                    <div class="notification-time"><small>4 minutes ago</small></div>
-                                                </div>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a rel="nofollow" href="#" class="dropdown-item">
-                                                <div class="notification d-flex justify-content-between">
-                                                    <div class="notification-content"><i class="fa fa-twitter"></i>You have 2 followers</div>
-                                                    <div class="notification-time"><small>4 minutes ago</small></div>
-                                                </div>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a rel="nofollow" href="#" class="dropdown-item">
-                                                <div class="notification d-flex justify-content-between">
-                                                    <div class="notification-content"><i class="fa fa-upload"></i>Server Rebooted</div>
-                                                    <div class="notification-time"><small>4 minutes ago</small></div>
-                                                </div>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a rel="nofollow" href="#" class="dropdown-item">
-                                                <div class="notification d-flex justify-content-between">
-                                                    <div class="notification-content"><i class="fa fa-twitter"></i>You have 2 followers</div>
-                                                    <div class="notification-time"><small>10 minutes ago</small></div>
-                                                </div>
-                                            </a>
-                                        </li>
-                                        <li><a rel="nofollow" href="#" class="dropdown-item all-notifications text-center"> <strong> <i class="fa fa-bell"></i>view all notifications                                            </strong></a></li>
-                                    </ul>
-                                </li>*@
-                            <!-- Messages dropdown-->
-                            @*<li class="nav-item dropdown">
-                                    <a id="messages" rel="nofollow" data-target="#" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link"><i class="fa fa-envelope"></i><span class="badge badge-info">10</span></a>
-                                    <ul aria-labelledby="notifications" class="dropdown-menu">
-                                        <li>
-                                            <a rel="nofollow" href="#" class="dropdown-item d-flex">
-                                                <div class="msg-profile"> <img src="https://d19m59y37dris4.cloudfront.net/dashboard/1-4-5/img/avatar-1.jpg" alt="..." class="img-fluid rounded-circle"></div>
-                                                <div class="msg-body">
-                                                    <h3 class="h5">Jason Doe</h3><span>sent you a direct message</span><small>3 days ago at 7:58 pm - 10.06.2014</small>
-                                                </div>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a rel="nofollow" href="#" class="dropdown-item d-flex">
-                                                <div class="msg-profile"> <img src="https://d19m59y37dris4.cloudfront.net/dashboard/1-4-5/img/avatar-2.jpg" alt="..." class="img-fluid rounded-circle"></div>
-                                                <div class="msg-body">
-                                                    <h3 class="h5">Frank Williams</h3><span>sent you a direct message</span><small>3 days ago at 7:58 pm - 10.06.2014</small>
-                                                </div>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a rel="nofollow" href="#" class="dropdown-item d-flex">
-                                                <div class="msg-profile"> <img src="https://d19m59y37dris4.cloudfront.net/dashboard/1-4-5/img/avatar-3.jpg" alt="..." class="img-fluid rounded-circle"></div>
-                                                <div class="msg-body">
-                                                    <h3 class="h5">Ashley Wood</h3><span>sent you a direct message</span><small>3 days ago at 7:58 pm - 10.06.2014</small>
-                                                </div>
-                                            </a>
-                                        </li>
-                                        <li><a rel="nofollow" href="#" class="dropdown-item all-notifications text-center"> <strong> <i class="fa fa-envelope"></i>Read all messages    </strong></a></li>
-                                    </ul>
-                                </li>*@
-
+                        <ul class="nav-menu list-unstyled d-flex flex-md-row align-items-md-center">    
                             <!-- Manage Account -->
                             <li class="nav-item">
 
@@ -262,7 +166,11 @@
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-sm-6">
-                        <p>Simple Cure &copy; 2019</p>
+                        <p>Simple Cure &copy; 
+                        <script type="text/JavaScript">
+    document.write(new Date().getFullYear());
+                        </script>
+                        </p>
                     </div>
                 </div>
             </div>

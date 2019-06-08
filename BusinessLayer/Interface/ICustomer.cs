@@ -14,5 +14,6 @@ namespace BusinessLayer.Interface
         Generic<Customers_Model> GetByIndustryType(string IndustryType);
         Generic<Customers_Model> SearchCustomers(string searchTerm);
         Generic<CustomersLite_Model> GetCustomersList();
+        bool IfLoginExists(string UserID);
     }
 }

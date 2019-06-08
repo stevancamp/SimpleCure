@@ -19,7 +19,7 @@
     <MvcBuildViews>false</MvcBuildViews>
     <UseIISExpress>true</UseIISExpress>
     <Use64BitIISExpress />
-    <IISExpressSSLPort />
+    <IISExpressSSLPort>44363</IISExpressSSLPort>
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
     <IISExpressUseClassicPipelineMode />
@@ -176,7 +176,6 @@
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
-    <Compile Include="Controllers\OrderController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -195,24 +194,21 @@
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\AdminModels\CreateNewCustomerAccount_ViewModel.cs" />
     <Compile Include="Models\AdminModels\ApplicaitonLogs_ViewModel.cs" />
     <Compile Include="Models\AdminModels\BusinessTypes_ViewModel.cs" />
     <Compile Include="Models\AdminModels\CreateBusinessType_ViewModel.cs" />
     <Compile Include="Models\AdminModels\CreateOrderActivityType_ViewModel.cs" />
-    <Compile Include="Models\AdminModels\CreateOrderInfoProductGroup_ViewModel.cs" />
-    <Compile Include="Models\AdminModels\CreateOrderInfoProductType_ViewModel.cs" />
     <Compile Include="Models\AdminModels\EditBusinessType_ViewModel.cs" />
-    <Compile Include="Models\AdminModels\EditOrderActivityType_ViewModel.cs" />
-    <Compile Include="Models\AdminModels\EditOrderInfoProductGroup_ViewModel.cs" />
-    <Compile Include="Models\AdminModels\EditOrderInfoProductType_ViewModel.cs" />
-    <Compile Include="Models\AdminModels\OrderActivityType_ViewModel.cs" />
-    <Compile Include="Models\AdminModels\OrderInfoProductGroups_ViewModel.cs" />
-    <Compile Include="Models\AdminModels\OrderInfoProductType_ViewModel.cs" />
+    <Compile Include="Models\AdminModels\RemoveAccount_ViewModel.cs" />
+    <Compile Include="Models\AdminModels\TieAccount_ViewModel.cs" />
+    <Compile Include="Models\AdminModels\UserMaintenance_ViewModel.cs" />
+    <Compile Include="Models\AdminModels\UserRoleManagement_ViewModel.cs" />
+    <Compile Include="Models\AdminModels\ViewUserInfo_ViewModel.cs" />
+    <Compile Include="Models\Generic.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
-    <Compile Include="Models\OrderModels\NewOrder_ViewModel.cs" />
-    <Compile Include="Models\OrderModels\ViewOrdersViewModel.cs" />
-    <Compile Include="Models\ResponeBase.cs" />
+    <Compile Include="Models\ResponseBase.cs" />
     <Compile Include="Models\ResultTypes.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
@@ -825,26 +821,24 @@
     <Content Include="Scripts\popper.js.map" />
     <Content Include="Scripts\popper-utils.min.js.map" />
     <Content Include="Scripts\popper-utils.js.map" />
-    <Content Include="Views\Order\NewOrder.cshtml" />
     <Content Include="Views\Admin\BusinessTypes.cshtml" />
-    <Content Include="Views\Admin\OrderActivityTypes.cshtml" />
-    <Content Include="Views\Admin\OrderInfoProductTypes.cshtml" />
     <Content Include="Views\Admin\ApplicaitonLogs.cshtml" />
     <Content Include="Views\Admin\_CreateBusinessType.cshtml" />
     <Content Include="Views\Admin\_EditBusinessType.cshtml" />
-    <Content Include="Views\Admin\_CreateOrderActivityType.cshtml" />
-    <Content Include="Views\Admin\_EditOrderActivityType.cshtml" />
-    <Content Include="Views\Admin\_CreateOrderInfoProductType.cshtml" />
-    <Content Include="Views\Admin\_EditOrderInfoProductType.cshtml" />
-    <Content Include="Views\Admin\_CreateOrderInfoProductGroup.cshtml" />
-    <Content Include="Views\Admin\_EditOrderInfoProductGroup.cshtml" />
-    <Content Include="Views\Admin\OrderInfoProductGroups.cshtml" />
-    <Content Include="Views\Order\ViewOrders.cshtml" />
     <Content Include="Views\Manage\ChangeEmailAddress.cshtml" />
     <Content Include="Views\Manage\ChangeUserName.cshtml" />
     <Content Include="Views\Manage\ChangeAccountInformation.cshtml" />
     <Content Include="Views\Manage\DeleteAccount.cshtml" />
     <Content Include="Views\Account\Confirm_Email.cshtml" />
+    <Content Include="Views\Admin\UserMaintenance.cshtml" />
+    <Content Include="Views\Admin\ViewUserInfo.cshtml" />
+    <Content Include="Views\Admin\_AccountInfo.cshtml" />
+    <Content Include="Views\Admin\_LoginHistory.cshtml" />
+    <Content Include="Views\Admin\_AccountChangeHistory.cshtml" />
+    <Content Include="Views\Admin\TieAccount.cshtml" />
+    <Content Include="Views\Admin\UserRoleManagement.cshtml" />
+    <Content Include="Views\Admin\RemoveAccount.cshtml" />
+    <Content Include="Views\Admin\CreateNewCustomerAccount.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

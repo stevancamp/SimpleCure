@@ -1,0 +1,163 @@
+﻿@model SimpleCure.Models.AdminModels.CreateNewCustomerAccount_ViewModel
+@{
+    ViewBag.Title = "CreateNewCustomerAccount";
+}
+@if (Model.ResponseSuccess == false && Model.responseTypes == SimpleCure.Models.ResponseTypes.Failure)
+{
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        <strong>There was an error!</strong> @Model.ResponseMessage
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+}
+
+@if (Model.responseTypes == SimpleCure.Models.ResponseTypes.Information)
+{
+    <div class="alert alert-info alert-dismissible fade show" role="alert">
+        @Model.ResponseMessage
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+}
+
+@if (Model.responseTypes == SimpleCure.Models.ResponseTypes.Success && !string.IsNullOrEmpty(Model.ResponseMessage))
+{
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        @Model.ResponseMessage
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+}
+<div class="breadcrumb-holder">
+    <div class="container-fluid">
+        <ul class="breadcrumb">
+            <li class="breadcrumb-item">
+                @Html.ActionLink(" Home", "Index", "Home")
+            </li>
+            <li class="breadcrumb-item active">Create New Customer Account</li>
+        </ul>
+    </div>
+</div>
+<section class="forms">
+    <div class="container-fluid">
+        <header>
+            <h1 class="h3 display">Create New Customer Account</h1>
+        </header>
+        <div class="row justify-content-center">
+            <div class="col-md-4">
+
+                <div class="card">
+                    <div class="card-header">
+                        <h4>Create New Customer Account Form</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="form-inner">
+                            @using (Html.BeginForm("CreateNewCustomerAccount", "Admin", FormMethod.Post, new { @class = "text-left form-validate", role = "form" }))
+                            {
+                                @Html.AntiForgeryToken()
+                                @Html.ValidationSummary("", new { @class = "text-danger" })
+
+                                <div class="form-group-material">
+                                    @Html.TextBoxFor(m => m.Company, new { @class = "input-material" })
+                                    <label for="Company" class="label-material">Company</label>
+                                </div>
+
+                                <div class="form-group-material">
+                                    @Html.TextBoxFor(m => m.Customer, new { @class = "input-material" })
+                                    <label for="Customer" class="label-material">Customer Name</label>
+                                </div>
+
+                                <div class="form-group-material">
+                                    @Html.TextBoxFor(m => m.MainPhone, new { @class = "input-material" })
+                                    <label for="MainPhone" class="label-material">Main Phone #</label>
+                                </div>
+
+                                <div class="form-group-material">
+                                    @Html.TextBoxFor(m => m.Mobile, new { @class = "input-material" })
+                                    <label for="Mobile" class="label-material">Mobile #</label>
+                                </div>
+
+                                <div class="form-group-material">
+                                    @Html.TextBoxFor(m => m.MainEmail, new { @class = "input-material" })
+                                    <label for="MainEmail" class="label-material">Primary Email</label>
+                                </div>
+
+                                <div class="form-group-material">
+                                    @Html.TextBoxFor(m => m.AltEmail1, new { @class = "input-material" })
+                                    <label for="AltEmail1" class="label-material">Alternate Email</label>
+                                </div>
+
+                                <div class="form-group-material">
+                                    @Html.TextBoxFor(m => m.Street1, new { @class = "input-material" })
+                                    <label for="Street1" class="label-material">Street Address</label>
+                                </div>
+
+                                <div class="form-group-material">
+                                    @Html.TextBoxFor(m => m.City, new { @class = "input-material" })
+                                    <label for="City" class="label-material">City</label>
+                                </div>
+
+                                <div class="form-group-material">
+                                    @Html.TextBoxFor(m => m.State, new { @class = "input-material" })
+                                    <label for="State" class="label-material">State</label>
+                                </div>
+
+                                <div class="form-group-material">
+                                    @Html.TextBoxFor(m => m.Zip, new { @class = "input-material" })
+                                    <label for="Zip" class="label-material">Zip</label>
+                                </div>
+
+                                <div class="form-group-material">
+                                    @Html.TextBoxFor(m => m.OMMALicense, new { @class = "input-material" })
+                                    <label for="OMMALicense" class="label-material">OMMA License #</label>
+                                </div>
+
+                                <div class="form-group-material">
+                                    @Html.TextBoxFor(m => m.Company, new { @class = "input-material" })
+                                    <label for="Company" class="label-material">Company</label>
+                                </div>
+
+                                <div class="form-group-material">
+                                    @Html.TextBoxFor(m => m.EIN, new { @class = "input-material" })
+                                    <label for="ComEINpany" class="label-material">EIN #</label>
+                                </div>
+
+                                <div class="form-group-material">
+                                    @Html.TextBoxFor(m => m.FEIN, new { @class = "input-material" })
+                                    <label for="FEIN" class="label-material">FEIN #</label>
+                                </div>
+
+                                <div class="form-group-material">
+                                    @Html.TextBoxFor(m => m.OBN, new { @class = "input-material" })
+                                    <label for="OBN" class="label-material">OBN #</label>
+                                </div>
+
+                                <div class="form-group">                                   
+                                    @Html.LabelFor(m => m.IndustryType, "Business Type", new { @class = "form-control-label" })
+                                    @Html.DropDownListFor(m => m.IndustryType, new SelectList(
+                 Model.IndustryTypes.Select(x => new { Value = x, Text = x }),
+                 "Value",
+                 "Text"
+                 ), new { @class = "form-control", required = "required" })
+
+                                </div>
+                                <div class="form-group">
+                                    <input type="submit" value="Create Customer" class="btn btn-outline-primary" />
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+

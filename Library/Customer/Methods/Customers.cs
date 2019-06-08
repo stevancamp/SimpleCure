@@ -72,6 +72,7 @@ namespace Library.Customer.Methods
                 {
                     //ctx.Tbl_Customers.                                                                    
                     ctx.Entry(customer).State = System.Data.Entity.EntityState.Modified;
+                    //ctx.Tbl_Customers.Add(customer);
                     var updated = ctx.SaveChanges();
 
                     if (updated > 0)
@@ -400,6 +401,39 @@ namespace Library.Customer.Methods
             }
 
             return response;
+        }
+
+        public bool IfLoginExists(string UserID)
+        {
+            bool Exists = false;
+
+            try
+            {
+                using (var ctx = new SimpleCureEntities())
+                {
+                    var CustomerInfo = ctx.Tbl_Customers.Where(s => s.AspNetUsersID == UserID).FirstOrDefault();
+
+                    if (CustomerInfo != null && CustomerInfo.ID > 0)
+                    {
+                        Exists = true;
+                    }
+                    
+                }
+            }
+            catch (Exception ex)
+            {
+                string methodName = System.Reflection.MethodBase.GetCurrentMethod().Name;
+                string source = ex.Source;
+                string stacktrace = ex.StackTrace;
+                string targetsite = ex.TargetSite.ToString();
+                string error = ex.InnerException.ToString();
+                string ErrorMessage = $"There was an error at {DateTime.Now} {Environment.NewLine} Method: {methodName} {Environment.NewLine} Source: {source} {Environment.NewLine} StackTrace: {stacktrace} {Environment.NewLine} TargetSite: {targetsite} {Environment.NewLine} Error: {error}{Environment.NewLine} User ID: {UserID.ToString()}";
+                _applicationError.Log(ErrorMessage, string.Empty);
+
+               
+            }
+
+            return Exists;
         }
     }
 }

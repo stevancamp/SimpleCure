@@ -728,33 +728,31 @@ namespace SimpleCure.Controllers
             {
 
                 var user = UserManager.FindById(User.Identity.GetUserId());
-                var IsInCustTbl = _customerFunctions.GetByUserID(user.Id);
-                    //.ResponseSuccess;
-                Customers_Model cm = new Customers_Model();
-                cm.AltEmail1 = model.AltEmail1;
-                cm.AspNetUsersID = user.Id;
-                cm.City = model.City;
-                cm.Company = model.Company;
-                cm.Customer = model.Customer;
-                cm.DocLink = model.DocLink;
-                cm.EIN = model.EIN;
-                cm.EnterDate = model.EnterDate;
-                cm.FEIN = model.FEIN;
-                cm.ID = model.ID;
-                cm.IndustryType = model.IndustryType;
-                cm.MainEmail = model.MainEmail;
-                cm.MainPhone = model.MainPhone;
-                cm.Mobile = model.Mobile;
-                cm.OBN = model.OBN;
-                cm.OMMALicense = model.OMMALicense;
-                cm.State = model.State;
-                cm.Street1 = model.Street1;
-                cm.Zip = model.Zip;
-
-                if (IsInCustTbl.ResponseSuccess && IsInCustTbl.GenericClass != null && IsInCustTbl.responseTypes == BusinessLayer.Models.ResponseTypes.Success)
-                //if (IsInCustTbl)
+                var CustomerInfo = _customerFunctions.GetByUserID(user.Id);
+                 
+                if (CustomerInfo.GenericClass != null && CustomerInfo.responseTypes == BusinessLayer.Models.ResponseTypes.Success)              
                 {
-                    var Updated = _customerFunctions.Update(cm);
+                    CustomerInfo.GenericClass.AltEmail1 = model.AltEmail1;
+                    CustomerInfo.GenericClass.AspNetUsersID = user.Id;
+                    CustomerInfo.GenericClass.City = model.City;
+                    CustomerInfo.GenericClass.Company = model.Company;
+                    CustomerInfo.GenericClass.Customer = model.Customer;
+                    CustomerInfo.GenericClass.DocLink = model.DocLink;
+                    CustomerInfo.GenericClass.EIN = model.EIN;
+                    CustomerInfo.GenericClass.EnterDate = model.EnterDate;
+                    CustomerInfo.GenericClass.FEIN = model.FEIN;
+                    CustomerInfo.GenericClass.ID = model.ID;
+                    CustomerInfo.GenericClass.IndustryType = model.IndustryType;
+                    CustomerInfo.GenericClass.MainEmail = model.MainEmail;
+                    CustomerInfo.GenericClass.MainPhone = model.MainPhone;
+                    CustomerInfo.GenericClass.Mobile = model.Mobile;
+                    CustomerInfo.GenericClass.OBN = model.OBN;
+                    CustomerInfo.GenericClass.OMMALicense = model.OMMALicense;
+                    CustomerInfo.GenericClass.State = model.State;
+                    CustomerInfo.GenericClass.Street1 = model.Street1;
+                    CustomerInfo.GenericClass.Zip = model.Zip;
+
+                    var Updated = _customerFunctions.Update(CustomerInfo.GenericClass);
 
                     if (Updated.ResponseSuccess)
                     {
@@ -768,6 +766,27 @@ namespace SimpleCure.Controllers
                 }
                 else
                 {
+                    Customers_Model cm = new Customers_Model();
+                    cm.AltEmail1 = model.AltEmail1;
+                    cm.AspNetUsersID = user.Id;
+                    cm.City = model.City;
+                    cm.Company = model.Company;
+                    cm.Customer = model.Customer;
+                    cm.DocLink = model.DocLink;
+                    cm.EIN = model.EIN;
+                    cm.EnterDate = model.EnterDate;
+                    cm.FEIN = model.FEIN;
+                    cm.ID = model.ID;
+                    cm.IndustryType = model.IndustryType;
+                    cm.MainEmail = model.MainEmail;
+                    cm.MainPhone = model.MainPhone;
+                    cm.Mobile = model.Mobile;
+                    cm.OBN = model.OBN;
+                    cm.OMMALicense = model.OMMALicense;
+                    cm.State = model.State;
+                    cm.Street1 = model.Street1;
+                    cm.Zip = model.Zip;
+
                     var Inserted = _customerFunctions.Add(cm);
                     if (Inserted.ResponseSuccess)
                     {

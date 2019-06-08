@@ -1,0 +1,36 @@
+﻿@model List<BusinessLayer.Models.LoginAttemptModels.AccountChangeLog_Model>
+
+<div class="table-responsive">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Changed By</th>
+                <th>Changed Date Time</th>
+                <th>Changed From </th>
+                <th>Changed To</th>
+                <th>User ID Changed</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model != null && Model.Count > 0)
+            {
+                foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.ChangedBy</td>
+                        <td>@item.ChangedDateTime</td>
+                        <td>@item.ChangeFrom</td>
+                        <td>@item.ChangeTo</td>
+                        <td>@item.UserIDChanged</td>
+                    </tr>
+                }
+            }
+            else
+            {
+                <tr>
+                    <td colspan="3" class="text-center">There are no changes to the user today!</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
