@@ -15,8 +15,6 @@
         <EntityTypeShape EntityType="TestingModel.AspNetUsersLoginAttempt" Width="1.5" PointX="6.75" PointY="6.75" IsExpanded="true" />
         <EntityTypeShape EntityType="TestingModel.BusinessType" Width="1.5" PointX="7.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="TestingModel.Discount" Width="1.5" PointX="7.75" PointY="3.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="TestingModel.Order" Width="1.5" PointX="8.75" PointY="6.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="TestingModel.OrderActivity" Width="1.5" PointX="9.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="TestingModel.OrderDiscount" Width="1.5" PointX="0.75" PointY="9.75" IsExpanded="true" />
         <EntityTypeShape EntityType="TestingModel.OrderProduct" Width="1.5" PointX="2.75" PointY="9.75" IsExpanded="true" />
         <EntityTypeShape EntityType="TestingModel.OrderStatu" Width="1.5" PointX="9.75" PointY="3.75" IsExpanded="true" />
@@ -45,6 +43,8 @@
         <AssociationConnector Association="TestingModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" ManuallyRouted="false" />
         <AssociationConnector Association="TestingModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" ManuallyRouted="false" />
         <AssociationConnector Association="TestingModel.AspNetUserRoles" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="TestingModel.Order" Width="1.5" PointX="9.375" PointY="16.75" />
+        <EntityTypeShape EntityType="TestingModel.OrderActivity" Width="1.5" PointX="11.375" PointY="16.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

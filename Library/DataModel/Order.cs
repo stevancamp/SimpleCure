@@ -18,7 +18,7 @@ namespace Library.DataModel
         public int Tbl_CustomerID { get; set; }
         public string Notes { get; set; }
         public System.DateTime SubmissionDate { get; set; }
-        public int OrderStatus { get; set; }
+        public string OrderStatus { get; set; }
         public Nullable<System.DateTime> CompletionDate { get; set; }
     }
 }

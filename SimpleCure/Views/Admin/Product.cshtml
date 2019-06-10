@@ -1,0 +1,114 @@
+﻿@model SimpleCure.Models.ProductModels.Product_ViewModel
+@{
+    ViewBag.Title = "Product";
+}
+
+<input type="hidden" value="@Url.Action("CreateProduct", "Admin")" id="UrlCreateProduct" />
+<input type="hidden" value="@Url.Action("EditProduct", "Admin")" id="UrlEditProduct" />
+<input type="hidden" value="@Url.Action("Product", "Admin")" id="UrlProduct" />
+
+@if (Model.ResponseSuccess == false && Model.responseTypes == SimpleCure.Models.ResponseTypes.Failure)
+{
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        <strong>There was an error!</strong> @Model.ResponseMessage
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+}
+
+@if (Model.responseTypes == SimpleCure.Models.ResponseTypes.Information)
+{
+    <div class="alert alert-info alert-dismissible fade show" role="alert">
+        @Model.ResponseMessage
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+}
+
+@if (Model.responseTypes == SimpleCure.Models.ResponseTypes.Success && !string.IsNullOrEmpty(Model.ResponseMessage))
+{
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        @Model.ResponseMessage
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+}
+
+<div class="breadcrumb-holder">
+    <div class="container-fluid">
+        <ul class="breadcrumb">
+            <li class="breadcrumb-item">
+                @Html.ActionLink(" Home", "Index", "Home")
+            </li>
+            <li class="breadcrumb-item active">Product</li>
+        </ul>
+    </div>
+</div>
+<section class="forms">
+    <div class="container-fluid">
+        <header>
+            <h1 class="h3 display">Product</h1>
+        </header>
+        <div class="row">
+            <div class="col-md-8">
+
+                <div class="card">
+                    <div class="card-header">
+                        <h4>Product Table  <a href="#" class="pull-right" data-toggle="tooltip" data-placement="top" title="Create New Order Status" onclick="ShowCreate();"><i class="fa fa-plus-circle"></i></a></h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                       
+                                        <th>Cart Gram</th>
+                                        <th>Dominant</th>
+                                        <th>Price Per Gram</th>                                       
+                                        <th>Starin</th>
+                                        <th>Type</th>
+                                        <th>Edit</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @if (Model.ListProducts != null && Model.ListProducts.Count > 0)
+                                    {
+                                        foreach (var item in Model.ListProducts)
+                                        {
+                                    <tr>
+                                         
+                                        <td>@item.CartGram</td>                                       
+                                        <td>@item.Dominant</td>                                      
+                                        <td>@item.PricePerGram</td>                                                                     
+                                        <td>@item.Strain</td>
+                                        <td>@item.Type</td>                                        
+                                        <td><a href="#" onclick="ShowEdit(@item.ID)"><i class="fa fa-edit"></i></a></td>
+                                    </tr>
+                                        }
+                                    }
+                                    else
+                                    {
+                                        <tr>
+                                            <td colspan="3" class="text-center">There are no Products</td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div id="ProductWorkDiv"></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+@section scripts {
+    <script src="~/Scripts/ViewScripts/ProductViewScript.js"></script>
+}
+

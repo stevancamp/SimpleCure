@@ -16,7 +16,7 @@ namespace Library.DataModel
     {
         public int ID { get; set; }
         public int OrderID { get; set; }
-        public int Status { get; set; }
+        public string Status { get; set; }
         public string Notes { get; set; }
         public System.DateTime ActivityDate { get; set; }
         public string ActivityBy { get; set; }

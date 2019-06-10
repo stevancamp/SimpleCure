@@ -176,6 +176,7 @@
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\OrderController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -205,12 +206,26 @@
     <Compile Include="Models\AdminModels\UserMaintenance_ViewModel.cs" />
     <Compile Include="Models\AdminModels\UserRoleManagement_ViewModel.cs" />
     <Compile Include="Models\AdminModels\ViewUserInfo_ViewModel.cs" />
+    <Compile Include="Models\DiscountModels\CreateDiscount_ViewModel.cs" />
+    <Compile Include="Models\DiscountModels\Discount_ViewModel.cs" />
+    <Compile Include="Models\DiscountModels\EditDiscount_ViewModel.cs" />
     <Compile Include="Models\Generic.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\OrderModels\CartOrder_ViewModel.cs" />
+    <Compile Include="Models\OrderModels\CreateOrder_ViewModel.cs" />
+    <Compile Include="Models\OrderModels\EditOrder_ViewModel.cs" />
+    <Compile Include="Models\OrderModels\Orders_ViewModel.cs" />
+    <Compile Include="Models\OrderModels\ViewOrder_ViewModel.cs" />
     <Compile Include="Models\OrderStatusModels\CreateOrderStatus_ViewModel.cs" />
     <Compile Include="Models\OrderStatusModels\EditOrderStatus_ViewModel.cs" />
     <Compile Include="Models\OrderStatusModels\OrderStatus_ViewModel.cs" />
+    <Compile Include="Models\ProductGroupsModels\CreateProductGroup_ViewModel.cs" />
+    <Compile Include="Models\ProductGroupsModels\EditProductGroup_ViewModel.cs" />
+    <Compile Include="Models\ProductGroupsModels\ProductGroup_ViewModel.cs" />
+    <Compile Include="Models\ProductModels\CreateProduct_ViewModel.cs" />
+    <Compile Include="Models\ProductModels\EditProduct_ViewModel.cs" />
+    <Compile Include="Models\ProductModels\Product_ViewModel.cs" />
     <Compile Include="Models\ResponseBase.cs" />
     <Compile Include="Models\ResultTypes.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -223,6 +238,7 @@
     <Content Include="Content\bootstrap-reboot.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\CreateOrderCustomer.css" />
     <Content Include="Content\Images\UserSilhouette.png" />
     <Content Include="distribution\css\custom.css" />
     <Content Include="distribution\css\fontastic.css" />
@@ -779,7 +795,10 @@
     <Content Include="Scripts\umd\popper.min.js" />
     <Content Include="Scripts\ViewScripts\ApplicationLogsViewScript.js" />
     <Content Include="Scripts\ViewScripts\BusinessTypesViewScirpt.js" />
+    <Content Include="Scripts\ViewScripts\CreateOrderViewScript.js" />
+    <Content Include="Scripts\ViewScripts\DiscountViewScript.js" />
     <Content Include="Scripts\ViewScripts\OrderStatusViewScript.js" />
+    <Content Include="Scripts\ViewScripts\ProductViewScript.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -842,6 +861,13 @@
     <Content Include="Views\Admin\OrderStatus.cshtml" />
     <Content Include="Views\Admin\_EditOrderStatus.cshtml" />
     <Content Include="Views\Admin\_CreateOrderStatus.cshtml" />
+    <Content Include="Views\Admin\Product.cshtml" />
+    <Content Include="Views\Admin\_CreateProduct.cshtml" />
+    <Content Include="Views\Admin\_EditProduct.cshtml" />
+    <Content Include="Views\Admin\Discount.cshtml" />
+    <Content Include="Views\Admin\_CreateDiscount.cshtml" />
+    <Content Include="Views\Admin\_EditDiscount.cshtml" />
+    <Content Include="Views\Order\CreateOrder.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

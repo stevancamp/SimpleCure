@@ -1,0 +1,198 @@
+﻿@model SimpleCure.Models.OrderModels.CreateOrder_ViewModel
+@{
+    ViewBag.Title = "Create Order";
+}
+@*<link href="~/Content/CreateOrderCustomer.css" rel="stylesheet" />*@
+<input type="hidden" value="@Url.Action("SaveOrder", "Order")" id="UrlSaveOrder" />
+ 
+
+@if (Model.ResponseSuccess == false && Model.responseTypes == SimpleCure.Models.ResponseTypes.Failure)
+{
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        <strong>There was an error!</strong> @Model.ResponseMessage
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+}
+
+@if (Model.responseTypes == SimpleCure.Models.ResponseTypes.Information)
+{
+    <div class="alert alert-info alert-dismissible fade show" role="alert">
+        @Model.ResponseMessage
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+}
+
+@if (Model.responseTypes == SimpleCure.Models.ResponseTypes.Success && !string.IsNullOrEmpty(Model.ResponseMessage))
+{
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        @Model.ResponseMessage
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+}
+
+<div class="breadcrumb-holder">
+    <div class="container-fluid">
+        <ul class="breadcrumb">
+            <li class="breadcrumb-item">
+                @Html.ActionLink(" Home", "Index", "Home")
+            </li>
+            <li class="breadcrumb-item active">Create Order</li>
+        </ul>
+    </div>
+</div>
+<section class="forms">
+    <div class="container-fluid">
+        <header>
+            <h1 class="h3 display">Create Order</h1>
+        </header>
+        <div class="row">
+            <div class="col-md-12">
+
+                <div class="card">
+                    <div class="card-header">
+                        <h4>Products</h4>
+                    </div>
+                    <div class="card-body">
+                        @if (Model.ListProducts != null && Model.ListProducts.Count > 0)
+                        {
+
+                            <div class="card-deck">
+                                @foreach (var item in Model.ListProducts)
+                                {
+
+                                    <div class="card" style="width: 18rem;">
+
+                                        @if (item.ProductImage != null)
+                                        {
+                                            var base64 = Convert.ToBase64String(item.ProductImage);
+                                            var imgSrc = String.Format("data:image/gif;base64,{0}", base64);
+                                            <img class="card-img-top" src="@imgSrc" alt="Card image cap">
+
+                                        }
+                                        else
+                                        {
+                                            <img class="card-img-top" src="..." alt="Card image cap">
+                                        }
+                                        <div class="card-body">
+                                            <h5 class="card-title">@item.Type</h5>
+                                            <p class="card-text">
+                                                Strain @item.Strain
+                                                <br />
+                                                Dominant @item.Dominant
+                                                <br />
+                                                Description @item.Description
+                                                <br />
+                                                Price Per Gram @item.PricePerGram
+                                                <br />
+                                                Quantiy <input type="number" id="Quantity_@item.ID" />
+
+                                            </p>
+                                            <a href="#" class="btn btn-primary" onclick="AddToCart('@item.Type', '@item.PricePerGram', '@item.ID');">Add to Cart</a>
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+                        }
+                        else
+                        {
+                            <p>There are no products currently available to order! Please try back later.</p>
+                        }
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h4>Order Information</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="container-fluid">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <h3>Customer</h3>
+                                    @if (Model.ListCustomers != null && Model.ListCustomers.Count > 0)
+                                    {
+                                        <select id="CustomerList">
+                                            <option value="0">--Please Select--</option>
+                                            @foreach (var item in Model.ListCustomers)
+                                            {
+                                                <option value="@item.CustomerID">@item.CustomerName</option>
+                                            }
+                                        </select>
+                                    }
+                                    else
+                                    {
+                                        <span>There are no customers</span>
+                                    }
+                                </div>
+                                <div class="col-md-4">
+                                    <h3>Cart Items</h3>
+                                    <table id="CartTable">
+                                        <thead>
+                                            <tr>
+                                                <th>Product</th>
+                                                <th>Price Per Gram</th>
+                                                <th>Quantity</th>
+                                                <th>Remove</th>
+                                            </tr>
+
+                                        </thead>
+                                        <tbody></tbody>
+                                    </table>
+                                </div>
+                                <div class="col-md-4">
+                                    <h3>Discounts</h3>
+                                    @if (Model.ListDiscounts != null && Model.ListDiscounts.Count > 0)
+                                    {
+                                        <select id="DiscountDDL">
+                                            <option value="0">--Please Select--</option>
+                                            @foreach (var item in Model.ListDiscounts)
+                                            {
+                                                <option value="@item.ID">@item.Type ($@item.DiscountAmount)</option>
+                                            }
+                                        </select>
+                                        <button onclick="AddDiscount();" class="btn btn-outline-primary">Add Discount</button>
+                                    }
+                                    <table id="DiscountTbl">
+                                        <thead>
+                                            <tr>
+                                                <th>Discount</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody></tbody>
+                                    </table>
+                                </div>
+ 
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <span>Order Notes</span>
+                                        <textarea class="form-control" id="orderNotes" placeholder="Enter Order Notes here"></textarea>
+                                    </div>
+                                    <div class="form-group">
+                                        <button type="button" class="btn btn-outline-primary" onclick="SubmitOrder();">Submit Order</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+@section scripts {
+    <script src="~/Scripts/ViewScripts/CreateOrderViewScript.js"></script>
+}

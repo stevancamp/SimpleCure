@@ -35,8 +35,6 @@ namespace Library.DataModel
         public virtual DbSet<AspNetUsersLoginAttempt> AspNetUsersLoginAttempts { get; set; }
         public virtual DbSet<BusinessType> BusinessTypes { get; set; }
         public virtual DbSet<Discount> Discounts { get; set; }
-        public virtual DbSet<Order> Orders { get; set; }
-        public virtual DbSet<OrderActivity> OrderActivities { get; set; }
         public virtual DbSet<OrderDiscount> OrderDiscounts { get; set; }
         public virtual DbSet<OrderProduct> OrderProducts { get; set; }
         public virtual DbSet<OrderStatu> OrderStatus { get; set; }
@@ -62,5 +60,7 @@ namespace Library.DataModel
         public virtual DbSet<Tbl_SC_Supply> Tbl_SC_Supply { get; set; }
         public virtual DbSet<Tbl_Units> Tbl_Units { get; set; }
         public virtual DbSet<Tbl_Vendors> Tbl_Vendors { get; set; }
+        public virtual DbSet<Order> Orders { get; set; }
+        public virtual DbSet<OrderActivity> OrderActivities { get; set; }
     }
 }

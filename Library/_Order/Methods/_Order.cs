@@ -288,7 +288,7 @@ namespace Library._Order.Methods
             return response;
         }
 
-        public Generic<Order> GetByStatus(int StatusID)
+        public Generic<Order> GetByStatus(string Status)
         {
             Generic<Order> response = new Generic<Order>();
 
@@ -296,7 +296,7 @@ namespace Library._Order.Methods
             {
                 using (var ctx = new SimpleCureEntities())
                 {
-                    response.GenericClass = ctx.Orders.Where(s => s.OrderStatus == StatusID).FirstOrDefault();
+                    response.GenericClass = ctx.Orders.Where(s => s.OrderStatus == Status).FirstOrDefault();
 
                     if (response.GenericClass != null && response.GenericClass.ID > 0)
                     {
@@ -305,7 +305,7 @@ namespace Library._Order.Methods
                     }
                     else
                     {
-                        response.ResponseMessage = "Unable to get Order for OrderStatusID " + StatusID;
+                        response.ResponseMessage = "Unable to get Order for OrderStatus " + Status;
                         response.responseTypes = ResponseTypes.Information;
                     }
                 }
@@ -318,9 +318,9 @@ namespace Library._Order.Methods
                 string stacktrace = ex.StackTrace;
                 string targetsite = ex.TargetSite.ToString();
                 string error = ex.InnerException.ToString();
-                string ErrorMessage = $"There was an error at {DateTime.Now} {Environment.NewLine} Method: {methodName} {Environment.NewLine} Source: {source} {Environment.NewLine} StackTrace: {stacktrace} {Environment.NewLine} TargetSite: {targetsite} {Environment.NewLine} Error: {error}{Environment.NewLine} For OrderStatus ID: {StatusID} {Environment.NewLine}";
+                string ErrorMessage = $"There was an error at {DateTime.Now} {Environment.NewLine} Method: {methodName} {Environment.NewLine} Source: {source} {Environment.NewLine} StackTrace: {stacktrace} {Environment.NewLine} TargetSite: {targetsite} {Environment.NewLine} Error: {error}{Environment.NewLine} For OrderStatus: {Status} {Environment.NewLine}";
                 errors.Log(ErrorMessage, string.Empty);
-                response.ResponseMessage = "Unable to get Order for OrderStatusID " + StatusID;
+                response.ResponseMessage = "Unable to get Order for OrderStatus " + Status;
                 response.responseTypes = ResponseTypes.Failure;
             }
 

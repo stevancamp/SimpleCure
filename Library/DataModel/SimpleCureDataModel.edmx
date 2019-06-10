@@ -27,7 +27,7 @@
           <Property Name="ChangeTo" Type="varchar(max)" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'Testing.dbo.ALL' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'SimpleCure.dbo.ALL' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="ALL">
           <Key>
             <PropertyRef Name="ID" />
@@ -153,7 +153,7 @@ warning 6002: The table/view 'Testing.dbo.ALL' does not have a primary key defin
           <Property Name="Tbl_CustomerID" Type="int" Nullable="false" />
           <Property Name="Notes" Type="varchar(max)" />
           <Property Name="SubmissionDate" Type="datetime" Nullable="false" />
-          <Property Name="OrderStatus" Type="int" Nullable="false" />
+          <Property Name="OrderStatus" Type="varchar" MaxLength="500" />
           <Property Name="CompletionDate" Type="datetime" />
         </EntityType>
         <EntityType Name="OrderActivity">
@@ -162,7 +162,7 @@ warning 6002: The table/view 'Testing.dbo.ALL' does not have a primary key defin
           </Key>
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="OrderID" Type="int" Nullable="false" />
-          <Property Name="Status" Type="int" Nullable="false" />
+          <Property Name="Status" Type="varchar" MaxLength="500" />
           <Property Name="Notes" Type="varchar(max)" />
           <Property Name="ActivityDate" Type="datetime" Nullable="false" />
           <Property Name="ActivityBy" Type="varchar" MaxLength="128" Nullable="false" />
@@ -220,7 +220,7 @@ warning 6002: The table/view 'Testing.dbo.ALL' does not have a primary key defin
           <Property Name="IsActive" Type="bit" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'Testing.dbo.Tbl_Activity_Main' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'SimpleCure.dbo.Tbl_Activity_Main' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="Tbl_Activity_Main">
           <Key>
             <PropertyRef Name="ID" />
@@ -235,7 +235,7 @@ warning 6002: The table/view 'Testing.dbo.Tbl_Activity_Main' does not have a pri
           <Property Name="InvoiceNote" Type="nvarchar" MaxLength="255" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'Testing.dbo.Tbl_Activity_Sub' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'SimpleCure.dbo.Tbl_Activity_Sub' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="Tbl_Activity_Sub">
           <Key>
             <PropertyRef Name="ID" />
@@ -252,7 +252,7 @@ warning 6002: The table/view 'Testing.dbo.Tbl_Activity_Sub' does not have a prim
           <Property Name="BatchID" Type="nvarchar" MaxLength="255" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6013: The table/view 'Testing.dbo.Tbl_BS' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+warning 6013: The table/view 'SimpleCure.dbo.Tbl_BS' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
         <EntityType Name="Tbl_BS">
           <Property Name="Company" Type="nvarchar" MaxLength="255" />
           <Property Name="Year" Type="int" />
@@ -264,7 +264,7 @@ warning 6013: The table/view 'Testing.dbo.Tbl_BS' does not have a primary key de
           <Property Name="BatchID" Type="nvarchar" MaxLength="255" />
         </EntityType>-->
         <!--Errors Found During Generation:
-warning 6002: The table/view 'Testing.dbo.Tbl_BudTrim' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'SimpleCure.dbo.Tbl_BudTrim' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="Tbl_BudTrim">
           <Key>
             <PropertyRef Name="Type" />
@@ -272,7 +272,7 @@ warning 6002: The table/view 'Testing.dbo.Tbl_BudTrim' does not have a primary k
           <Property Name="Type" Type="nvarchar" MaxLength="255" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'Testing.dbo.Tbl_Company' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'SimpleCure.dbo.Tbl_Company' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="Tbl_Company">
           <Key>
             <PropertyRef Name="Abbrev" />
@@ -317,7 +317,7 @@ warning 6002: The table/view 'Testing.dbo.Tbl_Company' does not have a primary k
           <Property Name="JenPhone" Type="nvarchar" MaxLength="255" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'Testing.dbo.Tbl_Employees' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'SimpleCure.dbo.Tbl_Employees' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="Tbl_Employees">
           <Key>
             <PropertyRef Name="Employee" />
@@ -326,7 +326,7 @@ warning 6002: The table/view 'Testing.dbo.Tbl_Employees' does not have a primary
           <Property Name="HireDate" Type="datetime" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'Testing.dbo.Tbl_Finances' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'SimpleCure.dbo.Tbl_Finances' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="Tbl_Finances">
           <Key>
             <PropertyRef Name="ID" />
@@ -351,7 +351,7 @@ warning 6002: The table/view 'Testing.dbo.Tbl_Finances' does not have a primary 
           <Property Name="PriorMonth" Type="bit" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6013: The table/view 'Testing.dbo.Tbl_Finances_All' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+warning 6013: The table/view 'SimpleCure.dbo.Tbl_Finances_All' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
         <EntityType Name="Tbl_Finances_All">
           <Property Name="Date" Type="datetime" />
           <Property Name="Check" Type="nvarchar" MaxLength="255" />
@@ -367,17 +367,17 @@ warning 6013: The table/view 'Testing.dbo.Tbl_Finances_All' does not have a prim
           <Property Name="BatchID" Type="nvarchar" MaxLength="255" />
         </EntityType>-->
         <!--Errors Found During Generation:
-warning 6013: The table/view 'Testing.dbo.Tbl_Finances_Groiup_DD' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+warning 6013: The table/view 'SimpleCure.dbo.Tbl_Finances_Groiup_DD' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
         <EntityType Name="Tbl_Finances_Groiup_DD">
           <Property Name="Group" Type="nvarchar" MaxLength="255" />
         </EntityType>-->
         <!--Errors Found During Generation:
-warning 6013: The table/view 'Testing.dbo.Tbl_Finances_Note_DD' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+warning 6013: The table/view 'SimpleCure.dbo.Tbl_Finances_Note_DD' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
         <EntityType Name="Tbl_Finances_Note_DD">
           <Property Name="NoteAccount" Type="nvarchar" MaxLength="255" />
         </EntityType>-->
         <!--Errors Found During Generation:
-warning 6002: The table/view 'Testing.dbo.Tbl_IndustryType' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'SimpleCure.dbo.Tbl_IndustryType' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="Tbl_IndustryType">
           <Key>
             <PropertyRef Name="Type" />
@@ -385,7 +385,7 @@ warning 6002: The table/view 'Testing.dbo.Tbl_IndustryType' does not have a prim
           <Property Name="Type" Type="nvarchar" MaxLength="255" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'Testing.dbo.Tbl_InvoiceIDs' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'SimpleCure.dbo.Tbl_InvoiceIDs' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="Tbl_InvoiceIDs">
           <Key>
             <PropertyRef Name="InvID" />
@@ -393,7 +393,7 @@ warning 6002: The table/view 'Testing.dbo.Tbl_InvoiceIDs' does not have a primar
           <Property Name="InvID" Type="nvarchar" MaxLength="255" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'Testing.dbo.Tbl_Lots_Purchased' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'SimpleCure.dbo.Tbl_Lots_Purchased' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="Tbl_Lots_Purchased">
           <Key>
             <PropertyRef Name="ID" />
@@ -419,7 +419,7 @@ warning 6002: The table/view 'Testing.dbo.Tbl_Lots_Purchased' does not have a pr
           <Property Name="CBD" Type="bit" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'Testing.dbo.Tbl_Month' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'SimpleCure.dbo.Tbl_Month' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="Tbl_Month">
           <Key>
             <PropertyRef Name="MonthNum" />
@@ -428,7 +428,7 @@ warning 6002: The table/view 'Testing.dbo.Tbl_Month' does not have a primary key
           <Property Name="MonthName" Type="nvarchar" MaxLength="255" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'Testing.dbo.Tbl_Products' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'SimpleCure.dbo.Tbl_Products' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="Tbl_Products">
           <Key>
             <PropertyRef Name="ID" />
@@ -444,7 +444,7 @@ warning 6002: The table/view 'Testing.dbo.Tbl_Products' does not have a primary 
           <Property Name="Active" Type="bit" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'Testing.dbo.Tbl_Products_Dominant' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'SimpleCure.dbo.Tbl_Products_Dominant' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="Tbl_Products_Dominant">
           <Key>
             <PropertyRef Name="ProdDom" />
@@ -452,7 +452,7 @@ warning 6002: The table/view 'Testing.dbo.Tbl_Products_Dominant' does not have a
           <Property Name="ProdDom" Type="nvarchar" MaxLength="255" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'Testing.dbo.Tbl_Products_Type' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'SimpleCure.dbo.Tbl_Products_Type' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="Tbl_Products_Type">
           <Key>
             <PropertyRef Name="ProdType" />
@@ -460,7 +460,7 @@ warning 6002: The table/view 'Testing.dbo.Tbl_Products_Type' does not have a pri
           <Property Name="ProdType" Type="nvarchar" MaxLength="255" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'Testing.dbo.Tbl_RunTypes' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'SimpleCure.dbo.Tbl_RunTypes' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="Tbl_RunTypes">
           <Key>
             <PropertyRef Name="RunType" />
@@ -468,7 +468,7 @@ warning 6002: The table/view 'Testing.dbo.Tbl_RunTypes' does not have a primary 
           <Property Name="RunType" Type="nvarchar" MaxLength="255" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'Testing.dbo.Tbl_SC_Extractions' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'SimpleCure.dbo.Tbl_SC_Extractions' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="Tbl_SC_Extractions">
           <Key>
             <PropertyRef Name="ID" />
@@ -493,7 +493,7 @@ warning 6002: The table/view 'Testing.dbo.Tbl_SC_Extractions' does not have a pr
           <Property Name="GramsIn" Type="int" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'Testing.dbo.Tbl_SC_Supply' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'SimpleCure.dbo.Tbl_SC_Supply' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="Tbl_SC_Supply">
           <Key>
             <PropertyRef Name="ID" />
@@ -538,7 +538,7 @@ warning 6002: The table/view 'Testing.dbo.Tbl_SC_Supply' does not have a primary
           <Property Name="CandyMaker" Type="nvarchar" MaxLength="255" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'Testing.dbo.Tbl_Units' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'SimpleCure.dbo.Tbl_Units' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="Tbl_Units">
           <Key>
             <PropertyRef Name="Unit" />
@@ -547,7 +547,7 @@ warning 6002: The table/view 'Testing.dbo.Tbl_Units' does not have a primary key
           <Property Name="UnitDesc" Type="nvarchar" MaxLength="255" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'Testing.dbo.Tbl_Vendors' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'SimpleCure.dbo.Tbl_Vendors' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="Tbl_Vendors">
           <Key>
             <PropertyRef Name="Vendor" />
@@ -992,28 +992,6 @@ warning 6002: The table/view 'Testing.dbo.Tbl_Vendors' does not have a primary k
           <Property Name="IsActive" Type="Boolean" Nullable="false" />
           <Property Name="DiscountAmount" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
         </EntityType>
-        <EntityType Name="Order">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Tbl_CustomerID" Type="Int32" Nullable="false" />
-          <Property Name="Notes" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="SubmissionDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="OrderStatus" Type="Int32" Nullable="false" />
-          <Property Name="CompletionDate" Type="DateTime" Precision="3" />
-        </EntityType>
-        <EntityType Name="OrderActivity">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="OrderID" Type="Int32" Nullable="false" />
-          <Property Name="Status" Type="Int32" Nullable="false" />
-          <Property Name="Notes" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="ActivityDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="ActivityBy" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="false" />
-        </EntityType>
         <EntityType Name="OrderDiscount">
           <Key>
             <PropertyRef Name="ID" />
@@ -1399,8 +1377,6 @@ warning 6002: The table/view 'Testing.dbo.Tbl_Vendors' does not have a primary k
           <EntitySet Name="AspNetUsersLoginAttempts" EntityType="Self.AspNetUsersLoginAttempt" />
           <EntitySet Name="BusinessTypes" EntityType="Self.BusinessType" />
           <EntitySet Name="Discounts" EntityType="Self.Discount" />
-          <EntitySet Name="Orders" EntityType="Self.Order" />
-          <EntitySet Name="OrderActivities" EntityType="Self.OrderActivity" />
           <EntitySet Name="OrderDiscounts" EntityType="Self.OrderDiscount" />
           <EntitySet Name="OrderProducts" EntityType="Self.OrderProduct" />
           <EntitySet Name="OrderStatus" EntityType="Self.OrderStatu" />
@@ -1438,7 +1414,31 @@ warning 6002: The table/view 'Testing.dbo.Tbl_Vendors' does not have a primary k
             <End Role="AspNetRoles" EntitySet="AspNetRoles" />
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
           </AssociationSet>
+          <EntitySet Name="Orders" EntityType="TestingModel.Order" />
+          <EntitySet Name="OrderActivities" EntityType="TestingModel.OrderActivity" />
         </EntityContainer>
+        <EntityType Name="Order">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Tbl_CustomerID" Type="Int32" Nullable="false" />
+          <Property Name="Notes" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="SubmissionDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="OrderStatus" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="CompletionDate" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="OrderActivity">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="OrderID" Type="Int32" Nullable="false" />
+          <Property Name="Status" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="Notes" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="ActivityDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ActivityBy" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="false" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1550,30 +1550,6 @@ warning 6002: The table/view 'Testing.dbo.Tbl_Vendors' does not have a primary k
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="Type" ColumnName="Type" />
                 <ScalarProperty Name="IsActive" ColumnName="IsActive" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Orders">
-            <EntityTypeMapping TypeName="TestingModel.Order">
-              <MappingFragment StoreEntitySet="Order">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="Tbl_CustomerID" ColumnName="Tbl_CustomerID" />
-                <ScalarProperty Name="Notes" ColumnName="Notes" />
-                <ScalarProperty Name="SubmissionDate" ColumnName="SubmissionDate" />
-                <ScalarProperty Name="OrderStatus" ColumnName="OrderStatus" />
-                <ScalarProperty Name="CompletionDate" ColumnName="CompletionDate" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="OrderActivities">
-            <EntityTypeMapping TypeName="TestingModel.OrderActivity">
-              <MappingFragment StoreEntitySet="OrderActivity">
-                <ScalarProperty Name="ActivityBy" ColumnName="ActivityBy" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="OrderID" ColumnName="OrderID" />
-                <ScalarProperty Name="Status" ColumnName="Status" />
-                <ScalarProperty Name="Notes" ColumnName="Notes" />
-                <ScalarProperty Name="ActivityDate" ColumnName="ActivityDate" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1945,6 +1921,30 @@ warning 6002: The table/view 'Testing.dbo.Tbl_Vendors' does not have a primary k
               <ScalarProperty Name="Id" ColumnName="UserId" />
             </EndProperty>
           </AssociationSetMapping>
+          <EntitySetMapping Name="Orders">
+            <EntityTypeMapping TypeName="TestingModel.Order">
+              <MappingFragment StoreEntitySet="Order">
+                <ScalarProperty Name="CompletionDate" ColumnName="CompletionDate" />
+                <ScalarProperty Name="OrderStatus" ColumnName="OrderStatus" />
+                <ScalarProperty Name="SubmissionDate" ColumnName="SubmissionDate" />
+                <ScalarProperty Name="Notes" ColumnName="Notes" />
+                <ScalarProperty Name="Tbl_CustomerID" ColumnName="Tbl_CustomerID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="OrderActivities">
+            <EntityTypeMapping TypeName="TestingModel.OrderActivity">
+              <MappingFragment StoreEntitySet="OrderActivity">
+                <ScalarProperty Name="ActivityBy" ColumnName="ActivityBy" />
+                <ScalarProperty Name="ActivityDate" ColumnName="ActivityDate" />
+                <ScalarProperty Name="Notes" ColumnName="Notes" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="OrderID" ColumnName="OrderID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

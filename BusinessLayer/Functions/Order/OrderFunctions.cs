@@ -97,9 +97,9 @@ namespace BusinessLayer.Functions.Order
             return model;
         }
 
-        public Generic<Order_Models> GetByStatus(int StatusID)
+        public Generic<Order_Models> GetByStatus(string Status)
         {
-            var Order = _order.GetByStatus(StatusID);
+            var Order = _order.GetByStatus(Status);
             Generic<Order_Models> model = new Generic<Order_Models>();
             model.ResponseInt = Order.ResponseInt;
             model.ResponseListInt = Order.ResponseListInt;
