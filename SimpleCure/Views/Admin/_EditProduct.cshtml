@@ -23,15 +23,11 @@
             </div>
             <div class="form-group">
                 @Html.LabelFor(m => m.Description, new { @class = "form-control-label" })
-                @Html.TextBoxFor(m => m.Description, new { @class = "form-control", required = "required" })
+                @Html.TextAreaFor(m => m.Description, new { @class = "form-control", required = "required", @rows = "3" })
             </div>
             <div class="form-group">
                 @Html.LabelFor(m => m.Strain, new { @class = "form-control-label" })
                 @Html.TextBoxFor(m => m.Strain, new { @class = "form-control", required = "required" })
-            </div>
-            <div class="form-group">
-                @Html.LabelFor(m => m.BatchID, new { @class = "form-control-label" })
-                @Html.TextBoxFor(m => m.BatchID, new { @class = "form-control" })
             </div>
             <div class="form-group">
                 @Html.LabelFor(m => m.Dominant, new { @class = "form-control-label" })
@@ -39,15 +35,25 @@
             </div>
             <div class="form-group">
                 @Html.LabelFor(m => m.CartGram, new { @class = "form-control-label" })
-                @Html.TextBoxFor(m => m.CartGram, new { @class = "form-control", required = "required" })
+                @Html.TextBoxFor(m => m.CartGram, new { @class = "form-control", required = "required", @type = "number" })
             </div>
             <div class="form-group">
-                @Html.LabelFor(m => m.PricePerGram, new { @class = "form-control-label" })
-                @Html.TextBoxFor(m => m.PricePerGram, new { @class = "form-control", required = "required" })
+                @Html.LabelFor(m => m.PricePerUnit, new { @class = "form-control-label" })
+                @Html.TextBoxFor(m => m.PricePerUnit, new { @class = "form-control", required = "required", @type = "number" })
             </div>
             <div class="form-group">
-                @Html.LabelFor(m => m.IsActive, new { @class = "form-control-label" })
-                @Html.CheckBoxFor(m => m.IsActive)
+                <div class="custom-control custom-checkbox">
+                    @Html.CheckBoxFor(m => m.IsActive, new { @class = "custom-control-input" })
+                    @Html.LabelFor(m => m.IsActive, new { @class = "custom-control-label" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.ProductGroup, new { @class = "form-control-label" })
+                @Html.DropDownListFor(m => m.ProductGroup, new SelectList(
+                Model.ProductGroupList.Select(x => new { Value = x.GroupName, Text = x.GroupName }),
+                "Value",
+                "Text"
+                ), new { @class = "form-control", required = "required" })
             </div>
             <div class="form-group">
                 <p>Current Product Image</p>
@@ -62,7 +68,7 @@
                 }
 
                 <p>New Product Image</p>
-                <input type="file" name="NewProductImage" id="NewProductImage" onchange="fileCheck(this);" accept=".png,.jpg,.jpeg" />
+                <input type="file" name="NewProductImage" id="NewProductImage" accept=".png,.jpg,.jpeg" />
             </div>
             <div class="form-group">
                 <button type="submit" class="btn btn-primary">Save Changes</button>

@@ -1,16 +1,16 @@
-﻿namespace BusinessLayer.Models.ProductModels
+﻿namespace SimpleCure.Models.OrderModels
 {
-    public class Product_Models
+    public class ViewOrderProductList
     {
-        public int ID { get; set; }
+        public int BatchID { get; set; }
+        public int ProductQuantity { get; set; }
+        public decimal Total { get; set; }
         public string Type { get; set; }
         public string Description { get; set; }
-        public string Strain { get; set; }        
+        public string Strain { get; set; }
         public string Dominant { get; set; }
         public decimal CartGram { get; set; }
         public string ProductGroup { get; set; }
         public decimal PricePerUnit { get; set; }
-        public byte[] ProductImage { get; set; }
-        public bool IsActive { get; set; }
     }
 }

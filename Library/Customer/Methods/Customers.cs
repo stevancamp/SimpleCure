@@ -231,7 +231,7 @@ namespace Library.Customer.Methods
 
             return response;
         }
-        public Generic<Tbl_Customers> GetByUserID(string UserID)
+        public Generic<Tbl_Customers> GetByUserID(int UserID)
         {
             Generic<Tbl_Customers> response = new Generic<Tbl_Customers>();
 
@@ -239,7 +239,7 @@ namespace Library.Customer.Methods
             {
                 using (var ctx = new SimpleCureEntities())
                 {
-                    response.GenericClass = ctx.Tbl_Customers.Where(s => s.AspNetUsersID == UserID).FirstOrDefault();
+                    response.GenericClass = ctx.Tbl_Customers.Where(s => s.ID == UserID).FirstOrDefault();
 
                     if (response.GenericClass != null && response.GenericClass.ID > 0)
                     {
@@ -264,6 +264,44 @@ namespace Library.Customer.Methods
                 _applicationError.Log(ErrorMessage, string.Empty);
 
                 response.ResponseMessage = "Unable to get Customer Info for User ID " + UserID;
+                response.responseTypes = ResponseTypes.Failure;
+            }
+
+            return response;
+        }
+        public Generic<Tbl_Customers> GetByAspNetUsersID(string AspNetUsersID)
+        {
+            Generic<Tbl_Customers> response = new Generic<Tbl_Customers>();
+
+            try
+            {
+                using (var ctx = new SimpleCureEntities())
+                {
+                    response.GenericClass = ctx.Tbl_Customers.Where(s => s.AspNetUsersID == AspNetUsersID).FirstOrDefault();
+
+                    if (response.GenericClass != null && response.GenericClass.ID > 0)
+                    {
+                        response.ResponseSuccess = true;
+                        response.responseTypes = ResponseTypes.Success;
+                    }
+                    else
+                    {
+                        response.ResponseMessage = "Unable to get Customer Info for AspNetUsersID " + AspNetUsersID;
+                        response.responseTypes = ResponseTypes.Information;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                string methodName = System.Reflection.MethodBase.GetCurrentMethod().Name;
+                string source = ex.Source;
+                string stacktrace = ex.StackTrace;
+                string targetsite = ex.TargetSite.ToString();
+                string error = ex.InnerException.ToString();
+                string ErrorMessage = $"There was an error at {DateTime.Now} {Environment.NewLine} Method: {methodName} {Environment.NewLine} Source: {source} {Environment.NewLine} StackTrace: {stacktrace} {Environment.NewLine} TargetSite: {targetsite} {Environment.NewLine} Error: {error}{Environment.NewLine} AspNetUsersID: {AspNetUsersID.ToString()}";
+                _applicationError.Log(ErrorMessage, string.Empty);
+
+                response.ResponseMessage = "Unable to get Customer Info for AspNetUsersID " + AspNetUsersID;
                 response.responseTypes = ResponseTypes.Failure;
             }
 
@@ -363,7 +401,8 @@ namespace Library.Customer.Methods
                                      select new
                                      {
                                          s.ID,
-                                         s.Customer
+                                         s.Customer,
+                                         s.Company
                                      }).ToList();
                     if (Customers != null && Customers.Count > 0)
                     {
@@ -372,7 +411,7 @@ namespace Library.Customer.Methods
                             CustomersLite customer = new CustomersLite();
                             customer.CustomerID = item.ID;
                             customer.CustomerName = item.Customer;
-
+                            customer.CompanyName = item.Company;
                             response.GenericClassList.Add(customer);                               
                         }
                         response.ResponseSuccess = true;

@@ -80,7 +80,7 @@ namespace BusinessLayer.Functions.Customer
             return model;
         }
 
-        public Generic<Customers_Model> GetByUserID(string UserID)
+        public Generic<Customers_Model> GetByUserID(int UserID)
         {
             var Customers = _customers.GetByUserID(UserID);
             Generic<Customers_Model> model = new Generic<Customers_Model>();
@@ -97,8 +97,28 @@ namespace BusinessLayer.Functions.Customer
             else
             {
                 model.GenericClass = null;
+            }          
+            return model;
+        }
+
+        public Generic<Customers_Model> GetByAspNetUsersID(string AspNetUsersID)
+        {
+            var Customers = _customers.GetByAspNetUsersID(AspNetUsersID);
+            Generic<Customers_Model> model = new Generic<Customers_Model>();
+            model.ResponseInt = Customers.ResponseInt;
+            model.ResponseListInt = Customers.ResponseListInt;
+            model.ResponseListString = Customers.ResponseListString;
+            model.ResponseMessage = Customers.ResponseMessage;
+            model.ResponseString = Customers.ResponseString;
+            model.ResponseSuccess = Customers.ResponseSuccess;
+            if (Customers.GenericClass != null)
+            {
+                model.GenericClass = _mapCustomers.MapToUI(Customers.GenericClass);
             }
-            //model.GenericClass = _mapCustomers.MapToUI(Customers.GenericClass) ?? new Customers_Model();
+            else
+            {
+                model.GenericClass = null;
+            }
             return model;
         }
 

@@ -10,7 +10,8 @@ namespace BusinessLayer.Interface
         ResponseBase Delete(int CustomerID);
         Generic<Customers_Model> GetAll();
         Generic<Customers_Model> GetByID(int ID);
-        Generic<Customers_Model> GetByUserID(string UserID);
+        Generic<Customers_Model> GetByUserID(int UserID);
+        Generic<Customers_Model> GetByAspNetUsersID(string AspNetUsersID);
         Generic<Customers_Model> GetByIndustryType(string IndustryType);
         Generic<Customers_Model> SearchCustomers(string searchTerm);
         Generic<CustomersLite_Model> GetCustomersList();

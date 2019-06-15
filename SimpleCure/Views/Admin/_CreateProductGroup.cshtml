@@ -1,0 +1,24 @@
+﻿@model SimpleCure.Models.ProductGroupsModels.CreateProductGroup_ViewModel
+@using (Html.BeginForm("SaveNewProductGroup", "Admin"))
+{
+    <div class="card">
+        <div class="card-header d-flex align-items-center">
+            <h4>Create a new Product Group</h4>
+        </div>
+        <div class="card-body">
+            <div class="form-group">
+                @Html.LabelFor(m => m.GroupName, new { @class = "form-control-label" })
+                @Html.TextBoxFor(m => m.GroupName, new { @class = "form-control", required = "required" })
+            </div>
+            <div class="form-group">
+                <div class="custom-control custom-checkbox">
+                    @Html.CheckBoxFor(m => m.IsActive, new { @class = "custom-control-input" })
+                    @Html.LabelFor(m => m.IsActive, new { @class = "custom-control-label" })
+                </div>
+            </div>
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary">Create</button>
+            </div>
+        </div>
+    </div>
+}

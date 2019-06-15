@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace SimpleCure.Models.ProductGroupsModels
 {
-    public class ProductGroup_ViewModel
+    public class ProductGroup_ViewModel :ResponseBase
     {
         public List<ProductGroup_Models> ListProductGroups { get; set; }
     }

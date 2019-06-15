@@ -7,14 +7,13 @@ namespace BusinessLayer.Mappings
     {
         public Product MapToLibrary(Product_Models model)
         {
-            Product returnModel = new Product();
-            returnModel.BatchID = model.BatchID;
+            Product returnModel = new Product();           
             returnModel.CartGram = model.CartGram;
             returnModel.Description = model.Description;
             returnModel.Dominant = model.Dominant;
             returnModel.ID = model.ID;
             returnModel.IsActive = model.IsActive;
-            returnModel.PricePerGram = model.PricePerGram;
+            returnModel.PricePerUnit = model.PricePerUnit;
             returnModel.ProductGroup = model.ProductGroup;
             returnModel.ProductImage = model.ProductImage;
             returnModel.Strain = model.Strain;
@@ -24,14 +23,13 @@ namespace BusinessLayer.Mappings
 
         public Product_Models MapToUI(Product model)
         {
-            Product_Models returnModel = new Product_Models();
-            returnModel.BatchID = model.BatchID;
+            Product_Models returnModel = new Product_Models();           
             returnModel.CartGram = model.CartGram;
             returnModel.Description = model.Description;
             returnModel.Dominant = model.Dominant;
             returnModel.ID = model.ID;
             returnModel.IsActive = model.IsActive;
-            returnModel.PricePerGram = model.PricePerGram;
+            returnModel.PricePerUnit = model.PricePerUnit;
             returnModel.ProductGroup = model.ProductGroup;
             returnModel.ProductImage = model.ProductImage;
             returnModel.Strain = model.Strain;

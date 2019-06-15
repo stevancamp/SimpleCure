@@ -11,7 +11,7 @@ namespace SimpleCure.Models.OrderModels
         public List<Discount_Models> ListDiscounts { get; set; }
         public List<CustomersLite_Model> ListCustomers { get; set; }
         public List<CartOrder_ViewModel> ListCartItems { get; set; }
-        public List<ProductsList> ListProductsToSubmit { get; set; }
+        public List<ViewOrderProductList> ListProductsToSubmit { get; set; }
         public List<DiscountIDList> ListDiscountIDs { get; set; }
         public string OrderNotes { get; set; }
         public string CustomerID { get; set; }
@@ -21,6 +21,8 @@ namespace SimpleCure.Models.OrderModels
     {
         public int ProductID { get; set; }
         public int Quantity { get; set; }
+        public int BatchID { get; set; }
+
     }
     public class DiscountIDList
     {

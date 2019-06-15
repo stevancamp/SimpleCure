@@ -251,16 +251,16 @@ namespace Library._OrderActivity.Methods
             {
                 using (var ctx = new SimpleCureEntities())
                 {
-                    response.GenericClass = ctx.OrderActivities.Where(s => s.OrderID == OrderID).FirstOrDefault();
+                    response.GenericClassList = ctx.OrderActivities.Where(s => s.OrderID == OrderID).ToList();
 
-                    if (response.GenericClass != null && response.GenericClass.ID > 0)
+                    if (response.GenericClassList != null && response.GenericClassList.Count > 0)
                     {
                         response.ResponseSuccess = true;
                         response.responseTypes = ResponseTypes.Success;
                     }
                     else
                     {
-                        response.ResponseMessage = "Unable to get OrderActivity for OrderID " + OrderID;
+                        response.ResponseMessage = "Unable to get Order Activity for OrderID " + OrderID;
                         response.responseTypes = ResponseTypes.Information;
                     }
                 }
@@ -275,7 +275,7 @@ namespace Library._OrderActivity.Methods
                 string error = ex.InnerException.ToString();
                 string ErrorMessage = $"There was an error at {DateTime.Now} {Environment.NewLine} Method: {methodName} {Environment.NewLine} Source: {source} {Environment.NewLine} StackTrace: {stacktrace} {Environment.NewLine} TargetSite: {targetsite} {Environment.NewLine} Error: {error}{Environment.NewLine} For OrderActivity OrderID: {OrderID} {Environment.NewLine}";
                 errors.Log(ErrorMessage, string.Empty);
-                response.ResponseMessage = "Unable to get OrderActivity for OrderID " + OrderID;
+                response.ResponseMessage = "Unable to get Order Activity for OrderID " + OrderID;
                 response.responseTypes = ResponseTypes.Failure;
             }
 

@@ -11,6 +11,7 @@ using BusinessLayer.Models.CustomerModels;
 using BusinessLayer.Models.DiscountModels;
 using BusinessLayer.Models.LoginAttemptModels;
 using BusinessLayer.Models.OrderStatusModels;
+using BusinessLayer.Models.ProductGroupModels;
 using BusinessLayer.Models.ProductModels;
 using BusinessLayer.Models.TypeModels;
 using Microsoft.AspNet.Identity;
@@ -21,6 +22,7 @@ using SimpleCure.Models;
 using SimpleCure.Models.AdminModels;
 using SimpleCure.Models.DiscountModels;
 using SimpleCure.Models.OrderStatusModels;
+using SimpleCure.Models.ProductGroupsModels;
 using SimpleCure.Models.ProductModels;
 using System;
 using System.Collections.Generic;
@@ -192,7 +194,7 @@ namespace SimpleCure.Controllers
 
             return RedirectToAction("BusinessTypes", model);
         }
-       
+
         [HttpPost]
         public ActionResult SaveBusinessTypeEdit(FormCollection formCollection)
         {
@@ -277,12 +279,12 @@ namespace SimpleCure.Controllers
             return RedirectToAction("BusinessTypes", model);
         }
         #endregion
-     
+
         #region Admin User Maintenance
-        //search option here
+
         public ActionResult UserMaintenance(string SearchTerm)
         {
-            
+
             Generic<UserMaintenance_ViewModel> model = new Generic<UserMaintenance_ViewModel>();
             if (!string.IsNullOrEmpty(SearchTerm))
             {
@@ -417,7 +419,7 @@ namespace SimpleCure.Controllers
                 ChangeModel.ChangeTo = JsonConvert.SerializeObject(model);
                 ChangeModel.UserIDChanged = model.ID.ToString();
                 _loginAttemptFunctions.LogAccountChange(ChangeModel);
-            }           
+            }
             return RedirectToAction("ViewUserInfo", "Admin", new
             {
                 ID = model.ID,
@@ -653,13 +655,13 @@ namespace SimpleCure.Controllers
                 responseTypes = ResponseTypes.Success
             });
         }
-       
+
         public ActionResult UnlockAccount(int ID)
         {
             var user = UserManager.FindById(_customerFunctions.GetByID(ID).GenericClass.AspNetUsersID);
             user.LockoutEndDateUtc = null;
             user.AccessFailedCount = 0;
-            var Unlocked = UserManager.Update(user);           
+            var Unlocked = UserManager.Update(user);
             if (Unlocked.Succeeded)
             {
                 return RedirectToAction("ViewUserInfo", "Admin", new
@@ -681,14 +683,14 @@ namespace SimpleCure.Controllers
                 });
             }
         }
-       
+
         public ActionResult LockAccount(int ID)
         {
             var user = UserManager.FindById(_customerFunctions.GetByID(ID).GenericClass.AspNetUsersID);
             user.LockoutEndDateUtc = DateTime.UtcNow.AddDays(365 * 200);
             user.AccessFailedCount = 5;
             var Locked = UserManager.Update(user);
-              
+
             if (Locked.Succeeded)
             {
                 return RedirectToAction("ViewUserInfo", "Admin", new
@@ -754,7 +756,7 @@ namespace SimpleCure.Controllers
             //update the customer table aspnetuserid to null
 
         }
-        
+
         public ActionResult CreateNewCustomerAccount()
         {
             //pass in the industry type list so that it can be used in a drop down
@@ -764,7 +766,7 @@ namespace SimpleCure.Controllers
             {
                 BusinessTypesList.Add(item.Type);
             }
-            var model = new CreateNewCustomerAccount_ViewModel { IndustryTypes = BusinessTypesList, ResponseSuccess = true, responseTypes = ResponseTypes.Success, ResponseMessage = string.Empty};
+            var model = new CreateNewCustomerAccount_ViewModel { IndustryTypes = BusinessTypesList, ResponseSuccess = true, responseTypes = ResponseTypes.Success, ResponseMessage = string.Empty };
             return View(model);
         }
         [HttpPost]
@@ -782,7 +784,7 @@ namespace SimpleCure.Controllers
                 cm.DocLink = null;
                 cm.EIN = model.EIN;
                 cm.EnterDate = DateTime.Now;
-                cm.FEIN = model.FEIN;               
+                cm.FEIN = model.FEIN;
                 cm.IndustryType = model.IndustryType;
                 cm.MainEmail = model.MainEmail;
                 cm.MainPhone = model.MainPhone;
@@ -822,7 +824,7 @@ namespace SimpleCure.Controllers
                             break;
                         default:
                             break;
-                    }                   
+                    }
                     return View(model);
                 }
             }
@@ -837,7 +839,7 @@ namespace SimpleCure.Controllers
 
         #region Order Status 
         public ActionResult OrderStatus(ResponseBase response = null)
-        {          
+        {
             var Status = _orderStatusFucntions.GetAll();
 
             OrderStatus_ViewModel model = new OrderStatus_ViewModel();
@@ -892,30 +894,30 @@ namespace SimpleCure.Controllers
         }
         public ActionResult EditOrderStatus(int ID)
         {
-            EditOrderStatus_ViewModel model = new EditOrderStatus_ViewModel();           
+            EditOrderStatus_ViewModel model = new EditOrderStatus_ViewModel();
             try
             {
                 var OrderStatus = _orderStatusFucntions.GetByID(ID);
                 if (OrderStatus.ResponseSuccess)
                 {
                     model.ID = OrderStatus.GenericClass.ID;
-                    model.Status = OrderStatus.GenericClass.Status;               
+                    model.Status = OrderStatus.GenericClass.Status;
                 }
                 else
-                {                                       
+                {
                     return RedirectToAction("OrderStatus", new ResponseBase { ResponseSuccess = OrderStatus.ResponseSuccess, responseTypes = ResponseTypes.Information, ResponseMessage = OrderStatus.ResponseMessage });
                 }
             }
             catch (Exception ex)
             {
-                _loggerFunctions.Log(ex.ToString(), _helper.GetIp());                             
-                return RedirectToAction("OrderStatus", new ResponseBase { ResponseSuccess = false, responseTypes = ResponseTypes.Failure, ResponseMessage = ex.ToString()});
+                _loggerFunctions.Log(ex.ToString(), _helper.GetIp());
+                return RedirectToAction("OrderStatus", new ResponseBase { ResponseSuccess = false, responseTypes = ResponseTypes.Failure, ResponseMessage = ex.ToString() });
             }
             return PartialView("_EditOrderStatus", model);
         }
         [HttpPost]
         public ActionResult SaveOrderStatus(CreateOrderStatus_ViewModel model)
-        {                   
+        {
             OrderStatus_Models toAdd = new OrderStatus_Models();
             toAdd.ID = model.ID;
             toAdd.Status = model.Status;
@@ -958,7 +960,7 @@ namespace SimpleCure.Controllers
                 OrderStatus_Models OrderStatus = new OrderStatus_Models();
                 OrderStatus.ID = model.ID;
                 OrderStatus.Status = model.Status;
-                    
+
                 var Updated = _orderStatusFucntions.Update(OrderStatus);
                 if (Updated.ResponseSuccess)
                 {
@@ -1047,7 +1049,7 @@ namespace SimpleCure.Controllers
         public ActionResult Product(ResponseBase response = null)
         {
             Product_ViewModel model = new Product_ViewModel();
-            var Products = _productFunctions.GetAllByIsActive(true); 
+            var Products = _productFunctions.GetAllByIsActive(true);
             model.ListProducts = Products.GenericClassList;
 
             if (string.IsNullOrEmpty(response.ResponseMessage) && Products.ResponseSuccess)
@@ -1089,12 +1091,12 @@ namespace SimpleCure.Controllers
                         model.responseTypes = ResponseTypes.Failure;
                         break;
                 }
-            }          
+            }
             return View(model);
-        }      
+        }
         public ActionResult CreateProduct()
         {
-            return PartialView("_CreateProduct");
+            return PartialView("_CreateProduct", new CreateProduct_ViewModel { ProductGroupList = _productGroupFunctions.GetAllByIsActive(true).GenericClassList });
         }
         public ActionResult EditProduct(int ID)
         {
@@ -1104,21 +1106,21 @@ namespace SimpleCure.Controllers
 
             if (Product.ResponseSuccess)
             {
-                model.BatchID = Product.GenericClass.BatchID;
                 model.CartGram = Product.GenericClass.CartGram;
                 model.Description = Product.GenericClass.Description;
                 model.Dominant = Product.GenericClass.Dominant;
                 model.ID = Product.GenericClass.ID;
                 model.IsActive = Product.GenericClass.IsActive;
-                model.PricePerGram = Product.GenericClass.PricePerGram;
+                model.PricePerUnit = Product.GenericClass.PricePerUnit;
                 model.ProductGroup = Product.GenericClass.ProductGroup;
                 model.ProductImage = Product.GenericClass.ProductImage;
                 model.Strain = Product.GenericClass.Strain;
-                model.Type = Product.GenericClass.Type;                    
+                model.Type = Product.GenericClass.Type;
+                model.ProductGroupList = _productGroupFunctions.GetAllByIsActive(true).GenericClassList;
             }
             else
             {
-                return RedirectToAction("OrderStatus", new ResponseBase { ResponseSuccess = Product.ResponseSuccess, responseTypes = ResponseTypes.Information, ResponseMessage = Product.ResponseMessage });
+                return RedirectToAction("Product", new ResponseBase { ResponseSuccess = Product.ResponseSuccess, responseTypes = ResponseTypes.Information, ResponseMessage = Product.ResponseMessage });
             }
 
             return PartialView("_EditProduct", model);
@@ -1126,18 +1128,17 @@ namespace SimpleCure.Controllers
         [HttpPost]
         public ActionResult SaveNewProduct(CreateProduct_ViewModel model)
         {
-         
+
             Product_Models product = new Product_Models();
 
             HttpPostedFileBase file = Request.Files["ProductImage"];
 
-            product.BatchID = model.BatchID ?? 0;
             product.CartGram = model.CartGram;
             product.Description = model.Description;
-            product.Dominant = model.Dominant;             
+            product.Dominant = model.Dominant;
             product.IsActive = true;
-            product.PricePerGram = model.PricePerGram;
-            product.ProductGroup = 1;
+            product.PricePerUnit = model.PricePerUnit;
+            product.ProductGroup = "Group 1";
             product.ProductImage = ConvertToBytes(file);
             product.Strain = model.Strain;
             product.Type = model.Type;
@@ -1179,129 +1180,152 @@ namespace SimpleCure.Controllers
         [HttpPost]
         public ActionResult SaveEditProduct(EditProduct_ViewModel model)
         {
-
             ResponseBase response = new ResponseBase();
 
             if (model.ID > 0)
             {
-                Product_Models product = new Product_Models();                
-                product.BatchID = model.BatchID;
-                product.CartGram = model.CartGram;
-                product.Description = model.Description;
-                product.Dominant = model.Dominant;
-                product.ID = model.ID;
-                product.IsActive = model.IsActive;
-                product.PricePerGram = model.PricePerGram;
-                product.ProductGroup = model.ProductGroup;
+                byte[] PI = null;
                 HttpPostedFileBase file = Request.Files["NewProductImage"];
                 if (file.ContentLength > 0)
                 {
-                    product.ProductImage = ConvertToBytes(file);
-                }
-                else {                    
-                    product.ProductImage = _productFunctions.GetByID(model.ID).GenericClass.ProductImage;
-                }               
-                product.Strain = model.Strain;
-                product.Type = model.Type;
-             
-                var Updated = _productFunctions.Update(product);
-                if (Updated.ResponseSuccess)
-                {
-                    response.ResponseSuccess = Updated.ResponseSuccess;
-                    response.ResponseMessage = Updated.ResponseMessage;
-                    response.responseTypes = ResponseTypes.Success;
+                    PI = ConvertToBytes(file);
                 }
                 else
                 {
-                    response.ResponseSuccess = Updated.ResponseSuccess;
-                    response.ResponseMessage = Updated.ResponseMessage;
-                    switch (Updated.responseTypes)
+                    PI = _productFunctions.GetByID(model.ID).GenericClass.ProductImage;
+                }
+
+                var Updated = _productFunctions.Update(new Product_Models { CartGram = model.CartGram, Description = model.Description, Dominant = model.Dominant, ID = model.ID, IsActive = false, PricePerUnit = model.PricePerUnit, ProductGroup = model.ProductGroup, ProductImage = PI, Strain = model.Strain, Type = model.Type });
+                if (Updated.ResponseSuccess)
+                {
+                    var Added = _productFunctions.Add(new Product_Models { CartGram = model.CartGram, Description = model.Description, Dominant = model.Dominant, IsActive = model.IsActive, PricePerUnit = model.PricePerUnit, ProductGroup = model.ProductGroup, ProductImage = PI, Strain = model.Strain, Type = model.Type });
+                    if (Added.ResponseSuccess)
                     {
-                        case BusinessLayer.Models.ResponseTypes.Success:
-                            response.responseTypes = ResponseTypes.Success;
-                            break;
-                        case BusinessLayer.Models.ResponseTypes.Failure:
-                            response.responseTypes = ResponseTypes.Failure;
-                            break;
-                        case BusinessLayer.Models.ResponseTypes.Information:
-                            response.responseTypes = ResponseTypes.Information;
-                            break;
-                        default:
-                            response.responseTypes = ResponseTypes.Failure;
-                            break;
+                        return RedirectToAction("Product", new ResponseBase { ResponseInt = Added.ResponseInt, ResponseMessage = Added.ResponseMessage, ResponseSuccess = Added.ResponseSuccess, responseTypes = ResponseTypes.Success });
                     }
+                    else
+                    {
+                        return RedirectToAction("Product", new ResponseBase { ResponseInt = Added.ResponseInt, ResponseMessage = Added.ResponseMessage, ResponseSuccess = Added.ResponseSuccess, responseTypes = ResponseTypes.Failure });
+                    }
+                }
+                else
+                {
+                    return RedirectToAction("Product", new ResponseBase { ResponseSuccess = Updated.ResponseSuccess, ResponseMessage = Updated.ResponseMessage, responseTypes = ResponseTypes.Failure });
                 }
             }
             else
             {
-                response.ResponseSuccess = false;
-                response.ResponseMessage = "You must provide a Product ID.";
-                response.responseTypes = ResponseTypes.Failure;
+                return RedirectToAction("Product", new ResponseBase { ResponseSuccess = false, ResponseMessage = "You must provide a Product ID.", responseTypes = ResponseTypes.Failure });
             }
-
-            return RedirectToAction("Product", response);
-
-        }       
+        }
         [HttpPost]
         public ActionResult DeleteProduct(int ID)
         {
-            ResponseBase response = new ResponseBase();
-
-            if (ID > 0)
+            var Product = _productFunctions.GetByID(ID);
+            if (Product.ResponseSuccess)
             {
-                var Deleted = _productFunctions.Delete(ID);
-                if (Deleted.ResponseSuccess)
-                {
-                    response.ResponseSuccess = Deleted.ResponseSuccess;
-                    response.ResponseMessage = Deleted.ResponseMessage;
-                    response.responseTypes = ResponseTypes.Success;
-                }
+                var Updated = _productFunctions.Update(new Product_Models { CartGram = Product.GenericClass.CartGram, Description = Product.GenericClass.Description, Dominant = Product.GenericClass.Dominant, ID = Product.GenericClass.ID, IsActive = false, PricePerUnit = Product.GenericClass.PricePerUnit, ProductGroup = Product.GenericClass.ProductGroup, ProductImage = Product.GenericClass.ProductImage, Strain = Product.GenericClass.Strain, Type = Product.GenericClass.Type });
+                if (Updated.ResponseSuccess)
+                { return RedirectToAction("Product", new ResponseBase { ResponseMessage = Updated.ResponseMessage, ResponseSuccess = Updated.ResponseSuccess, responseTypes = ResponseTypes.Success }); }
                 else
-                {
-                    response.ResponseSuccess = Deleted.ResponseSuccess;
-                    response.ResponseMessage = Deleted.ResponseMessage;
-                    switch (Deleted.responseTypes)
-                    {
-                        case BusinessLayer.Models.ResponseTypes.Success:
-                            response.responseTypes = ResponseTypes.Success;
-                            break;
-                        case BusinessLayer.Models.ResponseTypes.Failure:
-                            response.responseTypes = ResponseTypes.Failure;
-                            break;
-                        case BusinessLayer.Models.ResponseTypes.Information:
-                            response.responseTypes = ResponseTypes.Information;
-                            break;
-                        default:
-                            response.responseTypes = ResponseTypes.Failure;
-                            break;
-                    }
-                }
+                { return RedirectToAction("Product", new ResponseBase { ResponseMessage = Updated.ResponseMessage, ResponseSuccess = Updated.ResponseSuccess, responseTypes = ResponseTypes.Failure }); }
             }
             else
-            {
-                response.ResponseSuccess = false;
-                response.ResponseMessage = "You must provide a Product ID.";
-                response.responseTypes = ResponseTypes.Failure;
-            }
-
-            return RedirectToAction("Product", response);
+            { return RedirectToAction("Product", new ResponseBase { ResponseMessage = Product.ResponseMessage, ResponseSuccess = Product.ResponseSuccess, responseTypes = ResponseTypes.Failure }); }
 
         }
         #endregion
 
         #region Product Groups 
+        public ActionResult ProductGroup(ResponseBase response = null)
+        {
+            ProductGroup_ViewModel model = new ProductGroup_ViewModel();
+            var ProductGroups = _productGroupFunctions.GetAllByIsActive(true);
 
-        //view all product groups view
+            bool succes = false;
+            string message = string.Empty;
+            ResponseTypes responseTypes = ResponseTypes.Failure;
+            if (response != null)
+            {
+                succes = response.ResponseSuccess;
+                message = response.ResponseMessage;
+                responseTypes = response.responseTypes;
+            }
+            if (ProductGroups.GenericClassList != null && ProductGroups.GenericClassList.Count > 0)
+            { return View(new ProductGroup_ViewModel { ListProductGroups = ProductGroups.GenericClassList, responseTypes = ResponseTypes.Success, ResponseMessage = ProductGroups.ResponseMessage, ResponseSuccess = ProductGroups.ResponseSuccess }); }
+            else
+            { return View(new ProductGroup_ViewModel { ListProductGroups = ProductGroups.GenericClassList, responseTypes = ResponseTypes.Information, ResponseMessage = ProductGroups.ResponseMessage, ResponseSuccess = ProductGroups.ResponseSuccess }); }          
+        }
+        public ActionResult CreateProductGroup()
+        {
+            return PartialView("_CreateProductGroup");
+        }
+        public ActionResult EditProductGroup(int ID)
+        {
+            EditProductGroup_ViewModel model = null;
 
-        //create a product group partial
+            var ProductGroup = _productGroupFunctions.GetByID(ID);
 
-        //edit a product group partial
+            if (ProductGroup.ResponseSuccess)
+            {
+                model = new EditProductGroup_ViewModel { GroupName = ProductGroup.GenericClass.GroupName, ID = ProductGroup.GenericClass.ID, IsActive = ProductGroup.GenericClass.IsActive };
+            }
+            else
+            {
+                return RedirectToAction("ProductGroup", new ResponseBase { ResponseSuccess = ProductGroup.ResponseSuccess, responseTypes = ResponseTypes.Information, ResponseMessage = ProductGroup.ResponseMessage });
+            }
+            return PartialView("_EditProductGroup", model);
+        }
 
-        //save a product post
+        [HttpPost]
+        public ActionResult SaveNewProductGroup(CreateProductGroup_ViewModel model)
+        {
+            var Saved = _productGroupFunctions.Add(new ProductGroup_Models { GroupName = model.GroupName, IsActive = model.IsActive });
+            return RedirectToAction("ProductGroup", new ResponseBase { ResponseInt = Saved.ResponseInt, ResponseMessage = Saved.ResponseMessage, ResponseSuccess = Saved.ResponseSuccess, responseTypes = ResponseTypes.Success });
+        }
+        [HttpPost]
+        public ActionResult SaveEditProductGroup(EditProductGroup_ViewModel model)
+        {
+            if (model.ID > 0)
+            {
+                var Updated = _productGroupFunctions.Update(new ProductGroup_Models { GroupName = model.GroupName, IsActive = false, ID = model.ID });
+                if (Updated.ResponseSuccess)
+                {
+                    var Added = _productGroupFunctions.Add(new ProductGroup_Models { GroupName = model.GroupName, IsActive = model.IsActive });
+                    if (Added.ResponseSuccess)
+                    {
+                        return RedirectToAction("ProductGroup", new ResponseBase { ResponseInt = Added.ResponseInt, ResponseMessage = Added.ResponseMessage, ResponseSuccess = Added.ResponseSuccess, responseTypes = ResponseTypes.Success });
+                    }
+                    else
+                    {
+                        return RedirectToAction("ProductGroup", new ResponseBase { ResponseInt = Added.ResponseInt, ResponseMessage = Added.ResponseMessage, ResponseSuccess = Added.ResponseSuccess, responseTypes = ResponseTypes.Failure });
+                    }
 
-        //eidt a product post
+                }
+                return RedirectToAction("ProductGroup", new ResponseBase { ResponseSuccess = Updated.ResponseSuccess, ResponseMessage = Updated.ResponseMessage, responseTypes = ResponseTypes.Failure });
+            }
+            else
+            {
+                return RedirectToAction("ProductGroup", new ResponseBase { ResponseSuccess = false, ResponseMessage = "You must provide a Product Group ID.", responseTypes = ResponseTypes.Failure });
+            }
+        }
 
-        //delete a product post
+        [HttpPost]
+        public ActionResult DeleteProductGroup(int ID)
+        {
+
+            var ProductGroup = _productGroupFunctions.GetByID(ID);
+            if (ProductGroup.ResponseSuccess)
+            {
+                var Updated = _productGroupFunctions.Update(new ProductGroup_Models { GroupName = ProductGroup.GenericClass.GroupName, IsActive = false, ID = ProductGroup.GenericClass.ID });
+                if (Updated.ResponseSuccess)
+                { return RedirectToAction("Product", new ResponseBase { ResponseMessage = Updated.ResponseMessage, ResponseSuccess = Updated.ResponseSuccess, responseTypes = ResponseTypes.Success }); }
+                else
+                { return RedirectToAction("Product", new ResponseBase { ResponseMessage = Updated.ResponseMessage, ResponseSuccess = Updated.ResponseSuccess, responseTypes = ResponseTypes.Failure }); }
+            }
+            else
+            { return RedirectToAction("Product", new ResponseBase { ResponseMessage = ProductGroup.ResponseMessage, ResponseSuccess = ProductGroup.ResponseSuccess, responseTypes = ResponseTypes.Failure }); }
+        }
 
         #endregion
 
@@ -1415,103 +1439,47 @@ namespace SimpleCure.Controllers
             }
 
             return RedirectToAction("Discount", response);
-        }        
+        }
         [HttpPost]
         public ActionResult SaveEditDiscount(EditDiscount_ViewModel model)
         {
-
-            ResponseBase response = new ResponseBase();
-
             if (model.ID > 0)
             {
-                Discount_Models Discount = new Discount_Models();
-                Discount.DiscountAmount = model.DiscountAmount;
-                Discount.ID = model.ID;
-                Discount.IsActive = model.IsActive;
-                Discount.Type = model.Type;
-
-                var Updated = _discountFunctions.Update(Discount);
+                var Updated = _discountFunctions.Update(new Discount_Models { DiscountAmount = model.DiscountAmount, ID = model.ID, IsActive = false, Type = model.Type });
                 if (Updated.ResponseSuccess)
                 {
-                    response.ResponseSuccess = Updated.ResponseSuccess;
-                    response.ResponseMessage = Updated.ResponseMessage;
-                    response.responseTypes = ResponseTypes.Success;
-                }
-                else
-                {
-                    response.ResponseSuccess = Updated.ResponseSuccess;
-                    response.ResponseMessage = Updated.ResponseMessage;
-                    switch (Updated.responseTypes)
+                    var Added = _discountFunctions.Add(new Discount_Models { DiscountAmount = model.DiscountAmount, IsActive = model.IsActive, Type = model.Type });
+                    if (Added.ResponseSuccess)
                     {
-                        case BusinessLayer.Models.ResponseTypes.Success:
-                            response.responseTypes = ResponseTypes.Success;
-                            break;
-                        case BusinessLayer.Models.ResponseTypes.Failure:
-                            response.responseTypes = ResponseTypes.Failure;
-                            break;
-                        case BusinessLayer.Models.ResponseTypes.Information:
-                            response.responseTypes = ResponseTypes.Information;
-                            break;
-                        default:
-                            response.responseTypes = ResponseTypes.Failure;
-                            break;
+                        return RedirectToAction("Discount", new ResponseBase { ResponseInt = Added.ResponseInt, ResponseMessage = Added.ResponseMessage, ResponseSuccess = Added.ResponseSuccess, responseTypes = ResponseTypes.Success });
                     }
+                    else
+                    {
+                        return RedirectToAction("Discount", new ResponseBase { ResponseInt = Added.ResponseInt, ResponseMessage = Added.ResponseMessage, ResponseSuccess = Added.ResponseSuccess, responseTypes = ResponseTypes.Failure });
+                    }
+
                 }
+                return RedirectToAction("Discount", new ResponseBase { ResponseSuccess = Updated.ResponseSuccess, ResponseMessage = Updated.ResponseMessage, responseTypes = ResponseTypes.Failure });
             }
             else
             {
-                response.ResponseSuccess = false;
-                response.ResponseMessage = "You must provide a Discount ID.";
-                response.responseTypes = ResponseTypes.Failure;
+                return RedirectToAction("Discount", new ResponseBase { ResponseSuccess = false, ResponseMessage = "You must provide a Discount ID.", responseTypes = ResponseTypes.Failure });
             }
-
-            return RedirectToAction("Discount", response);
-
         }
         [HttpPost]
         public ActionResult DeleteDiscount(int ID)
         {
-            ResponseBase response = new ResponseBase();
-
-            if (ID > 0)
+            var Discount = _discountFunctions.GetByID(ID);
+            if (Discount.ResponseSuccess)
             {
-                var Deleted = _discountFunctions.Delete(ID);
-                if (Deleted.ResponseSuccess)
-                {
-                    response.ResponseSuccess = Deleted.ResponseSuccess;
-                    response.ResponseMessage = Deleted.ResponseMessage;
-                    response.responseTypes = ResponseTypes.Success;
-                }
+                var Updated = _discountFunctions.Update(new Discount_Models { DiscountAmount = Discount.GenericClass.DiscountAmount, ID = Discount.GenericClass.ID, Type = Discount.GenericClass.Type, IsActive = false });
+                if (Updated.ResponseSuccess)
+                { return RedirectToAction("Discount", new ResponseBase { ResponseMessage = Updated.ResponseMessage, ResponseSuccess = Updated.ResponseSuccess, responseTypes = ResponseTypes.Success }); }
                 else
-                {
-                    response.ResponseSuccess = Deleted.ResponseSuccess;
-                    response.ResponseMessage = Deleted.ResponseMessage;
-                    switch (Deleted.responseTypes)
-                    {
-                        case BusinessLayer.Models.ResponseTypes.Success:
-                            response.responseTypes = ResponseTypes.Success;
-                            break;
-                        case BusinessLayer.Models.ResponseTypes.Failure:
-                            response.responseTypes = ResponseTypes.Failure;
-                            break;
-                        case BusinessLayer.Models.ResponseTypes.Information:
-                            response.responseTypes = ResponseTypes.Information;
-                            break;
-                        default:
-                            response.responseTypes = ResponseTypes.Failure;
-                            break;
-                    }
-                }
+                { return RedirectToAction("Discount", new ResponseBase { ResponseMessage = Updated.ResponseMessage, ResponseSuccess = Updated.ResponseSuccess, responseTypes = ResponseTypes.Failure }); }
             }
             else
-            {
-                response.ResponseSuccess = false;
-                response.ResponseMessage = "You must provide a Discount ID.";
-                response.responseTypes = ResponseTypes.Failure;
-            }
-
-            return RedirectToAction("Discount", response);
-
+            { return RedirectToAction("Discount", new ResponseBase { ResponseMessage = Discount.ResponseMessage, ResponseSuccess = Discount.ResponseSuccess, responseTypes = ResponseTypes.Failure }); }
         }
         #endregion
 

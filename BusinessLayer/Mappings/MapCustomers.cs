@@ -78,6 +78,7 @@ namespace BusinessLayer.Mappings
             CustomersLite Customer = new CustomersLite();
             Customer.CustomerID = model.CustomerID;
             Customer.CustomerName = model.CustomerName;
+            Customer.CompanyName = model.CompanyName;
             return Customer;
         }
 
@@ -86,6 +87,7 @@ namespace BusinessLayer.Mappings
             CustomersLite_Model Customer = new CustomersLite_Model();
             Customer.CustomerID = model.CustomerID;
             Customer.CustomerName = model.CustomerName;
+            Customer.CompanyName = model.CompanyName;
             return Customer;
         }
     }

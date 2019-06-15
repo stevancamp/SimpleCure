@@ -215,7 +215,9 @@
     <Compile Include="Models\OrderModels\CartOrder_ViewModel.cs" />
     <Compile Include="Models\OrderModels\CreateOrder_ViewModel.cs" />
     <Compile Include="Models\OrderModels\EditOrder_ViewModel.cs" />
+    <Compile Include="Models\OrderModels\OrderProduct_Prodcut_Model.cs" />
     <Compile Include="Models\OrderModels\Orders_ViewModel.cs" />
+    <Compile Include="Models\OrderModels\ViewOrderProductList.cs" />
     <Compile Include="Models\OrderModels\ViewOrder_ViewModel.cs" />
     <Compile Include="Models\OrderStatusModels\CreateOrderStatus_ViewModel.cs" />
     <Compile Include="Models\OrderStatusModels\EditOrderStatus_ViewModel.cs" />
@@ -732,6 +734,8 @@
     <Content Include="distribution\vendor\popper.js\umd\popper-utils.min.js" />
     <Content Include="distribution\vendor\popper.js\umd\popper.js" />
     <Content Include="distribution\vendor\popper.js\umd\popper.min.js" />
+    <Content Include="distribution\vendor\Select2\select2.css" />
+    <Content Include="distribution\vendor\Select2\select2.min.js" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
@@ -794,6 +798,7 @@
     <Content Include="Scripts\umd\popper.js" />
     <Content Include="Scripts\umd\popper.min.js" />
     <Content Include="Scripts\ViewScripts\ApplicationLogsViewScript.js" />
+    <Content Include="Scripts\ViewScripts\ProductGroupViewScirpt.js" />
     <Content Include="Scripts\ViewScripts\BusinessTypesViewScirpt.js" />
     <Content Include="Scripts\ViewScripts\CreateOrderViewScript.js" />
     <Content Include="Scripts\ViewScripts\DiscountViewScript.js" />
@@ -868,6 +873,11 @@
     <Content Include="Views\Admin\_CreateDiscount.cshtml" />
     <Content Include="Views\Admin\_EditDiscount.cshtml" />
     <Content Include="Views\Order\CreateOrder.cshtml" />
+    <Content Include="Views\Order\Orders.cshtml" />
+    <Content Include="Views\Order\ViewOrder.cshtml" />
+    <Content Include="Views\Admin\ProductGroup.cshtml" />
+    <Content Include="Views\Admin\_CreateProductGroup.cshtml" />
+    <Content Include="Views\Admin\_EditProductGroup.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

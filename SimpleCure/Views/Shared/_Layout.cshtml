@@ -53,8 +53,8 @@
                             )
                         </li>
                         <li>
-                            @Html.ActionLink(" Search Orders",
-                             "ViewOrders",   // <-- ActionMethod
+                            @Html.ActionLink(" Orders",
+                             "Orders",   // <-- ActionMethod
                              "Order",  // <-- Controller Name.
                              null, // <-- Route arguments.
                              new { @class = "icon-screen" }
@@ -81,19 +81,7 @@
             {
                 <div class="admin-menu">
                     <h5 class="sidenav-heading">Admin</h5>
-                    <ul id="side-admin-menu" class="side-menu list-unstyled">
-                        <li>
-                            <a href="#exampledropdownDropdown" aria-expanded="false" data-toggle="collapse"> <i class="icon-interface-windows"></i>Types </a>
-                            <ul id="exampledropdownDropdown" class="collapse list-unstyled ">
-                                <li>
-                                    @Html.ActionLink(" Business Types",
-                     "BusinessTypes",
-                     "Admin"
-                     )
-                                </li>
-                           
-                            </ul>
-                        </li>
+                    <ul id="side-admin-menu" class="side-menu list-unstyled">                        
                         <li>
                             @Html.ActionLink(" User Maintenance",
                             "UserMaintenance",
@@ -101,7 +89,47 @@
                             null,
                             new { @class = "icon-user" }
                             )
-                        </li>                       
+                        </li>
+                        <li>
+                            @Html.ActionLink(" Business Types",
+                            "BusinessTypes",
+                            "Admin",
+                            null,
+                            new { @class = "icon-screen" }
+                            )
+                        </li>
+                        <li>
+                            @Html.ActionLink(" Order Status",
+                            "OrderStatus",
+                            "Admin",
+                            null,
+                            new { @class = "icon-screen" }
+                            )
+                        </li>
+                        <li>
+                            @Html.ActionLink(" Product",
+                            "Product",
+                            "Admin",
+                            null,
+                            new { @class = "icon-screen" }
+                            )
+                        </li>
+                        <li>
+                            @Html.ActionLink(" Product Group",
+                            "ProductGroup",
+                            "Admin",
+                            null,
+                            new { @class = "icon-screen" }
+                            )
+                        </li>
+                        <li>
+                            @Html.ActionLink(" Discount",
+                            "Discount",
+                            "Admin",
+                            null,
+                            new { @class = "icon-screen" }
+                            )
+                        </li>
                     </ul>
                 </div>
                 if (User.IsInRole("WebAdmin"))
@@ -116,39 +144,7 @@
                                 null,
                                 new { @class = "icon-screen" }
                                 )
-                            </li>
-                            <li>
-                                @Html.ActionLink(" Order Status",
-                                "OrderStatus",
-                                "Admin",
-                                null,
-                                new { @class = "icon-screen" }
-                                )
-                            </li>
-                            <li>
-                                @Html.ActionLink(" Product",
-                                "Product",
-                                "Admin",
-                                null,
-                                new { @class = "icon-screen" }
-                                )
-                            </li>
-                            @*<li>
-                                @Html.ActionLink(" Prodcut Groups",
-                                "ProductGroups",
-                                "Admin",
-                                null,
-                                new { @class = "icon-screen" }
-                                )
-                            </li>*@
-                            <li>
-                                @Html.ActionLink(" Discount",
-                                "Discount",
-                                "Admin",
-                                null,
-                                new { @class = "icon-screen" }
-                                )
-                            </li>
+                            </li>                           
                         </ul>
                     </div>
                 }

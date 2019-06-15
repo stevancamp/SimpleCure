@@ -83,7 +83,7 @@ namespace SimpleCure.Controllers
                 : "";
 
             var user = await UserManager.FindByIdAsync(User.Identity.GetUserId());
-            var customerinfo = _customerFunctions.GetByUserID(user.Id);
+            var customerinfo = _customerFunctions.GetByAspNetUsersID(user.Id);
             CustomerInfoViewModel vm = new CustomerInfoViewModel();
             if (customerinfo.responseTypes == BusinessLayer.Models.ResponseTypes.Success && customerinfo.GenericClass != null)
             {
@@ -620,7 +620,7 @@ namespace SimpleCure.Controllers
         public async Task<ActionResult> ConfimredDeleteAccount()
         {
             var user = await UserManager.FindByIdAsync(User.Identity.GetUserId());
-            var IsInCustTbl = _customerFunctions.GetByUserID(user.Id);
+            var IsInCustTbl = _customerFunctions.GetByAspNetUsersID(user.Id);
             if (IsInCustTbl.ResponseSuccess && IsInCustTbl.GenericClass != null && IsInCustTbl.responseTypes == BusinessLayer.Models.ResponseTypes.Success)
             {
                 Customers_Model cm = new Customers_Model();
@@ -681,7 +681,7 @@ namespace SimpleCure.Controllers
                 : message == ManageMessageId.ChangeUserNameFailure ? "Your User Name was not updated"
                 : string.Empty;
             var user = UserManager.FindById(User.Identity.GetUserId());
-            var UserInfo = _customerFunctions.GetByUserID(user.Id);
+            var UserInfo = _customerFunctions.GetByAspNetUsersID(user.Id);
             if (UserInfo.ResponseSuccess && UserInfo.GenericClass != null && UserInfo.responseTypes == BusinessLayer.Models.ResponseTypes.Success)
             {
                 var model = new CustomerInfoViewModel
@@ -728,7 +728,7 @@ namespace SimpleCure.Controllers
             {
 
                 var user = UserManager.FindById(User.Identity.GetUserId());
-                var CustomerInfo = _customerFunctions.GetByUserID(user.Id);
+                var CustomerInfo = _customerFunctions.GetByAspNetUsersID(user.Id);
                  
                 if (CustomerInfo.GenericClass != null && CustomerInfo.responseTypes == BusinessLayer.Models.ResponseTypes.Success)              
                 {

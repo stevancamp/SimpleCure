@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="TestingModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="TestingModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="__MigrationHistory">
           <Key>
             <PropertyRef Name="MigrationId" />
@@ -27,7 +27,7 @@
           <Property Name="ChangeTo" Type="varchar(max)" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'SimpleCure.dbo.ALL' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'Testing.dbo.ALL' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="ALL">
           <Key>
             <PropertyRef Name="ID" />
@@ -182,7 +182,7 @@ warning 6002: The table/view 'SimpleCure.dbo.ALL' does not have a primary key de
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="OrderID" Type="int" Nullable="false" />
           <Property Name="ProductID" Type="int" Nullable="false" />
-          <Property Name="BatchID" Type="int" />
+          <Property Name="BatchID" Type="int" Nullable="false" />
           <Property Name="Quantity" Type="int" Nullable="false" />
           <Property Name="Total" Type="money" Nullable="false" />
           <Property Name="EntryBy" Type="varchar" MaxLength="128" Nullable="false" />
@@ -211,16 +211,15 @@ warning 6002: The table/view 'SimpleCure.dbo.ALL' does not have a primary key de
           <Property Name="Type" Type="varchar" MaxLength="500" Nullable="false" />
           <Property Name="Description" Type="varchar(max)" Nullable="false" />
           <Property Name="Strain" Type="varchar" MaxLength="500" Nullable="false" />
-          <Property Name="BatchID" Type="int" />
           <Property Name="Dominant" Type="varchar" MaxLength="500" Nullable="false" />
           <Property Name="CartGram" Type="decimal" Precision="18" Scale="4" Nullable="false" />
-          <Property Name="ProductGroup" Type="int" Nullable="false" />
-          <Property Name="PricePerGram" Type="money" Nullable="false" />
+          <Property Name="ProductGroup" Type="varchar" MaxLength="500" Nullable="false" />
+          <Property Name="PricePerUnit" Type="money" Nullable="false" />
           <Property Name="ProductImage" Type="image" />
           <Property Name="IsActive" Type="bit" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'SimpleCure.dbo.Tbl_Activity_Main' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'Testing.dbo.Tbl_Activity_Main' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="Tbl_Activity_Main">
           <Key>
             <PropertyRef Name="ID" />
@@ -235,7 +234,7 @@ warning 6002: The table/view 'SimpleCure.dbo.Tbl_Activity_Main' does not have a 
           <Property Name="InvoiceNote" Type="nvarchar" MaxLength="255" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'SimpleCure.dbo.Tbl_Activity_Sub' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'Testing.dbo.Tbl_Activity_Sub' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="Tbl_Activity_Sub">
           <Key>
             <PropertyRef Name="ID" />
@@ -252,7 +251,7 @@ warning 6002: The table/view 'SimpleCure.dbo.Tbl_Activity_Sub' does not have a p
           <Property Name="BatchID" Type="nvarchar" MaxLength="255" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6013: The table/view 'SimpleCure.dbo.Tbl_BS' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+warning 6013: The table/view 'Testing.dbo.Tbl_BS' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
         <EntityType Name="Tbl_BS">
           <Property Name="Company" Type="nvarchar" MaxLength="255" />
           <Property Name="Year" Type="int" />
@@ -264,7 +263,7 @@ warning 6013: The table/view 'SimpleCure.dbo.Tbl_BS' does not have a primary key
           <Property Name="BatchID" Type="nvarchar" MaxLength="255" />
         </EntityType>-->
         <!--Errors Found During Generation:
-warning 6002: The table/view 'SimpleCure.dbo.Tbl_BudTrim' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'Testing.dbo.Tbl_BudTrim' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="Tbl_BudTrim">
           <Key>
             <PropertyRef Name="Type" />
@@ -272,7 +271,7 @@ warning 6002: The table/view 'SimpleCure.dbo.Tbl_BudTrim' does not have a primar
           <Property Name="Type" Type="nvarchar" MaxLength="255" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'SimpleCure.dbo.Tbl_Company' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'Testing.dbo.Tbl_Company' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="Tbl_Company">
           <Key>
             <PropertyRef Name="Abbrev" />
@@ -317,7 +316,7 @@ warning 6002: The table/view 'SimpleCure.dbo.Tbl_Company' does not have a primar
           <Property Name="JenPhone" Type="nvarchar" MaxLength="255" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'SimpleCure.dbo.Tbl_Employees' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'Testing.dbo.Tbl_Employees' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="Tbl_Employees">
           <Key>
             <PropertyRef Name="Employee" />
@@ -326,7 +325,7 @@ warning 6002: The table/view 'SimpleCure.dbo.Tbl_Employees' does not have a prim
           <Property Name="HireDate" Type="datetime" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'SimpleCure.dbo.Tbl_Finances' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'Testing.dbo.Tbl_Finances' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="Tbl_Finances">
           <Key>
             <PropertyRef Name="ID" />
@@ -351,7 +350,7 @@ warning 6002: The table/view 'SimpleCure.dbo.Tbl_Finances' does not have a prima
           <Property Name="PriorMonth" Type="bit" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6013: The table/view 'SimpleCure.dbo.Tbl_Finances_All' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+warning 6013: The table/view 'Testing.dbo.Tbl_Finances_All' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
         <EntityType Name="Tbl_Finances_All">
           <Property Name="Date" Type="datetime" />
           <Property Name="Check" Type="nvarchar" MaxLength="255" />
@@ -367,17 +366,17 @@ warning 6013: The table/view 'SimpleCure.dbo.Tbl_Finances_All' does not have a p
           <Property Name="BatchID" Type="nvarchar" MaxLength="255" />
         </EntityType>-->
         <!--Errors Found During Generation:
-warning 6013: The table/view 'SimpleCure.dbo.Tbl_Finances_Groiup_DD' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+warning 6013: The table/view 'Testing.dbo.Tbl_Finances_Groiup_DD' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
         <EntityType Name="Tbl_Finances_Groiup_DD">
           <Property Name="Group" Type="nvarchar" MaxLength="255" />
         </EntityType>-->
         <!--Errors Found During Generation:
-warning 6013: The table/view 'SimpleCure.dbo.Tbl_Finances_Note_DD' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+warning 6013: The table/view 'Testing.dbo.Tbl_Finances_Note_DD' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
         <EntityType Name="Tbl_Finances_Note_DD">
           <Property Name="NoteAccount" Type="nvarchar" MaxLength="255" />
         </EntityType>-->
         <!--Errors Found During Generation:
-warning 6002: The table/view 'SimpleCure.dbo.Tbl_IndustryType' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'Testing.dbo.Tbl_IndustryType' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="Tbl_IndustryType">
           <Key>
             <PropertyRef Name="Type" />
@@ -385,7 +384,7 @@ warning 6002: The table/view 'SimpleCure.dbo.Tbl_IndustryType' does not have a p
           <Property Name="Type" Type="nvarchar" MaxLength="255" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'SimpleCure.dbo.Tbl_InvoiceIDs' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'Testing.dbo.Tbl_InvoiceIDs' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="Tbl_InvoiceIDs">
           <Key>
             <PropertyRef Name="InvID" />
@@ -393,7 +392,7 @@ warning 6002: The table/view 'SimpleCure.dbo.Tbl_InvoiceIDs' does not have a pri
           <Property Name="InvID" Type="nvarchar" MaxLength="255" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'SimpleCure.dbo.Tbl_Lots_Purchased' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'Testing.dbo.Tbl_Lots_Purchased' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="Tbl_Lots_Purchased">
           <Key>
             <PropertyRef Name="ID" />
@@ -419,7 +418,7 @@ warning 6002: The table/view 'SimpleCure.dbo.Tbl_Lots_Purchased' does not have a
           <Property Name="CBD" Type="bit" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'SimpleCure.dbo.Tbl_Month' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'Testing.dbo.Tbl_Month' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="Tbl_Month">
           <Key>
             <PropertyRef Name="MonthNum" />
@@ -428,7 +427,7 @@ warning 6002: The table/view 'SimpleCure.dbo.Tbl_Month' does not have a primary 
           <Property Name="MonthName" Type="nvarchar" MaxLength="255" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'SimpleCure.dbo.Tbl_Products' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'Testing.dbo.Tbl_Products' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="Tbl_Products">
           <Key>
             <PropertyRef Name="ID" />
@@ -444,7 +443,7 @@ warning 6002: The table/view 'SimpleCure.dbo.Tbl_Products' does not have a prima
           <Property Name="Active" Type="bit" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'SimpleCure.dbo.Tbl_Products_Dominant' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'Testing.dbo.Tbl_Products_Dominant' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="Tbl_Products_Dominant">
           <Key>
             <PropertyRef Name="ProdDom" />
@@ -452,7 +451,7 @@ warning 6002: The table/view 'SimpleCure.dbo.Tbl_Products_Dominant' does not hav
           <Property Name="ProdDom" Type="nvarchar" MaxLength="255" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'SimpleCure.dbo.Tbl_Products_Type' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'Testing.dbo.Tbl_Products_Type' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="Tbl_Products_Type">
           <Key>
             <PropertyRef Name="ProdType" />
@@ -460,7 +459,7 @@ warning 6002: The table/view 'SimpleCure.dbo.Tbl_Products_Type' does not have a 
           <Property Name="ProdType" Type="nvarchar" MaxLength="255" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'SimpleCure.dbo.Tbl_RunTypes' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'Testing.dbo.Tbl_RunTypes' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="Tbl_RunTypes">
           <Key>
             <PropertyRef Name="RunType" />
@@ -468,7 +467,7 @@ warning 6002: The table/view 'SimpleCure.dbo.Tbl_RunTypes' does not have a prima
           <Property Name="RunType" Type="nvarchar" MaxLength="255" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'SimpleCure.dbo.Tbl_SC_Extractions' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'Testing.dbo.Tbl_SC_Extractions' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="Tbl_SC_Extractions">
           <Key>
             <PropertyRef Name="ID" />
@@ -493,7 +492,7 @@ warning 6002: The table/view 'SimpleCure.dbo.Tbl_SC_Extractions' does not have a
           <Property Name="GramsIn" Type="int" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'SimpleCure.dbo.Tbl_SC_Supply' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'Testing.dbo.Tbl_SC_Supply' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="Tbl_SC_Supply">
           <Key>
             <PropertyRef Name="ID" />
@@ -538,7 +537,7 @@ warning 6002: The table/view 'SimpleCure.dbo.Tbl_SC_Supply' does not have a prim
           <Property Name="CandyMaker" Type="nvarchar" MaxLength="255" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'SimpleCure.dbo.Tbl_Units' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'Testing.dbo.Tbl_Units' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="Tbl_Units">
           <Key>
             <PropertyRef Name="Unit" />
@@ -547,7 +546,7 @@ warning 6002: The table/view 'SimpleCure.dbo.Tbl_Units' does not have a primary 
           <Property Name="UnitDesc" Type="nvarchar" MaxLength="255" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'SimpleCure.dbo.Tbl_Vendors' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'Testing.dbo.Tbl_Vendors' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="Tbl_Vendors">
           <Key>
             <PropertyRef Name="Vendor" />
@@ -881,7 +880,8 @@ warning 6002: The table/view 'SimpleCure.dbo.Tbl_Vendors' does not have a primar
             <End Role="AspNetUserRoles" EntitySet="AspNetUserRoles" />
           </AssociationSet>
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="TestingModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -988,9 +988,31 @@ warning 6002: The table/view 'SimpleCure.dbo.Tbl_Vendors' does not have a primar
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DiscountAmount" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
           <Property Name="Type" Type="String" MaxLength="500" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="IsActive" Type="Boolean" Nullable="false" />
-          <Property Name="DiscountAmount" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+        </EntityType>
+        <EntityType Name="Order">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Tbl_CustomerID" Type="Int32" Nullable="false" />
+          <Property Name="Notes" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="SubmissionDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="OrderStatus" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="CompletionDate" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="OrderActivity">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="OrderID" Type="Int32" Nullable="false" />
+          <Property Name="Status" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="Notes" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="ActivityDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ActivityBy" Type="String" MaxLength="128" FixedLength="false" Unicode="false" Nullable="false" />
         </EntityType>
         <EntityType Name="OrderDiscount">
           <Key>
@@ -1007,10 +1029,10 @@ warning 6002: The table/view 'SimpleCure.dbo.Tbl_Vendors' does not have a primar
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="OrderID" Type="Int32" Nullable="false" />
           <Property Name="ProductID" Type="Int32" Nullable="false" />
-          <Property Name="BatchID" Type="Int32" />
+          <Property Name="BatchID" Type="Int32" Nullable="false" />
           <Property Name="Quantity" Type="Int32" Nullable="false" />
-          <Property Name="Total" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
-          <Property Name="EntryBy" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="false" />
+          <Property Name="Total" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+          <Property Name="EntryBy" Type="String" MaxLength="128" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="EntryDate" Type="DateTime" Nullable="false" Precision="3" />
         </EntityType>
         <EntityType Name="OrderStatu">
@@ -1036,11 +1058,10 @@ warning 6002: The table/view 'SimpleCure.dbo.Tbl_Vendors' does not have a primar
           <Property Name="Type" Type="String" MaxLength="500" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Strain" Type="String" MaxLength="500" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="BatchID" Type="Int32" />
           <Property Name="Dominant" Type="String" MaxLength="500" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="CartGram" Type="Decimal" Precision="18" Scale="4" Nullable="false" />
-          <Property Name="ProductGroup" Type="Int32" Nullable="false" />
-          <Property Name="PricePerGram" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+          <Property Name="ProductGroup" Type="String" MaxLength="500" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="PricePerUnit" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
           <Property Name="ProductImage" Type="Binary" MaxLength="Max" FixedLength="false" />
           <Property Name="IsActive" Type="Boolean" Nullable="false" />
         </EntityType>
@@ -1377,6 +1398,8 @@ warning 6002: The table/view 'SimpleCure.dbo.Tbl_Vendors' does not have a primar
           <EntitySet Name="AspNetUsersLoginAttempts" EntityType="Self.AspNetUsersLoginAttempt" />
           <EntitySet Name="BusinessTypes" EntityType="Self.BusinessType" />
           <EntitySet Name="Discounts" EntityType="Self.Discount" />
+          <EntitySet Name="Orders" EntityType="Self.Order" />
+          <EntitySet Name="OrderActivities" EntityType="Self.OrderActivity" />
           <EntitySet Name="OrderDiscounts" EntityType="Self.OrderDiscount" />
           <EntitySet Name="OrderProducts" EntityType="Self.OrderProduct" />
           <EntitySet Name="OrderStatus" EntityType="Self.OrderStatu" />
@@ -1414,31 +1437,7 @@ warning 6002: The table/view 'SimpleCure.dbo.Tbl_Vendors' does not have a primar
             <End Role="AspNetRoles" EntitySet="AspNetRoles" />
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
           </AssociationSet>
-          <EntitySet Name="Orders" EntityType="TestingModel.Order" />
-          <EntitySet Name="OrderActivities" EntityType="TestingModel.OrderActivity" />
         </EntityContainer>
-        <EntityType Name="Order">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Tbl_CustomerID" Type="Int32" Nullable="false" />
-          <Property Name="Notes" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="SubmissionDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="OrderStatus" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
-          <Property Name="CompletionDate" Type="DateTime" Precision="3" />
-        </EntityType>
-        <EntityType Name="OrderActivity">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="OrderID" Type="Int32" Nullable="false" />
-          <Property Name="Status" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
-          <Property Name="Notes" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="ActivityDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="ActivityBy" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="false" />
-        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1546,10 +1545,34 @@ warning 6002: The table/view 'SimpleCure.dbo.Tbl_Vendors' does not have a primar
           <EntitySetMapping Name="Discounts">
             <EntityTypeMapping TypeName="TestingModel.Discount">
               <MappingFragment StoreEntitySet="Discount">
-                <ScalarProperty Name="DiscountAmount" ColumnName="DiscountAmount" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="DiscountAmount" ColumnName="DiscountAmount" />
                 <ScalarProperty Name="Type" ColumnName="Type" />
                 <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Orders">
+            <EntityTypeMapping TypeName="TestingModel.Order">
+              <MappingFragment StoreEntitySet="Order">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Tbl_CustomerID" ColumnName="Tbl_CustomerID" />
+                <ScalarProperty Name="Notes" ColumnName="Notes" />
+                <ScalarProperty Name="SubmissionDate" ColumnName="SubmissionDate" />
+                <ScalarProperty Name="OrderStatus" ColumnName="OrderStatus" />
+                <ScalarProperty Name="CompletionDate" ColumnName="CompletionDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="OrderActivities">
+            <EntityTypeMapping TypeName="TestingModel.OrderActivity">
+              <MappingFragment StoreEntitySet="OrderActivity">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="OrderID" ColumnName="OrderID" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="Notes" ColumnName="Notes" />
+                <ScalarProperty Name="ActivityDate" ColumnName="ActivityDate" />
+                <ScalarProperty Name="ActivityBy" ColumnName="ActivityBy" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1565,14 +1588,14 @@ warning 6002: The table/view 'SimpleCure.dbo.Tbl_Vendors' does not have a primar
           <EntitySetMapping Name="OrderProducts">
             <EntityTypeMapping TypeName="TestingModel.OrderProduct">
               <MappingFragment StoreEntitySet="OrderProducts">
-                <ScalarProperty Name="EntryDate" ColumnName="EntryDate" />
-                <ScalarProperty Name="EntryBy" ColumnName="EntryBy" />
-                <ScalarProperty Name="Total" ColumnName="Total" />
-                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
-                <ScalarProperty Name="BatchID" ColumnName="BatchID" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="OrderID" ColumnName="OrderID" />
                 <ScalarProperty Name="ProductID" ColumnName="ProductID" />
+                <ScalarProperty Name="BatchID" ColumnName="BatchID" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="Total" ColumnName="Total" />
+                <ScalarProperty Name="EntryBy" ColumnName="EntryBy" />
+                <ScalarProperty Name="EntryDate" ColumnName="EntryDate" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1600,11 +1623,10 @@ warning 6002: The table/view 'SimpleCure.dbo.Tbl_Vendors' does not have a primar
                 <ScalarProperty Name="Type" ColumnName="Type" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="Strain" ColumnName="Strain" />
-                <ScalarProperty Name="BatchID" ColumnName="BatchID" />
                 <ScalarProperty Name="Dominant" ColumnName="Dominant" />
                 <ScalarProperty Name="CartGram" ColumnName="CartGram" />
                 <ScalarProperty Name="ProductGroup" ColumnName="ProductGroup" />
-                <ScalarProperty Name="PricePerGram" ColumnName="PricePerGram" />
+                <ScalarProperty Name="PricePerUnit" ColumnName="PricePerUnit" />
                 <ScalarProperty Name="ProductImage" ColumnName="ProductImage" />
                 <ScalarProperty Name="IsActive" ColumnName="IsActive" />
               </MappingFragment>
@@ -1921,30 +1943,6 @@ warning 6002: The table/view 'SimpleCure.dbo.Tbl_Vendors' does not have a primar
               <ScalarProperty Name="Id" ColumnName="UserId" />
             </EndProperty>
           </AssociationSetMapping>
-          <EntitySetMapping Name="Orders">
-            <EntityTypeMapping TypeName="TestingModel.Order">
-              <MappingFragment StoreEntitySet="Order">
-                <ScalarProperty Name="CompletionDate" ColumnName="CompletionDate" />
-                <ScalarProperty Name="OrderStatus" ColumnName="OrderStatus" />
-                <ScalarProperty Name="SubmissionDate" ColumnName="SubmissionDate" />
-                <ScalarProperty Name="Notes" ColumnName="Notes" />
-                <ScalarProperty Name="Tbl_CustomerID" ColumnName="Tbl_CustomerID" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="OrderActivities">
-            <EntityTypeMapping TypeName="TestingModel.OrderActivity">
-              <MappingFragment StoreEntitySet="OrderActivity">
-                <ScalarProperty Name="ActivityBy" ColumnName="ActivityBy" />
-                <ScalarProperty Name="ActivityDate" ColumnName="ActivityDate" />
-                <ScalarProperty Name="Notes" ColumnName="Notes" />
-                <ScalarProperty Name="Status" ColumnName="Status" />
-                <ScalarProperty Name="OrderID" ColumnName="OrderID" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

@@ -10,6 +10,7 @@ namespace BusinessLayer.Mappings
             ProductGroup returnModel = new ProductGroup();
             returnModel.GroupName = model.GroupName;
             returnModel.ID = model.ID;
+            returnModel.IsActive = model.IsActive;
             return returnModel;
         }
 
@@ -18,6 +19,7 @@ namespace BusinessLayer.Mappings
             ProductGroup_Models returnModel = new ProductGroup_Models();
             returnModel.GroupName = model.GroupName;
             returnModel.ID = model.ID;
+            returnModel.IsActive = model.IsActive;
             return returnModel;
         }
     }
