@@ -1,0 +1,16 @@
+﻿@model SimpleCure.Models.OrderModels.EditCurrentOrderStatus_ViewModel
+<div class="form-group">
+    @Html.LabelFor(m => m.Status, new { @class = "form-control-label" })
+    @Html.DropDownListFor(m => m.Status, new SelectList(
+    Model.ListStatus.Select(x => new { Value = x.Status, Text = x.Status }),
+    "Value",
+    "Text"
+    ), "--Please Select--", new { @class = "form-control", required = "required" })
+</div>
+<div class="form-group">
+    @Html.LabelFor(m => m.Notes, new { @class = "form-control-label" })
+    @Html.TextAreaFor(m => m.Notes, new { @class = "form-control", @rows = "3" })
+</div>
+<div class="form-group">
+    <button type="button" onclick="SaveOrderStatus();" class="btn btn-primary">Submit Order Activity</button>
+</div>

@@ -7,12 +7,11 @@ using BusinessLayer.Functions.OrderDiscount;
 using BusinessLayer.Functions.OrderProducts;
 using BusinessLayer.Functions.OrderStatus;
 using BusinessLayer.Functions.Product;
-using BusinessLayer.Models.DiscountModels;
 using BusinessLayer.Models.OrderActivityModels;
 using BusinessLayer.Models.OrderDiscountModels;
 using BusinessLayer.Models.OrderModels;
 using BusinessLayer.Models.OrderProductsModels;
-using BusinessLayer.Models.ProductModels;
+using Microsoft.AspNet.Identity;
 using SimpleCure.Models;
 using SimpleCure.Models.OrderModels;
 using System;
@@ -133,11 +132,11 @@ namespace SimpleCure.Controllers
 
         public ActionResult ViewOrder(int ID)
         {
-            var OrderInfo = _orderFunctions.GetByID(ID);
-            var CustomerInfo = _customerFunctions.GetByUserID(OrderInfo.GenericClass.Tbl_CustomerID);
-            var OrderActivity = _orderActivityFunctions.GetByOrderID(ID);
+            var OrderInfo = _orderFunctions.GetByID(ID).GenericClass;           
             var OrderProducts = _orderProductsFucntions.GetAllByByOrderID(ID);
             var OrderDiscounts = _orderDiscountFucntions.GetAllByOrderID(ID);
+            var OrderStatus = _orderStatusFunctions.GetAll();
+
             List<OrderProduct_Prodcut_Model> ListOrderProductProducts = new List<OrderProduct_Prodcut_Model>();
             foreach (var item in OrderProducts.GenericClassList)
             {
@@ -145,36 +144,56 @@ namespace SimpleCure.Controllers
                 var Product = _productFucntions.GetByID(item.ProductID);
                 ListOrderProductProducts.Add(new OrderProduct_Prodcut_Model { ProductID = Product.GenericClass.ID, BatchID = item.BatchID, CartGram = Product.GenericClass.CartGram, Description = Product.GenericClass.Description, Dominant = Product.GenericClass.Dominant, EntryBy = item.EntryBy, EntryDate = item.EntryDate, ForProductID = item.ProductID, IsActive = Product.GenericClass.IsActive, OrderID = item.OrderID, OrderProductID = item.ProductID, PricePerUnit = Product.GenericClass.PricePerUnit, ProductGroup = Product.GenericClass.ProductGroup, ProductImage = Product.GenericClass.ProductImage, Quantity = item.Quantity, Strain = Product.GenericClass.Strain, Total = item.Total, Type = Product.GenericClass.Type });
             }
+
+            List<OrderDiscountDiscounts_Model> ListOrderDiscounts = new List<OrderDiscountDiscounts_Model>();
+            foreach (var item in OrderDiscounts.GenericClassList)
+            {
+                var Discount = _discountFunctions.GetByID(item.DiscountID);
+                ListOrderDiscounts.Add(new OrderDiscountDiscounts_Model { DiscountAmount = Discount.GenericClass.DiscountAmount, DiscountID = item.DiscountID, IsActive = Discount.GenericClass.IsActive, OrderDiscountDiscountID = item.DiscountID, OrderDiscountID = item.ID, OrderID = item.OrderID, Type = Discount.GenericClass.Type });
+            }
+               
  
-            return View(new ViewOrder_ViewModel { ListProducts = ListOrderProductProducts, OrderInfo = OrderInfo.GenericClass, CustomerInfo = CustomerInfo.GenericClass, OrderActivity = OrderActivity.GenericClassList, OrderDiscounts = OrderDiscounts.GenericClassList });
+            return View(new ViewOrder_ViewModel { ListProducts = ListOrderProductProducts, OrderInfo = OrderInfo,  ListOrderDiscounts = ListOrderDiscounts, ListStatus = OrderStatus.GenericClassList });
         }
 
-        //edit order
-        public ActionResult EditOrder(int ID)
+        public ActionResult ViewOrderInfo(int OrderID)
         {
-            EditOrder_ViewModel model = new EditOrder_ViewModel();
+            var OrderInfo = _orderFunctions.GetByID(OrderID).GenericClass;
+            var CustomerInfo = _customerFunctions.GetByUserID(OrderInfo.Tbl_CustomerID);
+            var OrderActivity = _orderActivityFunctions.GetByOrderID(OrderID);
 
+            return PartialView("_ViewOrderInfo", new ViewOrderInfo_ViewModel { CustomerInfo = CustomerInfo.GenericClass, OrderActivity = OrderActivity.GenericClassList, OrderInfo = OrderInfo });
+        }
 
-
-            return View(model);
+        public ActionResult EditCurrentOrderStatus(int OrderID)
+        {
+            EditCurrentOrderStatus_ViewModel model = new EditCurrentOrderStatus_ViewModel();
+            model.ListStatus = _orderStatusFunctions.GetAll().GenericClassList;
+            return PartialView("_EditCurrentOrderStatus", model);
         }
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult EditOrder(EditOrder_ViewModel model)
+        public bool SaveOrderActivityStatus(int OrderID, string OrderActivityStatus, string OrderActivityNotes)
         {
-            throw new NotImplementedException();
+            var AddedActivity = _orderActivityFunctions.Add(new OrderActivity_Models { ActivityBy = User.Identity.GetUserId(), ActivityDate = DateTime.Now, Notes = OrderActivityNotes, OrderID = OrderID, Status = OrderActivityStatus });
+
+            if (AddedActivity.ResponseSuccess)
+            {
+                var Order = _orderFunctions.GetByID(OrderID);
+                var UpdatedOrderStatus = _orderFunctions.Update(new Order_Models { CompletionDate = Order.GenericClass.CompletionDate, ID = OrderID, Notes = Order.GenericClass.Notes, OrderStatus = OrderActivityStatus, SubmissionDate = Order.GenericClass.SubmissionDate, Tbl_CustomerID = Order.GenericClass.Tbl_CustomerID });
+                if (UpdatedOrderStatus.ResponseSuccess)
+                {
+                    return true;
+                }
+            }
+            return false;
         }
 
-        //count of orders by status
 
-        //delete order
         [HttpPost]
         public ActionResult DeleteOrder(int ID)
         {
             throw new NotImplementedException();
         }
-
-        //list all orders by customer with search option parameters
 
         public ActionResult Orders(string SearchTerm = null)
         {
@@ -219,52 +238,6 @@ namespace SimpleCure.Controllers
             return View(model);
         }
 
-        //public ActionResult ViewOrder(int OrderID)
-        //{
-        //    //get order info
-        //    var Order = _orderFunctions.GetByID(OrderID);
-        //    //get customer info 
-        //    var customerInfo = _customerFunctions.GetByID(Order.GenericClass.Tbl_CustomerID);
-        //    //get order activity
-        //    var OrderActivity = _orderActivityFunctions.GetByOrderID(Order.GenericClass.ID);
-        //    //get order products
-        //    var OrderProducts = _orderProductsFucntions.GetAllByByOrderID(Order.GenericClass.ID);
-        //    //get order discounts
-        //    var OrderDiscounts = _orderDiscountFucntions.GetAllByOrderID(Order.GenericClass.ID);
-        //    //options to change status and add notes
-        //    var StatusList = _orderStatusFunctions.GetAll();
-
-        //    ViewOrder_ViewModel model = new ViewOrder_ViewModel();
-        //    model.OrderInfo = Order.GenericClass;
-        //    model.CustomerInfo = customerInfo.GenericClass;
-        //    model.OrderActivity = OrderActivity.GenericClassList;
-        //    model.OrderDiscounts = OrderDiscounts.GenericClassList;
-        //    model.Status = Order.GenericClass.OrderStatus;
-        //    model.Notes = Order.GenericClass.Notes;
-
-        //    foreach (var ProductItem in OrderProducts.GenericClassList)
-        //    {
-        //        var Product = _productFucntions.GetByID(ProductItem.ID);
-
-        //        ViewOrderProductList products = new ViewOrderProductList();
-        //        products.BatchID = ProductItem.BatchID;
-        //        products.CartGram = Product.GenericClass.CartGram;
-        //        products.Description = Product.GenericClass.Description;
-        //        products.Dominant = Product.GenericClass.Dominant;
-        //        products.PricePerUnit = Product.GenericClass.PricePerUnit;
-        //        products.ProductGroup = Product.GenericClass.ProductGroup;
-        //        //products = Product.GenericClass.ID;
-        //        products.ProductQuantity = ProductItem.Quantity;
-        //        products.Strain = Product.GenericClass.Strain;
-        //        products.Total = ProductItem.Total;
-        //        products.Type = Product.GenericClass.Type;
-
-        //        model.ProductList.Add(products);
-
-        //    }
-
-        //    return View(model);
-
-        //}
+       
     }
 }

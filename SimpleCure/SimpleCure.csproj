@@ -214,9 +214,12 @@
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\OrderModels\CartOrder_ViewModel.cs" />
     <Compile Include="Models\OrderModels\CreateOrder_ViewModel.cs" />
+    <Compile Include="Models\OrderModels\EditCurrentOrderStatus_ViewModel.cs" />
     <Compile Include="Models\OrderModels\EditOrder_ViewModel.cs" />
+    <Compile Include="Models\OrderModels\OrderDiscountDiscounts_Model.cs" />
     <Compile Include="Models\OrderModels\OrderProduct_Prodcut_Model.cs" />
     <Compile Include="Models\OrderModels\Orders_ViewModel.cs" />
+    <Compile Include="Models\OrderModels\ViewOrderInfo_ViewModel.cs" />
     <Compile Include="Models\OrderModels\ViewOrderProductList.cs" />
     <Compile Include="Models\OrderModels\ViewOrder_ViewModel.cs" />
     <Compile Include="Models\OrderStatusModels\CreateOrderStatus_ViewModel.cs" />
@@ -803,6 +806,7 @@
     <Content Include="Scripts\ViewScripts\CreateOrderViewScript.js" />
     <Content Include="Scripts\ViewScripts\DiscountViewScript.js" />
     <Content Include="Scripts\ViewScripts\OrderStatusViewScript.js" />
+    <Content Include="Scripts\ViewScripts\ViewOrderViewScript.js" />
     <Content Include="Scripts\ViewScripts\ProductViewScript.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
@@ -878,6 +882,14 @@
     <Content Include="Views\Admin\ProductGroup.cshtml" />
     <Content Include="Views\Admin\_CreateProductGroup.cshtml" />
     <Content Include="Views\Admin\_EditProductGroup.cshtml" />
+    <Content Include="Views\Order\_ViewOrderInfo.cshtml" />
+    <Content Include="Views\Order\_ViewCustomerOrderHistory.cshtml" />
+    <Content Include="Views\Order\_ViewOrderCustomerInfo.cshtml" />
+    <Content Include="Views\Order\_EditCurrentOrderStatus.cshtml" />
+    <Content Include="Views\Order\_EditOrderDiscounts.cshtml" />
+    <Content Include="Views\Order\_ViewOrderActivity.cshtml" />
+    <Content Include="Views\Order\_EditOrderProduct.cshtml" />
+    <Content Include="Views\Order\_OrderActivityHistory.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

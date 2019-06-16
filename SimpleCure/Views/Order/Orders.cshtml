@@ -61,7 +61,7 @@
                                         <th>Order Status</th>
                                         <th>Order Date</th>
                                         <th>Last Activity Date</th>
-                                        <th>View/Edit</th>
+                                        <th>View</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -77,8 +77,7 @@
                                                 <td>@item.OrderDate</td>
                                                 <td>@item.LastActionDate</td>
                                                 <td>
-                                                    <a href="@Url.Action("ViewOrder", "Order", new { ID = item.OrderID })"><i class="fa fa-search"></i></a> |
-                                                    <a href="@Url.Action("EditOrder", "Order", new { ID = item.OrderID })"><i class="fa fa-edit"></i></a>
+                                                    <a href="@Url.Action("ViewOrder", "Order", new { ID = item.OrderID })"><i class="fa fa-eye"></i></a>                                                     
                                                 </td>
                                             </tr>
                                         }
