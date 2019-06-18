@@ -219,9 +219,14 @@
     <Compile Include="Models\OrderModels\OrderDiscountDiscounts_Model.cs" />
     <Compile Include="Models\OrderModels\OrderProduct_Prodcut_Model.cs" />
     <Compile Include="Models\OrderModels\Orders_ViewModel.cs" />
+    <Compile Include="Models\OrderModels\ViewAddOrderDiscount_ViewModel.cs" />
+    <Compile Include="Models\OrderModels\ViewAddOrderProduct_ViewModel.cs" />
+    <Compile Include="Models\OrderModels\ViewOrderDiscounts_ViewModel.cs" />
     <Compile Include="Models\OrderModels\ViewOrderInfo_ViewModel.cs" />
     <Compile Include="Models\OrderModels\ViewOrderProductList.cs" />
+    <Compile Include="Models\OrderModels\ViewOrderProducts_ViewModel.cs" />
     <Compile Include="Models\OrderModels\ViewOrder_ViewModel.cs" />
+    <Compile Include="Models\OrderModels\ViewProductInfo_ViewModel.cs" />
     <Compile Include="Models\OrderStatusModels\CreateOrderStatus_ViewModel.cs" />
     <Compile Include="Models\OrderStatusModels\EditOrderStatus_ViewModel.cs" />
     <Compile Include="Models\OrderStatusModels\OrderStatus_ViewModel.cs" />
@@ -778,6 +783,7 @@
     <Content Include="distribution\vendor\jquery.cookie\component.json" />
     <Content Include="distribution\vendor\jquery.cookie\cookie.jquery.json" />
     <Content Include="distribution\vendor\popper.js\umd\poppper.js.flow" />
+    <None Include="Properties\PublishProfiles\SimpleCureDev - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
@@ -883,13 +889,13 @@
     <Content Include="Views\Admin\_CreateProductGroup.cshtml" />
     <Content Include="Views\Admin\_EditProductGroup.cshtml" />
     <Content Include="Views\Order\_ViewOrderInfo.cshtml" />
-    <Content Include="Views\Order\_ViewCustomerOrderHistory.cshtml" />
-    <Content Include="Views\Order\_ViewOrderCustomerInfo.cshtml" />
     <Content Include="Views\Order\_EditCurrentOrderStatus.cshtml" />
-    <Content Include="Views\Order\_EditOrderDiscounts.cshtml" />
-    <Content Include="Views\Order\_ViewOrderActivity.cshtml" />
     <Content Include="Views\Order\_EditOrderProduct.cshtml" />
-    <Content Include="Views\Order\_OrderActivityHistory.cshtml" />
+    <Content Include="Views\Order\_ViewOrderProducts.cshtml" />
+    <Content Include="Views\Order\_ViewProductInfo.cshtml" />
+    <Content Include="Views\Order\_ViewAddOrderProduct.cshtml" />
+    <Content Include="Views\Order\_ViewOrderDiscounts.cshtml" />
+    <Content Include="Views\Order\_ViewAddOrderDiscount.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

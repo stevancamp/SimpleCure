@@ -1,0 +1,12 @@
+﻿@model SimpleCure.Models.OrderModels.ViewAddOrderDiscount_ViewModel
+<div class="form-group">
+    <label for="AddOrderDiscountDDL">Active Discounts</label>
+    <br />
+    <select class="form-control custom-select" id="AddOrderDiscountDDL">
+        <option value="0">--Please Select--</option>
+        @foreach (var item in Model.ListDiscounts)
+        {
+            <option value="@item.ID">@item.Type (Amount:@item.DiscountAmount)</option>
+        }
+    </select>
+</div>

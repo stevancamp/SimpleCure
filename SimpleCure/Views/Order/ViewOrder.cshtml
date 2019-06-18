@@ -2,15 +2,22 @@
 @{
     ViewBag.Title = "View Order";
 }
-
-@*<input type="hidden" value="@Url.Action("CreateDiscount", "Admin")" id="UrlCreateDiscount" />
-    <input type="hidden" value="@Url.Action("EditDiscount", "Admin")" id="UrlEditDiscount" />
-    <input type="hidden" value="@Url.Action("Discount", "Admin")" id="UrlDiscount" />*@
-
+<input type="hidden" value="@Url.Action("Orders", "Order")" id="UrlOrders" />
 <input type="hidden" value="@Url.Action("ViewOrderInfo", "Order")" id="UrlViewOrderInfo" />
-
 <input type="hidden" value="@Url.Action("EditCurrentOrderStatus", "Order")" id="UrlEditCurrentOrderStatus" />
 <input type="hidden" value="@Url.Action("SaveOrderActivityStatus", "Order")" id="UrlSaveOrderActivityStatus" />
+<input type="hidden" value="@Url.Action("ViewOrderProducts", "Order")" id="UrlViewOrderProducts" />
+<input type="hidden" value="@Url.Action("SaveCustomerInfoForOrder", "Order")" id="UrlSaveCustomerInfoForOrder" />
+<input type="hidden" value="@Url.Action("RemoveOrderProduct", "Order")" id="UrlRemoveOrderProduct" />
+<input type="hidden" value="@Url.Action("ViewProductInfo", "Order")" id="UrlViewProductInfo" />
+<input type="hidden" value="@Url.Action("ViewAddOrderProduct", "Order")" id="UrlViewAddOrderProduct" />
+<input type="hidden" value="@Url.Action("AddOrderProdcut", "Order")" id="UrlAddOrderProdcut" />
+<input type="hidden" value="@Url.Action("ViewOrderDiscounts", "Order")" id="UrlViewOrderDiscounts" />
+<input type="hidden" value="@Url.Action("ViewAddOrderDiscount", "Order")" id="UrlViewAddOrderDiscount" />
+<input type="hidden" value="@Url.Action("AddOrderDiscount", "Order")" id="UrlAddOrderDiscount" />
+<input type="hidden" value="@Url.Action("RemoveOrderDiscount", "Order")" id="UrlRemoveOrderDiscount" />
+<input type="hidden" value="@Url.Action("DeleteOrder", "Order")" id="UrlDeleteOrder" />
+<input type="hidden" value="@Url.Action("OrderPaid", "Order")" id="UrlOrderPaid" />
 
 @if (Model.ResponseSuccess == false && Model.responseTypes == SimpleCure.Models.ResponseTypes.Failure)
 {
@@ -65,18 +72,53 @@
                             <div class="card">
                                 <h5 class="card-header">
                                     Order/Customer Information @if (User.IsInRole("Employee") || User.IsInRole("Owner") || User.IsInRole("WebAdmin"))
-                                    {<a href="#" class="pull-right" data-toggle="tooltip" data-placement="top" title="Change Customer Information"><i class="fa fa-edit"></i></a>}
+                                    {
+                                        <a href="#ChangeCustomerInfoModal" role="button" data-toggle="modal" class="pull-right"><i class="fa fa-edit"></i></a>
+                                        <div class="modal fade" id="ChangeCustomerInfoModal" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog" role="document">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="myModalLabel">
+                                                            Change Customer Information
+                                                        </h5>
+                                                        <button type="button" class="close" data-dismiss="modal">
+                                                            <span aria-hidden="true">×</span>
+                                                        </button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        @if (Model.ListCustomers != null && Model.ListCustomers.Count > 0)
+                                                        {
+                                                            <select id="CustomerList" name="CustomerList" class="custom-select">
+                                                                <option value="0">--Please Select--</option>
+                                                                @foreach (var item in Model.ListCustomers)
+                                                                {
+                                                                    <option value="@item.CustomerID">@item.CustomerName (@item.CompanyName)</option>
+                                                                }
+                                                            </select>
+                                                        }
+                                                        else
+                                                        {
+                                                            <span>There are no customers</span>
+                                                        }
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-outline-primary" onclick="SaveNewCustomerInformation();">Save</button>
+                                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                                                            Close
+                                                        </button>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    }
                                 </h5>
                                 <div class="card-body">
                                     <div class="container-fluid">
                                         <div class="row">
                                             <div class="col-md-12">
                                                 <div class="row" id="ViewOrderInfoDIV">
-
-
                                                     @{Html.RenderAction("ViewOrderInfo", "Order", new { OrderID = Model.OrderInfo.ID });}
-
-
                                                 </div>
                                             </div>
                                         </div>
@@ -106,61 +148,12 @@
                             <div class="card">
                                 <h5 class="card-header">
                                     Items Ordered @if (User.IsInRole("Employee") || User.IsInRole("Owner") || User.IsInRole("WebAdmin"))
-                                    {<a href="#" class="pull-right" data-toggle="tooltip" data-placement="top" title="Add Item to Order"><i class="fa fa-plus-circle"></i></a>}
+                                    {<a href="#" class="pull-right" onclick="ShowAddNewProduct();"><i class="fa fa-plus-circle"></i></a>}
                                 </h5>
                                 <div class="card-body">
-                                    <p class="card-text">
-                                        @if (Model.ListProducts != null && Model.ListProducts.Count > 0)
-                                        {
-                                            <table class="table table-hover">
-                                                <thead>
-                                                    <tr>
-                                                        <td>Product</td>
-                                                        <td>Product Group</td>
-                                                        <td>Quantity</td>
-                                                        <td>Pricer Per Unti</td>
-                                                        <td>Total for Line Item</td>
-                                                        <td>View</td>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    @foreach (var item in Model.ListProducts)
-                                                    {
-                                                        <tr>
-                                                            <td>@item.Type</td>
-                                                            <td>@item.ProductGroup</td>
-                                                            <td>@item.Quantity</td>
-                                                            <td>@item.PricePerUnit</td>
-                                                            <td>@item.Total</td>
-                                                            <td><a href="#" onclick="ShowEdit(@item.OrderProductID)"><i class="fa fa-eye"></i></a></td>
-                                                        </tr>
-                                                    }
-                                                </tbody>
-                                            </table>
-
-
-                                        }
-                                        else
-                                        {
-                                            <span class="text-danger">There are no Items for this Order!</span>
-                                        }
-                                        <div class="form-group pull-right">
-                                            <h5>Order Total</h5>
-
-                                            @if (Model.ListProducts != null && Model.ListProducts.Count > 0)
-                                            {
-                                                if (Model.ListOrderDiscounts != null && Model.ListOrderDiscounts.Count > 0)
-                                                {<span>@Convert.ToDecimal((Model.ListProducts.Sum(i => i.Total) - (Model.ListOrderDiscounts.Sum(i => i.DiscountAmount))))</span>}
-                                            else
-                                            { <span>@Convert.ToDecimal((Model.ListProducts.Sum(i => i.Total)))</span>}
-
-                                    }
-                                    else
-                                    {
-                                        <span>0.00</span>
-                                    }
-                                        </div>
-                                    </p>
+                                    <div id="ListProductsDIV">
+                                        @{Html.RenderAction("ViewOrderProducts", "Order", new { OrderID = Model.OrderInfo.ID });}
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -169,39 +162,37 @@
                             <div class="card">
                                 <h5 class="card-header">
                                     Order Discounts   @if (User.IsInRole("Employee") || User.IsInRole("Owner") || User.IsInRole("WebAdmin"))
-                                    {<a href="#" class="pull-right" data-toggle="tooltip" data-placement="top" title="Add Discount"><i class="fa fa-plus-circle"></i></a>}
+                                    {<a href="#" class="pull-right" onclick="ViewAddOrderDiscount();"><i class="fa fa-plus-circle"></i></a>}
                                 </h5>
                                 <div class="card-body">
-                                    <p class="card-text">
-                                        @if (Model.ListOrderDiscounts != null && Model.ListOrderDiscounts.Count > 0)
-                                        {
-                                            <table class="table table-hover">
-                                                <thead>
-                                                    <tr>
-                                                        <td>Discount</td>
-                                                        <td>Discount Amount</td>
-                                                        <td>View</td>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    @foreach (var item in Model.ListOrderDiscounts)
-                                                    {
-                                                        <tr>
-                                                            <td>@item.Type</td>
-                                                            <td>@item.DiscountAmount</td>
-                                                            <td><a href="#" onclick="ShowEdit(@item.OrderDiscountID)"><i class="fa fa-eye"></i></a></td>
-                                                        </tr>
-                                                    }
-                                                </tbody>
-                                            </table>
-
-
-                                        }
-                                        else
-                                        {
-                                            <span class="text-danger">There are no Discounts for this Order!</span>
-                                        }
-                                    </p>
+                                    <div id="OrderDiscountsDIV">
+                                        @{Html.RenderAction("ViewOrderDiscounts", "Order", new { OrderID = Model.OrderInfo.ID });}
+                                    </div>
+                                    <div class="modal fade" id="ViewAddOrderDiscountModal" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="ViewOrderDiscountModalTitle">
+                                                        Add Discount to Order
+                                                    </h5>
+                                                    <button type="button" class="close" data-dismiss="modal">
+                                                        <span aria-hidden="true">×</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <div id="ViewAddOrderDiscountDIV"></div>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" onclick="SaveAddNewDiscountToOrder();" class="btn btn-outline-primary">
+                                                        Add Discount
+                                                    </button>
+                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                                                        Close
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
 

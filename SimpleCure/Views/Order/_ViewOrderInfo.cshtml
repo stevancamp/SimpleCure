@@ -2,23 +2,23 @@
 <div class="col-md-6">
     <div class="form-group">
         @Html.LabelFor(m => m.CustomerInfo.Customer, new { @class = "form-control-label" })
-        @Html.TextBoxFor(m => m.CustomerInfo.Customer, new { @class = "form-control" })
+        @Html.TextBoxFor(m => m.CustomerInfo.Customer, new { @class = "form-control-plaintext", @readonly = "readonly" })
     </div>
     <div class="form-group">
         @Html.LabelFor(m => m.CustomerInfo.Company, new { @class = "form-control-label" })
-        @Html.TextBoxFor(m => m.CustomerInfo.Company, new { @class = "form-control" })
+        @Html.TextBoxFor(m => m.CustomerInfo.Company, new { @class = "form-control-plaintext", @readonly = "readonly" })
     </div>
     <div class="form-group">
         @Html.LabelFor(m => m.OrderInfo.SubmissionDate, new { @class = "form-control-label" })
-        @Html.TextBoxFor(m => m.OrderInfo.SubmissionDate, new { @class = "form-control" })
+        @Html.TextBoxFor(m => m.OrderInfo.SubmissionDate, new { @class = "form-control-plaintext", @readonly = "readonly" })
     </div>
     <div class="form-group">
         @Html.LabelFor(m => m.OrderInfo.OrderStatus, new { @class = "form-control-label" })
-        @Html.TextBoxFor(m => m.OrderInfo.OrderStatus, new { @class = "form-control" })
+        @Html.TextBoxFor(m => m.OrderInfo.OrderStatus, new { @class = "form-control-plaintext", @readonly = "readonly" })
     </div>
 </div>
 <div class="col-md-6">
-    <a id="CustomerInfoModalBTN" href="#CustomerInfoModal" role="button" data-toggle="modal"><i class="fa fa-eye"></i> View Customer Info</a> <br />
+    <a id="CustomerInfoModalBTN" href="#CustomerInfoModal" role="button" data-toggle="modal"><i class="fa fa-eye"></i> View  Customer Info</a> <br />
 
     <div class="modal fade" id="CustomerInfoModal" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
@@ -32,81 +32,93 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <div class="form-group-material">
-                        @Html.TextBoxFor(m => m.CustomerInfo.Company, new { @class = "input-material" })
+                    <div class="form-group">
                         <label for="Company" class="label-material">Company</label>
+                        @Html.TextBoxFor(m => m.CustomerInfo.Company, new { @class = "form-control-plaintext", @readonly = "readonly" })
+
                     </div>
 
-                    <div class="form-group-material">
-                        @Html.TextBoxFor(m => m.CustomerInfo.Customer, new { @class = "input-material" })
+                    <div class="form-group">
                         <label for="Customer" class="label-material">Customer Name</label>
+                        @Html.TextBoxFor(m => m.CustomerInfo.Customer, new { @class = "form-control-plaintext", @readonly = "readonly" })
+
                     </div>
 
-                    <div class="form-group-material">
-                        @Html.TextBoxFor(m => m.CustomerInfo.MainPhone, new { @class = "input-material" })
+                    <div class="form-group">
                         <label for="MainPhone" class="label-material">Main Phone</label>
+                        @Html.TextBoxFor(m => m.CustomerInfo.MainPhone, new { @class = "form-control-plaintext", @readonly = "readonly" })
+
                     </div>
 
-                    <div class="form-group-material">
-                        @Html.TextBoxFor(m => m.CustomerInfo.Mobile, new { @class = "input-material" })
+                    <div class="form-group">
                         <label for="Mobile" class="label-material">Mobile</label>
+                        @Html.TextBoxFor(m => m.CustomerInfo.Mobile, new { @class = "form-control-plaintext", @readonly = "readonly" })
+
                     </div>
 
-                    <div class="form-group-material">
-                        @Html.TextBoxFor(m => m.CustomerInfo.MainEmail, new { @class = "input-material" })
+                    <div class="form-group">
                         <label for="MainEmail" class="label-material">Main Email</label>
+                        @Html.TextBoxFor(m => m.CustomerInfo.MainEmail, new { @class = "form-control-plaintext", @readonly = "readonly" })
+
                     </div>
 
-                    <div class="form-group-material">
-                        @Html.TextBoxFor(m => m.CustomerInfo.AltEmail1, new { @class = "input-material" })
+                    <div class="form-group">
                         <label for="AltEmail1" class="label-material">Alt Email</label>
+                        @Html.TextBoxFor(m => m.CustomerInfo.AltEmail1, new { @class = "form-control-plaintext", @readonly = "readonly" })
+
                     </div>
 
-                    <div class="form-group-material">
-                        @Html.TextBoxFor(m => m.CustomerInfo.Street1, new { @class = "input-material" })
+                    <div class="form-group">
                         <label for="Street1" class="label-material">Street Address</label>
+                        @Html.TextBoxFor(m => m.CustomerInfo.Street1, new { @class = "form-control-plaintext", @readonly = "readonly" })
+
                     </div>
 
-                    <div class="form-group-material">
-                        @Html.TextBoxFor(m => m.CustomerInfo.City, new { @class = "input-material" })
+                    <div class="form-group">
                         <label for="City" class="label-material">City</label>
+                        @Html.TextBoxFor(m => m.CustomerInfo.City, new { @class = "form-control-plaintext", @readonly = "readonly" })
+
                     </div>
 
-                    <div class="form-group-material">
-                        @Html.TextBoxFor(m => m.CustomerInfo.State, new { @class = "input-material" })
+                    <div class="form-group">
                         <label for="State" class="label-material">State</label>
+                        @Html.TextBoxFor(m => m.CustomerInfo.State, new { @class = "form-control-plaintext", @readonly = "readonly" })
+
                     </div>
 
-                    <div class="form-group-material">
-                        @Html.TextBoxFor(m => m.CustomerInfo.Zip, new { @class = "input-material" })
+                    <div class="form-group">
                         <label for="Zip" class="label-material">Zip</label>
+                        @Html.TextBoxFor(m => m.CustomerInfo.Zip, new { @class = "form-control-plaintext", @readonly = "readonly" })
+
                     </div>
 
-                    <div class="form-group-material">
-                        @Html.TextBoxFor(m => m.CustomerInfo.OMMALicense, new { @class = "input-material" })
+                    <div class="form-group">
                         <label for="OMMALicense" class="label-material">OMMA License#</label>
+                        @Html.TextBoxFor(m => m.CustomerInfo.OMMALicense, new { @class = "form-control-plaintext", @readonly = "readonly" })
+
                     </div>
 
-                    <div class="form-group-material">
-                        @Html.TextBoxFor(m => m.CustomerInfo.EIN, new { @class = "input-material" })
+                    <div class="form-group">
                         <label for="EIN" class="label-material">EIN#</label>
+                        @Html.TextBoxFor(m => m.CustomerInfo.EIN, new { @class = "form-control-plaintext", @readonly = "readonly" })
+
                     </div>
 
-                    <div class="form-group-material">
-                        @Html.TextBoxFor(m => m.CustomerInfo.FEIN, new { @class = "input-material" })
+                    <div class="form-group">
                         <label for="FEIN" class="label-material">FEIN#</label>
+                        @Html.TextBoxFor(m => m.CustomerInfo.FEIN, new { @class = "form-control-plaintext", @readonly = "readonly" })
+
                     </div>
 
-                    <div class="form-group-material">
-                        @Html.TextBoxFor(m => m.CustomerInfo.OBN, new { @class = "input-material" })
+                    <div class="form-group">
                         <label for="OBN" class="label-material">OBN#</label>
+                        @Html.TextBoxFor(m => m.CustomerInfo.OBN, new { @class = "form-control-plaintext", @readonly = "readonly" })
+
                     </div>
 
                     <div class="form-group">
                         @Html.LabelFor(m => m.CustomerInfo.IndustryType, "Business Type", new { @class = "form-control-label" })
-                        <br />
-                        <span>@Model.CustomerInfo.IndustryType</span>
-
+                        @Html.TextBoxFor(m => m.CustomerInfo.IndustryType, new { @class = "form-control-plaintext", @readonly = "readonly" })
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -120,7 +132,7 @@
 
     </div>
 
-    <a id="OrderActivityModalBTN" href="#OrderActivityModal" role="button" data-toggle="modal"><i class="fa fa-eye"></i> View Order Activity</a>
+    <a id="OrderActivityModalBTN" href="#OrderActivityModal" role="button" data-toggle="modal"><i class="fa fa-eye"></i> View Order Activity</a><br />
 
     <div class="modal fade" id="OrderActivityModal" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
@@ -144,13 +156,44 @@
                             </div>
                             <div class="col-8 content">
                                 <strong>Notes</strong>
-                                <p>@item.Notes</p>
+                                <p>@Html.Raw(HttpUtility.HtmlDecode(@item.Notes))</p>
                             </div>
                         </div>
                     }
                 </div>
                 <div class="modal-footer">
 
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                        Close
+                    </button>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+    <a id="modal-189233" href="#DeleteOrder" role="button" class="text-danger" data-toggle="modal"><i class="fa fa-remove"></i> Delete Order</a>
+
+    <div class="modal fade" id="DeleteOrder" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="myModalLabel">
+                        Delete Order
+                    </h5>
+                    <button type="button" class="close" data-dismiss="modal">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    Are you sure you want to delete Order# @Model.OrderInfo.ID for Customer: @Model.CustomerInfo.Customer ? This will remove the order forever and you will not be able to retrieve any information about it.
+                </div>
+                <div class="modal-footer">
+
+                    <button type="button" class="btn btn-outline-danger" onclick="DeleteOrder(@Model.OrderInfo.ID);">
+                        Delete Order
+                    </button>
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">
                         Close
                     </button>

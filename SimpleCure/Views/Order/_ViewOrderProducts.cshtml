@@ -1,0 +1,109 @@
+﻿@model SimpleCure.Models.OrderModels.ViewOrderProducts_ViewModel
+<p class="card-text">
+    @if (Model.ListProducts != null && Model.ListProducts.Count > 0)
+    {
+        <table class="table table-hover table-responsive">
+            <thead>
+                <tr>
+                    <td>Product</td>
+                    <td>Product Group</td>
+                    <td>Quantity</td>
+                    <td>Pricer Per Unti</td>
+                    <td>Total for Line Item</td>
+                    <td>View</td>
+                    <td>Remove</td>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.ListProducts)
+                {
+                    <tr>
+                        <td>@item.Type</td>
+                        <td>@item.ProductGroup</td>
+                        <td>@item.Quantity</td>
+                        <td>@item.PricePerUnit</td>
+                        <td>@item.Total</td>
+                        <td><a href="#" onclick="ShowProductInfo(@item.ForProductID)"><i class="fa fa-eye"></i></a></td>
+                        <td><a href="#" onclick="RemoveOrderedItem(@item.OrderProductID)"><i class="fa fa-remove text-danger"></i></a></td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+
+    }
+    else
+    {
+        <span class="text-danger">There are no Items for this Order!</span>
+    }
+    <div class="form-group pull-right">
+        <label class="form-control-label">Order Total</label>
+        @if (Model.ListProducts != null && Model.ListProducts.Count > 0)
+        {
+            if (Model.ListOrderDiscounts != null && Model.ListOrderDiscounts.Count > 0)
+            {
+                <input type="text" id="OrderTotal" class="form-control-plaintext" readonly value="@Convert.ToDecimal((Model.ListProducts.Sum(i => i.Total) - (Model.ListOrderDiscounts.Sum(i => i.DiscountAmount))))" />
+            }
+            else
+            {
+                <input type="text" id="OrderTotal" class="form-control-plaintext" readonly value="@Convert.ToDecimal((Model.ListProducts.Sum(i => i.Total)))" />
+            }
+        }
+        else
+        {
+            <input type="text" id="OrderTotal" class="form-control-plaintext" readonly value="0.00" />
+        }
+    </div>
+</p>
+
+
+
+<div class="modal fade" id="ProductInfo" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="myModalLabel">
+                    Product Info
+                </h5>
+                <button type="button" class="close" data-dismiss="modal">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div id="ViewProductInfoDIV"></div>
+            </div>
+            <div class="modal-footer">
+
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                    Close
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="AddProduct" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="AddProductModalTitle">
+                    Add Product to Order
+                </h5>
+                <button type="button" class="close" data-dismiss="modal">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div id="ViewAddOrderProductDIV"></div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" onclick="SaveNewProductToOrder();" class="btn btn-outline-primary">
+                    Add Product
+                </button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                    Close
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

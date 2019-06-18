@@ -1194,8 +1194,9 @@ namespace SimpleCure.Controllers
                 {
                     PI = _productFunctions.GetByID(model.ID).GenericClass.ProductImage;
                 }
+                var Updated = _productFunctions.Update(new Product_Models { CartGram = model.CartGram, Description = model.Description, Dominant = model.Dominant, ID = model.ID, IsActive = false, PricePerUnit = model.PricePerUnit, ProductGroup = model.ProductGroup, ProductImage = PI, Strain = model.Strain, Type = model.Type + " (Expired)" });
 
-                var Updated = _productFunctions.Update(new Product_Models { CartGram = model.CartGram, Description = model.Description, Dominant = model.Dominant, ID = model.ID, IsActive = false, PricePerUnit = model.PricePerUnit, ProductGroup = model.ProductGroup, ProductImage = PI, Strain = model.Strain, Type = model.Type });
+
                 if (Updated.ResponseSuccess)
                 {
                     var Added = _productFunctions.Add(new Product_Models { CartGram = model.CartGram, Description = model.Description, Dominant = model.Dominant, IsActive = model.IsActive, PricePerUnit = model.PricePerUnit, ProductGroup = model.ProductGroup, ProductImage = PI, Strain = model.Strain, Type = model.Type });
@@ -1288,7 +1289,7 @@ namespace SimpleCure.Controllers
         {
             if (model.ID > 0)
             {
-                var Updated = _productGroupFunctions.Update(new ProductGroup_Models { GroupName = model.GroupName, IsActive = false, ID = model.ID });
+                var Updated = _productGroupFunctions.Update(new ProductGroup_Models { GroupName = model.GroupName + " (Expired)", IsActive = false, ID = model.ID });
                 if (Updated.ResponseSuccess)
                 {
                     var Added = _productGroupFunctions.Add(new ProductGroup_Models { GroupName = model.GroupName, IsActive = model.IsActive });
@@ -1445,7 +1446,7 @@ namespace SimpleCure.Controllers
         {
             if (model.ID > 0)
             {
-                var Updated = _discountFunctions.Update(new Discount_Models { DiscountAmount = model.DiscountAmount, ID = model.ID, IsActive = false, Type = model.Type });
+                var Updated = _discountFunctions.Update(new Discount_Models { DiscountAmount = model.DiscountAmount, ID = model.ID, IsActive = false, Type = model.Type + " (Expired)" });
                 if (Updated.ResponseSuccess)
                 {
                     var Added = _discountFunctions.Add(new Discount_Models { DiscountAmount = model.DiscountAmount, IsActive = model.IsActive, Type = model.Type });

@@ -90,38 +90,51 @@
                                                                                     }
                                                                                 </div>
                                                                                 <div class="col-md-6">
-                                                                                    <h4 class="card-title">@item.Type</h4>
-                                                                                    <p class="card-text">
-                                                                                        <dl>
-                                                                                            <dt>Strain:</dt>
-                                                                                            <dd>@item.Strain</dd>
-                                                                                            <dt>Dominant</dt>
-                                                                                            <dd>@item.Dominant</dd>
-
-                                                                                            <dt>Product Description</dt>
-                                                                                            <dd>@item.Description</dd>
-
-                                                                                            <dt>Dominant</dt>
-                                                                                            <dd>@item.Dominant</dd>
-
-                                                                                            <dt>Dominant</dt>
-                                                                                            <dd>@item.Dominant</dd>
-                                                                                            <dt>Pricer Per Unit</dt>
-                                                                                            <dd>@item.PricePerUnit</dd>
-                                                                                        </dl>
+                                                                                    <div class="form-group">
+                                                                                        @Html.LabelFor(m => item.Type, new { @class = "form-control-label" })
+                                                                                        @Html.TextBoxFor(m => item.Type, new { @class = "form-control-plaintext", @readonly = "readonly" })
+                                                                                    </div>
+                                                                                    <div class="form-group">
+                                                                                        @Html.LabelFor(m => item.Strain, new { @class = "form-control-label" })
+                                                                                        @Html.TextBoxFor(m => item.Strain, new { @class = "form-control-plaintext", @readonly = "readonly" })
+                                                                                    </div>
+                                                                                    <div class="form-group">
+                                                                                        @Html.LabelFor(m => item.Dominant, new { @class = "form-control-label" })
+                                                                                        @Html.TextBoxFor(m => item.Dominant, new { @class = "form-control-plaintext", @readonly = "readonly" })
+                                                                                    </div>
+                                                                                    <div class="form-group">
+                                                                                        @Html.LabelFor(m => item.CartGram, new { @class = "form-control-label" })
+                                                                                        @Html.TextBoxFor(m => item.CartGram, new { @class = "form-control-plaintext", @readonly = "readonly" })
+                                                                                    </div>
+                                                                                    <div class="form-group">
+                                                                                        @Html.LabelFor(m => item.ProductGroup, new { @class = "form-control-label" })
+                                                                                        @Html.TextBoxFor(m => item.ProductGroup, new { @class = "form-control-plaintext", @readonly = "readonly" })
+                                                                                    </div>
+                                                                                    <div class="form-group">
+                                                                                        @Html.LabelFor(m => item.PricePerUnit, new { @class = "form-control-label" })
+                                                                                        @Html.TextBoxFor(m => item.PricePerUnit, new { @class = "form-control-plaintext", @readonly = "readonly" })
+                                                                                    </div>
                                                                                 </div>
                                                                             </div>
                                                                         </div>
                                                                     </div>
                                                                     <div class="row">
                                                                         <div class="col-md-12">
-
-
-
-                                                                            Batch ID <input type="number" id="BatchID_@item.ID" class="form-control" />
-                                                                            <br />
-                                                                            Quantiy <input type="number" id="Quantity_@item.ID" class="form-control" />
-                                                                            <a href="#" class="btn btn-primary" onclick="AddToCart('@item.Type', '@item.PricePerUnit', '@item.ID');">Add to Cart</a>
+                                                                            <div class="form-group">
+                                                                                @Html.LabelFor(m => item.Description, new { @class = "form-control-label" })
+                                                                                @Html.TextAreaFor(m => item.Description, new { @class = "form-control-plaintext", @readonly = "readonly", @rows = "3" })
+                                                                            </div>
+                                                                            <div class="form-group">
+                                                                                <label for="BatchID_@item.ID">Batch ID</label>
+                                                                                <input type="number" id="BatchID_@item.ID" class="form-control" />
+                                                                            </div>
+                                                                            <div class="form-group">
+                                                                                <label for="Quantity_@item.ID">Quantiy</label>
+                                                                                <input type="number" id="Quantity_@item.ID" class="form-control" />
+                                                                            </div>
+                                                                            <div class="form-group">
+                                                                                <a href="#" class="btn btn-primary" onclick="AddToCart('@item.Type', '@item.PricePerUnit', '@item.ID');">Add to Cart</a>
+                                                                            </div>                                                                          
                                                                         </div>
                                                                     </div>
                                                                 </div>
