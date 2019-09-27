@@ -321,36 +321,36 @@ namespace SimpleCure.Controllers
             }
             else
             {
-                var CustInfo = _customerFunctions.GetAll();
+                //var CustInfo = _customerFunctions.GetAll();
 
-                if (CustInfo.GenericClassList != null && CustInfo.GenericClassList.Count > 0)
-                {
-                    foreach (var item in CustInfo.GenericClassList)
-                    {
-                        UserMaintenance_ViewModel user = new UserMaintenance_ViewModel();
-                        user.Company = item.Company;
-                        user.CustomerName = item.Customer;
-                        user.Email = item.MainEmail;
-                        user.MainPhoneNumber = item.MainPhone;
-                        user.StreetAddress = item.Street1;
-                        user.ID = item.ID;
-                        if (!string.IsNullOrEmpty(item.AspNetUsersID))
-                        {
-                            user.HasLogin = true;
-                        }
-                        else
-                        {
-                            user.HasLogin = false;
-                        }
-                        model.GenericClassList.Add(user);
-                    }
-                }
-                else
-                {
-                    model.GenericClassList = null;
-                    model.ResponseMessage = CustInfo.ResponseMessage;
-                    model.responseTypes = ResponseTypes.Information;
-                }
+                //if (CustInfo.GenericClassList != null && CustInfo.GenericClassList.Count > 0)
+                //{
+                //    foreach (var item in CustInfo.GenericClassList)
+                //    {
+                //        UserMaintenance_ViewModel user = new UserMaintenance_ViewModel();
+                //        user.Company = item.Company;
+                //        user.CustomerName = item.Customer;
+                //        user.Email = item.MainEmail;
+                //        user.MainPhoneNumber = item.MainPhone;
+                //        user.StreetAddress = item.Street1;
+                //        user.ID = item.ID;
+                //        if (!string.IsNullOrEmpty(item.AspNetUsersID))
+                //        {
+                //            user.HasLogin = true;
+                //        }
+                //        else
+                //        {
+                //            user.HasLogin = false;
+                //        }
+                //        model.GenericClassList.Add(user);
+                //    }
+                //}
+                //else
+                //{
+                //    model.GenericClassList = null;
+                //    model.ResponseMessage = CustInfo.ResponseMessage;
+                //    model.responseTypes = ResponseTypes.Information;
+                //}
 
             }
 
@@ -784,7 +784,7 @@ namespace SimpleCure.Controllers
                 cm.DocLink = null;
                 cm.EIN = model.EIN;
                 cm.EnterDate = DateTime.Now;
-                cm.FEIN = model.FEIN;
+                cm.FEIN = model.EIN;
                 cm.IndustryType = model.IndustryType;
                 cm.MainEmail = model.MainEmail;
                 cm.MainPhone = model.MainPhone;
@@ -832,6 +832,13 @@ namespace SimpleCure.Controllers
             model.ResponseMessage = "There was an error";
             model.responseTypes = ResponseTypes.Failure;
             //modelstate is not valid
+            var BusinessTypesModel = _typeFunctions.GetAllBusinessTypes(true);
+            List<string> BusinessTypesList = new List<string>();
+            foreach (var item in BusinessTypesModel.GenericClassList)
+            {
+                BusinessTypesList.Add(item.Type);
+            }
+            model.IndustryTypes = BusinessTypesList;
             return View(model);
         }
 
@@ -918,36 +925,43 @@ namespace SimpleCure.Controllers
         [HttpPost]
         public ActionResult SaveOrderStatus(CreateOrderStatus_ViewModel model)
         {
-            OrderStatus_Models toAdd = new OrderStatus_Models();
-            toAdd.ID = model.ID;
-            toAdd.Status = model.Status;
-
-            var Saved = _orderStatusFucntions.Add(toAdd);
-
-            ResponseBase response = new ResponseBase();
-            response.ResponseInt = Saved.ResponseInt;
-            response.ResponseListInt = Saved.ResponseListInt;
-            response.ResponseListString = Saved.ResponseListString;
-            response.ResponseMessage = Saved.ResponseMessage;
-            response.ResponseString = Saved.ResponseString;
-            response.ResponseSuccess = Saved.ResponseSuccess;
-            switch (Saved.responseTypes)
+            if (model.Status.ToLower().Contains("Created".ToLower()) || model.Status.ToLower().Contains("Paid".ToLower()))
             {
-                case BusinessLayer.Models.ResponseTypes.Success:
-                    response.responseTypes = ResponseTypes.Success;
-                    break;
-                case BusinessLayer.Models.ResponseTypes.Failure:
-                    response.responseTypes = ResponseTypes.Failure;
-                    break;
-                case BusinessLayer.Models.ResponseTypes.Information:
-                    response.responseTypes = ResponseTypes.Information;
-                    break;
-                default:
-                    response.responseTypes = ResponseTypes.Failure;
-                    break;
+                return RedirectToAction("OrderStatus", new ResponseBase { ResponseSuccess = false, ResponseMessage = "You cannot used this reserved status.", responseTypes = ResponseTypes.Information });
             }
+            else
+            {
+                OrderStatus_Models toAdd = new OrderStatus_Models();
+                toAdd.ID = model.ID;
+                toAdd.Status = model.Status;
 
-            return RedirectToAction("OrderStatus", response);
+                var Saved = _orderStatusFucntions.Add(toAdd);
+
+                ResponseBase response = new ResponseBase();
+                response.ResponseInt = Saved.ResponseInt;
+                response.ResponseListInt = Saved.ResponseListInt;
+                response.ResponseListString = Saved.ResponseListString;
+                response.ResponseMessage = Saved.ResponseMessage;
+                response.ResponseString = Saved.ResponseString;
+                response.ResponseSuccess = Saved.ResponseSuccess;
+                switch (Saved.responseTypes)
+                {
+                    case BusinessLayer.Models.ResponseTypes.Success:
+                        response.responseTypes = ResponseTypes.Success;
+                        break;
+                    case BusinessLayer.Models.ResponseTypes.Failure:
+                        response.responseTypes = ResponseTypes.Failure;
+                        break;
+                    case BusinessLayer.Models.ResponseTypes.Information:
+                        response.responseTypes = ResponseTypes.Information;
+                        break;
+                    default:
+                        response.responseTypes = ResponseTypes.Failure;
+                        break;
+                }
+
+                return RedirectToAction("OrderStatus", response);
+            }
         }
         [HttpPost]
         public ActionResult SaveOrderStatusEdit(EditOrderStatus_ViewModel model)
@@ -957,35 +971,44 @@ namespace SimpleCure.Controllers
 
             if (model.ID > 0)
             {
-                OrderStatus_Models OrderStatus = new OrderStatus_Models();
-                OrderStatus.ID = model.ID;
-                OrderStatus.Status = model.Status;
-
-                var Updated = _orderStatusFucntions.Update(OrderStatus);
-                if (Updated.ResponseSuccess)
+                if (model.Status.ToLower().Contains("Created".ToLower()) || model.Status.ToLower().Contains("Paid".ToLower()))
                 {
-                    response.ResponseSuccess = Updated.ResponseSuccess;
-                    response.ResponseMessage = Updated.ResponseMessage;
-                    response.responseTypes = ResponseTypes.Success;
+                    response.ResponseSuccess = false;
+                    response.ResponseMessage = "You cannot used this reserved status.";
+                    response.responseTypes = ResponseTypes.Information;
                 }
                 else
                 {
-                    response.ResponseSuccess = Updated.ResponseSuccess;
-                    response.ResponseMessage = Updated.ResponseMessage;
-                    switch (Updated.responseTypes)
+                    OrderStatus_Models OrderStatus = new OrderStatus_Models();
+                    OrderStatus.ID = model.ID;
+                    OrderStatus.Status = model.Status;
+
+                    var Updated = _orderStatusFucntions.Update(OrderStatus);
+                    if (Updated.ResponseSuccess)
                     {
-                        case BusinessLayer.Models.ResponseTypes.Success:
-                            response.responseTypes = ResponseTypes.Success;
-                            break;
-                        case BusinessLayer.Models.ResponseTypes.Failure:
-                            response.responseTypes = ResponseTypes.Failure;
-                            break;
-                        case BusinessLayer.Models.ResponseTypes.Information:
-                            response.responseTypes = ResponseTypes.Information;
-                            break;
-                        default:
-                            response.responseTypes = ResponseTypes.Failure;
-                            break;
+                        response.ResponseSuccess = Updated.ResponseSuccess;
+                        response.ResponseMessage = Updated.ResponseMessage;
+                        response.responseTypes = ResponseTypes.Success;
+                    }
+                    else
+                    {
+                        response.ResponseSuccess = Updated.ResponseSuccess;
+                        response.ResponseMessage = Updated.ResponseMessage;
+                        switch (Updated.responseTypes)
+                        {
+                            case BusinessLayer.Models.ResponseTypes.Success:
+                                response.responseTypes = ResponseTypes.Success;
+                                break;
+                            case BusinessLayer.Models.ResponseTypes.Failure:
+                                response.responseTypes = ResponseTypes.Failure;
+                                break;
+                            case BusinessLayer.Models.ResponseTypes.Information:
+                                response.responseTypes = ResponseTypes.Information;
+                                break;
+                            default:
+                                response.responseTypes = ResponseTypes.Failure;
+                                break;
+                        }
                     }
                 }
             }
@@ -1194,8 +1217,9 @@ namespace SimpleCure.Controllers
                 {
                     PI = _productFunctions.GetByID(model.ID).GenericClass.ProductImage;
                 }
+                var Updated = _productFunctions.Update(new Product_Models { CartGram = model.CartGram, Description = model.Description, Dominant = model.Dominant, ID = model.ID, IsActive = false, PricePerUnit = model.PricePerUnit, ProductGroup = model.ProductGroup, ProductImage = PI, Strain = model.Strain, Type = model.Type + " (Expired)" });
 
-                var Updated = _productFunctions.Update(new Product_Models { CartGram = model.CartGram, Description = model.Description, Dominant = model.Dominant, ID = model.ID, IsActive = false, PricePerUnit = model.PricePerUnit, ProductGroup = model.ProductGroup, ProductImage = PI, Strain = model.Strain, Type = model.Type });
+
                 if (Updated.ResponseSuccess)
                 {
                     var Added = _productFunctions.Add(new Product_Models { CartGram = model.CartGram, Description = model.Description, Dominant = model.Dominant, IsActive = model.IsActive, PricePerUnit = model.PricePerUnit, ProductGroup = model.ProductGroup, ProductImage = PI, Strain = model.Strain, Type = model.Type });
@@ -1254,7 +1278,7 @@ namespace SimpleCure.Controllers
             if (ProductGroups.GenericClassList != null && ProductGroups.GenericClassList.Count > 0)
             { return View(new ProductGroup_ViewModel { ListProductGroups = ProductGroups.GenericClassList, responseTypes = ResponseTypes.Success, ResponseMessage = ProductGroups.ResponseMessage, ResponseSuccess = ProductGroups.ResponseSuccess }); }
             else
-            { return View(new ProductGroup_ViewModel { ListProductGroups = ProductGroups.GenericClassList, responseTypes = ResponseTypes.Information, ResponseMessage = ProductGroups.ResponseMessage, ResponseSuccess = ProductGroups.ResponseSuccess }); }          
+            { return View(new ProductGroup_ViewModel { ListProductGroups = ProductGroups.GenericClassList, responseTypes = ResponseTypes.Information, ResponseMessage = ProductGroups.ResponseMessage, ResponseSuccess = ProductGroups.ResponseSuccess }); }
         }
         public ActionResult CreateProductGroup()
         {
@@ -1288,7 +1312,7 @@ namespace SimpleCure.Controllers
         {
             if (model.ID > 0)
             {
-                var Updated = _productGroupFunctions.Update(new ProductGroup_Models { GroupName = model.GroupName, IsActive = false, ID = model.ID });
+                var Updated = _productGroupFunctions.Update(new ProductGroup_Models { GroupName = model.GroupName + " (Expired)", IsActive = false, ID = model.ID });
                 if (Updated.ResponseSuccess)
                 {
                     var Added = _productGroupFunctions.Add(new ProductGroup_Models { GroupName = model.GroupName, IsActive = model.IsActive });
@@ -1445,7 +1469,7 @@ namespace SimpleCure.Controllers
         {
             if (model.ID > 0)
             {
-                var Updated = _discountFunctions.Update(new Discount_Models { DiscountAmount = model.DiscountAmount, ID = model.ID, IsActive = false, Type = model.Type });
+                var Updated = _discountFunctions.Update(new Discount_Models { DiscountAmount = model.DiscountAmount, ID = model.ID, IsActive = false, Type = model.Type + " (Expired)" });
                 if (Updated.ResponseSuccess)
                 {
                     var Added = _discountFunctions.Add(new Discount_Models { DiscountAmount = model.DiscountAmount, IsActive = model.IsActive, Type = model.Type });

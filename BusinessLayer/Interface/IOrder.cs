@@ -13,5 +13,6 @@ namespace BusinessLayer.Interface
         Generic<Order_Models> GetByID(int ID);
         Generic<Order_Models> GetByStatus(string Status);
         Generic<Order_Models> GetByCustomerID(int CustomerID);
+        Generic<PaidOrders_Models> GetPaidOrdersBySearchTerm(string SearchTerm);
     }
 }

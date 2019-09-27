@@ -16,6 +16,7 @@ namespace BusinessLayer.Mappings
             returnModel.ProductID = model.ProductID;
             returnModel.Quantity = model.Quantity;
             returnModel.Total = model.Total;
+            returnModel.status = model.status;
             return returnModel;
         }
 
@@ -30,6 +31,7 @@ namespace BusinessLayer.Mappings
             returnModel.ProductID = model.ProductID;
             returnModel.Quantity = model.Quantity;
             returnModel.Total = model.Total;
+            returnModel.status = model.status;
             return returnModel;
         }
     }

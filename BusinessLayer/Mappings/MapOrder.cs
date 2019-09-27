@@ -1,4 +1,5 @@
 ﻿using BusinessLayer.Models.OrderModels;
+using Library._Order.Model;
 using Library.DataModel;
 
 namespace BusinessLayer.Mappings
@@ -26,6 +27,32 @@ namespace BusinessLayer.Mappings
             returnModel.OrderStatus = model.OrderStatus;
             returnModel.SubmissionDate = model.SubmissionDate;
             returnModel.Tbl_CustomerID = model.Tbl_CustomerID;
+            return returnModel;
+        }
+
+
+
+        public SearchPaidOrder MapPaidToLibrary(PaidOrders_Models model)
+        {
+            SearchPaidOrder returnModel = new SearchPaidOrder();
+            returnModel.Company = model.Company;
+            returnModel.Customer = model.Customer;
+            returnModel.OrderDate = model.OrderDate;
+            returnModel.OrderID = model.OrderID;
+            returnModel.OrderStatus = model.OrderStatus;
+            returnModel.PaidDate = model.PaidDate;
+            return returnModel;
+        }
+
+        public PaidOrders_Models MapPaidToUI(SearchPaidOrder model)
+        {
+            PaidOrders_Models returnModel = new PaidOrders_Models();
+            returnModel.Company = model.Company;
+            returnModel.Customer = model.Customer;
+            returnModel.OrderDate = model.OrderDate;
+            returnModel.OrderID = model.OrderID;
+            returnModel.OrderStatus = model.OrderStatus;
+            returnModel.PaidDate = model.PaidDate;
             return returnModel;
         }
     }

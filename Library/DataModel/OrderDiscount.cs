@@ -17,5 +17,7 @@ namespace Library.DataModel
         public int ID { get; set; }
         public int OrderID { get; set; }
         public int DiscountID { get; set; }
+        public Nullable<decimal> CustomDiscountAmount { get; set; }
+        public string CustomDiscountType { get; set; }
     }
 }

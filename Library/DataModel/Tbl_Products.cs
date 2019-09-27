@@ -22,5 +22,6 @@ namespace Library.DataModel
         public Nullable<double> CartGram { get; set; }
         public string Group { get; set; }
         public bool Active { get; set; }
+        public double ProPrice { get; set; }
     }
 }

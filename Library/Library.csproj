@@ -101,7 +101,16 @@
     <Compile Include="DataModel\OrderProduct.cs">
       <DependentUpon>SimpleCureDataModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="DataModel\OrderProductActivity.cs">
+      <DependentUpon>SimpleCureDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModel\OrderProductAndDiscount.cs">
+      <DependentUpon>SimpleCureDataModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="DataModel\OrderStatu.cs">
+      <DependentUpon>SimpleCureDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModel\PaidOrder.cs">
       <DependentUpon>SimpleCureDataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="DataModel\Product.cs">
@@ -124,6 +133,15 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>SimpleCureDataModel.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="DataModel\Suggestion.cs">
+      <DependentUpon>SimpleCureDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModel\SuggestionStatu.cs">
+      <DependentUpon>SimpleCureDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModel\SuggestionWorkLog.cs">
+      <DependentUpon>SimpleCureDataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="DataModel\Tbl_Activity_Main.cs">
       <DependentUpon>SimpleCureDataModel.tt</DependentUpon>
@@ -197,8 +215,12 @@
     <Compile Include="_OrderProducts\Methods\_OrderProducts.cs" />
     <Compile Include="_OrderStatus\Methods\_OrderStatus.cs" />
     <Compile Include="_Order\Methods\_Order.cs" />
+    <Compile Include="_Order\Model\SearchPaidOrder.cs" />
     <Compile Include="_ProductGroup\Methods\_ProductGroup.cs" />
     <Compile Include="_Product\Methods\_Product.cs" />
+    <Compile Include="_SuggestionStatus\Methods\_SuggestionStatus.cs" />
+    <Compile Include="_Suggestions\Methods\_Suggestions.cs" />
+    <Compile Include="_SuggestionWorkLog\Methods\_SuggestionWorkLog.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.Config" />
@@ -235,11 +257,16 @@
     <Folder Include="_OrderStatus\Classes\" />
     <Folder Include="_OrderStatus\Model\" />
     <Folder Include="_Order\Classes\" />
-    <Folder Include="_Order\Model\" />
     <Folder Include="_ProductGroup\Classes\" />
     <Folder Include="_ProductGroup\Model\" />
     <Folder Include="_Product\Classes\" />
     <Folder Include="_Product\Model\" />
+    <Folder Include="_SuggestionStatus\Classes\" />
+    <Folder Include="_SuggestionStatus\Model\" />
+    <Folder Include="_Suggestions\Classes\" />
+    <Folder Include="_Suggestions\Model\" />
+    <Folder Include="_SuggestionWorkLog\Classes\" />
+    <Folder Include="_SuggestionWorkLog\Model\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="DataModel\SimpleCureDataModel.Context.tt">

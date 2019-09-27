@@ -53,6 +53,9 @@
     <Compile Include="Functions\Order\OrderFunctions.cs" />
     <Compile Include="Functions\ProductGroup\ProductGroupFunctions.cs" />
     <Compile Include="Functions\Product\ProductFunctions.cs" />
+    <Compile Include="Functions\SuggestionStatus\SuggestionStatusFunctions.cs" />
+    <Compile Include="Functions\Suggestions\SuggestionFunctions.cs" />
+    <Compile Include="Functions\SuggestionWorkLog\SuggestionWorkLogFunctions.cs" />
     <Compile Include="Functions\Types\TypeFunctions.cs" />
     <Compile Include="Interface\IApplicationErrors.cs" />
     <Compile Include="Interface\ICustomer.cs" />
@@ -66,6 +69,9 @@
     <Compile Include="Interface\IOrderStatus.cs" />
     <Compile Include="Interface\IProduct.cs" />
     <Compile Include="Interface\IProductGroup.cs" />
+    <Compile Include="Interface\ISuggestions.cs" />
+    <Compile Include="Interface\ISuggestionStatus.cs" />
+    <Compile Include="Interface\ISuggestionWorkLog.cs" />
     <Compile Include="Interface\IType.cs" />
     <Compile Include="Mappings\MapAppErrors.cs" />
     <Compile Include="Mappings\MapBusinessTypes.cs" />
@@ -81,6 +87,9 @@
     <Compile Include="Mappings\MapProduct.cs" />
     <Compile Include="Mappings\MapProductGroup.cs" />
     <Compile Include="Mappings\MapResponseBase.cs" />
+    <Compile Include="Mappings\MapSuggestions.cs" />
+    <Compile Include="Mappings\MapSuggestionStatus.cs" />
+    <Compile Include="Mappings\MapSuggestionWorkLog.cs" />
     <Compile Include="Models\AdminModels\ApplicationLog_Model.cs" />
     <Compile Include="Models\CustomerModels\CustomersLite_Model.cs" />
     <Compile Include="Models\CustomerModels\Customers_Model.cs" />
@@ -92,12 +101,16 @@
     <Compile Include="Models\OrderActivityModels\OrderActivity_Models.cs" />
     <Compile Include="Models\OrderDiscountModels\OrderDiscount_Models.cs" />
     <Compile Include="Models\OrderModels\Order_Models.cs" />
+    <Compile Include="Models\OrderModels\PaidOrders_Models.cs" />
     <Compile Include="Models\OrderProductsModels\OrderProducts_Models.cs" />
     <Compile Include="Models\OrderStatusModels\OrderStatus_Models.cs" />
     <Compile Include="Models\ProductGroupModels\ProductGroup_Models.cs" />
     <Compile Include="Models\ProductModels\Product_Models.cs" />
     <Compile Include="Models\ResponseBase.cs" />
     <Compile Include="Models\ResultTypes.cs" />
+    <Compile Include="Models\SuggestionStatus\SuggestionStatus_Model.cs" />
+    <Compile Include="Models\Suggestions\Suggestions_Model.cs" />
+    <Compile Include="Models\SuggestionWorkLog\SuggestionWorkLog_Model.cs" />
     <Compile Include="Models\TypeModels\BusinessType_Model.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

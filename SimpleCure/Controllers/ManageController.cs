@@ -95,7 +95,7 @@ namespace SimpleCure.Controllers
                 vm.DocLink = customerinfo.GenericClass.DocLink;
                 vm.EIN = customerinfo.GenericClass.EIN;
                 vm.EnterDate = customerinfo.GenericClass.EnterDate;
-                vm.FEIN = customerinfo.GenericClass.FEIN;
+                vm.FEIN = customerinfo.GenericClass.EIN;
                 vm.ID = customerinfo.GenericClass.ID;
                 vm.IndustryType = customerinfo.GenericClass.IndustryType;
                 vm.MainEmail = customerinfo.GenericClass.MainEmail;
@@ -632,7 +632,7 @@ namespace SimpleCure.Controllers
                 cm.DocLink = IsInCustTbl.GenericClass.DocLink;
                 cm.EIN = IsInCustTbl.GenericClass.EIN;
                 cm.EnterDate = IsInCustTbl.GenericClass.EnterDate;
-                cm.FEIN = IsInCustTbl.GenericClass.FEIN;
+                cm.FEIN = IsInCustTbl.GenericClass.EIN;
                 cm.ID = IsInCustTbl.GenericClass.ID;
                 cm.IndustryType = IsInCustTbl.GenericClass.IndustryType;
                 cm.MainEmail = IsInCustTbl.GenericClass.MainEmail;
@@ -694,7 +694,7 @@ namespace SimpleCure.Controllers
                     DocLink = UserInfo.GenericClass.DocLink,
                     EIN = UserInfo.GenericClass.EIN,
                     EnterDate = UserInfo.GenericClass.EnterDate,
-                    FEIN = UserInfo.GenericClass.FEIN,
+                    FEIN = UserInfo.GenericClass.EIN,
                     ID = UserInfo.GenericClass.ID,
                     IndustryType = UserInfo.GenericClass.IndustryType,
                     MainEmail = UserInfo.GenericClass.MainEmail,
@@ -740,7 +740,7 @@ namespace SimpleCure.Controllers
                     CustomerInfo.GenericClass.DocLink = model.DocLink;
                     CustomerInfo.GenericClass.EIN = model.EIN;
                     CustomerInfo.GenericClass.EnterDate = model.EnterDate;
-                    CustomerInfo.GenericClass.FEIN = model.FEIN;
+                    CustomerInfo.GenericClass.FEIN = model.EIN;
                     CustomerInfo.GenericClass.ID = model.ID;
                     CustomerInfo.GenericClass.IndustryType = model.IndustryType;
                     CustomerInfo.GenericClass.MainEmail = model.MainEmail;
@@ -775,7 +775,7 @@ namespace SimpleCure.Controllers
                     cm.DocLink = model.DocLink;
                     cm.EIN = model.EIN;
                     cm.EnterDate = model.EnterDate;
-                    cm.FEIN = model.FEIN;
+                    cm.FEIN = model.EIN;
                     cm.ID = model.ID;
                     cm.IndustryType = model.IndustryType;
                     cm.MainEmail = model.MainEmail;

@@ -52,7 +52,7 @@ namespace Library.Customer.Methods
                 string source = ex.Source;
                 string stacktrace = ex.StackTrace;
                 string targetsite = ex.TargetSite.ToString();
-                string error = ex.InnerException.ToString();
+                string error = ex.InnerException?.ToString() ?? ex.ToString();
                 string ErrorMessage = $"There was an error at {DateTime.Now} {Environment.NewLine} Method: {methodName} {Environment.NewLine} Source: {source} {Environment.NewLine} StackTrace: {stacktrace} {Environment.NewLine} TargetSite: {targetsite} {Environment.NewLine} Error: {error}{Environment.NewLine} Object: {obj}";
                 _applicationError.Log(ErrorMessage, string.Empty);
 
@@ -96,7 +96,7 @@ namespace Library.Customer.Methods
                 string source = ex.Source;
                 string stacktrace = ex.StackTrace;
                 string targetsite = ex.TargetSite.ToString();
-                string error = ex.InnerException.ToString();
+                string error = ex.InnerException?.ToString() ?? ex.ToString();
                 string ErrorMessage = $"There was an error at {DateTime.Now} {Environment.NewLine} Method: {methodName} {Environment.NewLine} Source: {source} {Environment.NewLine} StackTrace: {stacktrace} {Environment.NewLine} TargetSite: {targetsite} {Environment.NewLine} Error: {error}{Environment.NewLine} Object: {obj}";
                 _applicationError.Log(ErrorMessage, string.Empty);
 
@@ -146,7 +146,7 @@ namespace Library.Customer.Methods
                 string source = ex.Source;
                 string stacktrace = ex.StackTrace;
                 string targetsite = ex.TargetSite.ToString();
-                string error = ex.InnerException.ToString();
+                string error = ex.InnerException?.ToString() ?? ex.ToString();
                 string ErrorMessage = $"There was an error at {DateTime.Now} {Environment.NewLine} Method: {methodName} {Environment.NewLine} Source: {source} {Environment.NewLine} StackTrace: {stacktrace} {Environment.NewLine} TargetSite: {targetsite} {Environment.NewLine} Error: {error}{Environment.NewLine} Customer ID: {CustomerID.ToString()}";
                 _applicationError.Log(ErrorMessage, string.Empty);
 
@@ -184,7 +184,7 @@ namespace Library.Customer.Methods
                 string source = ex.Source;
                 string stacktrace = ex.StackTrace;
                 string targetsite = ex.TargetSite.ToString();
-                string error = ex.InnerException.ToString();
+                string error = ex.InnerException?.ToString() ?? ex.ToString();
                 string ErrorMessage = $"There was an error at {DateTime.Now} {Environment.NewLine} Method: {methodName} {Environment.NewLine} Source: {source} {Environment.NewLine} StackTrace: {stacktrace} {Environment.NewLine} TargetSite: {targetsite} {Environment.NewLine} Error: {error}{Environment.NewLine}";
                 _applicationError.Log(ErrorMessage, string.Empty);
                 response.ResponseMessage = "Unable to get all Customer Info";
@@ -221,7 +221,7 @@ namespace Library.Customer.Methods
                 string source = ex.Source;
                 string stacktrace = ex.StackTrace;
                 string targetsite = ex.TargetSite.ToString();
-                string error = ex.InnerException.ToString();
+                string error = ex.InnerException?.ToString() ?? ex.ToString();
                 string ErrorMessage = $"There was an error at {DateTime.Now} {Environment.NewLine} Method: {methodName} {Environment.NewLine} Source: {source} {Environment.NewLine} StackTrace: {stacktrace} {Environment.NewLine} TargetSite: {targetsite} {Environment.NewLine} Error: {error}{Environment.NewLine} Customer ID: {ID.ToString()}";
                 _applicationError.Log(ErrorMessage, string.Empty);
 
@@ -259,7 +259,7 @@ namespace Library.Customer.Methods
                 string source = ex.Source;
                 string stacktrace = ex.StackTrace;
                 string targetsite = ex.TargetSite.ToString();
-                string error = ex.InnerException.ToString();
+                string error = ex.InnerException?.ToString() ?? ex.ToString();
                 string ErrorMessage = $"There was an error at {DateTime.Now} {Environment.NewLine} Method: {methodName} {Environment.NewLine} Source: {source} {Environment.NewLine} StackTrace: {stacktrace} {Environment.NewLine} TargetSite: {targetsite} {Environment.NewLine} Error: {error}{Environment.NewLine} User ID: {UserID.ToString()}";
                 _applicationError.Log(ErrorMessage, string.Empty);
 
@@ -297,7 +297,7 @@ namespace Library.Customer.Methods
                 string source = ex.Source;
                 string stacktrace = ex.StackTrace;
                 string targetsite = ex.TargetSite.ToString();
-                string error = ex.InnerException.ToString();
+                string error = ex.InnerException?.ToString() ?? ex.ToString();
                 string ErrorMessage = $"There was an error at {DateTime.Now} {Environment.NewLine} Method: {methodName} {Environment.NewLine} Source: {source} {Environment.NewLine} StackTrace: {stacktrace} {Environment.NewLine} TargetSite: {targetsite} {Environment.NewLine} Error: {error}{Environment.NewLine} AspNetUsersID: {AspNetUsersID.ToString()}";
                 _applicationError.Log(ErrorMessage, string.Empty);
 
@@ -335,7 +335,7 @@ namespace Library.Customer.Methods
                 string source = ex.Source;
                 string stacktrace = ex.StackTrace;
                 string targetsite = ex.TargetSite.ToString();
-                string error = ex.InnerException.ToString();
+                string error = ex.InnerException?.ToString() ?? ex.ToString();
                 string ErrorMessage = $"There was an error at {DateTime.Now} {Environment.NewLine} Method: {methodName} {Environment.NewLine} Source: {source} {Environment.NewLine} StackTrace: {stacktrace} {Environment.NewLine} TargetSite: {targetsite} {Environment.NewLine} Error: {error}{Environment.NewLine} Industry Type: {IndustryType}";
                 _applicationError.Log(ErrorMessage, string.Empty);
                 response.ResponseMessage = "Unable to get all Customer Info for IndustryType " + IndustryType;
@@ -351,8 +351,7 @@ namespace Library.Customer.Methods
             try
             {
                 using (var ctx = new SimpleCureEntities())
-                {
-                    //response.GenericClassList = ctx.Tbl_Customers.Where(s => s.IndustryType == IndustryType).ToList();
+                {                    
                     response.GenericClassList = (from s in ctx.Tbl_Customers
                                                  where
                                                  s.Company.ToLower().Contains(searchTerm.ToLower()) ||
@@ -380,7 +379,7 @@ namespace Library.Customer.Methods
                 string source = ex.Source;
                 string stacktrace = ex.StackTrace;
                 string targetsite = ex.TargetSite.ToString();
-                string error = ex.InnerException.ToString();
+                string error = ex.InnerException?.ToString() ?? ex.ToString();
                 string ErrorMessage = $"There was an error at {DateTime.Now} {Environment.NewLine} Method: {methodName} {Environment.NewLine} Source: {source} {Environment.NewLine} StackTrace: {stacktrace} {Environment.NewLine} TargetSite: {targetsite} {Environment.NewLine} Error: {error}{Environment.NewLine} Search Term: {searchTerm}";
                 _applicationError.Log(ErrorMessage, string.Empty);
                 response.ResponseMessage = "Unable to get all Customer Info for search term " + searchTerm;
@@ -431,7 +430,7 @@ namespace Library.Customer.Methods
                 string source = ex.Source;
                 string stacktrace = ex.StackTrace;
                 string targetsite = ex.TargetSite.ToString();
-                string error = ex.InnerException.ToString();
+                string error = ex.InnerException?.ToString() ?? ex.ToString();
                 string ErrorMessage = $"There was an error at {DateTime.Now} {Environment.NewLine} Method: {methodName} {Environment.NewLine} Source: {source} {Environment.NewLine} StackTrace: {stacktrace} {Environment.NewLine} TargetSite: {targetsite} {Environment.NewLine} Error: {error}{Environment.NewLine}";
                 _applicationError.Log(ErrorMessage, string.Empty);
 
@@ -465,7 +464,7 @@ namespace Library.Customer.Methods
                 string source = ex.Source;
                 string stacktrace = ex.StackTrace;
                 string targetsite = ex.TargetSite.ToString();
-                string error = ex.InnerException.ToString();
+                string error = ex.InnerException?.ToString() ?? ex.ToString();
                 string ErrorMessage = $"There was an error at {DateTime.Now} {Environment.NewLine} Method: {methodName} {Environment.NewLine} Source: {source} {Environment.NewLine} StackTrace: {stacktrace} {Environment.NewLine} TargetSite: {targetsite} {Environment.NewLine} Error: {error}{Environment.NewLine} User ID: {UserID.ToString()}";
                 _applicationError.Log(ErrorMessage, string.Empty);
 

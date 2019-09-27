@@ -12,6 +12,8 @@ namespace Library.DataModel
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
+    using System.Data.Entity.Core.Objects;
+    using System.Linq;
     
     public partial class SimpleCureEntities : DbContext
     {
@@ -38,7 +40,6 @@ namespace Library.DataModel
         public virtual DbSet<Order> Orders { get; set; }
         public virtual DbSet<OrderActivity> OrderActivities { get; set; }
         public virtual DbSet<OrderDiscount> OrderDiscounts { get; set; }
-        public virtual DbSet<OrderProduct> OrderProducts { get; set; }
         public virtual DbSet<OrderStatu> OrderStatus { get; set; }
         public virtual DbSet<ProductGroup> ProductGroups { get; set; }
         public virtual DbSet<Product> Products { get; set; }
@@ -62,5 +63,21 @@ namespace Library.DataModel
         public virtual DbSet<Tbl_SC_Supply> Tbl_SC_Supply { get; set; }
         public virtual DbSet<Tbl_Units> Tbl_Units { get; set; }
         public virtual DbSet<Tbl_Vendors> Tbl_Vendors { get; set; }
+        public virtual DbSet<OrderProductActivity> OrderProductActivities { get; set; }
+        public virtual DbSet<OrderProduct> OrderProducts { get; set; }
+        public virtual DbSet<PaidOrder> PaidOrders { get; set; }
+        public virtual DbSet<Suggestion> Suggestions { get; set; }
+        public virtual DbSet<SuggestionStatu> SuggestionStatus { get; set; }
+        public virtual DbSet<SuggestionWorkLog> SuggestionWorkLogs { get; set; }
+        public virtual DbSet<OrderProductAndDiscount> OrderProductAndDiscounts { get; set; }
+    
+        public virtual int uspSearchPaidOrders(string searchTerm)
+        {
+            var searchTermParameter = searchTerm != null ?
+                new ObjectParameter("SearchTerm", searchTerm) :
+                new ObjectParameter("SearchTerm", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("uspSearchPaidOrders", searchTermParameter);
+        }
     }
 }

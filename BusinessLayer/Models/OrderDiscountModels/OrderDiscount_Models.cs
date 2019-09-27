@@ -5,5 +5,7 @@
         public int ID { get; set; }
         public int OrderID { get; set; }
         public int DiscountID { get; set; }
+        public decimal? CustomAmount { get; set; }
+        public string CustomDiscountType { get; set; }
     }
 }

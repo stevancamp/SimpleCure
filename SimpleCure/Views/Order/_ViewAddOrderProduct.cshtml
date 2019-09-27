@@ -1,0 +1,21 @@
+﻿@model SimpleCure.Models.OrderModels.ViewAddOrderProduct_ViewModel
+
+<div class="form-group">
+    <label for="AddProductIDDDL">Available Products</label>
+    <br />
+    <select class="form-control custom-select" id="AddProductIDDDL">
+        <option value="0">--Please Select--</option>
+        @foreach (var item in Model.ListProducts)
+        {
+            <option value="@item.ID">@item.Type ($@Convert.ToDecimal(item.PricePerUnit).ToString("#,##0.00"))</option>
+        }
+    </select>
+</div>
+<div class="form-group">
+    <label for="BatchIDtoADD">Batch ID</label>
+    <input type="text" id="BatchIDtoADD" class="form-control" />
+</div>
+<div class="form-group">
+    <label for="QuantityToADD">Quantity</label>
+    <input type="number" id="QuantityToADD" class="form-control" />
+</div>

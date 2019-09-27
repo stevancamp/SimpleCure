@@ -17,10 +17,11 @@ namespace SimpleCure.Models.OrderModels
         public int OrderProductID { get; set; }
         public int OrderID { get; set; }
         public int ForProductID { get; set; }
-        public int BatchID { get; set; }
+        public string BatchID { get; set; }
         public int Quantity { get; set; }
         public decimal Total { get; set; }
         public string EntryBy { get; set; }
         public DateTime EntryDate { get; set; }
+        public string Status { get; set; }
     }
 }

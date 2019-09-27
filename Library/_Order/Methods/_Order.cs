@@ -1,9 +1,12 @@
-﻿using Library.DataModel;
+﻿using Library._Order.Model;
+using Library.DataModel;
 using Library.Email.Methods;
 using Library.ErrorLogging.Methods;
 using Newtonsoft.Json;
 using System;
+using System.Data;
 using System.Data.Entity;
+using System.Data.Entity.Core.EntityClient;
 using System.Linq;
 
 namespace Library._Order.Methods
@@ -57,7 +60,7 @@ namespace Library._Order.Methods
                 string source = ex.Source;
                 string stacktrace = ex.StackTrace;
                 string targetsite = ex.TargetSite.ToString();
-                string error = ex.InnerException.ToString();
+                string error = ex.InnerException?.ToString() ?? ex.ToString();
                 string ErrorMessage = $"There was an error at {DateTime.Now} {Environment.NewLine} Method: {methodName} {Environment.NewLine} Source: {source} {Environment.NewLine} StackTrace: {stacktrace} {Environment.NewLine} TargetSite: {targetsite} {Environment.NewLine} Error: {error}{Environment.NewLine} Object: {obj}";
                 _applicationError.Log(ErrorMessage, string.Empty);
 
@@ -102,7 +105,7 @@ namespace Library._Order.Methods
                 string source = ex.Source;
                 string stacktrace = ex.StackTrace;
                 string targetsite = ex.TargetSite.ToString();
-                string error = ex.InnerException.ToString();
+                string error = ex.InnerException?.ToString() ?? ex.ToString();
                 string ErrorMessage = $"There was an error at {DateTime.Now} {Environment.NewLine} Method: {methodName} {Environment.NewLine} Source: {source} {Environment.NewLine} StackTrace: {stacktrace} {Environment.NewLine} TargetSite: {targetsite} {Environment.NewLine} Error: {error}{Environment.NewLine} Object: {obj}";
                 _applicationError.Log(ErrorMessage, string.Empty);
 
@@ -154,7 +157,7 @@ namespace Library._Order.Methods
                 string source = ex.Source;
                 string stacktrace = ex.StackTrace;
                 string targetsite = ex.TargetSite.ToString();
-                string error = ex.InnerException.ToString();
+                string error = ex.InnerException?.ToString() ?? ex.ToString();
                 string ErrorMessage = $"There was an error at {DateTime.Now} {Environment.NewLine} Method: {methodName} {Environment.NewLine} Source: {source} {Environment.NewLine} StackTrace: {stacktrace} {Environment.NewLine} TargetSite: {targetsite} {Environment.NewLine} Error: {error}{Environment.NewLine} Order ID: {ID.ToString()}";
                 _applicationError.Log(ErrorMessage, string.Empty);
 
@@ -194,7 +197,7 @@ namespace Library._Order.Methods
                 string source = ex.Source;
                 string stacktrace = ex.StackTrace;
                 string targetsite = ex.TargetSite.ToString();
-                string error = ex.InnerException.ToString();
+                string error = ex.InnerException?.ToString() ?? ex.ToString();
                 string ErrorMessage = $"There was an error at {DateTime.Now} {Environment.NewLine} Method: {methodName} {Environment.NewLine} Source: {source} {Environment.NewLine} StackTrace: {stacktrace} {Environment.NewLine} TargetSite: {targetsite} {Environment.NewLine} Error: {error}{Environment.NewLine}";
                 _applicationError.Log(ErrorMessage, string.Empty);
 
@@ -217,7 +220,7 @@ namespace Library._Order.Methods
                     { response.GenericClassList = ctx.Orders.Where(s => s.CompletionDate != null).ToList(); }
                     else
                     { response.GenericClassList = ctx.Orders.Where(s => s.CompletionDate == null).ToList(); }
-                   
+
 
                     if (response.GenericClassList != null && response.GenericClassList.Count > 0)
                     {
@@ -238,11 +241,66 @@ namespace Library._Order.Methods
                 string source = ex.Source;
                 string stacktrace = ex.StackTrace;
                 string targetsite = ex.TargetSite.ToString();
-                string error = ex.InnerException.ToString();
+                string error = ex.InnerException?.ToString() ?? ex.ToString();
                 string ErrorMessage = $"There was an error at {DateTime.Now} {Environment.NewLine} Method: {methodName} {Environment.NewLine} Source: {source} {Environment.NewLine} StackTrace: {stacktrace} {Environment.NewLine} TargetSite: {targetsite} {Environment.NewLine} Error: {error}{Environment.NewLine}";
                 _applicationError.Log(ErrorMessage, string.Empty);
 
                 response.ResponseMessage = "Unable to get all Orders";
+                response.responseTypes = ResponseTypes.Failure;
+            }
+
+            return response;
+        }
+
+        public Generic<SearchPaidOrder> SearchPaidOrders(string SearchTerm)
+        {
+            Generic<SearchPaidOrder> response = new Generic<SearchPaidOrder>();
+
+            try
+            {
+                using (var ctx = new SimpleCureEntities())
+                {
+                    var result = (from s in ctx.PaidOrders
+                                  where
+                                  s.Company.ToLower().Contains(SearchTerm.ToLower()) ||
+                                  s.Customer.ToLower().Contains(SearchTerm.ToLower()) ||
+                                  s.OrderID.ToString() == SearchTerm
+                                  select s).OrderByDescending(s => s.PaidDate).ToList();
+                    if (result != null && result.Count > 0)
+                    {
+                        foreach (var item in result)
+                        {
+                            SearchPaidOrder order = new SearchPaidOrder();
+                            order.Company = item.Company;
+                            order.Customer = item.Customer;
+                            order.OrderDate = item.OrderDate;
+                            order.OrderID = item.OrderID;
+                            order.OrderStatus = item.OrderStatus;
+                            order.PaidDate = item.PaidDate ?? DateTime.Now;
+                            response.GenericClassList.Add(order);
+                        }
+                        response.ResponseSuccess = true;
+                        response.responseTypes = ResponseTypes.Success;
+                    }
+                    else
+                    {
+                        response.ResponseMessage = "Unable to get Paid Orders";
+                        response.responseTypes = ResponseTypes.Information;
+                    }
+
+                }               
+            }
+            catch (Exception ex)
+            {
+                string methodName = System.Reflection.MethodBase.GetCurrentMethod().Name;
+                string source = ex.Source;
+                string stacktrace = ex.StackTrace;
+                string targetsite = ex.TargetSite.ToString();
+                string error = ex.InnerException?.ToString() ?? ex.ToString();
+                string ErrorMessage = $"There was an error at {DateTime.Now} {Environment.NewLine} Method: {methodName} {Environment.NewLine} Source: {source} {Environment.NewLine} StackTrace: {stacktrace} {Environment.NewLine} TargetSite: {targetsite} {Environment.NewLine} Search Term: {SearchTerm}{Environment.NewLine} Error: {error}{Environment.NewLine}";
+                _applicationError.Log(ErrorMessage, string.Empty);
+
+                response.ResponseMessage = "Unable to get Paid Orders";
                 response.responseTypes = ResponseTypes.Failure;
             }
 
@@ -278,7 +336,7 @@ namespace Library._Order.Methods
                 string source = ex.Source;
                 string stacktrace = ex.StackTrace;
                 string targetsite = ex.TargetSite.ToString();
-                string error = ex.InnerException.ToString();
+                string error = ex.InnerException?.ToString() ?? ex.ToString();
                 string ErrorMessage = $"There was an error at {DateTime.Now} {Environment.NewLine} Method: {methodName} {Environment.NewLine} Source: {source} {Environment.NewLine} StackTrace: {stacktrace} {Environment.NewLine} TargetSite: {targetsite} {Environment.NewLine} Error: {error}{Environment.NewLine} For Order ID: {ID} {Environment.NewLine}";
                 errors.Log(ErrorMessage, string.Empty);
                 response.ResponseMessage = "Unable to get Order for ID " + ID;
@@ -317,7 +375,7 @@ namespace Library._Order.Methods
                 string source = ex.Source;
                 string stacktrace = ex.StackTrace;
                 string targetsite = ex.TargetSite.ToString();
-                string error = ex.InnerException.ToString();
+                string error = ex.InnerException?.ToString() ?? ex.ToString();
                 string ErrorMessage = $"There was an error at {DateTime.Now} {Environment.NewLine} Method: {methodName} {Environment.NewLine} Source: {source} {Environment.NewLine} StackTrace: {stacktrace} {Environment.NewLine} TargetSite: {targetsite} {Environment.NewLine} Error: {error}{Environment.NewLine} For OrderStatus: {Status} {Environment.NewLine}";
                 errors.Log(ErrorMessage, string.Empty);
                 response.ResponseMessage = "Unable to get Order for OrderStatus " + Status;
@@ -356,7 +414,7 @@ namespace Library._Order.Methods
                 string source = ex.Source;
                 string stacktrace = ex.StackTrace;
                 string targetsite = ex.TargetSite.ToString();
-                string error = ex.InnerException.ToString();
+                string error = ex.InnerException?.ToString() ?? ex.ToString();
                 string ErrorMessage = $"There was an error at {DateTime.Now} {Environment.NewLine} Method: {methodName} {Environment.NewLine} Source: {source} {Environment.NewLine} StackTrace: {stacktrace} {Environment.NewLine} TargetSite: {targetsite} {Environment.NewLine} Error: {error}{Environment.NewLine} For Tbl_Customer ID: {CustomerID} {Environment.NewLine}";
                 errors.Log(ErrorMessage, string.Empty);
                 response.ResponseMessage = "Unable to get Order for Tbl_Customer ID " + CustomerID;

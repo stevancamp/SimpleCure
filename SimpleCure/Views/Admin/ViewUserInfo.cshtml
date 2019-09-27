@@ -87,7 +87,7 @@
                                                                     new
                                                                     {
                                                                     ID = Model.CustInfoModel.ID
-                                                                    }, new { @class = "fa fa-users" })
+                                                                    })
                                                                          
                                                                 </li>
                                                                 <li>
@@ -98,7 +98,7 @@
                                                                     new
                                                                     {
                                                                     ID = Model.CustInfoModel.ID
-                                                                    }, new { @class = "fa fa-link"})
+                                                                    })
                                                                 </li>
                                                                 <li>
                                                                     @Html.ActionLink(
@@ -108,7 +108,7 @@
                                                                     new
                                                                     {
                                                                     ID = Model.CustInfoModel.ID
-                                                                    }, new { @class = "fa fa-key" })
+                                                                    })
                                                                 </li>
                                                                 <li>
                                                                     @if (Model.userInfoModel.LockoutEndDateUtc != null && Model.userInfoModel.AccessFailedCount >= 5)
@@ -120,7 +120,7 @@
                                                                         new
                                                                         {
                                                                         ID = Model.CustInfoModel.ID
-                                                                        }, new { @class = "fa fa-unlock" })
+                                                                        })
                                                                         <span>Locked until :@Model.userInfoModel.LockoutEndDateUtc</span>
                                                                     }
                                                                     else
@@ -132,7 +132,7 @@
                                                                         new
                                                                         {
                                                                         ID = Model.CustInfoModel.ID
-                                                                        }, new { @class = "fa fa-lock" })
+                                                                        })
                                                                     }
                                                                 </li><li>
                                                                        @Html.ActionLink(
@@ -142,7 +142,7 @@
                                                                        new
                                                                        {
                                                                        ID = Model.CustInfoModel.ID
-                                                                       }, new { @class = "fa fa-exclamation-triangle" })
+                                                                       })
 </li></ul>
                                                         }
                                                         else
@@ -154,7 +154,7 @@
                                                             new
                                                             {
                                                             ID = Model.CustInfoModel.ID
-                                                            }, new { @class = "fa fa-link"})                                                          
+                                                            })                                                          
                                                         }
                                                     </p>
                                                 </div>
