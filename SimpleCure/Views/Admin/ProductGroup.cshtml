@@ -56,7 +56,7 @@
 
                 <div class="card">
                     <div class="card-header">
-                        <h4>Product Groups Table <a href="#" class="pull-right" data-toggle="tooltip" data-placement="top" title="Create New Product Group" onclick="ShowCreate();"><i class="fa fa-plus-circle"></i></a></h4>
+                        <h4>Product Groups Table <a href="#" class="pull-right btn btn-sm btn-outline-primary" data-toggle="tooltip" data-placement="top" title="Create New Product Group" onclick="ShowCreate();">Create</a></h4>
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
@@ -74,7 +74,7 @@
                                         {
                                             <tr>                                              
                                                 <td>@item.GroupName</td>
-                                                <td><a href="#" onclick="ShowEdit(@item.ID)"><i class="fa fa-edit"></i></a></td>
+                                                <td><a href="#" onclick="ShowEdit(@item.ID)" class="btn btn-sm btn-outline-primary">Edit</a></td>
                                             </tr>
                                         }
                                     }

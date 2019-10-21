@@ -56,7 +56,7 @@ namespace Library._OrderDiscount.Methods
                 string source = ex.Source;
                 string stacktrace = ex.StackTrace;
                 string targetsite = ex.TargetSite.ToString();
-                string error = ex.InnerException.ToString();
+                string error = ex.InnerException?.ToString() ?? ex.ToString();
                 string ErrorMessage = $"There was an error at {DateTime.Now} {Environment.NewLine} Method: {methodName} {Environment.NewLine} Source: {source} {Environment.NewLine} StackTrace: {stacktrace} {Environment.NewLine} TargetSite: {targetsite} {Environment.NewLine} Error: {error}{Environment.NewLine} Object: {obj}";
                 _applicationError.Log(ErrorMessage, string.Empty);
 
@@ -101,7 +101,7 @@ namespace Library._OrderDiscount.Methods
                 string source = ex.Source;
                 string stacktrace = ex.StackTrace;
                 string targetsite = ex.TargetSite.ToString();
-                string error = ex.InnerException.ToString();
+                string error = ex.InnerException?.ToString() ?? ex.ToString();
                 string ErrorMessage = $"There was an error at {DateTime.Now} {Environment.NewLine} Method: {methodName} {Environment.NewLine} Source: {source} {Environment.NewLine} StackTrace: {stacktrace} {Environment.NewLine} TargetSite: {targetsite} {Environment.NewLine} Error: {error}{Environment.NewLine} Object: {obj}";
                 _applicationError.Log(ErrorMessage, string.Empty);
 
@@ -153,7 +153,7 @@ namespace Library._OrderDiscount.Methods
                 string source = ex.Source;
                 string stacktrace = ex.StackTrace;
                 string targetsite = ex.TargetSite.ToString();
-                string error = ex.InnerException.ToString();
+                string error = ex.InnerException?.ToString() ?? ex.ToString();
                 string ErrorMessage = $"There was an error at {DateTime.Now} {Environment.NewLine} Method: {methodName} {Environment.NewLine} Source: {source} {Environment.NewLine} StackTrace: {stacktrace} {Environment.NewLine} TargetSite: {targetsite} {Environment.NewLine} Error: {error}{Environment.NewLine} OrderDiscount ID: {ID.ToString()}";
                 _applicationError.Log(ErrorMessage, string.Empty);
 
@@ -193,7 +193,7 @@ namespace Library._OrderDiscount.Methods
                 string source = ex.Source;
                 string stacktrace = ex.StackTrace;
                 string targetsite = ex.TargetSite.ToString();
-                string error = ex.InnerException.ToString();
+                string error = ex.InnerException?.ToString() ?? ex.ToString();
                 string ErrorMessage = $"There was an error at {DateTime.Now} {Environment.NewLine} Method: {methodName} {Environment.NewLine} Source: {source} {Environment.NewLine} StackTrace: {stacktrace} {Environment.NewLine} TargetSite: {targetsite} {Environment.NewLine} Error: {error}{Environment.NewLine}";
                 _applicationError.Log(ErrorMessage, string.Empty);
 
@@ -233,7 +233,7 @@ namespace Library._OrderDiscount.Methods
                 string source = ex.Source;
                 string stacktrace = ex.StackTrace;
                 string targetsite = ex.TargetSite.ToString();
-                string error = ex.InnerException.ToString();
+                string error = ex.InnerException?.ToString() ?? ex.ToString();
                 string ErrorMessage = $"There was an error at {DateTime.Now} {Environment.NewLine} Method: {methodName} {Environment.NewLine} Source: {source} {Environment.NewLine} StackTrace: {stacktrace} {Environment.NewLine} TargetSite: {targetsite} {Environment.NewLine} Error: {error}{Environment.NewLine} OrderID: {OrderID.ToString()}";
                 _applicationError.Log(ErrorMessage, string.Empty);
 
@@ -273,7 +273,7 @@ namespace Library._OrderDiscount.Methods
                 string source = ex.Source;
                 string stacktrace = ex.StackTrace;
                 string targetsite = ex.TargetSite.ToString();
-                string error = ex.InnerException.ToString();
+                string error = ex.InnerException?.ToString() ?? ex.ToString();
                 string ErrorMessage = $"There was an error at {DateTime.Now} {Environment.NewLine} Method: {methodName} {Environment.NewLine} Source: {source} {Environment.NewLine} StackTrace: {stacktrace} {Environment.NewLine} TargetSite: {targetsite} {Environment.NewLine} Error: {error}{Environment.NewLine} For OrderDiscount ID: {ID} {Environment.NewLine}";
                 errors.Log(ErrorMessage, string.Empty);
                 response.ResponseMessage = "Unable to get OrderDiscount for ID " + ID;

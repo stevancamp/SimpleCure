@@ -1,0 +1,180 @@
+﻿@model SimpleCure.Models.SuggestionModels.ViewSuggestionWorkLogsBySuggestionID_ViewModel
+
+<div class="card">
+    <div class="card-header">
+        <h4>
+            Suggestion Work Logs
+            @if (User.IsInRole("Owner") || User.IsInRole("WebAdmin"))
+            {
+                <a id="modal-422392" href="#NewWorkLogItem" role="button" class="pull-right btn btn-sm btn-outline-primary" data-toggle="modal">Enter Work log</a>
+            }
+        </h4>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Entery By</th>
+                        <th>Entery Date/Time</th>
+                        <th>#</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model.ListSuggestionWorkLog != null && Model.ListSuggestionWorkLog.Count > 0)
+                    {
+                        foreach (var item in Model.ListSuggestionWorkLog)
+                        {
+                            <tr>
+
+                                <td>@item.EntryBy</td>
+                                <td>@item.EntryDateTime</td>
+                                <td>
+
+                                    <a id="modal-422392" href="@string.Format("#WorkLog{0}", item.ID)" role="button" class="btn btn-sm btn-outline-primary" data-toggle="modal">View Log</a>
+
+                                    <div class="modal fade" id="@string.Format("WorkLog{0}", item.ID)" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="myModalLabel">
+                                                        Suggestion Work Log Item
+                                                    </h5>
+                                                    <button type="button" class="close" data-dismiss="modal">
+                                                        <span aria-hidden="true">×</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <div class="form-group">
+                                                        <label>
+                                                            Entry By
+                                                        </label>
+                                                        <input type="text" class="form-control" readonly value="@item.EntryBy" />
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label>
+                                                            Entry Date/Time
+                                                        </label>
+                                                        <input type="text" class="form-control" readonly value="@item.EntryDateTime" />
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label>
+                                                            Start Date/Time
+                                                        </label>
+                                                        <input type="text" class="form-control" readonly value="@item.StartDateTime" />
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label>
+                                                            End Date/Time
+                                                        </label>
+                                                        <input type="text" class="form-control" readonly value="@item.EndDateTime" />
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label>
+                                                            Comments
+                                                        </label>
+                                                        <textarea type="text" class="form-control" readonly>@item.Comment </textarea>
+                                                    </div>
+
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                                                        Close
+                                                    </button>
+                                                </div>
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    }
+                    else
+                    {
+                        <tr>
+                            <td colspan="3" class="text-center">There are no Suggestion Work Log Items</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="NewWorkLogItem" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="myModalLabel">
+                    Create new Suggestion Work Log Item
+                </h5>
+                <button type="button" class="close" data-dismiss="modal">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p id="ErrorMessage" class=""></p>
+                <div class="form-group">
+                    <div class="form-group">
+                        <label>Start Date/Time</label>
+                        <div class="input-group date" id="StartDateTime" data-target-input="nearest">
+                            <input type="text" id="StartDate" class="form-control datetimepicker-input" data-target="#StartDateTime" />
+                            <div class="input-group-append" data-target="#StartDateTime" data-toggle="datetimepicker">
+                                <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="form-group">
+                        <label>End Date/Time</label>
+                        <div class="input-group date" id="EndDateTime" data-target-input="nearest">
+                            <input type="text" id="EndDate" class="form-control datetimepicker-input" data-target="#EndDateTime" />
+                            <div class="input-group-append" data-target="#EndDateTime" data-toggle="datetimepicker">
+                                <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>
+                        Status
+                    </label>
+                    @if (Model.ListStatus != null && Model.ListStatus.Count > 0)
+                    {
+                        <select id="SuggestionStatusDDL" class="form-control">
+                            <option value="">--Please Select--</option>
+                            @foreach (var item in Model.ListStatus)
+                            {
+                                <option value="@item.Status">@item.Status</option>
+                            }
+                        </select>
+                    }
+
+                </div>
+                <div class="custom-control custom-checkbox">
+                    <input type="checkbox" class="custom-control-input" id="CompleteSuggestion">
+                    <label class="custom-control-label" for="CompleteSuggestion">Check this to complete the suggestion</label>
+                </div>
+                <div class="form-group">
+                    <label>
+                        Comments
+                    </label>
+                    <textarea type="text" class="form-control" id="Comments"></textarea>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" onclick="CreateLogItem();">
+                    Save
+                </button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                    Close
+                </button>
+            </div>
+        </div>
+
+    </div>
+
+</div>

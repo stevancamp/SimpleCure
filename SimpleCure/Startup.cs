@@ -35,6 +35,8 @@ namespace SimpleCure
                 {
                     var resultl = UserManager.AddToRole(user.Id, "WebAdmin");
                 }
+
+              
             }
 
             if (!roleManager.RoleExists("Owner"))
@@ -70,6 +72,54 @@ namespace SimpleCure
                 if (chkUser.Succeeded)
                 {
                     var resultl = UserManager.AddToRole(user.Id, "WebAdmin");
+                }
+            }
+
+            var CheckforClint = UserManager.FindByEmail("clint@simplecureok.com");
+            if (CheckforClint == null)
+            {
+                var user = new ApplicationUser();
+                user.UserName = "Clint";
+                user.Email = "clint@simplecureok.com";
+                user.EmailConfirmed = true;
+                string userPWD = "tibet33";
+                var chkUser = UserManager.Create(user, userPWD);
+                if (chkUser.Succeeded)
+                {
+                    var addroleemployee = UserManager.AddToRole(user.Id, "Employee");
+                    var addroleowner = UserManager.AddToRole(user.Id, "Owner");
+                }
+            }
+
+
+            var CheckforJenn = UserManager.FindByEmail("jennifer@simplecureok.com");
+            if (CheckforJenn == null)
+            {
+                var user = new ApplicationUser();
+                user.UserName = "Jennifer";
+                user.Email = "jennifer@simplecureok.com";
+                user.EmailConfirmed = true;
+                string userPWD = "Password";
+                var chkUser = UserManager.Create(user, userPWD);
+                if (chkUser.Succeeded)
+                {
+                    var addroleemployee = UserManager.AddToRole(user.Id, "Employee");
+                    var addroleowner = UserManager.AddToRole(user.Id, "Owner");
+                }
+            }
+            var CheckforMike = UserManager.FindByEmail("michael@simplecureok.com");
+            if (CheckforMike == null)
+            {
+                var user = new ApplicationUser();
+                user.UserName = "Michael";
+                user.Email = "michael@simplecureok.com";
+                user.EmailConfirmed = true;
+                string userPWD = "Password";
+                var chkUser = UserManager.Create(user, userPWD);
+                if (chkUser.Succeeded)
+                {
+                    var addroleemployee = UserManager.AddToRole(user.Id, "Employee");
+                    var addroleowner = UserManager.AddToRole(user.Id, "Owner");
                 }
             }
         }

@@ -1,5 +1,4 @@
-﻿using System.Web;
-using System.Web.Optimization;
+﻿using System.Web.Optimization;
 
 namespace SimpleCure
 {
@@ -19,8 +18,7 @@ namespace SimpleCure
                         "~/distribution/vendor/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js",                                      
                         "~/distribution/js/front.js",
                         "~/distribution/vendor/moment/moment.js",
-                        "~/distribution/vendor/bootstrap-datetimepicker/bootstrap-4-datetimepicker.min.js",
-                        "~/distribution/vendor/Select2/select2.min.js"
+                        "~/distribution/vendor/bootstrap-datetimepicker/bootstrap-4-datetimepicker.min.js"
                         )); 
  
             bundles.Add(new ScriptBundle("~/bundles/modernizr").Include(
@@ -35,8 +33,7 @@ namespace SimpleCure
                       "~/distribution/vendor/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.css",
                       "~/distribution/css/style.green.css",
                       "~/distribution/css/custom.css",                      
-                      "~/distribution/vendor/bootstrap-datetimepicker/bootstrap-4-datetimepicker.min.css",
-                      "~/distribution/vendor/Select2/select2.css"
+                      "~/distribution/vendor/bootstrap-datetimepicker/bootstrap-4-datetimepicker.min.css"
                       ));
 
         }

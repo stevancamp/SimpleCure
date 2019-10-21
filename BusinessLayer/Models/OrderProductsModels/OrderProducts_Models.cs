@@ -7,10 +7,11 @@ namespace BusinessLayer.Models.OrderProductsModels
         public int ID { get; set; }
         public int OrderID { get; set; }
         public int ProductID { get; set; }
-        public int BatchID { get; set; }
+        public string BatchID { get; set; }
         public int Quantity { get; set; }
         public decimal Total { get; set; }
         public string EntryBy { get; set; }
         public DateTime EntryDate { get; set; }
+        public string status { get; set; }
     }
 }

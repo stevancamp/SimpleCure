@@ -52,48 +52,33 @@
                         <ul class="list-unstyled">
                             <li>
                                 @Html.ActionLink(" Change your Password",
-                      "ChangePassword",   // <-- ActionMethod
-                      "Manage",  // <-- Controller Name.
-                      null, // <-- Route arguments.
-                      new { @class = "fa fa-key" }
-
-                      )
+                                "ChangePassword",   
+                                "Manage" 
+                                )
                             </li>
                             <li>
                                 @Html.ActionLink(" Change your Email",
-                   "ChangeEmailAddress",   // <-- ActionMethod
-                   "Manage",  // <-- Controller Name.
-                   null, // <-- Route arguments.
-                   new { @class = "fa fa-envelope" }
-
-                   )
+                                "ChangeEmailAddress",    
+                                "Manage" 
+                                )
                             </li>
                             <li>
                                 @Html.ActionLink(" Change your User Name",
-                   "ChangeUserName",   // <-- ActionMethod
-                   "Manage",  // <-- Controller Name.
-                   null, // <-- Route arguments.
-                   new { @class = "fa fa-user" }
-
-                   )
+                                "ChangeUserName",   
+                                "Manage" 
+                                )
                             </li>
                             <li>
                                 @Html.ActionLink(" Change your Account Information",
-        "ChangeAccountInformation",   // <-- ActionMethod
-        "Manage",  // <-- Controller Name.
-        null, // <-- Route arguments.
-        new { @class = "fa fa-address-book-o" }
-
-        )
+                                "ChangeAccountInformation",   
+                                "Manage"
+                                )
                             </li>
                             <li>
                                 @Html.ActionLink(" Delete your Account",
-        "DeleteAccount",   // <-- ActionMethod
-        "Manage",  // <-- Controller Name.
-        null, // <-- Route arguments.
-        new { @class = "fa fa-trash" }
-
-        )
+                                "DeleteAccount",    
+                                "Manage" 
+                                )
                             </li>
                         </ul>
 
@@ -150,8 +135,8 @@
                             <dt class="col-sm-3">EIN#</dt>
                             <dd class="col-sm-9">@ShowIfNotNull(Model.CustomerInfo.EIN)</dd>
 
-                            <dt class="col-sm-3">FEIN#</dt>
-                            <dd class="col-sm-9">@ShowIfNotNull(Model.CustomerInfo.FEIN)</dd>
+                            @*<dt class="col-sm-3">FEIN#</dt>
+                            <dd class="col-sm-9">@ShowIfNotNull(Model.CustomerInfo.FEIN)</dd>*@
 
                             <dt class="col-sm-3">OBN#</dt>
                             <dd class="col-sm-9">@ShowIfNotNull(Model.CustomerInfo.OBN)</dd>

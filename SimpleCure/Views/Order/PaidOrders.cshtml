@@ -1,0 +1,105 @@
+﻿@model List<SimpleCure.Models.OrderModels.PaidOrders_ViewModel>
+@{
+    ViewBag.Title = "Orders";
+}
+
+<div class="breadcrumb-holder">
+    <div class="container-fluid">
+        <ul class="breadcrumb">
+            <li class="breadcrumb-item">
+                @Html.ActionLink(" Home", "Index", "Home")
+            </li>
+            <li class="breadcrumb-item active">Paid Orders</li>
+        </ul>
+    </div>
+</div>
+<section class="forms">
+    <div class="container-fluid">
+        <header>
+            <h1 class="h3 display">Paid Order List</h1>
+        </header>
+        <div class="row">
+            <div class="col-md-12">
+
+                <div class="card">
+                    <div class="card-header">
+                        <div class="container-fluid">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <h4>
+                                                Search Paid Order List
+                                            </h4>
+                                        </div>
+                                        <div class="col-md-6">
+                                            @using (Html.BeginForm("PaidOrders", "Order"))
+                                            {
+                                                <div class="pull-right">
+                                                    <div class="input-group">
+                                                        @Html.TextBox("SearchTerm", null, new { @class = "form-control", @placeholder = "Search" })
+                                                        <div class="input-group-append">
+                                                            <button class="btn btn-outline-primary" type="submit">Search</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            }
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Order ID #</th>
+                                        <th>Company</th>
+                                        <th>Customer</th>
+                                        <th>Order Status</th>
+                                        <th>Order Date</th>
+                                        <th>Paid Date</th>
+                                        <th>View</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="PaidOrdersTable">
+                                    @if (Model != null && Model.Count > 0)
+                                    {
+                                        foreach (var item in Model)
+                                        {
+                                            <tr>
+                                                <td>@item.OrderID</td>
+                                                <td>@item.Company</td>
+                                                <td>@item.Customer</td>
+                                                <td>@item.OrderStatus</td>
+                                                <td>@item.OrderDate</td>
+                                                <td>@item.PaidDate</td>
+                                                <td>
+                                                    <a class="btn btn-outline-primary" href="@Url.Action("ViewOrder", "Order", new { ID = item.OrderID })">View</a>
+                                                </td>
+                                            </tr>
+                                        }
+                                    }
+                                    else
+                                    {
+                                        <tr>
+                                            <td colspan="7" class="text-center">Search for Paid Orders</td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script src="~/Scripts/ViewScripts/PaidOrdersViewScript.js"></script>
+}
+

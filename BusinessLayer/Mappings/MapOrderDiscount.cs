@@ -11,6 +11,8 @@ namespace BusinessLayer.Mappings
             returnModel.DiscountID = model.DiscountID;
             returnModel.ID = model.ID;
             returnModel.OrderID = model.OrderID;
+            returnModel.CustomDiscountAmount = model.CustomAmount;
+            returnModel.CustomDiscountType = model.CustomDiscountType;
             return returnModel;
         }
 
@@ -20,6 +22,8 @@ namespace BusinessLayer.Mappings
             returnModel.DiscountID = model.DiscountID;
             returnModel.ID = model.ID;
             returnModel.OrderID = model.OrderID;
+            returnModel.CustomAmount = model.CustomDiscountAmount;
+            returnModel.CustomDiscountType = model.CustomDiscountType;
             return returnModel;
         }
     }

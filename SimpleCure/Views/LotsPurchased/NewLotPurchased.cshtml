@@ -1,0 +1,158 @@
+﻿@model SimpleCure.Models.Generic<SimpleCure.Models.LotPurchasedModels.NewLotPurchased_ViewModel>
+@{
+    ViewBag.Title = "Lot Purchased";
+}
+
+@if (Model.ResponseSuccess == false && Model.responseTypes == SimpleCure.Models.ResponseTypes.Failure)
+{
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        <strong>There was an error!</strong> @Model.ResponseMessage
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+}
+
+@if (Model.responseTypes == SimpleCure.Models.ResponseTypes.Information)
+{
+    <div class="alert alert-info alert-dismissible fade show" role="alert">
+        @Model.ResponseMessage
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+}
+
+@if (Model.responseTypes == SimpleCure.Models.ResponseTypes.Success && !string.IsNullOrEmpty(Model.ResponseMessage))
+{
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        @Model.ResponseMessage
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+}
+
+<div class="breadcrumb-holder">
+    <div class="container-fluid">
+        <ul class="breadcrumb">
+            <li class="breadcrumb-item">
+                @Html.ActionLink(" Home", "Index", "Home")
+            </li>
+            <li class="breadcrumb-item active">New Lot Purchased</li>
+        </ul>
+    </div>
+</div>
+<section class="forms">
+    <div class="container-fluid">
+        <header>
+            <h1 class="h3 display">Enter Lot/Set Purchased</h1>
+        </header>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h4>Lot/Set Information to Enter</h4>
+                        </div>
+                        <div class="card-body">
+
+                            @using (Html.BeginForm("NewLotPurchased", "LotsPurchased", FormMethod.Post))
+                            {
+                                @Html.AntiForgeryToken()
+                                <label>How will this purchase be classified?</label>
+                                <div class="form-group">
+                                    <div class="custom-control custom-radio custom-control-inline">
+                                        @Html.RadioButtonFor(m => m.GenericClass.Lot_Set, "Lot", new { id = "LotRB", @class = "custom-control-input" })
+                                        <label class="custom-control-label" for="LotRB">Lot</label>
+                                    </div>
+                                    <div class="custom-control custom-radio custom-control-inline">
+                                        @Html.RadioButtonFor(m => m.GenericClass.Lot_Set, "Set", new { id = "SetRB", @class = "custom-control-input" })
+                                        <label class="custom-control-label" for="SetRB">Set</label>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label>What is the purchase date: </label>
+                                    <div class="input-group date" id="PurchaseDate" data-target-input="nearest">
+                                        @Html.TextBoxFor(m => m.GenericClass.BuyDate, htmlAttributes: new { @data_target = "#PurchaseDate", @class = "form-control datetimepicker-input" })
+                                        <div class="input-group-append" data-target="#PurchaseDate" data-toggle="datetimepicker">
+                                            <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="GenericClass_Provider">Customer: </label>
+                                    <br />
+                                    @Html.DropDownListFor(m => m.GenericClass.Provider, new SelectList(ViewBag.Customers, "CustomerID", "CustomerName"), "--Please Select--", new { @class = "custom-select mb-3" })
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="Cost">How much did it cost?</label>
+                                    @Html.TextBoxFor(m => m.GenericClass.Cost, new { id = "Cost", @type = "number", @class = "form-control", @min = "0", @max = "999999", @Value = "0.00" })
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="Pounds">Pounds:</label>
+                                    @Html.TextBoxFor(m => m.GenericClass.Pounds, new { id = "Pounds", @type = "number", @class = "form-control", @min = "0", @max = "999999", @Value = "0.00", @step=".01" })
+                                </div>
+                                <div class="form-group">
+                                    <label for="Grams">Grams:</label>
+                                    @Html.TextBoxFor(m => m.GenericClass.Grams, new { id = "Grams", @type = "number", @class = "form-control", @min = "0", @max = "999999", @Value = "0.00", @step=".01" })
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="PricePerPound"> Price Per Pound:</label>
+                                    @Html.TextBoxFor(m => m.GenericClass.PricePerPound, new { id = "PricePerPound", @Value = "0.00", @readonly = "true", @class = "form-control", @step = ".01" })
+                                    @Html.HiddenFor(m => m.GenericClass.PricePerPound)
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="PricePerGram"> Price Per Gram:</label>
+                                    @Html.TextBoxFor(m => m.GenericClass.PricePerGram, new { id = "PricePerGram", @Value = "0.00", @readonly = "true", @class = "form-control", @step = ".01" })                                    
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="Strains">Strains:</label>
+                                    @Html.TextAreaFor(m => m.GenericClass.Strains, new { id = "Strains", @class = "form-control", @rows = "5" })
+                                </div>
+                                <div class="form-group">
+                                    <label for="Notes">Notes:</label>
+                                    @Html.TextAreaFor(m => m.GenericClass.Notes, new { id = "Notes", @class = "form-control", @rows = "5" })
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="BudTrim">Type: </label>
+                                    <br />
+                                    @Html.DropDownListFor(m => m.GenericClass.BudTrim, new SelectList(new List<Object> { new { value = "Edibles", text = "Edibles" }, new { value = "Flower/Bud", text = "Flower/Bud" }, new { value = "Shake/Trim", text = "Shake/Trim" } }, "value", "text"), "--Please Select--", new { @class = "custom-select mb-3" })
+
+                                </div>
+                                <div class="form-group">
+                                    <label for="SatPackages">Sat Packages:</label>
+                                    @Html.TextBoxFor(m => m.GenericClass.SatPackages, new { id = "SatPackages", @type = "number", @class = "form-control", @min = "0", @max = "999999", @Value = "0", @step = "1" })
+                                </div>
+                                <div class="form-group">
+                                    <label for="IndPackages">Ind Packages:</label>
+                                    @Html.TextBoxFor(m => m.GenericClass.IndPackages, new { id = "IndPackages", @type = "number", @class = "form-control", @min = "0", @max = "999999", @Value = "0", @step = "1" })
+                                </div>
+                                <div class="custom-control custom-checkbox">
+                                    @Html.CheckBoxFor(m => m.GenericClass.CBD, new { id = "CBDCB", @class = "custom-control-input" })
+                                    <label class="custom-control-label" for="CBDCB">CBD?</label>
+
+                                </div>
+                                <button type="submit" class="btn btn-primary">
+                                    Submit
+                                </button>
+
+                            }
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+@section scripts {
+    <script src="~/Scripts/ViewScripts/NewLotsPurchasedViewScript.js"></script>
+}

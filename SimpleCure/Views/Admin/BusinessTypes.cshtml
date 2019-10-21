@@ -44,21 +44,21 @@
             <li class="breadcrumb-item">
                 @Html.ActionLink(" Home", "Index", "Home")
             </li>
-            <li class="breadcrumb-item active">Business Types</li>
+            <li class="breadcrumb-item active">Industry Types</li>
         </ul>
     </div>
 </div>
 <section class="forms">
     <div class="container-fluid">
         <header>
-            <h1 class="h3 display">Business Types</h1>
+            <h1 class="h3 display">Industry Types</h1>
         </header>
         <div class="row">
             <div class="col-md-8">
 
                 <div class="card">
                     <div class="card-header">
-                        <h4>Business Types Table <a href="#" data-toggle="tooltip" data-placement="top" title="Toggle Active" onclick="ToggleActive();"><i class="fa fa-arrows-h"></i></a> <a href="#" class="pull-right" data-toggle="tooltip" data-placement="top" title="Create New Business Type" onclick="ShowCreate();"><i class="fa fa-plus-circle"></i></a></h4>
+                        <h4>Industry Types Table <a href="#" data-toggle="tooltip" data-placement="top" title="Toggle Active" onclick="ToggleActive();" class="btn btn-sm btn-outline-primary">Toggle Active</a> <a href="#" class="pull-right btn btn-sm btn-outline-primary" data-toggle="tooltip" data-placement="top" title="Create New Business Type" onclick="ShowCreate();">Create</a></h4>
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
@@ -78,14 +78,14 @@
                                             <tr>
                                                 <td>@item.Type</td>
                                                 <td>@item.IsActive</td>
-                                                <td><a href="#" onclick="ShowEdit(@item.ID)"><i class="fa fa-edit"></i></a></td>
+                                                <td><a href="#" onclick="ShowEdit(@item.ID)" class="btn btn-sm btn-outline-primary">Edit</a></td>
                                             </tr>
                                         }
                                     }
                                     else
                                     {
                                         <tr>
-                                            <td colspan="3" class="text-center">There are no Business Types</td>
+                                            <td colspan="3" class="text-center">There are no Industry Types</td>
                                         </tr>
                                     }
                                 </tbody>

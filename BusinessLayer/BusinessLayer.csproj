@@ -46,6 +46,7 @@
     <Compile Include="Functions\Email\EmailFunctions.cs" />
     <Compile Include="Functions\ErrorLogging\LoggerFunctions.cs" />
     <Compile Include="Functions\LoginLogger\LoginAttemptFunctions.cs" />
+    <Compile Include="Functions\LotsPurchased\LotsPurchasedFunctions.cs" />
     <Compile Include="Functions\OrderActivity\OrderActivityFunctions.cs" />
     <Compile Include="Functions\OrderDiscount\OrderDiscountFunctions.cs" />
     <Compile Include="Functions\OrderProducts\OrderProductsFunctions.cs" />
@@ -53,12 +54,16 @@
     <Compile Include="Functions\Order\OrderFunctions.cs" />
     <Compile Include="Functions\ProductGroup\ProductGroupFunctions.cs" />
     <Compile Include="Functions\Product\ProductFunctions.cs" />
+    <Compile Include="Functions\SuggestionStatus\SuggestionStatusFunctions.cs" />
+    <Compile Include="Functions\Suggestions\SuggestionFunctions.cs" />
+    <Compile Include="Functions\SuggestionWorkLog\SuggestionWorkLogFunctions.cs" />
     <Compile Include="Functions\Types\TypeFunctions.cs" />
     <Compile Include="Interface\IApplicationErrors.cs" />
     <Compile Include="Interface\ICustomer.cs" />
     <Compile Include="Interface\IDiscount.cs" />
     <Compile Include="Interface\IEmail.cs" />
     <Compile Include="Interface\ILoginAttempts.cs" />
+    <Compile Include="Interface\ILotsPurchased.cs" />
     <Compile Include="Interface\IOrder.cs" />
     <Compile Include="Interface\IOrderActivity.cs" />
     <Compile Include="Interface\IOrderDiscount.cs" />
@@ -66,6 +71,9 @@
     <Compile Include="Interface\IOrderStatus.cs" />
     <Compile Include="Interface\IProduct.cs" />
     <Compile Include="Interface\IProductGroup.cs" />
+    <Compile Include="Interface\ISuggestions.cs" />
+    <Compile Include="Interface\ISuggestionStatus.cs" />
+    <Compile Include="Interface\ISuggestionWorkLog.cs" />
     <Compile Include="Interface\IType.cs" />
     <Compile Include="Mappings\MapAppErrors.cs" />
     <Compile Include="Mappings\MapBusinessTypes.cs" />
@@ -73,6 +81,7 @@
     <Compile Include="Mappings\MapCustomers.cs" />
     <Compile Include="Mappings\MapDiscount.cs" />
     <Compile Include="Mappings\MapLoginAttempts.cs" />
+    <Compile Include="Mappings\MapLotsPurchased.cs" />
     <Compile Include="Mappings\MapOrder.cs" />
     <Compile Include="Mappings\MapOrderActivity.cs" />
     <Compile Include="Mappings\MapOrderDiscount.cs" />
@@ -81,6 +90,9 @@
     <Compile Include="Mappings\MapProduct.cs" />
     <Compile Include="Mappings\MapProductGroup.cs" />
     <Compile Include="Mappings\MapResponseBase.cs" />
+    <Compile Include="Mappings\MapSuggestions.cs" />
+    <Compile Include="Mappings\MapSuggestionStatus.cs" />
+    <Compile Include="Mappings\MapSuggestionWorkLog.cs" />
     <Compile Include="Models\AdminModels\ApplicationLog_Model.cs" />
     <Compile Include="Models\CustomerModels\CustomersLite_Model.cs" />
     <Compile Include="Models\CustomerModels\Customers_Model.cs" />
@@ -89,15 +101,20 @@
     <Compile Include="Models\Generic.cs" />
     <Compile Include="Models\LoginAttemptModels\AccountChangeLog_Model.cs" />
     <Compile Include="Models\LoginAttemptModels\AspNetUsersLoginAttempt_Model.cs" />
+    <Compile Include="Models\LotsPurchasedModels\LotsPurchased_Models.cs" />
     <Compile Include="Models\OrderActivityModels\OrderActivity_Models.cs" />
     <Compile Include="Models\OrderDiscountModels\OrderDiscount_Models.cs" />
     <Compile Include="Models\OrderModels\Order_Models.cs" />
+    <Compile Include="Models\OrderModels\PaidOrders_Models.cs" />
     <Compile Include="Models\OrderProductsModels\OrderProducts_Models.cs" />
     <Compile Include="Models\OrderStatusModels\OrderStatus_Models.cs" />
     <Compile Include="Models\ProductGroupModels\ProductGroup_Models.cs" />
     <Compile Include="Models\ProductModels\Product_Models.cs" />
     <Compile Include="Models\ResponseBase.cs" />
     <Compile Include="Models\ResultTypes.cs" />
+    <Compile Include="Models\SuggestionStatus\SuggestionStatus_Model.cs" />
+    <Compile Include="Models\Suggestions\Suggestions_Model.cs" />
+    <Compile Include="Models\SuggestionWorkLog\SuggestionWorkLog_Model.cs" />
     <Compile Include="Models\TypeModels\BusinessType_Model.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
