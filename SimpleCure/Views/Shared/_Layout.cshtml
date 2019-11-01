@@ -7,10 +7,21 @@
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="robots" content="all,follow">
-
-    @Styles.Render("~/Content/css")
-    @Scripts.Render("~/bundles/modernizr")
+    <link rel="icon" type="image/x-icon" href="https://static1.squarespace.com/static/5b9c2972c3c16aab95f9f672/t/5d791564dc20792b27b25a32/favicon.ico" />
+    @*@Styles.Render("~/Content/css")*@
+    <link href="~/Content/Site.css" rel="stylesheet" />
+    <link href="~/distribution/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/distribution/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="~/distribution/css/fontastic.css" rel="stylesheet" />
+    <link href="~/distribution/css/grasp_mobile_progress_circle-1.0.0.min.css" rel="stylesheet" />
+    <link href="~/distribution/vendor/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.css" rel="stylesheet" />
+    <link href="~/distribution/css/style.green.css" rel="stylesheet" />
+    <link href="~/distribution/css/custom.css" rel="stylesheet" />
+    <link href="~/distribution/vendor/bootstrap-datetimepicker/bootstrap-4-datetimepicker.min.css" rel="stylesheet" />
+    @*@Scripts.Render("~/bundles/modernizr")*@
+    <script src="~/Scripts/modernizr-2.8.3.js"></script>
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" rel="stylesheet">
+    @*<link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />*@
     <!-- Tweaks for older IEs-->
     <!--[if lt IE 9]>
     <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
@@ -24,127 +35,165 @@
             <div class="sidenav-header d-flex align-items-center justify-content-center">
                 <!-- User Info-->
                 <div class="sidenav-header-inner text-center">
-                    <img src="~/Content/Images/UserSilhouette.png" alt="person" class="img-fluid rounded-circle">                   
+                    <img src="~/Content/Images/UserSilhouette.png" alt="person" class="img-fluid rounded-circle">
                 </div>
                 <!-- Small Brand information, appears on minimized sidebar-->
                 <div class="sidenav-header-logo"><a href="@Url.Action("Index", "Home")" class="brand-small text-center"> <strong>S</strong><strong class="text-primary">C</strong></a></div>
             </div>
             <!-- Sidebar Navigation Menus-->
-            <div class="main-menu">               
-                <h5 class="sidenav-heading">Main</h5>
+            <div class="main-menu">
+                <h5 class="sidenav-heading text-primary">Main</h5>
                 <ul id="side-main-menu" class="side-menu list-unstyled">
                     @if (User.IsInRole("Employee") || User.IsInRole("Owner") || User.IsInRole("WebAdmin"))
                     {
                         <li>
-                            @Html.ActionLink(" Home",
-                            "Index",   // <-- ActionMethod
-                            "Home",  // <-- Controller Name.
-                            null, // <-- Route arguments.
-                            new { @class = "icon-home" }
 
-                            )
+                            <a href="@Url.Action("Index", "Home")">
+                                <span class="fa fa-home"></span>
+                                Home
+                            </a>
+
                         </li>
                         <li>
-                            @Html.ActionLink(" Create Customer",
-                            "CreateNewCustomerAccount",
-                            "Admin",
-                            null,
-                            new { @class = "icon-user" }
-                            )
+
+                            <a href="@Url.Action("CreateNewCustomerAccount", "Admin")">
+                                <span class="fa fa-address-card-o"></span>
+                                Create Customer
+                            </a>
+
+
                         </li>
                         <li>
-                            @Html.ActionLink(" Orders",
-                             "Orders",   // <-- ActionMethod
-                             "Order",  // <-- Controller Name.
-                             null, // <-- Route arguments.
-                             new { @class = "icon-screen" }
 
-                             )
+                            <a href="@Url.Action("Orders", "Order")">
+                                <span class="fa fa-tasks"></span>
+                                Pending Orders
+                            </a>
+
+
+                        </li>
+                        <li>
+
+                            <a href="@Url.Action("PaidOrders", "Order")">
+                                <span class="fa fa-money"></span>
+                                Paid Orders
+                            </a>
+
+
+                        </li>
+                        <li>
+
+                            <a href="@Url.Action("UserMaintenance", "Admin")">
+                                <span class="fa fa-users"></span>
+                                Customer List
+                            </a>
+
+                        </li>
+                        <li>
+
+                            <a href="@Url.Action("ViewAllSuggestions", "Suggestions")">
+                                <span class="fa fa-bullhorn"></span>
+                                Suggestions
+                            </a>
+
+
                         </li>
                     }
                     @if (User.IsInRole("Customer") || User.IsInRole("Employee") || User.IsInRole("Owner") || User.IsInRole("WebAdmin"))
                     {
                         <li>
-                            @Html.ActionLink(" New Order",
-                              "CreateOrder",   // <-- ActionMethod
-                              "Order",  // <-- Controller Name.
-                              null, // <-- Route arguments.
-                              new { @class = "icon-form" }
+                            <a href="@Url.Action("CreateOrder", "Order")">
+                                <span class="fa fa-cloud-upload"></span>
+                                New Order
+                            </a>
 
-                              )
                         </li>
                     }
 
                 </ul>
             </div>
+
+            @if (User.IsInRole("Employee") || User.IsInRole("Owner") || User.IsInRole("WebAdmin"))
+            {
+                <div class="main-menu">
+                    <h5 class="sidenav-heading text-primary">Lots Purchased</h5>
+                    <ul id="side-main-menu" class="side-menu list-unstyled">
+
+                        <li>
+
+                            <a href="@Url.Action("LotsPurchased", "LotsPurchased")">
+                                <span class="fa fa-archive"></span>
+                                Lots
+                            </a>
+
+                        </li>
+
+                        <li>
+                            <a href="@Url.Action("NewLotPurchased", "LotsPurchased")">
+                                <span class="fa fa-cloud-upload"></span>
+                                New Lot Purchased
+                            </a>
+
+                        </li>
+
+
+                    </ul>
+                </div>
+            }
+
             @if (User.IsInRole("Owner") || User.IsInRole("WebAdmin"))
             {
                 <div class="admin-menu">
-                    <h5 class="sidenav-heading">Admin</h5>
-                    <ul id="side-admin-menu" class="side-menu list-unstyled">                        
+                    <h5 class="sidenav-heading text-primary">Admin</h5>
+                    <ul id="side-admin-menu" class="side-menu list-unstyled">
                         <li>
-                            @Html.ActionLink(" User Maintenance",
-                            "UserMaintenance",
-                            "Admin",
-                            null,
-                            new { @class = "icon-user" }
-                            )
+                            <a href="@Url.Action("BusinessTypes", "Admin")">
+                                <span class="fa fa-chevron-right"></span>
+                                Industry Types
+                            </a>
                         </li>
                         <li>
-                            @Html.ActionLink(" Business Types",
-                            "BusinessTypes",
-                            "Admin",
-                            null,
-                            new { @class = "icon-screen" }
-                            )
+                            <a href="@Url.Action("OrderStatus", "Admin")">
+                                <span class="fa fa-chevron-right"></span>
+                                Order Status
+                            </a>
+
                         </li>
                         <li>
-                            @Html.ActionLink(" Order Status",
-                            "OrderStatus",
-                            "Admin",
-                            null,
-                            new { @class = "icon-screen" }
-                            )
+                            <a href="@Url.Action("Product", "Admin")">
+                                <span class="fa fa-chevron-right"></span>
+                                Product
+                            </a>
+
                         </li>
                         <li>
-                            @Html.ActionLink(" Product",
-                            "Product",
-                            "Admin",
-                            null,
-                            new { @class = "icon-screen" }
-                            )
+                            <a href="@Url.Action("ProductGroup", "Admin")">
+                                <span class="fa fa-chevron-right"></span>
+                                Product Group
+                            </a>
+
                         </li>
                         <li>
-                            @Html.ActionLink(" Product Group",
-                            "ProductGroup",
-                            "Admin",
-                            null,
-                            new { @class = "icon-screen" }
-                            )
-                        </li>
-                        <li>
-                            @Html.ActionLink(" Discount",
-                            "Discount",
-                            "Admin",
-                            null,
-                            new { @class = "icon-screen" }
-                            )
+                            <a href="@Url.Action("Discount", "Admin")">
+                                <span class="fa fa-chevron-right"></span>
+                                Discount
+                            </a>
+
                         </li>
                     </ul>
                 </div>
                 if (User.IsInRole("WebAdmin"))
                 {
                     <div class="admin-menu">
-                        <h5 class="sidenav-heading">Web Admin</h5>
+                        <h5 class="sidenav-heading text-primary">Web Admin</h5>
                         <ul id="side-admin-menu" class="side-menu list-unstyled">
                             <li>
-                                @Html.ActionLink(" Logs",
-                                "ApplicaitonLogs",
-                                "Admin",
-                                null,
-                                new { @class = "icon-screen" }
-                                )
-                            </li>                           
+                                <a href="@Url.Action("ApplicaitonLogs", "Admin")">
+                                    <span class="fa fa-chevron-right"></span>
+                                    Logs
+                                </a>
+
+                            </li>
                         </ul>
                     </div>
                 }
@@ -158,32 +207,28 @@
                 <div class="container-fluid">
                     <div class="navbar-holder d-flex align-items-center justify-content-between">
                         <div class="navbar-header">
-                            <a id="toggle-btn" href="#" class="menu-btn"><i class="icon-bars"> </i></a><a href="@Url.Action("Index", "Home")" class="navbar-brand">
+                            <a id="toggle-btn" href="#" class="menu-btn"><i class="fa fa-bars"> </i></a><a href="@Url.Action("Index", "Home")" class="navbar-brand">
                                 <div class="brand-text d-none d-md-inline-block"><span>Simple </span><strong class="text-primary">Cure</strong></div>
                             </a>
                         </div>
-                        <ul class="nav-menu list-unstyled d-flex flex-md-row align-items-md-center">    
+                        <ul class="nav-menu list-unstyled d-flex flex-md-row align-items-md-center">
                             <!-- Manage Account -->
                             <li class="nav-item">
-
                                 @Html.ActionLink(" Account",
-                          "Index",
-                          "Manage",
-                          null,
-                          new { @class = "d-none d-sm-inline-block nav-link fa fa-gear" }
-                          )
-
+                                "Index",
+                                "Manage",
+                                null,
+                                new { @class = "d-none d-sm-inline-block nav-link" }
+                                )
                             </li>
                             <!-- Log out-->
                             <li class="nav-item">
-
                                 @Html.ActionLink(" Logout",
-                          "LogOff",
-                          "Account",
-                          null,
-                          new { @class = "d-none d-sm-inline-block nav-link logout fa fa-sign-out" }
-                          )
-
+                                "LogOff",
+                                "Account",
+                                null,
+                                new { @class = "d-none d-sm-inline-block nav-link" }
+                                )
                             </li>
                         </ul>
                     </div>
@@ -195,17 +240,29 @@
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-sm-6">
-                        <p>Simple Cure &copy; 
-                        <script type="text/JavaScript">
-    document.write(new Date().getFullYear());
-                        </script>
+                        <p>
+                            Simple Cure &copy;
+                            <script type="text/JavaScript">
+                                document.write(new Date().getFullYear());
+                            </script>
                         </p>
                     </div>
                 </div>
             </div>
         </footer>
     </div>
-    @Scripts.Render("~/bundles/jquery")
+    @*@Scripts.Render("~/bundles/jquery")*@
+    <script src="~/distribution/vendor/jquery/jquery.js"></script>
+    <script src="~/distribution/vendor/popper.js/umd/popper.min.js"></script>
+    <script src="~/distribution/vendor/bootstrap/js/bootstrap.min.js"></script>
+    <script src="~/distribution/js/grasp_mobile_progress_circle-1.0.0.min.js"></script>
+    <script src="~/distribution/vendor/jquery.cookie/jquery.cookie.js"></script>
+    <script src="~/distribution/vendor/chart.js/Chart.min.js"></script>
+    <script src="~/distribution/vendor/jquery-validation/jquery.validate.min.js"></script>
+    <script src="~/distribution/vendor/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js"></script>
+    <script src="~/distribution/js/front.js"></script>
+    <script src="~/distribution/vendor/moment/moment.js"></script>
+    <script src="~/distribution/vendor/bootstrap-datetimepicker/bootstrap-4-datetimepicker.min.js"></script>
     @RenderSection("scripts", required: false)
 </body>
 </html>

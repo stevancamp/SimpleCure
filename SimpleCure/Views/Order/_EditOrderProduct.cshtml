@@ -1,1 +1,54 @@
-﻿
+﻿@model SimpleCure.Models.OrderModels.EditOrderProduct_ViewModel
+<p id="EditOrderProductErrorMessage" class="text-danger"></p>
+<input type="hidden" id="EditOrderID" value="@Model.OrderProductModel.OrderID" />
+<input type="hidden" id="EditOrderProductID" value="@Model.OrderProductModel.ID" />
+@if (Model.ListProducts != null && Model.ListProducts.Count > 0)
+{
+
+    <div class="form-group">
+        <label for="EditProductIDDDL">Products</label>
+        <br />
+        <select class="form-control custom-select" id="EditProductIDDDL">
+            <option value="0">--Please Select--</option>
+            @foreach (var item in Model.ListProducts)
+            {
+                if (item.ID == Model.OrderProductModel.ProductID)
+                {
+                    <option selected value="@item.ID">@item.Type ($@Convert.ToDecimal(item.PricePerUnit).ToString("#,##0.00"))</option>
+                }
+                else
+                {
+                    <option value="@item.ID">@item.Type ($@Convert.ToDecimal(item.PricePerUnit).ToString("#,##0.00"))</option>
+                }
+            }
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="EditBatchID">Batch ID</label>
+        <input type="text" id="EditBatchID" class="form-control" value="@Model.OrderProductModel.BatchID" />
+    </div>
+    <div class="form-group">
+        <label for="EditQuantity">Quantity</label>
+        <input type="number" id="EditQuantity" class="form-control" value="@Model.OrderProductModel.Quantity" />
+    </div>
+    <div class="form-group">
+        <label for="EditOrderProductStatus">
+            Order Product Status: @if (Model.OrderProductModel.status != null)
+            {@Model.OrderProductModel.status}
+        else
+        { <span>N/A</span>}
+        </label>
+        <br />
+        <select class="form-control custom-select" id="EditOrderProductStatus">
+            <option value="0">--Please Select--</option>
+            <option>Packaged</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <a href="#" class="btn btn-primary" onclick="SaveEditOrderProduct();">Save</a>
+    </div>
+}
+else
+{
+    <p>There was an error please try again.</p>
+}

@@ -18,7 +18,6 @@
         <EntityTypeShape EntityType="TestingModel.Order" Width="1.5" PointX="8.75" PointY="6.75" IsExpanded="true" />
         <EntityTypeShape EntityType="TestingModel.OrderActivity" Width="1.5" PointX="9.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="TestingModel.OrderDiscount" Width="1.5" PointX="0.75" PointY="9.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="TestingModel.OrderProduct" Width="1.5" PointX="2.75" PointY="9.75" IsExpanded="true" />
         <EntityTypeShape EntityType="TestingModel.OrderStatu" Width="1.5" PointX="9.75" PointY="3.75" IsExpanded="true" />
         <EntityTypeShape EntityType="TestingModel.ProductGroup" Width="1.5" PointX="4.75" PointY="9.75" IsExpanded="true" />
         <EntityTypeShape EntityType="TestingModel.Product" Width="1.5" PointX="6.75" PointY="9.75" IsExpanded="true" />
@@ -32,7 +31,6 @@
         <EntityTypeShape EntityType="TestingModel.Tbl_Finances" Width="1.5" PointX="0.75" PointY="13.75" IsExpanded="true" />
         <EntityTypeShape EntityType="TestingModel.Tbl_IndustryType" Width="1.5" PointX="2.75" PointY="13.75" IsExpanded="true" />
         <EntityTypeShape EntityType="TestingModel.Tbl_InvoiceIDs" Width="1.5" PointX="4.75" PointY="13.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="TestingModel.Tbl_Lots_Purchased" Width="1.5" PointX="14.75" PointY="3.75" IsExpanded="true" />
         <EntityTypeShape EntityType="TestingModel.Tbl_Month" Width="1.5" PointX="14.75" PointY="9.75" IsExpanded="true" />
         <EntityTypeShape EntityType="TestingModel.Tbl_Products" Width="1.5" PointX="10.75" PointY="14.75" IsExpanded="true" />
         <EntityTypeShape EntityType="TestingModel.Tbl_Products_Dominant" Width="1.5" PointX="14.75" PointY="12.75" IsExpanded="true" />
@@ -45,6 +43,14 @@
         <AssociationConnector Association="TestingModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" ManuallyRouted="false" />
         <AssociationConnector Association="TestingModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" ManuallyRouted="false" />
         <AssociationConnector Association="TestingModel.AspNetUserRoles" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="TestingModel.OrderProductActivity" Width="1.5" PointX="7.375" PointY="16.75" />
+        <EntityTypeShape EntityType="TestingModel.OrderProduct" Width="1.5" PointX="13.375" PointY="16.75" />
+        <EntityTypeShape EntityType="TestingModel.PaidOrder" Width="1.5" PointX="15.375" PointY="16.75" />
+        <EntityTypeShape EntityType="TestingModel.Suggestion" Width="1.5" PointX="17.375" PointY="5.75" />
+        <EntityTypeShape EntityType="TestingModel.SuggestionStatu" Width="1.5" PointX="17.375" PointY="9.75" />
+        <EntityTypeShape EntityType="TestingModel.SuggestionWorkLog" Width="1.5" PointX="17.375" PointY="12.75" />
+        <EntityTypeShape EntityType="TestingModel.OrderProductAndDiscount" Width="1.5" PointX="17.375" PointY="16.75" />
+        <EntityTypeShape EntityType="TestingModel.Tbl_Lots_Purchased" Width="1.5" PointX="9.375" PointY="18.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

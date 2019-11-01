@@ -118,5 +118,22 @@ namespace BusinessLayer.Functions.Order
         {
             return _mapResponseBase.MapToUI(_order.Update(_mapOrder.MapToLibrary(Order)));
         }
+
+        public Generic<PaidOrders_Models> GetPaidOrdersBySearchTerm(string SearchTerm)
+        {
+            var PaidOrders = _order.SearchPaidOrders(SearchTerm);
+            Generic<PaidOrders_Models> model = new Generic<PaidOrders_Models>();
+            model.ResponseInt = PaidOrders.ResponseInt;
+            model.ResponseListInt = PaidOrders.ResponseListInt;
+            model.ResponseListString = PaidOrders.ResponseListString;
+            model.ResponseMessage = PaidOrders.ResponseMessage;
+            model.ResponseString = PaidOrders.ResponseString;
+            model.ResponseSuccess = PaidOrders.ResponseSuccess;
+            foreach (var item in PaidOrders.GenericClassList)
+            {
+                model.GenericClassList.Add(_mapOrder.MapPaidToUI(item));
+            }
+            return model;
+        }
     }
 }

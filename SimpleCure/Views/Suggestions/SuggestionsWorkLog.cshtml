@@ -1,0 +1,38 @@
+﻿@model SimpleCure.Models.SuggestionModels.SuggestionWorkLog_ViewModel
+
+@{
+    ViewBag.Title = "Suggestion Work Logs";
+}
+<input type="hidden" value="@Url.Action("SaveSuggestionWorkLog", "Suggestions")" id="UrlSaveSuggestionWorkLog" />
+<input type="hidden" value="@Url.Action("ViewSuggestionWorkLogsBySuggestionID", "Suggestions")" id="UrlViewSuggestionWorkLogsBySuggestionID" />
+<input type="hidden" value="@Model.SuggestionID" id="SuggestionID" />
+<div class="breadcrumb-holder">
+    <div class="container-fluid">
+        <ul class="breadcrumb">
+            <li class="breadcrumb-item">
+                @Html.ActionLink(" Home", "Index", "Home")
+            </li>
+            <li class="breadcrumb-item">Suggestions</li>
+            <li class="breadcrumb-item active">Suggestion Work Log</li>
+        </ul>
+    </div>
+</div>
+<section class="forms">
+    <div class="container-fluid">
+        <header>
+            <h1 class="h3 display">Suggestion Work Logs</h1>
+        </header>
+        <div class="row">
+            <div class="col-md-12" id="WorkLogDIV">
+                @{Html.RenderAction("ViewSuggestionWorkLogsBySuggestionID", "Suggestions", new { SuggestionID = Model.SuggestionID });}
+            </div>
+        </div>
+    </div>
+</section>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script src="~/Scripts/ViewScripts/SuggestionsWorkLogViewScript.js"></script>
+}
+
+

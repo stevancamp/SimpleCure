@@ -31,5 +31,14 @@ namespace Library.DataModel
         public Nullable<decimal> PricePerGram { get; set; }
         public bool Complete { get; set; }
         public bool CBD { get; set; }
+        public string TransportID { get; set; }
+        public bool IsSimpleCure { get; set; }
+        public Nullable<System.DateTime> CompletionDate { get; set; }
+        public string CompletedBy { get; set; }
+        public string TransportLocationStart { get; set; }
+        public string TransportLocationEnd { get; set; }
+        public string To_From { get; set; }
+        public bool Split { get; set; }
+        public string SplitNotes { get; set; }
     }
 }

@@ -5,6 +5,7 @@
 <input type="hidden" value="@Url.Action("SaveOrder", "Order")" id="UrlSaveOrder" />
 <input type="hidden" value="@Url.Action("Orders", "Order")" id="UrlOrders" />
 <input type="hidden" value="@Url.Action("ViewOrder", "Order")" id="UrlViewOrder" />
+<input type="hidden" value="@Url.Action("ViewProductInfo", "Order")" id="UrlViewProductInfo" />
 
 
 @if (Model.ResponseSuccess == false && Model.responseTypes == SimpleCure.Models.ResponseTypes.Failure)
@@ -61,75 +62,31 @@
                                 <div class="card-header">
                                     <h4>Products</h4>
                                 </div>
-                                <div class="card-body" style="height: 700px; overflow-y: scroll;">
+                                <div class="card-body">
                                     @if (Model.ListProducts != null && Model.ListProducts.Count > 0)
                                     {
 
-                                        <div class="container-fluid">
-                                            @foreach (var item in Model.ListProducts)
-                                            {
-                                                <div class="row">
-                                                    <div class="col-md-12">
-                                                        <div class="card">
-                                                            <div class="card-body">
-                                                                <div class="container-fluid">
-                                                                    <div class="row">
-                                                                        <div class="col-md-12">
-                                                                            <div class="row">
-                                                                                <div class="col-md-6">
-                                                                                    @if (item.ProductImage != null)
-                                                                                    {
-                                                                                        var base64 = Convert.ToBase64String(item.ProductImage);
-                                                                                        var imgSrc = String.Format("data:image/gif;base64,{0}", base64);
-                                                                                        <img class="card-img-top" src="@imgSrc" alt="Card image cap">
-
-                                                                                    }
-                                                                                    else
-                                                                                    {
-                                                                                        <img class="card-img-top" src="..." alt="Card image cap">
-                                                                                    }
-                                                                                </div>
-                                                                                <div class="col-md-6">
-                                                                                    <h4 class="card-title">@item.Type</h4>
-                                                                                    <p class="card-text">
-                                                                                        <dl>
-                                                                                            <dt>Strain:</dt>
-                                                                                            <dd>@item.Strain</dd>
-                                                                                            <dt>Dominant</dt>
-                                                                                            <dd>@item.Dominant</dd>
-
-                                                                                            <dt>Product Description</dt>
-                                                                                            <dd>@item.Description</dd>
-
-                                                                                            <dt>Dominant</dt>
-                                                                                            <dd>@item.Dominant</dd>
-
-                                                                                            <dt>Dominant</dt>
-                                                                                            <dd>@item.Dominant</dd>
-                                                                                            <dt>Pricer Per Unit</dt>
-                                                                                            <dd>@item.PricePerUnit</dd>
-                                                                                        </dl>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="row">
-                                                                        <div class="col-md-12">
-
-
-
-                                                                            Batch ID <input type="number" id="BatchID_@item.ID" class="form-control" />
-                                                                            <br />
-                                                                            Quantiy <input type="number" id="Quantity_@item.ID" class="form-control" />
-                                                                            <a href="#" class="btn btn-primary" onclick="AddToCart('@item.Type', '@item.PricePerUnit', '@item.ID');">Add to Cart</a>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            }
+                                        <div class="form-group">
+                                            <label for="AddProductIDDDL">Available Products</label>
+                                            <br />
+                                            <select class="form-control custom-select" id="AddProductIDDDL">
+                                                <option value="0">--Please Select--</option>
+                                                @foreach (var item in Model.ListProducts)
+                                                {
+                                                    <option value="@item.ID">@item.Type ($@Convert.ToDecimal(item.PricePerUnit).ToString("#,##0.00"))</option>
+                                                }
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="BatchIDtoADD">Batch ID</label>
+                                            <input type="text" id="BatchIDtoADD" class="form-control" />
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="QuantityToADD">Quantity</label>
+                                            <input type="number" id="QuantityToADD" class="form-control" />
+                                        </div>
+                                        <div class="form-group">
+                                            <a href="#" class="btn btn-primary" onclick="AddToCart();">Add to Cart</a>
                                         </div>
                                     }
                                     else
@@ -158,7 +115,7 @@
                                                                 <option value="0">--Please Select--</option>
                                                                 @foreach (var item in Model.ListCustomers)
                                                                 {
-                                                                    <option value="@item.CustomerID">@item.CustomerName (@item.CompanyName)</option>
+                                                                    <option value="@item.CustomerID">@item.CompanyName (@item.CustomerName)</option>
                                                                 }
                                                             </select>
                                                         }
@@ -176,11 +133,11 @@
                                                         <table id="CartTable" class="table table-hover">
                                                             <thead>
                                                                 <tr>
-                                                                    <th>Product</th>
-                                                                    <th>Price Per Unit</th>
+                                                                    <th>Product/Price Per Unit</th>
                                                                     <th>Quantity</th>
                                                                     <th>Batch ID</th>
-                                                                    <th>Remove</th>
+                                                                    <th>Remove/View</th>
+                                                                    <th></th>
                                                                 </tr>
                                                             </thead>
                                                             <tbody></tbody>
@@ -193,26 +150,25 @@
                                                 {
                                                     <div class="row">
                                                         <div class="col-md-12">
-                                                            <h3>Discounts</h3>
-                                                            @if (Model.ListDiscounts != null && Model.ListDiscounts.Count > 0)
-                                                            {
-                                                                <div class="input-group mb-3">
-                                                                    <div class="input-group-prepend">
-                                                                        <label class="input-group-text btn btn-outline-primary" for="inputGroupSelect01" onclick="AddDiscount();"> Add Discount </label>
-                                                                    </div>
-                                                                    <select id="DiscountDDL" class="custom-select">
-                                                                        <option value="0">--Please Select--</option>
-                                                                        @foreach (var item in Model.ListDiscounts)
-                                                                        {
-                                                                            <option value="@item.ID">@item.Type ($@item.DiscountAmount)</option>
-                                                                        }
-                                                                    </select>
-                                                                </div>
-                                                            }
+                                                            <h3>Discounts</h3>                                                          
+                                                            <div class="form-group">
+                                                                <label for="CustomDiscountType">Discount</label>
+                                                                <input type="text" class="form-control" id="CustomDiscountType" />
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label for="">Discount Amount</label>
+                                                                <input type="number" class="form-control" min="0.01" step="0.01" max="900000" id="CustomDiscountAmount" />
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <a href="#" onclick="AddCustomDiscount();" class="btn btn-outline-primary">Add Discount</a>
+                                                            </div>                                                         
                                                             <table id="DiscountTbl" class="table table-hover">
                                                                 <thead>
                                                                     <tr>
                                                                         <th>Discount</th>
+                                                                        <th>Type</th>
+                                                                        <th>Amount</th>
+                                                                        <th></th>
                                                                     </tr>
                                                                 </thead>
                                                                 <tbody></tbody>
@@ -229,7 +185,7 @@
                                                             <textarea class="form-control" id="orderNotes" placeholder="Enter Order Notes here"></textarea>
                                                         </div>
                                                         <div class="form-group">
-                                                            <button type="button" class="btn btn-outline-primary" onclick="SubmitOrder();">Submit Order</button>
+                                                            <button type="button" class="btn btn-outline-primary" onclick="SubmitOrder();">Submit Order</button> <b><span>Order Total: <span id="CreateNewOrderTotal">0.00</span> </span></b>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -246,6 +202,29 @@
     </div>
 </section>
 
+<div class="modal fade" id="ProductInfo" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="myModalLabel">
+                    Product Info
+                </h5>
+                <button type="button" class="close" data-dismiss="modal">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div id="ViewProductInfoDIV"></div>
+            </div>
+            <div class="modal-footer">
+
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                    Close
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
 @section scripts {
     <script src="~/Scripts/ViewScripts/CreateOrderViewScript.js"></script>
 }

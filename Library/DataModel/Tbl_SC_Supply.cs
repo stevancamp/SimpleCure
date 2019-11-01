@@ -51,5 +51,7 @@ namespace Library.DataModel
         public string SplitNote { get; set; }
         public Nullable<double> CandyGrams { get; set; }
         public string CandyMaker { get; set; }
+        public int SquareCreated { get; set; }
+        public double SquareSize { get; set; }
     }
 }

@@ -1,0 +1,227 @@
+﻿@model SimpleCure.Models.SuggestionModels.ViewAllSuggestions_ViewModel
+@{
+    ViewBag.Title = "Suggestions";
+}
+<input type="hidden" value="@Url.Action("DeleteSuggestion", "Suggestions")" id="UrlDeleteSuggestion" />
+<input type="hidden" value="@Url.Action("ViewAllSuggestions", "Suggestions")" id="UrlViewAllSuggestions" />
+<div class="breadcrumb-holder">
+    <div class="container-fluid">
+        <ul class="breadcrumb">
+            <li class="breadcrumb-item">
+                @Html.ActionLink(" Home", "Index", "Home")
+            </li>
+            <li class="breadcrumb-item active">Suggestions</li>
+        </ul>
+    </div>
+</div>
+<section class="forms">
+    <div class="container-fluid">
+        <header>
+            <h1 class="h3 display">Suggestions List</h1>
+        </header>
+        <div class="row">
+            <div class="col-md-12">
+
+                <div class="card">
+                    <div class="card-header">
+                        <div class="container-fluid">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <h4>
+                                                Search Suggestions List
+
+                                                <a id="modal-888754" href="#modal-container-888754" role="button" data-toggle="modal"><i class="fa fa-filter" aria-hidden="true"></i></a>
+                                            </h4>
+
+
+
+                                            <div class="modal fade" id="modal-container-888754" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                                <div class="modal-dialog" role="document">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title" id="myModalLabel">
+                                                                Suggestion Options
+                                                            </h5>
+                                                            <button type="button" class="close" data-dismiss="modal">
+                                                                <span aria-hidden="true">×</span>
+                                                            </button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <div class="container-fluid">
+                                                                <div class="row">
+                                                                    <div class="col-md-4">
+                                                                        <a class="btn btn-outline-primary" href="@Url.Action("EnterSuggestion", "Suggestions")"><span>Enter Suggestion</span></a>
+                                                                    </div>
+                                                                    <div class="col-md-4">
+                                                                        <a class="btn btn-outline-primary" href="@Url.Action("ViewAllSuggestions", "Suggestions" , new { IsActive=false })">
+                                                                            <span>View Completed</span>
+                                                                        </a>
+                                                                    </div>
+                                                                    <div class="col-md-4">
+                                                                        <a class="btn btn-outline-primary" href="@Url.Action("ViewAllSuggestions", "Suggestions" , new { IsActive=true })">
+                                                                            <span>View Active</span>
+                                                                        </a>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="pull-right">
+                                                <div class="input-group">
+                                                    @Html.TextBox("SearchTerm", null, new { @class = "form-control", @placeholder = "Search" })
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Title</th>
+                                        <th>Status</th>
+                                        <th>Entered By</th>
+                                        <th>Entry Date</th>
+                                        <th>#</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="SuggestionTable">
+                                    @if (Model.ListSuggestions != null && Model.ListSuggestions.Count > 0)
+                                    {
+                                        foreach (var item in Model.ListSuggestions)
+                                        {
+
+                                            <tr>
+                                                <td>@item.SuggestionTitle</td>
+                                                <td>@item.Status</td>
+                                                <td>@item.EntryBy</td>
+                                                <td>@item.EntryDate</td>
+
+                                                <td>
+
+                                                    <a id="SuggestionModal" href="@string.Format("#SuggestionModalContainer{0}", item.ID)" role="button" class="btn btn-outline-primary" data-toggle="modal">View Suggestion</a>
+
+                                                    <div class="modal fade" id="@string.Format("SuggestionModalContainer{0}", item.ID)" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                                        <div class="modal-dialog" role="document">
+                                                            <div class="modal-content">
+                                                                <div class="modal-header">
+                                                                    <h5 class="modal-title" id="myModalLabel">
+                                                                        Suggestion
+                                                                    </h5>
+                                                                    <button type="button" class="close" data-dismiss="modal">
+                                                                        <span aria-hidden="true">×</span>
+                                                                    </button>
+                                                                </div>
+                                                                <div class="modal-body">
+                                                                    <div class="form-group">
+                                                                        <label>
+                                                                            Title
+                                                                        </label>
+                                                                        <input type="text" class="form-control" readonly value="@item.SuggestionTitle" />
+                                                                    </div>
+                                                                    <div class="form-group">
+                                                                        <label>
+                                                                            Status
+                                                                        </label>
+                                                                        <input type="text" class="form-control" readonly value="@item.Status" />
+                                                                    </div>
+                                                                    <div class="form-group">
+                                                                        <label>
+                                                                            Entered By
+                                                                        </label>
+                                                                        <input type="text" class="form-control" readonly value="@item.EntryBy" />
+                                                                    </div>
+                                                                    <div class="form-group">
+                                                                        <label>
+                                                                            Entered Date
+                                                                        </label>
+                                                                        <input type="text" class="form-control" readonly value="@item.EntryDate" />
+                                                                    </div>
+                                                                    <div class="form-group">
+                                                                        <label>
+                                                                            Comments
+                                                                        </label>
+                                                                        <textarea class="form-control" readonly>@item.SuggestionComments</textarea>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="modal-footer">
+                                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                                                                        Close
+                                                                    </button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    @if (item.IsActive)
+                                                    {
+                                                        <a id="DeleteModal" href="@string.Format("#DeleteModalContainer{0}", item.ID)" role="button" class="btn btn-outline-danger" data-toggle="modal">Delete Suggestion</a>
+
+                                                        <div class="modal fade" id="@string.Format("DeleteModalContainer{0}", item.ID)" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                                            <div class="modal-dialog" role="document">
+                                                                <div class="modal-content">
+                                                                    <div class="modal-header">
+                                                                        <h5 class="modal-title" id="myModalLabel">
+                                                                            Delete Suggestion @item.SuggestionTitle
+                                                                        </h5>
+                                                                        <button type="button" class="close" data-dismiss="modal">
+                                                                            <span aria-hidden="true">×</span>
+                                                                        </button>
+                                                                    </div>
+                                                                    <div class="modal-body">
+                                                                        Are you sure that you want to delete @item.SuggestionTitle? This suggestion will be gone forever (a long time) if you do.
+                                                                        <p id="DeleteMessage"></p>
+                                                                    </div>
+                                                                    <div class="modal-footer">
+
+                                                                        <a href="#" class="btn btn-outline-danger" onclick="DeleteSuggestion(@item.ID);">
+                                                                            Delete Suggestion
+                                                                        </a>
+
+                                                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                                                                            Close
+                                                                        </button>
+                                                                    </div>
+                                                                </div>
+
+                                                            </div>
+                                                        </div>
+                                                    }
+                                                    <a class="btn btn-outline-primary" href="@Url.Action("SuggestionsWorkLog", "Suggestions", new { ID = item.ID })">View Suggestion Logs</a>
+
+                                                </td>
+                                            </tr>
+                                        }
+
+                                    }
+                                    else
+                                    {
+                                        <tr>
+                                            <td colspan="3" class="text-center">There are no Suggestions at this time.</td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script src="~/Scripts/ViewScripts/SuggestionViewAllSuggestionsViewScript.js"></script>
+}
+

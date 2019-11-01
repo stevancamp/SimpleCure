@@ -96,7 +96,6 @@
                                                     @Html.AntiForgeryToken()
                                                     @Html.ValidationSummary("", new { @class = "text-danger" })
                                                     <div class="form-group-material">
-                                                        @*@Html.TextBoxFor(m => m.EmailAddress, new { @class = "input-material" })*@
                                                         <label for="Role" class="label">Please Select a Role to add to the user</label>
                                                         @Html.DropDownListFor(m => m.Role, new SelectList(Model.allRoles), "Select Role", new { @class = "form-control" })
                                                     </div>
@@ -115,7 +114,6 @@
                                                     @Html.AntiForgeryToken()
                                                     @Html.ValidationSummary("", new { @class = "text-danger" })
                                                     <div class="form-group-material">
-                                                        @*@Html.TextBoxFor(m => m.EmailAddress, new { @class = "input-material" })*@
                                                         <label for="Role" class="label">Please Select a Role to add to the user</label>
                                                         @Html.DropDownListFor(m => m.Role, new SelectList(Model.allRoles), "Select Role", new { @class = "form-control" })
                                                     </div>
@@ -128,7 +126,7 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>                      
+                        </div>
                     </div>
                 </div>
             </div>

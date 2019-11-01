@@ -20,5 +20,10 @@ namespace Library.DataModel
         public System.DateTime SubmissionDate { get; set; }
         public string OrderStatus { get; set; }
         public Nullable<System.DateTime> CompletionDate { get; set; }
+        public string TransportID { get; set; }
+        public bool IsSimpleCure { get; set; }
+        public string TransportLocationStart { get; set; }
+        public string TransportLocationEnd { get; set; }
+        public string To_From { get; set; }
     }
 }

@@ -12,5 +12,33 @@
     @Html.TextAreaFor(m => m.Notes, new { @class = "form-control", @rows = "3" })
 </div>
 <div class="form-group">
-    <button type="button" onclick="SaveOrderStatus();" class="btn btn-primary">Submit Order Activity</button>
+    <button type="button" onclick="SaveOrderStatus();" class="btn btn-outline-primary">Submit Order Activity</button> || <button type="button" onclick="ShowPayOrder();" class="btn btn-primary">Pay Order</button>
+</div>
+
+
+<div class="modal fade" id="PayOrderModal" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="PayOrderModalTitle">
+                    Pay The Order
+                </h5>
+                <button type="button" class="close" data-dismiss="modal">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label class="form-control-label">Completion Notes</label>
+                    <textarea class="form-control" id="CompletionNotes" rows="3"></textarea>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" onclick="PayOrder();" class="btn btn-primary">Paid</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                    Close
+                </button>
+            </div>
+        </div>
+    </div>
 </div>

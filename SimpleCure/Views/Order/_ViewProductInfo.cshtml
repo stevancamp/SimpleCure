@@ -1,0 +1,57 @@
+﻿@model SimpleCure.Models.OrderModels.ViewProductInfo_ViewModel
+
+<div class="col-md-12">
+    <div class="row">
+        <div class="col-md-6">
+            @if (Model.ProductImage != null)
+            {
+                var base64 = Convert.ToBase64String(Model.ProductImage);
+                var imgSrc = String.Format("data:image/gif;base64,{0}", base64);
+                <img class="card-img-top" src="@imgSrc" alt="Card image cap">
+
+            }
+            else
+            {
+                <img class="card-img-top" src="..." alt="Card image cap">
+            }
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                @Html.LabelFor(m => m.Type, new { @class = "form-control-label" })
+                @Html.TextBoxFor(m => m.Type, new { @class = "form-control-plaintext", @readonly = "readonly" })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.Strain, new { @class = "form-control-label" })
+                @Html.TextBoxFor(m => m.Strain, new { @class = "form-control-plaintext", @readonly = "readonly" })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.Dominant, new { @class = "form-control-label" })
+                @Html.TextBoxFor(m => m.Dominant, new { @class = "form-control-plaintext", @readonly = "readonly" })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.CartGram, new { @class = "form-control-label" })
+                @Html.TextBoxFor(m => m.CartGram, new { @class = "form-control-plaintext", @readonly = "readonly" })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.ProductGroup, new { @class = "form-control-label" })
+                @Html.TextBoxFor(m => m.ProductGroup, new { @class = "form-control-plaintext", @readonly = "readonly" })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.PricePerUnit, new { @class = "form-control-label" })
+                <span class="form-control-plaintext">
+                    $@Convert.ToDecimal(Model.PricePerUnit).ToString("#,##0.00")
+                </span>
+                @*@Html.TextBoxFor(m => m.PricePerUnit, new { @class = "form-control-plaintext", @readonly = "readonly" })*@
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="form-group">
+                @Html.LabelFor(m => m.Description, new { @class = "form-control-label" })
+                @Html.TextAreaFor(m => m.Description, new { @class = "form-control-plaintext", @readonly = "readonly", @rows = "3" })
+            </div>           
+        </div>
+    </div>
+</div>
+

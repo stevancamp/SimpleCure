@@ -29,24 +29,24 @@ namespace Library._OrderProducts.Methods
             {
                 using (var ctx = new SimpleCureEntities())
                 {
-                  
-                        ctx.OrderProducts.Add(OrderProducts);
-                        var Added = ctx.SaveChanges();
 
-                        if (Added > 0)
-                        {
-                            response.ResponseSuccess = true;
-                            response.ResponseInt = OrderProducts.ID;
-                            response.responseTypes = ResponseTypes.Success;
-                            response.ResponseMessage = "Successfully added OrderProducts";
+                    ctx.OrderProducts.Add(OrderProducts);
+                    var Added = ctx.SaveChanges();
 
-                        }
-                        else
-                        {
-                            response.ResponseMessage = "Unable to add OrderProducts: " + JsonConvert.SerializeObject(OrderProducts);
-                            response.responseTypes = ResponseTypes.Information;
-                        }
-                   
+                    if (Added > 0)
+                    {
+                        response.ResponseSuccess = true;
+                        response.ResponseInt = OrderProducts.ID;
+                        response.responseTypes = ResponseTypes.Success;
+                        response.ResponseMessage = "Successfully added OrderProducts";
+
+                    }
+                    else
+                    {
+                        response.ResponseMessage = "Unable to add OrderProducts: " + JsonConvert.SerializeObject(OrderProducts);
+                        response.responseTypes = ResponseTypes.Information;
+                    }
+
                 }
             }
             catch (Exception ex)
@@ -56,7 +56,7 @@ namespace Library._OrderProducts.Methods
                 string source = ex.Source;
                 string stacktrace = ex.StackTrace;
                 string targetsite = ex.TargetSite.ToString();
-                string error = ex.InnerException.ToString();
+                string error = ex.InnerException?.ToString() ?? ex.ToString();
                 string ErrorMessage = $"There was an error at {DateTime.Now} {Environment.NewLine} Method: {methodName} {Environment.NewLine} Source: {source} {Environment.NewLine} StackTrace: {stacktrace} {Environment.NewLine} TargetSite: {targetsite} {Environment.NewLine} Error: {error}{Environment.NewLine} Object: {obj}";
                 _applicationError.Log(ErrorMessage, string.Empty);
 
@@ -75,23 +75,22 @@ namespace Library._OrderProducts.Methods
             {
                 using (var ctx = new SimpleCureEntities())
                 {
-                  
-                        ctx.Entry(OrderProducts).State = EntityState.Modified;
-                        var updated = ctx.SaveChanges();
+                    ctx.Entry(OrderProducts).State = EntityState.Modified;
+                    var updated = ctx.SaveChanges();
 
-                        if (updated > 0)
-                        {
-                            response.ResponseSuccess = true;
-                            response.ResponseInt = OrderProducts.ID;
-                            response.responseTypes = ResponseTypes.Success;
-                            response.ResponseMessage = "Successfully updated OrderProducts";
-                        }
-                        else
-                        {
-                            response.ResponseMessage = "Unable to update OrderProducts with " + JsonConvert.SerializeObject(OrderProducts);
-                            response.responseTypes = ResponseTypes.Information;
-                        }
-                   
+                    if (updated > 0)
+                    {
+                        response.ResponseSuccess = true;
+                        response.ResponseInt = OrderProducts.ID;
+                        response.responseTypes = ResponseTypes.Success;
+                        response.ResponseMessage = "Successfully updated OrderProducts";
+                    }
+                    else
+                    {
+                        response.ResponseMessage = "Unable to update OrderProducts with " + JsonConvert.SerializeObject(OrderProducts);
+                        response.responseTypes = ResponseTypes.Information;
+                    }
+
                 }
             }
             catch (Exception ex)
@@ -101,7 +100,7 @@ namespace Library._OrderProducts.Methods
                 string source = ex.Source;
                 string stacktrace = ex.StackTrace;
                 string targetsite = ex.TargetSite.ToString();
-                string error = ex.InnerException.ToString();
+                string error = ex.InnerException?.ToString() ?? ex.ToString();
                 string ErrorMessage = $"There was an error at {DateTime.Now} {Environment.NewLine} Method: {methodName} {Environment.NewLine} Source: {source} {Environment.NewLine} StackTrace: {stacktrace} {Environment.NewLine} TargetSite: {targetsite} {Environment.NewLine} Error: {error}{Environment.NewLine} Object: {obj}";
                 _applicationError.Log(ErrorMessage, string.Empty);
 
@@ -153,7 +152,7 @@ namespace Library._OrderProducts.Methods
                 string source = ex.Source;
                 string stacktrace = ex.StackTrace;
                 string targetsite = ex.TargetSite.ToString();
-                string error = ex.InnerException.ToString();
+                string error = ex.InnerException?.ToString() ?? ex.ToString();
                 string ErrorMessage = $"There was an error at {DateTime.Now} {Environment.NewLine} Method: {methodName} {Environment.NewLine} Source: {source} {Environment.NewLine} StackTrace: {stacktrace} {Environment.NewLine} TargetSite: {targetsite} {Environment.NewLine} Error: {error}{Environment.NewLine} OrderProducts ID: {ID.ToString()}";
                 _applicationError.Log(ErrorMessage, string.Empty);
 
@@ -193,7 +192,7 @@ namespace Library._OrderProducts.Methods
                 string source = ex.Source;
                 string stacktrace = ex.StackTrace;
                 string targetsite = ex.TargetSite.ToString();
-                string error = ex.InnerException.ToString();
+                string error = ex.InnerException?.ToString() ?? ex.ToString();
                 string ErrorMessage = $"There was an error at {DateTime.Now} {Environment.NewLine} Method: {methodName} {Environment.NewLine} Source: {source} {Environment.NewLine} StackTrace: {stacktrace} {Environment.NewLine} TargetSite: {targetsite} {Environment.NewLine} Error: {error}{Environment.NewLine}";
                 _applicationError.Log(ErrorMessage, string.Empty);
 
@@ -233,7 +232,7 @@ namespace Library._OrderProducts.Methods
                 string source = ex.Source;
                 string stacktrace = ex.StackTrace;
                 string targetsite = ex.TargetSite.ToString();
-                string error = ex.InnerException.ToString();
+                string error = ex.InnerException?.ToString() ?? ex.ToString();
                 string ErrorMessage = $"There was an error at {DateTime.Now} {Environment.NewLine} Method: {methodName} {Environment.NewLine} Source: {source} {Environment.NewLine} StackTrace: {stacktrace} {Environment.NewLine} TargetSite: {targetsite} {Environment.NewLine} Error: {error}{Environment.NewLine} OrderID: {OrderID.ToString()}";
                 _applicationError.Log(ErrorMessage, string.Empty);
 
@@ -273,7 +272,7 @@ namespace Library._OrderProducts.Methods
                 string source = ex.Source;
                 string stacktrace = ex.StackTrace;
                 string targetsite = ex.TargetSite.ToString();
-                string error = ex.InnerException.ToString();
+                string error = ex.InnerException?.ToString() ?? ex.ToString();
                 string ErrorMessage = $"There was an error at {DateTime.Now} {Environment.NewLine} Method: {methodName} {Environment.NewLine} Source: {source} {Environment.NewLine} StackTrace: {stacktrace} {Environment.NewLine} TargetSite: {targetsite} {Environment.NewLine} Error: {error}{Environment.NewLine} For OrderProducts ID: {ID} {Environment.NewLine}";
                 errors.Log(ErrorMessage, string.Empty);
                 response.ResponseMessage = "Unable to get OrderProducts for ID " + ID;

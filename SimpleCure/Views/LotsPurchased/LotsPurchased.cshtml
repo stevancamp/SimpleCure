@@ -1,0 +1,203 @@
+﻿@model SimpleCure.Models.Generic<SimpleCure.Models.LotPurchasedModels.LotsPurchased_ViewModel>
+@{
+    ViewBag.Title = "Lots Purchased";
+}
+<input type="hidden" value="@Url.Action("LotsPurchased", "LotsPurchased")" id="UrlLotsPurchased" />
+@if (Model != null)
+{
+    if (Model.ResponseSuccess == false && Model.responseTypes == SimpleCure.Models.ResponseTypes.Failure)
+    {
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <strong>There was an error!</strong> @Model.ResponseMessage
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    }
+
+    if (Model.responseTypes == SimpleCure.Models.ResponseTypes.Information)
+    {
+        <div class="alert alert-info alert-dismissible fade show" role="alert">
+            @Model.ResponseMessage
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    }
+
+    if (Model.responseTypes == SimpleCure.Models.ResponseTypes.Success && !string.IsNullOrEmpty(Model.ResponseMessage))
+    {
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            @Model.ResponseMessage
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    }
+}
+<div class="breadcrumb-holder">
+    <div class="container-fluid">
+        <ul class="breadcrumb">
+            <li class="breadcrumb-item">
+                @Html.ActionLink(" Home", "Index", "Home")
+            </li>
+            <li class="breadcrumb-item active">Lots Purchased</li>
+        </ul>
+    </div>
+</div>
+
+<section class="forms">
+    <div class="container-fluid">
+        <header>
+            <h1 class="h3 display">Lots Purchased List</h1>
+        </header>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="container-fluid">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <h4>
+                                                Search Lots Purchased List <a href="#" class="fa fa-search" id="OpenSearchFilter"></a>
+                                            </h4>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="pull-right">
+                                                <div class="input-group">
+                                                    @Html.TextBox("SearchTerm", null, new { @class = "form-control", @placeholder = "Search Results" })
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row" id="SearchDiv" style="display:none;">
+                                <div class="col-md-12">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            @if (ViewBag.Customers != null)
+                                            {
+                                                @Html.DropDownListFor(m => m.GenericClass.Provider, new SelectList(ViewBag.Customers, "CustomerID", "CustomerName"), "--Please Select--", new { @class = "custom-select mb-3" })
+                                            }
+                                            else
+                                            {
+                                                <p class="text-danger">No Customers Returned</p>
+                                            }
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="Cost">Lot/Set</label>
+                                                @Html.TextBoxFor(m => m.GenericClass.Lot_Set, new { @class = "form-control" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <div class="form-group">
+                                                    <label>Start Date/Time</label>
+                                                    <div class="input-group date" id="StartDateTime" data-target-input="nearest">
+                                                        <input type="text" id="StartDate" class="form-control datetimepicker-input" data-target="#StartDateTime" />
+                                                        <div class="input-group-append" data-target="#StartDateTime" data-toggle="datetimepicker">
+                                                            <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <div class="form-group">
+                                                    <label>End Date/Time</label>
+                                                    <div class="input-group date" id="EndDateTime" data-target-input="nearest">
+                                                        <input type="text" id="EndDate" class="form-control datetimepicker-input" data-target="#EndDateTime" />
+                                                        <div class="input-group-append" data-target="#EndDateTime" data-toggle="datetimepicker">
+                                                            <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="custom-control custom-checkbox">
+                                                @Html.CheckBoxFor(m => m.GenericClass.Complete, new {  @class = "custom-control-input" })
+                                                <label class="custom-control-label" for="GenericClass_Complete">Compete?</label>
+
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <p id="ErrorMessage" class="text-danger"></p>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <button type="button" onclick="ApplyLotsPurchasedFilter();" id="ApplyFilter" class="btn btn-outline-primary">
+                                                Apply Filter
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Lot/Set ID #</th>
+                                        <th>Lot/Set</th>
+                                        <th>Purchase Date</th>
+                                        <th>Customer/Company</th>
+                                        <th>Cost</th>
+                                        <th>Pounds/Grams</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody id="LotsPurchasedTbl">
+                                    @if (Model.GenericClassList != null && Model.GenericClassList.Count > 0)
+                                    {
+                                        foreach (var item in Model.GenericClassList)
+                                        {
+                                            <tr>
+                                                <td>@item.ID</td>
+                                                <td>@item.Lot_Set</td>
+                                                <td>@string.Format("{0:MM/dd/yyyy}", item.BuyDate)</td>
+                                                <td>@item.Customer.CustomerName/@item.Customer.CompanyName</td>
+                                                <td>@string.Format("{0:C}", item.Cost)</td>
+                                                <td>@item.Pounds lbs /@item.Grams g</td>
+
+                                                <td>
+                                                    <a class="btn btn-outline-primary" href="@Url.Action("ViewLotPurchased", "LotsPurchased", new { ID = item.ID })">View</a>
+                                                </td>
+                                            </tr>
+                                        }
+                                    }
+                                    else
+                                    {
+                                        <tr>
+                                            <td colspan="3" class="text-center">Refine your search to produce results.</td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+@section scripts {
+    <script src="~/Scripts/ViewScripts/LotsPurchasedViewScript.js"></script>
+}
