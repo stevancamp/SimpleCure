@@ -6,6 +6,7 @@ using Newtonsoft.Json;
 using System;
 using System.Data;
 using System.Data.Entity;
+using System.Data.Entity.Core.EntityClient;
 using System.Linq;
 
 namespace Library._Order.Methods
