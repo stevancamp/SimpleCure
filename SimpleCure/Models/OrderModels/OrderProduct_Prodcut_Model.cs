@@ -6,7 +6,7 @@ namespace SimpleCure.Models.OrderModels
     {
         public int ProductID { get; set; }
         public string Type { get; set; }
-        public string Description { get; set; }
+        public string ProductDescription { get; set; }
         public string Strain { get; set; }
         public string Dominant { get; set; }
         public decimal CartGram { get; set; }
@@ -23,5 +23,6 @@ namespace SimpleCure.Models.OrderModels
         public string EntryBy { get; set; }
         public DateTime EntryDate { get; set; }
         public string Status { get; set; }
+        public string OrderProductDescription { get; set; }
     }
 }

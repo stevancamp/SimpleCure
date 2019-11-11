@@ -17,6 +17,7 @@ namespace BusinessLayer.Mappings
             returnModel.Quantity = model.Quantity;
             returnModel.Total = model.Total;
             returnModel.status = model.status;
+            returnModel.Description = model.Description;
             return returnModel;
         }
 
@@ -32,6 +33,7 @@ namespace BusinessLayer.Mappings
             returnModel.Quantity = model.Quantity;
             returnModel.Total = model.Total;
             returnModel.status = model.status;
+            returnModel.Description = model.Description;
             return returnModel;
         }
     }

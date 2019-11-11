@@ -13,5 +13,6 @@ namespace BusinessLayer.Models.OrderProductsModels
         public string EntryBy { get; set; }
         public DateTime EntryDate { get; set; }
         public string status { get; set; }
+        public string Description { get; set; }
     }
 }

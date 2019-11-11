@@ -423,7 +423,7 @@ namespace Library._LotsPurchased.Methods
 
                     response.GenericClassList = ctx.Tbl_Lots_Purchased.ToList();
 
-                    if (ProviderID != null)
+                    if (ProviderID != null && ProviderID > 0)
                     {
                         response.GenericClassList = response.GenericClassList.Where(s => s.Provider == ProviderID).ToList();
                     }
@@ -461,15 +461,14 @@ namespace Library._LotsPurchased.Methods
                 }
             }
             catch (Exception ex)
-            {
-                ApplicationError errors = new ApplicationError();
+            {                
                 string methodName = System.Reflection.MethodBase.GetCurrentMethod().Name;
                 string source = ex.Source;
                 string stacktrace = ex.StackTrace;
                 string targetsite = ex.TargetSite.ToString();
                 string error = ex.InnerException?.ToString() ?? ex.ToString();
                 string ErrorMessage = $"There was an error at {DateTime.Now} {Environment.NewLine} Method: {methodName} {Environment.NewLine} Source: {source} {Environment.NewLine} StackTrace: {stacktrace} {Environment.NewLine} TargetSite: {targetsite} {Environment.NewLine} ProviderID {ProviderID ?? null} {Environment.NewLine} Lot_Set {Lot_Set ?? null} {Environment.NewLine} StartTime {StartTime ?? null} {Environment.NewLine} EndTime {EndTime ?? null} {Environment.NewLine} IsComplete {IsComplete ?? null} {Environment.NewLine} Error: {error}{Environment.NewLine}";
-                errors.Log(ErrorMessage, string.Empty);
+                _applicationError.Log(ErrorMessage, string.Empty);
                 response.ResponseMessage = "Unable to get Lot/Set Purchased for Complete " + IsComplete;
                 response.responseTypes = ResponseTypes.Failure;
             }

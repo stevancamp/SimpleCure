@@ -32,6 +32,8 @@ namespace BusinessLayer.Mappings
             returnModel.To_From = model.To_From;
             returnModel.Split = model.Split;
             returnModel.SplitNotes = model.SplitNotes;
+            returnModel.TransportLocationEnd = model.TransportLocationEnd;
+            returnModel.TransportLocationStart = model.TransportLocationStart;
             return returnModel;
         }
 
@@ -62,6 +64,8 @@ namespace BusinessLayer.Mappings
             returnModel.To_From = model.To_From;
             returnModel.Split = model.Split;
             returnModel.SplitNotes = model.SplitNotes;
+            returnModel.TransportLocationEnd = model.TransportLocationEnd;
+            returnModel.TransportLocationStart = model.TransportLocationStart;
             return returnModel;
         }
     }

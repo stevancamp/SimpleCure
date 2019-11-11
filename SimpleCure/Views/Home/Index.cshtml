@@ -1,4 +1,5 @@
-﻿@{
+﻿@model SimpleCure.Models.HomeModels.Index_ViewModels
+@{
     ViewBag.Title = "Home Page";
 }
 
@@ -13,7 +14,7 @@
                         <div class="icon"><i class="fa fa-file" aria-hidden="true"></i></div>
                         <div class="name">
                             <strong class="text-uppercase">New Orders</strong><span>Last 7 days</span>
-                            <div class="count-number">342</div>
+                            <div class="count-number">@Model.NewOrders</div>
                         </div>
                     </div>
                 </div>
@@ -23,7 +24,7 @@
                         <div class="icon"><i class="fa fa-file" aria-hidden="true"></i></div>
                         <div class="name">
                             <strong class="text-uppercase">Orders Pending</strong><span>Last 7 days</span>
-                            <div class="count-number">400</div>
+                            <div class="count-number">@Model.PendingOrders</div>
                         </div>
                     </div>
                 </div>
@@ -33,7 +34,7 @@
                         <div class="icon"><i class="fa fa-file" aria-hidden="true"></i></div>
                         <div class="name">
                             <strong class="text-uppercase">Orders Completed</strong><span>Last 7 days</span>
-                            <div class="count-number">25</div>
+                            <div class="count-number">@Model.CompletedOrders</div>
                         </div>
                     </div>
                 </div>
@@ -45,24 +46,26 @@
             <div class="row d-flex">
                 <div class="col-lg-4">
                     <!-- Income-->
-                    <div class="card income text-center">
-                        <div class="col-md-12">
-                            @using (Html.BeginForm("Orders", "Order"))
-                            {
+                    <div class="card text-center">
+                        <div class="card-body">
+                            <div class="col-md-12">
+                                @using (Html.BeginForm("Orders", "Order"))
+                                {
 
-                                <div class="input-group">
-                                    @Html.TextBox("SearchTerm", null, new { @class = "form-control input-lg", @placeholder = "Search Pending Orders" })
-                                    <div class="input-group-append">
-                                        <button class="btn btn-outline-primary" type="submit">Search</button>
+                                    <div class="input-group">
+                                        @Html.TextBox("SearchTerm", null, new { @class = "form-control", @placeholder = "Search Pending Orders" })
+                                        <div class="input-group-append">
+                                            <button class="btn btn-outline-primary" type="submit">Search</button>
+                                        </div>
                                     </div>
-                                </div>
 
-                            }
+                                }
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        
+
         </div>
 
     </section>

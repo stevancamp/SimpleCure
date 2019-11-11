@@ -29,6 +29,27 @@
             </div>
             <div class="modal-body">
                 <div class="form-group">
+                    <label for="GenericClass_To_From">To/From: </label>
+                    <br />                    
+                    @Html.DropDownListFor(m => m.To_From, new SelectList(new[] { "To SimpleCure", "From SimpleCure" }), "--Please Select--", new { @class = "custom-select mb-3" })
+                </div>
+
+
+                <div class="form-group">
+                    <label for="TransportID"> TransportID:</label>                 
+                    @Html.TextBoxFor(m => m.TransportID, new { id = "TransportID", @class = "form-control" })
+                </div>
+
+                <div class="form-group">
+                    <label for="TransportLocationStart"> Transport Location Start:</label>
+                    @Html.TextBoxFor(m => m.TransportLocationStart, new { id = "TransportLocationStart", @class = "form-control" })
+                </div>
+
+                <div class="form-group">
+                    <label for="TransportLocationEnd"> Transport Location End:</label>
+                    @Html.TextBoxFor(m => m.TransportLocationEnd, new { id = "TransportLocationEnd", @class = "form-control" })
+                </div>
+                <div class="form-group">
                     <label class="form-control-label">Completion Notes</label>
                     <textarea class="form-control" id="CompletionNotes" rows="3"></textarea>
                 </div>

@@ -330,15 +330,14 @@ namespace Library._Order.Methods
                 }
             }
             catch (Exception ex)
-            {
-                ApplicationError errors = new ApplicationError();
+            {               
                 string methodName = System.Reflection.MethodBase.GetCurrentMethod().Name;
                 string source = ex.Source;
                 string stacktrace = ex.StackTrace;
                 string targetsite = ex.TargetSite.ToString();
                 string error = ex.InnerException?.ToString() ?? ex.ToString();
                 string ErrorMessage = $"There was an error at {DateTime.Now} {Environment.NewLine} Method: {methodName} {Environment.NewLine} Source: {source} {Environment.NewLine} StackTrace: {stacktrace} {Environment.NewLine} TargetSite: {targetsite} {Environment.NewLine} Error: {error}{Environment.NewLine} For Order ID: {ID} {Environment.NewLine}";
-                errors.Log(ErrorMessage, string.Empty);
+                _applicationError.Log(ErrorMessage, string.Empty);
                 response.ResponseMessage = "Unable to get Order for ID " + ID;
                 response.responseTypes = ResponseTypes.Failure;
             }

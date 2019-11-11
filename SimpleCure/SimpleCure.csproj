@@ -220,6 +220,7 @@
     <Compile Include="Models\DiscountModels\Discount_ViewModel.cs" />
     <Compile Include="Models\DiscountModels\EditDiscount_ViewModel.cs" />
     <Compile Include="Models\Generic.cs" />
+    <Compile Include="Models\HomeModels\Index_ViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\LotPurchasedModels\LotsPurchased_ViewModel.cs" />
     <Compile Include="Models\LotPurchasedModels\NewLotPurchased_ViewModel.cs" />

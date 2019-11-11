@@ -54,6 +54,7 @@
     <Compile Include="Functions\Order\OrderFunctions.cs" />
     <Compile Include="Functions\ProductGroup\ProductGroupFunctions.cs" />
     <Compile Include="Functions\Product\ProductFunctions.cs" />
+    <Compile Include="Functions\Shared\SharedFunctions.cs" />
     <Compile Include="Functions\SuggestionStatus\SuggestionStatusFunctions.cs" />
     <Compile Include="Functions\Suggestions\SuggestionFunctions.cs" />
     <Compile Include="Functions\SuggestionWorkLog\SuggestionWorkLogFunctions.cs" />
@@ -71,6 +72,7 @@
     <Compile Include="Interface\IOrderStatus.cs" />
     <Compile Include="Interface\IProduct.cs" />
     <Compile Include="Interface\IProductGroup.cs" />
+    <Compile Include="Interface\ISharedFunctions.cs" />
     <Compile Include="Interface\ISuggestions.cs" />
     <Compile Include="Interface\ISuggestionStatus.cs" />
     <Compile Include="Interface\ISuggestionWorkLog.cs" />
@@ -93,6 +95,7 @@
     <Compile Include="Mappings\MapSuggestions.cs" />
     <Compile Include="Mappings\MapSuggestionStatus.cs" />
     <Compile Include="Mappings\MapSuggestionWorkLog.cs" />
+    <Compile Include="Mappings\MapShared.cs" />
     <Compile Include="Models\AdminModels\ApplicationLog_Model.cs" />
     <Compile Include="Models\CustomerModels\CustomersLite_Model.cs" />
     <Compile Include="Models\CustomerModels\Customers_Model.cs" />
@@ -112,6 +115,7 @@
     <Compile Include="Models\ProductModels\Product_Models.cs" />
     <Compile Include="Models\ResponseBase.cs" />
     <Compile Include="Models\ResultTypes.cs" />
+    <Compile Include="Models\SharedModels\Shared_Models.cs" />
     <Compile Include="Models\SuggestionStatus\SuggestionStatus_Model.cs" />
     <Compile Include="Models\Suggestions\Suggestions_Model.cs" />
     <Compile Include="Models\SuggestionWorkLog\SuggestionWorkLog_Model.cs" />

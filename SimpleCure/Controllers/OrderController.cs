@@ -21,6 +21,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net.Mail;
+using System.Net.Mime;
 using System.Web;
 using System.Web.Mvc;
 
@@ -104,7 +105,8 @@ namespace SimpleCure.Controllers
                     orderProducts_Models.ProductID = item.ProductID;
                     orderProducts_Models.Quantity = item.Quantity;
                     orderProducts_Models.Total = item.Quantity * Product.PricePerUnit;
-                    orderActivity_Models.Status = "New";
+                    orderProducts_Models.status = "New";
+                    orderProducts_Models.Description = item.Description;
                     var OrderProductAdd = _orderProductsFucntions.Add(orderProducts_Models);
 
                 }
@@ -147,7 +149,19 @@ namespace SimpleCure.Controllers
         public ActionResult EditCurrentOrderStatus(int OrderID)
         {
             EditCurrentOrderStatus_ViewModel model = new EditCurrentOrderStatus_ViewModel();
-            model.ListStatus = _orderStatusFunctions.GetAll().GenericClassList;
+
+            var Order = _orderFunctions.GetByID(OrderID);
+            if (Order.ResponseSuccess && Order.GenericClass != null)
+            {
+                model.TransportID = Order.GenericClass.TransportID;
+                model.TransportLocationEnd = Order.GenericClass.TransportLocationEnd;
+                model.TransportLocationStart = Order.GenericClass.TransportLocationStart;
+                model.Notes = Order.GenericClass.Notes;
+                model.Status = Order.GenericClass.OrderStatus;
+                model.To_From = Order.GenericClass.To_From;
+                model.OrderID = Order.GenericClass.ID;
+                model.ListStatus = _orderStatusFunctions.GetAll().GenericClassList;
+            }
             return PartialView("_EditCurrentOrderStatus", model);
         }
         [HttpPost]
@@ -195,7 +209,7 @@ namespace SimpleCure.Controllers
             foreach (var item in OrderProducts.GenericClassList)
             {
                 var Product = _productFucntions.GetByID(item.ProductID);
-                ListOrderProductProducts.Add(new OrderProduct_Prodcut_Model { ProductID = Product.GenericClass.ID, BatchID = item.BatchID, CartGram = Product.GenericClass.CartGram, Description = Product.GenericClass.Description, Dominant = Product.GenericClass.Dominant, EntryBy = item.EntryBy, EntryDate = item.EntryDate, ForProductID = item.ProductID, IsActive = Product.GenericClass.IsActive, OrderID = item.OrderID, OrderProductID = item.ID, PricePerUnit = Product.GenericClass.PricePerUnit, ProductGroup = Product.GenericClass.ProductGroup, ProductImage = Product.GenericClass.ProductImage, Quantity = item.Quantity, Strain = Product.GenericClass.Strain, Total = item.Total, Type = Product.GenericClass.Type, Status = item.status });
+                ListOrderProductProducts.Add(new OrderProduct_Prodcut_Model { ProductID = Product.GenericClass.ID, BatchID = item.BatchID, CartGram = Product.GenericClass.CartGram, ProductDescription = Product.GenericClass.Description, Dominant = Product.GenericClass.Dominant, EntryBy = item.EntryBy, EntryDate = item.EntryDate, ForProductID = item.ProductID, IsActive = Product.GenericClass.IsActive, OrderID = item.OrderID, OrderProductID = item.ID, PricePerUnit = Product.GenericClass.PricePerUnit, ProductGroup = Product.GenericClass.ProductGroup, ProductImage = Product.GenericClass.ProductImage, Quantity = item.Quantity, Strain = Product.GenericClass.Strain, Total = item.Total, Type = Product.GenericClass.Type, Status = item.status, OrderProductDescription = item.Description });
             }
             List<OrderDiscountDiscounts_Model> ListOrderDiscounts = new List<OrderDiscountDiscounts_Model>();
             foreach (var item in OrderDiscounts.GenericClassList)
@@ -225,10 +239,10 @@ namespace SimpleCure.Controllers
             return PartialView("_ViewAddOrderProduct", new ViewAddOrderProduct_ViewModel { ListProducts = Products.GenericClassList });
         }
         [HttpPost]
-        public bool AddOrderProdcut(int OrderID, string BatchID, int Quantity, int ProductID)
+        public bool AddOrderProdcut(int OrderID, string BatchID, int Quantity, int ProductID, string Description)
         {
             ApplicationUser user = new ApplicationUser();
-            var Added = _orderProductsFucntions.Add(new OrderProducts_Models { BatchID = BatchID, EntryBy = user.Id, EntryDate = DateTime.Now, OrderID = OrderID, ProductID = ProductID, Quantity = Quantity, Total = _productFucntions.GetByID(ProductID).GenericClass.PricePerUnit * Quantity });
+            var Added = _orderProductsFucntions.Add(new OrderProducts_Models { BatchID = BatchID, EntryBy = user.Id, EntryDate = DateTime.Now, OrderID = OrderID, ProductID = ProductID, Quantity = Quantity, Total = _productFucntions.GetByID(ProductID).GenericClass.PricePerUnit * Quantity, Description = Description });
             if (Added.ResponseSuccess)
             { return true; }
             else
@@ -256,19 +270,19 @@ namespace SimpleCure.Controllers
                 //var Discount = _discountFunctions.GetByID(item.DiscountID);
                 //if (Discount.ResponseSuccess)
                 //{
-                    //decimal discountAmount = 0.00m;
-                    //string DiscountType = string.Empty;
-                    //if (item.CustomAmount != null)
-                    //{
-                    //    discountAmount = item.CustomAmount ?? 0.00m;
-                    //    DiscountType = "Custom";
-                    //}
-                    //else
-                    //{
-                    //    discountAmount = Discount.GenericClass.DiscountAmount;
-                    //    DiscountType = Discount.GenericClass.Type;
-                    //}
-                    ListOrderDiscounts.Add(new OrderDiscountDiscounts_Model { DiscountAmount = item.CustomAmount ?? 0.00M, DiscountID = item.DiscountID, IsActive = true, OrderDiscountDiscountID = item.DiscountID, OrderDiscountID = item.ID, OrderID = item.OrderID, Type = item.CustomDiscountType });
+                //decimal discountAmount = 0.00m;
+                //string DiscountType = string.Empty;
+                //if (item.CustomAmount != null)
+                //{
+                //    discountAmount = item.CustomAmount ?? 0.00m;
+                //    DiscountType = "Custom";
+                //}
+                //else
+                //{
+                //    discountAmount = Discount.GenericClass.DiscountAmount;
+                //    DiscountType = Discount.GenericClass.Type;
+                //}
+                ListOrderDiscounts.Add(new OrderDiscountDiscounts_Model { DiscountAmount = item.CustomAmount ?? 0.00M, DiscountID = item.DiscountID, IsActive = true, OrderDiscountDiscountID = item.DiscountID, OrderDiscountID = item.ID, OrderID = item.OrderID, Type = item.CustomDiscountType });
                 //}
             }
             return PartialView("_ViewOrderDiscounts", new ViewOrderDiscounts_ViewModel { ListOrderDiscounts = ListOrderDiscounts });
@@ -330,7 +344,7 @@ namespace SimpleCure.Controllers
             { return false; }
         }
         [HttpPost]
-        public bool OrderPaid(int ID, string CompletionNotes)
+        public bool OrderPaid(int ID, string CompletionNotes, string To_From, string TransportID, string TransportLocationStart, string TransportLocationEnd)
         {
             ApplicationUser user = new ApplicationUser();
             var Order = _orderFunctions.GetByID(ID);
@@ -339,7 +353,7 @@ namespace SimpleCure.Controllers
                 var AddActivity = _orderActivityFunctions.Add(new OrderActivity_Models { ActivityBy = user.Id, ActivityDate = DateTime.Now, Notes = CompletionNotes, OrderID = ID, Status = "Paid" });
                 if (AddActivity.ResponseSuccess)
                 {
-                    var Paid = _orderFunctions.Update(new Order_Models { CompletionDate = DateTime.Now, ID = Order.GenericClass.ID, Notes = Order.GenericClass.Notes, OrderStatus = "Paid", SubmissionDate = Order.GenericClass.SubmissionDate, Tbl_CustomerID = Order.GenericClass.Tbl_CustomerID });
+                    var Paid = _orderFunctions.Update(new Order_Models { CompletionDate = DateTime.Now, ID = Order.GenericClass.ID, Notes = Order.GenericClass.Notes, OrderStatus = "Paid", SubmissionDate = Order.GenericClass.SubmissionDate, Tbl_CustomerID = Order.GenericClass.Tbl_CustomerID, To_From = To_From, TransportID = TransportID, TransportLocationEnd = TransportLocationEnd, TransportLocationStart = TransportLocationStart });
                     if (Paid.ResponseSuccess)
                     {
                         return true;
@@ -416,7 +430,7 @@ namespace SimpleCure.Controllers
                 }
             }
             return View(model);
-        }       
+        }
         public ActionResult OrderInvoice(int ID)
         {
             var OrderInfo = _orderFunctions.GetByID(ID).GenericClass;
@@ -427,7 +441,7 @@ namespace SimpleCure.Controllers
             foreach (var item in OrderProducts.GenericClassList)
             {
                 var Product = _productFucntions.GetByID(item.ProductID);
-                ListOrderProductProducts.Add(new OrderProduct_Prodcut_Model { ProductID = Product.GenericClass.ID, BatchID = item.BatchID, CartGram = Product.GenericClass.CartGram, Description = Product.GenericClass.Description, Dominant = Product.GenericClass.Dominant, EntryBy = item.EntryBy, EntryDate = item.EntryDate, ForProductID = item.ProductID, IsActive = Product.GenericClass.IsActive, OrderID = item.OrderID, OrderProductID = item.ID, PricePerUnit = Product.GenericClass.PricePerUnit, ProductGroup = Product.GenericClass.ProductGroup, ProductImage = Product.GenericClass.ProductImage, Quantity = item.Quantity, Strain = Product.GenericClass.Strain, Total = item.Total, Type = Product.GenericClass.Type });
+                ListOrderProductProducts.Add(new OrderProduct_Prodcut_Model { ProductID = Product.GenericClass.ID, BatchID = item.BatchID, CartGram = Product.GenericClass.CartGram, ProductDescription = Product.GenericClass.Description, Dominant = Product.GenericClass.Dominant, EntryBy = item.EntryBy, EntryDate = item.EntryDate, ForProductID = item.ProductID, IsActive = Product.GenericClass.IsActive, OrderID = item.OrderID, OrderProductID = item.ID, PricePerUnit = Product.GenericClass.PricePerUnit, ProductGroup = Product.GenericClass.ProductGroup, ProductImage = Product.GenericClass.ProductImage, Quantity = item.Quantity, Strain = Product.GenericClass.Strain, Total = item.Total, Type = Product.GenericClass.Type, OrderProductDescription = item.Description });
             }
             List<OrderDiscountDiscounts_Model> ListOrderDiscounts = new List<OrderDiscountDiscounts_Model>();
             foreach (var item in OrderDiscounts.GenericClassList)
@@ -455,7 +469,7 @@ namespace SimpleCure.Controllers
                 FormsAuthenticationCookieName = System.Web.Security.FormsAuthentication.FormsCookieName
             };
 
-            return abc;           
+            return abc;
         }
 
         public ActionResult ViewEditOrderProduct(int OrderID, int OrderProductID)
@@ -473,20 +487,53 @@ namespace SimpleCure.Controllers
         }
 
         [HttpPost]
-        public JsonResult SaveEditOrderProduct(int OrderProductID, int OrderID, int ProductID, string BatchID, int Quantity, string Status)
+        public JsonResult SaveEditOrderProduct(int OrderProductID, int OrderID, int ProductID, string BatchID, int Quantity, string Status, string Description)
         {
             var Product = _productFucntions.GetByID(ProductID).GenericClass;
-            var Updated = _orderProductsFucntions.Update(new OrderProducts_Models { BatchID = BatchID, EntryBy = User.Identity.ToString(), EntryDate = DateTime.Now, ID = OrderProductID, OrderID = OrderID, ProductID = ProductID, Quantity = Quantity, status = Status, Total = Quantity * Product.PricePerUnit });
+            var Updated = _orderProductsFucntions.Update(new OrderProducts_Models { BatchID = BatchID, EntryBy = User.Identity.ToString(), EntryDate = DateTime.Now, ID = OrderProductID, OrderID = OrderID, ProductID = ProductID, Quantity = Quantity, status = Status, Total = Quantity * Product.PricePerUnit, Description = Description });
             return Json(Updated, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
         public bool EmailInvoice(string EmailAddress, int ID)
         {
+
             bool MailSent = false;
-            MemoryStream stream = new MemoryStream(InvoicePDFforMail(ID));
-            Attachment att1 = new Attachment(stream, "Simple Cure Invoice.pdf", "application/pdf");
-            var success = _emailFunctions.SendMailWithAttachment("stevan.camp@okc.gov", "Testing Email", "Testing Email Message", att1);
+
+            var OrderInfo = _orderFunctions.GetByID(ID).GenericClass;
+            var CustomerInfo = _customerFunctions.GetByUserID(OrderInfo.Tbl_CustomerID).GenericClass;
+            var OrderProducts = _orderProductsFucntions.GetAllByByOrderID(ID);
+            var OrderDiscounts = _orderDiscountFucntions.GetAllByOrderID(ID);
+            List<OrderProduct_Prodcut_Model> ListOrderProductProducts = new List<OrderProduct_Prodcut_Model>();
+            foreach (var item in OrderProducts.GenericClassList)
+            {
+                var Product = _productFucntions.GetByID(item.ProductID);
+                ListOrderProductProducts.Add(new OrderProduct_Prodcut_Model { ProductID = Product.GenericClass.ID, BatchID = item.BatchID, CartGram = Product.GenericClass.CartGram, ProductDescription = Product.GenericClass.Description, Dominant = Product.GenericClass.Dominant, EntryBy = item.EntryBy, EntryDate = item.EntryDate, ForProductID = item.ProductID, IsActive = Product.GenericClass.IsActive, OrderID = item.OrderID, OrderProductID = item.ID, PricePerUnit = Product.GenericClass.PricePerUnit, ProductGroup = Product.GenericClass.ProductGroup, ProductImage = Product.GenericClass.ProductImage, Quantity = item.Quantity, Strain = Product.GenericClass.Strain, Total = item.Total, Type = Product.GenericClass.Type, OrderProductDescription = item.Description });
+            }
+            List<OrderDiscountDiscounts_Model> ListOrderDiscounts = new List<OrderDiscountDiscounts_Model>();
+            foreach (var item in OrderDiscounts.GenericClassList)
+            {
+                var Discount = _discountFunctions.GetByID(item.DiscountID);
+                decimal discountAmount = 0.00m;
+                if (item.CustomAmount != null)
+                { discountAmount = item.CustomAmount ?? 0.00m; }
+                else
+                { discountAmount = Discount.GenericClass.DiscountAmount; }
+                ListOrderDiscounts.Add(new OrderDiscountDiscounts_Model { DiscountAmount = discountAmount, DiscountID = item.DiscountID, IsActive = Discount.GenericClass.IsActive, OrderDiscountDiscountID = item.DiscountID, OrderDiscountID = item.ID, OrderID = item.OrderID, Type = Discount.GenericClass.Type });
+            }
+
+            var model = new OrderInvoice_ViewModel { CustomerInfo = CustomerInfo, OrderInfo = OrderInfo, ListDiscounts = ListOrderDiscounts, ListProducts = ListOrderProductProducts };
+
+            var pdfResult = new ViewAsPdf("OrderInvoice", model) { PageOrientation = Rotativa.Options.Orientation.Landscape };
+            var binary = pdfResult.BuildFile(this.ControllerContext); //pdfResult.BuildPdf(this.ControllerContext);
+            byte[] bytes = binary;
+            ContentType ct2 = new ContentType()
+            {
+                MediaType = "application/pdf",
+                Name = "SimpleCure Order Invoice.pdf"
+            };
+            Attachment att1 = new Attachment(new MemoryStream(bytes), ct2);
+            var success = _emailFunctions.SendMailWithAttachment("stevan.camp@okc.gov", "SimpleCure Invoice", "Attached is your invoice.", att1);
             MailSent = success.ResponseSuccess;
             return MailSent;
 
@@ -519,7 +566,7 @@ namespace SimpleCure.Controllers
             }
 
             //return new Byte[];
-           
+
         }
     }
 }

@@ -89,13 +89,14 @@ function SaveNewProductToOrder() {
     var OrderID = $("#OrderInfo_ID").val();
     var BatchID = $("#BatchIDtoADD").val();
     var Quantity = $("#QuantityToADD").val();
+    var Description = $("#ProductDescription").val();
     if (ProductID !== "0" && Quantity !== "" && Quantity !== undefined) {
 
         if (BatchID === undefined || BatchID === null || BatchID === "") { BatchID = "N/A"; }
         $.ajax({
             type: "POST",
             url: $("#UrlAddOrderProdcut").val(),
-            data: { "OrderID": OrderID, "BatchID": BatchID, "Quantity": Quantity, "ProductID": ProductID },
+            data: { "OrderID": OrderID, "BatchID": BatchID, "Quantity": Quantity, "ProductID": ProductID, "Description": Description },
             success: function (data) {
                 if (data === "True") {
                     $('#AddProduct').modal('hide');
@@ -139,8 +140,8 @@ function SaveAddNewDiscountToOrder() {
                 if (data === "True") {
                     $('#ViewAddOrderDiscountModal').modal('hide');
                     $('body').removeClass('modal-open');
-                    $('.modal-backdrop').remove();                  
-                    $("#CustomDiscountType").val(''); 
+                    $('.modal-backdrop').remove();
+                    $("#CustomDiscountType").val('');
                     $("#CustomDiscountAmount").val('');
                     ShowOrderDiscounts($("#OrderInfo_ID").val());
                     ShowOrderProducts($("#OrderInfo_ID").val());
@@ -156,7 +157,7 @@ function SaveAddNewDiscountToOrder() {
     }
     else {
         alert('You must enter a discount and a discount amount.');
-    } 
+    }
 }
 function RemoveOrderDiscount(OrderDiscountID) {
     $.ajax({
@@ -203,7 +204,9 @@ function PayOrder() {
     $.ajax({
         type: "POST",
         url: $("#UrlOrderPaid").val(),
-        data: { "ID": $("#OrderInfo_ID").val(), "CompletionNotes": encodeURIComponent($("#CompletionNotes").val()) },
+        data: {
+            "ID": $("#OrderInfo_ID").val(), "CompletionNotes": encodeURIComponent($("#CompletionNotes").val()), "To_From": $("#To_From option:selected").val(), "TransportID": encodeURIComponent($("#TransportID").val()), "TransportLocationStart": encodeURIComponent($("#TransportLocationStart").val()), "TransportLocationEnd": encodeURIComponent($("#TransportLocationEnd").val())
+        },
         success: function (data) {
             if (data === "True") {
                 document.location.replace($("#UrlOrders").val());
@@ -235,7 +238,7 @@ function SaveEditOrderProduct() {
         $.ajax({
             type: "POST",
             url: $("#UrlSaveEditOrderProduct").val(),
-            data: { "OrderProductID": $("#EditOrderProductID").val(), "OrderID": $("#EditOrderID").val(), "ProductID": $("#EditProductIDDDL option:selected").val(), "BatchID": $("#EditBatchID").val(), "Quantity": $("#EditQuantity").val(), "Status": $("#EditOrderProductStatus option:selected").text() },
+            data: { "OrderProductID": $("#EditOrderProductID").val(), "OrderID": $("#EditOrderID").val(), "ProductID": $("#EditProductIDDDL option:selected").val(), "BatchID": $("#EditBatchID").val(), "Quantity": $("#EditQuantity").val(), "Status": $("#EditOrderProductStatus option:selected").text(), "Description": $("#EditProductDescription").val() },
             success: function (data) {
                 if (data.ResponseSuccess) {
                     $("#EditProductInfoModal").modal("toggle");
@@ -259,23 +262,39 @@ function SaveEditOrderProduct() {
     }
 
 }
+ 
 
-function EmailInvoice(EmailAddress, OrderID) {
+function EmailInvoice(OrderID) {
+    
+    var Email = $("#EmailInput").val();
 
-    $.ajax({
-        type: "POST",
-        url: $("#UrlEmailInvoice").val(),
-        data: { "EmailAddress": EmailAddress, "ID": OrderID },
-        success: function (data) {
-            if (data === "True") {               
-                alert("Email address is " + EmailAddress + " the OrderID is " + OrderID);
-            }
-            else {
+    if (Email === "" || Email === undefined || Email === null) {
+        $("#EmailErrorMessage").html("You must enter a email address.");
+    }
+    else {
+      
+        $.ajax({
+            type: "POST",
+            url: $("#UrlEmailInvoice").val(),
+            data: { "EmailAddress": Email, "ID": OrderID },
+            success: function (data) {
+
+                $("#EmailErrorMessage").html("");
+
+                $('#SendEmailModel').modal('hide');
+                $('body').removeClass('modal-open');
+                $('.modal-backdrop').remove();
+
+                if (data === "True") {
+                    alert("The Email was sent successfully to " + Email);
+                }
+                else {
+                    alert('There was an error when trying to send the email to the customer.');
+                }
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
                 alert('There was an error when trying to send the email to the customer.');
             }
-        },
-        error: function (XMLHttpRequest, textStatus, errorThrown) {
-            alert('There was an error when trying to send the email to the customer.');
-        }
-    });
+        });
+    }
 }

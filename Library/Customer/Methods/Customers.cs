@@ -70,9 +70,9 @@ namespace Library.Customer.Methods
             {
                 using (var ctx = new SimpleCureEntities())
                 {
-                    //ctx.Tbl_Customers.                                                                    
+                                                                                    
                     ctx.Entry(customer).State = System.Data.Entity.EntityState.Modified;
-                    //ctx.Tbl_Customers.Add(customer);
+                     
                     var updated = ctx.SaveChanges();
 
                     if (updated > 0)

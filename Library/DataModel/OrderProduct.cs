@@ -23,5 +23,6 @@ namespace Library.DataModel
         public string EntryBy { get; set; }
         public System.DateTime EntryDate { get; set; }
         public string status { get; set; }
+        public string Description { get; set; }
     }
 }

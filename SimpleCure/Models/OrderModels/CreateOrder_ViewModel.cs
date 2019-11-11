@@ -24,6 +24,7 @@ namespace SimpleCure.Models.OrderModels
         public int ProductID { get; set; }
         public int Quantity { get; set; }
         public string BatchID { get; set; }
+        public string Description { get; set; }
 
     }
     public class DiscountIDList

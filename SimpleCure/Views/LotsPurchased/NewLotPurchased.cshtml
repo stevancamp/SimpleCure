@@ -63,7 +63,7 @@
                                         {
                                             @Html.AntiForgeryToken()
                                             <div class="row">
-                                                <div class="col-md-6">                                                                                               
+                                                <div class="col-md-6">
                                                     <div class="form-group">
                                                         <label for="Cost">How will this purchase be classified?</label>
                                                         @Html.TextBoxFor(m => m.GenericClass.Lot_Set, new { @class = "form-control" })
@@ -109,6 +109,17 @@
                                                         <label for="PricePerGram"> Price Per Gram:</label>
                                                         @Html.TextBoxFor(m => m.GenericClass.PricePerGram, new { id = "PricePerGram", @Value = "0.00", @readonly = "true", @class = "form-control", @step = ".01" })
                                                     </div>
+
+                                                    <div class="custom-control custom-checkbox">
+                                                        @Html.CheckBoxFor(m => m.GenericClass.Split, new { id = "SplitCB", @class = "custom-control-input" })
+                                                        <label class="custom-control-label" for="SplitCB">Split?</label>
+
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="SplitNotes">Split Notes:</label>
+                                                        @Html.TextAreaFor(m => m.GenericClass.SplitNotes, new { id = "SplitNotes", @class = "form-control", @rows = "5" })
+                                                    </div>
+
                                                 </div>
                                                 <div class="col-md-6">
                                                     <div class="form-group">
@@ -140,15 +151,28 @@
 
                                                     </div>
 
-                                                    <div class="custom-control custom-checkbox">
-                                                        @Html.CheckBoxFor(m => m.GenericClass.Split, new { id = "SplitCB", @class = "custom-control-input" })
-                                                        <label class="custom-control-label" for="SplitCB">Split?</label>
-
-                                                    </div>
                                                     <div class="form-group">
-                                                        <label for="SplitNotes">Split Notes:</label>
-                                                        @Html.TextAreaFor(m => m.GenericClass.SplitNotes, new { id = "SplitNotes", @class = "form-control", @rows = "5" })
+                                                        <label for="GenericClass_To_From">To/From: </label>
+                                                        <br />
+                                                        @Html.DropDownListFor(m => m.GenericClass.To_From, new SelectList(new[] { "To SimpleCure", "From SimpleCure" }), "--Please Select--", new { @class = "custom-select mb-3" })
                                                     </div>
+
+
+                                                    <div class="form-group">
+                                                        <label for="TransportID"> TransportID:</label>
+                                                        @Html.TextBoxFor(m => m.GenericClass.TransportID, new { id = "TransportID", @class = "form-control" })
+                                                    </div>
+
+                                                    <div class="form-group">
+                                                        <label for="TransportLocationStart"> Transport Location Start:</label>
+                                                        @Html.TextBoxFor(m => m.GenericClass.TransportLocationStart, new { id = "TransportLocationStart", @class = "form-control" })
+                                                    </div>
+
+                                                    <div class="form-group">
+                                                        <label for="TransportLocationEnd"> Transport Location End:</label>
+                                                        @Html.TextBoxFor(m => m.GenericClass.TransportLocationEnd, new { id = "TransportLocationEnd", @class = "form-control" })
+                                                    </div>
+
                                                 </div>
                                             </div>
                                             <div class="row">

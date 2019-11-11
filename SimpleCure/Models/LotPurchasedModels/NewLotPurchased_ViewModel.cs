@@ -33,5 +33,13 @@ namespace SimpleCure.Models.LotPurchasedModels
         public bool CBD { get; set; }
         public bool Split { get; set; }
         public string SplitNotes { get; set; }
+
+        public string TransportID { get; set; }
+        public string TransportLocationStart { get; set; }
+        public string TransportLocationEnd { get; set; }
+        public bool IsSimpleCure { get; set; }
+        public DateTime? CompletionDate { get; set; }
+        public string CompletedBy { get; set; }
+        public string To_From { get; set; }
     }
 } 

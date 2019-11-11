@@ -207,6 +207,7 @@ warning 6002: The table/view 'SimpleCure.dbo.ALL' does not have a primary key de
           <Property Name="EntryBy" Type="varchar" MaxLength="128" Nullable="false" />
           <Property Name="EntryDate" Type="datetime" Nullable="false" />
           <Property Name="status" Type="varchar" MaxLength="500" />
+          <Property Name="Description" Type="varchar" MaxLength="200" />
         </EntityType>
         <EntityType Name="OrderStatus">
           <Key>
@@ -425,12 +426,12 @@ warning 6002: The table/view 'SimpleCure.dbo.Tbl_InvoiceIDs' does not have a pri
           <Property Name="PricePerGram" Type="money" />
           <Property Name="Complete" Type="bit" Nullable="false" />
           <Property Name="CBD" Type="bit" Nullable="false" />
-          <Property Name="TransportID" Type="varchar" MaxLength="200" />
-          <Property Name="TransportLocationStart" Type="varchar" MaxLength="1000" />
-          <Property Name="TransportLocationEnd" Type="varchar" MaxLength="1000" />
+          <Property Name="TransportID" Type="nvarchar" MaxLength="200" />
+          <Property Name="TransportLocationStart" Type="nvarchar" MaxLength="1000" />
+          <Property Name="TransportLocationEnd" Type="nvarchar" MaxLength="1000" />
           <Property Name="To_From" Type="varchar" MaxLength="50" />
           <Property Name="Split" Type="bit" Nullable="false" />
-          <Property Name="SplitNotes" Type="varchar(max)" />
+          <Property Name="SplitNotes" Type="nvarchar(max)" />
           <Property Name="IsSimpleCure" Type="bit" Nullable="false" />
           <Property Name="CompletionDate" Type="datetime" />
           <Property Name="CompletedBy" Type="varchar" MaxLength="128" />
@@ -1517,6 +1518,7 @@ warning 6002: The table/view 'SimpleCure.dbo.PaidOrders' does not have a primary
           <Property Name="EntryBy" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="false" />
           <Property Name="EntryDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="status" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="Description" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="PaidOrder">
           <Key>
@@ -1601,15 +1603,15 @@ warning 6002: The table/view 'SimpleCure.dbo.PaidOrders' does not have a primary
           <Property Name="PricePerGram" Type="Decimal" Precision="19" Scale="4" />
           <Property Name="Complete" Type="Boolean" Nullable="false" />
           <Property Name="CBD" Type="Boolean" Nullable="false" />
-          <Property Name="TransportID" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="TransportID" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
           <Property Name="IsSimpleCure" Type="Boolean" Nullable="false" />
           <Property Name="CompletionDate" Type="DateTime" Precision="3" />
           <Property Name="CompletedBy" Type="String" MaxLength="128" FixedLength="false" Unicode="false" />
-          <Property Name="TransportLocationStart" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
-          <Property Name="TransportLocationEnd" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
+          <Property Name="TransportLocationStart" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="TransportLocationEnd" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
           <Property Name="To_From" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Split" Type="Boolean" Nullable="false" />
-          <Property Name="SplitNotes" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="SplitNotes" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -2105,6 +2107,7 @@ warning 6002: The table/view 'SimpleCure.dbo.PaidOrders' does not have a primary
           <EntitySetMapping Name="OrderProducts">
             <EntityTypeMapping TypeName="TestingModel.OrderProduct">
               <MappingFragment StoreEntitySet="OrderProducts">
+                <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="status" ColumnName="status" />
                 <ScalarProperty Name="EntryDate" ColumnName="EntryDate" />
                 <ScalarProperty Name="EntryBy" ColumnName="EntryBy" />

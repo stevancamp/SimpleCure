@@ -6,6 +6,9 @@ function AddToCart() {
     var BatchID = $("#BatchIDtoADD").val();
     var ProductID = $("#AddProductIDDDL").val();
     var ProductType = $("#AddProductIDDDL option:selected").text();
+
+    var Description = $("#ProductDescription").val();
+
     var IsValid = ValidateAddToCart(Quantity, ProductID);
     if (IsValid === "") {
         if (BatchID === null || BatchID === undefined || BatchID === "") {
@@ -14,13 +17,15 @@ function AddToCart() {
         var uniqueID = generateUUID();
 
         $("#CreateNewOrderTotal").html(parseFloat(Number(parseFloat($("#CreateNewOrderTotal").html()).toFixed(2)) + Number(parseFloat(ProductType.slice(ProductType.indexOf("$") + 1, -1)).toFixed(2)) * Quantity).toFixed(2));
-
-        var newRowContent = "<tr id=Product_" + uniqueID + "><td>" + ProductType + "</td><td>" + Quantity + "</td><td>" + BatchID + "</td><td><a href='#' class='text-danger' onclick='DeleteProductRow(Product_" + uniqueID + ", " + Number(parseFloat(ProductType.slice(ProductType.indexOf("$") + 1, -1)).toFixed(2)) * Quantity + " );'><i class='fa fa-times-circle'></i></a> <a href='#' onclick='ShowProductInfo(" + ProductID + ")'><i class='fa fa-eye'></i></a></td><td><input type='hidden' value='" + ProductID + "'></td></tr>";
+       
+        var newRowContent = "<tr id=Product_" + uniqueID + "><td>" + ProductType + "</td><td>" + Quantity + "</td><td>" + BatchID + "</td><td><input type='text' class='form-control' value='" + Description + "'/></td><td><a href='#' class='text-danger' onclick='DeleteProductRow(Product_" + uniqueID + ", " + Number(parseFloat(ProductType.slice(ProductType.indexOf("$") + 1, -1)).toFixed(2)) * Quantity + " );'><i class='fa fa-times-circle'></i></a> <a href='#' onclick='ShowProductInfo(" + ProductID + ")'><i class='fa fa-eye'></i></a></td><td><input type='hidden' value='" + ProductID + "'></td></tr>";
 
 
         $("#CartTable tbody").append(newRowContent);
         $("#QuantityToADD").val("");
         $("#BatchIDtoADD").val("");
+        $("#ProductDescription").val("");
+        $("#AddProductIDDDL").val($("#AddProductIDDDL option:first").val());
         $("#CartDiv").css('display', 'block');
     }
     else { alert(IsValid); }
@@ -112,6 +117,7 @@ function SubmitOrder() {
             product.ProductID = $(this).find("input[type='hidden']").val();
             product.Quantity = row.find("TD").eq(1).html();
             product.BatchID = row.find("TD").eq(2).html();
+            product.Description = $(this).find("input[type='text']").val();
             Products.push(product);
         });
         var Discounts = new Array();

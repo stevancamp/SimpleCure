@@ -63,31 +63,5 @@ namespace BusinessLayer.Mappings
             returnModel.PaidDate = model.PaidDate;
             return returnModel;
         }
-
-
-
-        public SearchPaidOrder MapPaidToLibrary(PaidOrders_Models model)
-        {
-            SearchPaidOrder returnModel = new SearchPaidOrder();
-            returnModel.Company = model.Company;
-            returnModel.Customer = model.Customer;
-            returnModel.OrderDate = model.OrderDate;
-            returnModel.OrderID = model.OrderID;
-            returnModel.OrderStatus = model.OrderStatus;
-            returnModel.PaidDate = model.PaidDate;
-            return returnModel;
-        }
-
-        public PaidOrders_Models MapPaidToUI(SearchPaidOrder model)
-        {
-            PaidOrders_Models returnModel = new PaidOrders_Models();
-            returnModel.Company = model.Company;
-            returnModel.Customer = model.Customer;
-            returnModel.OrderDate = model.OrderDate;
-            returnModel.OrderID = model.OrderID;
-            returnModel.OrderStatus = model.OrderStatus;
-            returnModel.PaidDate = model.PaidDate;
-            return returnModel;
-        }
     }
 }
