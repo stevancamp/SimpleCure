@@ -82,7 +82,7 @@
                                                     <div class="form-group">
                                                         <label for="GenericClass_Provider">Customer: </label>
                                                         <br />
-                                                        @Html.DropDownListFor(m => m.GenericClass.Provider, new SelectList(ViewBag.Customers, "CustomerID", "CustomerName"), "--Please Select--", new { @class = "custom-select mb-3" })
+                                                        @Html.DropDownListFor(m => m.GenericClass.Provider, new SelectList(ViewBag.Customers, "value", "text"), "--Please Select--", new { @class = "custom-select mb-3" })
                                                     </div>
 
                                                     <div class="form-group">

@@ -1,5 +1,4 @@
-﻿using System;
-using Microsoft.AspNet.Identity;
+﻿using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.Owin;
 using Owin;
@@ -34,9 +33,7 @@ namespace SimpleCure
                 if (chkUser.Succeeded)
                 {
                     var resultl = UserManager.AddToRole(user.Id, "WebAdmin");
-                }
-
-              
+                }              
             }
 
             if (!roleManager.RoleExists("Owner"))

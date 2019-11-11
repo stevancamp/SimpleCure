@@ -524,8 +524,8 @@ namespace SimpleCure.Controllers
 
             var model = new OrderInvoice_ViewModel { CustomerInfo = CustomerInfo, OrderInfo = OrderInfo, ListDiscounts = ListOrderDiscounts, ListProducts = ListOrderProductProducts };
 
-            var pdfResult = new ViewAsPdf("OrderInvoice", model) { PageOrientation = Rotativa.Options.Orientation.Landscape };
-            var binary = pdfResult.BuildFile(this.ControllerContext); //pdfResult.BuildPdf(this.ControllerContext);
+            var pdfResult = new ViewAsPdf("OrderInvoice", model) { PageOrientation = Rotativa.Options.Orientation.Portrait };
+            var binary = pdfResult.BuildFile(this.ControllerContext); 
             byte[] bytes = binary;
             ContentType ct2 = new ContentType()
             {
@@ -533,7 +533,7 @@ namespace SimpleCure.Controllers
                 Name = "SimpleCure Order Invoice.pdf"
             };
             Attachment att1 = new Attachment(new MemoryStream(bytes), ct2);
-            var success = _emailFunctions.SendMailWithAttachment("stevan.camp@okc.gov", "SimpleCure Invoice", "Attached is your invoice.", att1);
+            var success = _emailFunctions.SendMailWithAttachment(EmailAddress, "SimpleCure Invoice", "Attached is your invoice.", att1);
             MailSent = success.ResponseSuccess;
             return MailSent;
 

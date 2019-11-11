@@ -10,6 +10,8 @@ using SimpleCure.Models.LotPurchasedModels;
 using System;
 using BusinessLayer.Models.LotsPurchasedModels;
 using System.Web.Mvc;
+using System.Linq;
+using System.Collections.Generic;
 
 namespace SimpleCure.Controllers
 {
@@ -36,9 +38,22 @@ namespace SimpleCure.Controllers
         public ActionResult NewLotPurchased()
         {
             var GenCustomers = _customerFunctions.GetCustomersList();
+           
             if (GenCustomers.ResponseSuccess && GenCustomers.GenericClassList != null && GenCustomers.GenericClassList.Count > 0)
             {
-                ViewBag.Customers = GenCustomers.GenericClassList;
+                var CustomerList = GenCustomers.GenericClassList.OrderBy(s => s.CompanyName).ToList();
+                List<SelectListItem> selectList = new List<SelectListItem>();
+                foreach (var item in CustomerList)
+                {
+                    SelectListItem selectListItem = new SelectListItem
+                    {
+                        Value = item.CustomerID.ToString(),
+                        Text = item.CompanyName + " (" + item.CustomerName + ")"
+                    };
+                    selectList.Add(selectListItem);
+                }
+
+                ViewBag.Customers = selectList;
             }
             return View(new Generic<NewLotPurchased_ViewModel>());
         }
@@ -50,7 +65,7 @@ namespace SimpleCure.Controllers
             var GenCustomers = _customerFunctions.GetCustomersList();
             if (ModelState.IsValid)
             {
-                var response = _lotsPurchasedFunctions.Add(new BusinessLayer.Models.LotsPurchasedModels.LotsPurchased_Models { BudTrim = model.GenericClass.BudTrim, BuyDate = model.GenericClass.BuyDate, CBD = model.GenericClass.CBD, Complete = false, Cost = model.GenericClass.Cost, EnterDate = DateTime.Now, Grams = model.GenericClass.Grams, IndPackages = model.GenericClass.IndPackages, Lot_Set = model.GenericClass.Lot_Set, Notes = model.GenericClass.Notes, Pounds = model.GenericClass.Pounds, PricePerGram = model.GenericClass.PricePerGram, PricePerPound = model.GenericClass.PricePerPound, Provider = model.GenericClass.Provider, SatPackages = model.GenericClass.SatPackages, Strains = model.GenericClass.Strains, IsSimpleCure = false, TransportID = model.GenericClass.TransportID, CompletedBy = string.Empty, CompletionDate = null, Split = model.GenericClass.Split, SplitNotes = model.GenericClass.SplitNotes, To_From = model.GenericClass.To_From, TransportLocationStart = model.GenericClass.TransportLocationStart, TransportLocationEnd = model.GenericClass.TransportLocationEnd });
+                var response = _lotsPurchasedFunctions.Add(new LotsPurchased_Models { BudTrim = model.GenericClass.BudTrim, BuyDate = model.GenericClass.BuyDate, CBD = model.GenericClass.CBD, Complete = false, Cost = model.GenericClass.Cost, EnterDate = DateTime.Now, Grams = model.GenericClass.Grams, IndPackages = model.GenericClass.IndPackages, Lot_Set = model.GenericClass.Lot_Set, Notes = model.GenericClass.Notes, Pounds = model.GenericClass.Pounds, PricePerGram = model.GenericClass.PricePerGram, PricePerPound = model.GenericClass.PricePerPound, Provider = model.GenericClass.Provider, SatPackages = model.GenericClass.SatPackages, Strains = model.GenericClass.Strains, IsSimpleCure = false, TransportID = model.GenericClass.TransportID, CompletedBy = string.Empty, CompletionDate = null, Split = model.GenericClass.Split, SplitNotes = model.GenericClass.SplitNotes, To_From = model.GenericClass.To_From, TransportLocationStart = model.GenericClass.TransportLocationStart, TransportLocationEnd = model.GenericClass.TransportLocationEnd });
                 if (response.ResponseSuccess)
                 {
                     return RedirectToAction("LotsPurchased", new { ResponseMessage = response.ResponseMessage, ResponseSuccess = response.ResponseSuccess });
@@ -70,7 +85,19 @@ namespace SimpleCure.Controllers
 
             if (GenCustomers.ResponseSuccess && GenCustomers.GenericClassList != null && GenCustomers.GenericClassList.Count > 0)
             {
-                ViewBag.Customers = GenCustomers.GenericClassList;
+                var CustomerList = GenCustomers.GenericClassList.OrderBy(s => s.CompanyName).ToList();
+                List<SelectListItem> selectList = new List<SelectListItem>();
+                foreach (var item in CustomerList)
+                {
+                    SelectListItem selectListItem = new SelectListItem
+                    {
+                        Value = item.CustomerID.ToString(),
+                        Text = item.CompanyName + " (" + item.CustomerName + ")"
+                    };
+                    selectList.Add(selectListItem);
+                }
+
+                ViewBag.Customers = selectList;
             }
 
             model.ResponseSuccess = false;
@@ -133,7 +160,19 @@ namespace SimpleCure.Controllers
 
             if (GenCustomers.ResponseSuccess && GenCustomers.GenericClassList != null && GenCustomers.GenericClassList.Count > 0)
             {
-                ViewBag.Customers = GenCustomers.GenericClassList;
+                var CustomerList = GenCustomers.GenericClassList.OrderBy(s => s.CompanyName).ToList();
+                List<SelectListItem> selectList = new List<SelectListItem>();
+                foreach (var item in CustomerList)
+                {
+                    SelectListItem selectListItem = new SelectListItem
+                    {
+                        Value = item.CustomerID.ToString(),
+                        Text = item.CompanyName + " (" + item.CustomerName + ")"
+                    };
+                    selectList.Add(selectListItem);
+                }
+
+                ViewBag.Customers = selectList;
             }
 
             return View(model);

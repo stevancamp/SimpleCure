@@ -231,14 +231,18 @@ function SaveEditOrderProduct() {
     if ($("#EditQuantity").val() === null || $("#EditQuantity").val() === undefined || $("#EditQuantity").val() === "") {
         ErrorMessage += "You must enter a Quantity!\n";
     }
-    if ($("#EditOrderProductStatus option:selected").val() === "0") {
-        ErrorMessage += "You must select a Status!\n";
+    var OrderProductStatus = "";
+    if ($("#EditOrderProductStatus option:selected").val() === "0") {      
+        OrderProductStatus = $("#OriginalStatus").val();
+    }
+    else {
+        OrderProductStatus = $("#EditOrderProductStatus option:selected").text();
     }
     if (ErrorMessage === "") {
         $.ajax({
             type: "POST",
             url: $("#UrlSaveEditOrderProduct").val(),
-            data: { "OrderProductID": $("#EditOrderProductID").val(), "OrderID": $("#EditOrderID").val(), "ProductID": $("#EditProductIDDDL option:selected").val(), "BatchID": $("#EditBatchID").val(), "Quantity": $("#EditQuantity").val(), "Status": $("#EditOrderProductStatus option:selected").text(), "Description": $("#EditProductDescription").val() },
+            data: { "OrderProductID": $("#EditOrderProductID").val(), "OrderID": $("#EditOrderID").val(), "ProductID": $("#EditProductIDDDL option:selected").val(), "BatchID": $("#EditBatchID").val(), "Quantity": $("#EditQuantity").val(), "Status": OrderProductStatus, "Description": $("#EditProductDescription").val() },
             success: function (data) {
                 if (data.ResponseSuccess) {
                     $("#EditProductInfoModal").modal("toggle");
@@ -265,7 +269,8 @@ function SaveEditOrderProduct() {
  
 
 function EmailInvoice(OrderID) {
-    
+    //EmailInvoiceAnchor
+    $("#EmailInvoiceAnchor").html("Loading <i class='fa fa-circle-o-notch fa-spin'></i>");
     var Email = $("#EmailInput").val();
 
     if (Email === "" || Email === undefined || Email === null) {
@@ -278,7 +283,7 @@ function EmailInvoice(OrderID) {
             url: $("#UrlEmailInvoice").val(),
             data: { "EmailAddress": Email, "ID": OrderID },
             success: function (data) {
-
+                $("#EmailInvoiceAnchor").html("Email Invoice");
                 $("#EmailErrorMessage").html("");
 
                 $('#SendEmailModel').modal('hide');
@@ -293,6 +298,7 @@ function EmailInvoice(OrderID) {
                 }
             },
             error: function (XMLHttpRequest, textStatus, errorThrown) {
+                $("#EmailInvoiceAnchor").html("Email Invoice");
                 alert('There was an error when trying to send the email to the customer.');
             }
         });

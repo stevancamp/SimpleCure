@@ -172,7 +172,7 @@
                                                 @item.Quantity
                                             </td>
                                             <td>
-                                                @item.OrderProductDescription
+                                                @item.ProductDescription
                                             </td>
                                             <td>
                                                 @item.BatchID
@@ -183,6 +183,11 @@
                                             <td>
                                                 $@Convert.ToDecimal(item.Total).ToString("#,##0.00")
                                             </td>
+                                        </tr>
+                                        <tr>
+                                            <td></td>
+                                            <td>Additional Description Information:</td>
+                                            <td colspan="3">@item.OrderProductDescription</td>
                                         </tr>
                                     }
                                 </tbody>
@@ -226,6 +231,12 @@
    
     <footer class="footer mt-auto py-3">
         <div class="container">
+            <p>Order Notes
+            <br />
+            @Model.OrderInfo.Notes
+            </p>
+
+
             <table class="table table-bordered table-sm text-center">
                 <thead>
                     <tr>
