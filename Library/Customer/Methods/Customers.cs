@@ -164,7 +164,7 @@ namespace Library.Customer.Methods
             {
                 using (var ctx = new SimpleCureEntities())
                 {
-                    response.GenericClassList = ctx.Tbl_Customers.ToList();
+                    response.GenericClassList = ctx.Tbl_Customers.Where(s => s.IsActive == true).ToList();
 
                     if (response.GenericClassList != null && response.GenericClassList.Count > 0)
                     {
@@ -315,7 +315,7 @@ namespace Library.Customer.Methods
             {
                 using (var ctx = new SimpleCureEntities())
                 {
-                    response.GenericClassList = ctx.Tbl_Customers.Where(s => s.IndustryType == IndustryType).ToList();
+                    response.GenericClassList = ctx.Tbl_Customers.Where(s => s.IndustryType == IndustryType && s.IsActive == true).ToList();
 
                     if (response.GenericClassList != null && response.GenericClassList.Count > 0)
                     {
@@ -358,6 +358,9 @@ namespace Library.Customer.Methods
                                                  s.Customer.ToLower().Contains(searchTerm.ToLower()) ||
                                                  s.MainEmail.ToLower().Contains(searchTerm.ToLower()) ||
                                                  s.Street1.ToLower().Contains(searchTerm.ToLower())
+
+                                                 && s.IsActive == true
+
                                                  select s
                                                  ).ToList();
 
@@ -397,6 +400,7 @@ namespace Library.Customer.Methods
                 using (var ctx = new SimpleCureEntities())
                 {
                     var Customers = (from s in ctx.Tbl_Customers
+                                     where s.IsActive == true
                                      select new
                                      {
                                          s.ID,

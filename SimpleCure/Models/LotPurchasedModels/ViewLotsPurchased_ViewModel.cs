@@ -26,6 +26,8 @@ namespace SimpleCure.Models.LotPurchasedModels
         public string BudTrim { get; set; }
         public int? SatPackages { get; set; }
         public int? IndPackages { get; set; }
+        public int? SatChocPackages { get; set; }
+        public int? IndChocPackages { get; set; }
         [Required]
         public decimal? PricePerPound { get; set; }
         [Required]

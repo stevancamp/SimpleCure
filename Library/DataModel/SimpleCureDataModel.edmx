@@ -354,6 +354,7 @@ warning 6002: The table/view 'SimpleCure.dbo.Tbl_Company' does not have a primar
           <Property Name="JenLast" Type="nvarchar" MaxLength="255" />
           <Property Name="JenEIN" Type="nvarchar" MaxLength="255" />
           <Property Name="JenPhone" Type="nvarchar" MaxLength="255" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
 warning 6002: The table/view 'SimpleCure.dbo.Tbl_Employees' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
@@ -421,7 +422,9 @@ warning 6002: The table/view 'SimpleCure.dbo.Tbl_InvoiceIDs' does not have a pri
           <Property Name="Notes" Type="nvarchar" MaxLength="255" />
           <Property Name="BudTrim" Type="nvarchar" MaxLength="255" />
           <Property Name="SatPackages" Type="int" />
+          <Property Name="SatChocPackages" Type="int" />
           <Property Name="IndPackages" Type="int" />
+          <Property Name="IndChocPackages" Type="int" />
           <Property Name="PricePerPound" Type="money" />
           <Property Name="PricePerGram" Type="money" />
           <Property Name="Complete" Type="bit" Nullable="false" />
@@ -1159,6 +1162,7 @@ warning 6002: The table/view 'SimpleCure.dbo.PaidOrders' does not have a primary
           <Property Name="JenLast" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="JenEIN" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="JenPhone" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
         </EntityType>
         <EntityType Name="ALL">
           <Key>
@@ -1612,6 +1616,8 @@ warning 6002: The table/view 'SimpleCure.dbo.PaidOrders' does not have a primary
           <Property Name="To_From" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Split" Type="Boolean" Nullable="false" />
           <Property Name="SplitNotes" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="SatChocPackages" Type="Int32" />
+          <Property Name="IndChocPackages" Type="Int32" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -1804,6 +1810,7 @@ warning 6002: The table/view 'SimpleCure.dbo.PaidOrders' does not have a primary
           <EntitySetMapping Name="Tbl_Customers">
             <EntityTypeMapping TypeName="TestingModel.Tbl_Customers">
               <MappingFragment StoreEntitySet="Tbl_Customers">
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="Company" ColumnName="Company" />
                 <ScalarProperty Name="Customer" ColumnName="Customer" />
@@ -2185,6 +2192,8 @@ warning 6002: The table/view 'SimpleCure.dbo.PaidOrders' does not have a primary
           <EntitySetMapping Name="Tbl_Lots_Purchased">
             <EntityTypeMapping TypeName="TestingModel.Tbl_Lots_Purchased">
               <MappingFragment StoreEntitySet="Tbl_Lots_Purchased">
+                <ScalarProperty Name="IndChocPackages" ColumnName="IndChocPackages" />
+                <ScalarProperty Name="SatChocPackages" ColumnName="SatChocPackages" />
                 <ScalarProperty Name="SplitNotes" ColumnName="SplitNotes" />
                 <ScalarProperty Name="Split" ColumnName="Split" />
                 <ScalarProperty Name="To_From" ColumnName="To_From" />

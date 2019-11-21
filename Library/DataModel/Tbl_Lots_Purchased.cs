@@ -40,5 +40,7 @@ namespace Library.DataModel
         public string To_From { get; set; }
         public bool Split { get; set; }
         public string SplitNotes { get; set; }
+        public Nullable<int> SatChocPackages { get; set; }
+        public Nullable<int> IndChocPackages { get; set; }
     }
 }

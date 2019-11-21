@@ -39,5 +39,6 @@ namespace Library.DataModel
         public string JenLast { get; set; }
         public string JenEIN { get; set; }
         public string JenPhone { get; set; }
+        public bool IsActive { get; set; }
     }
 }

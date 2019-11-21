@@ -201,12 +201,12 @@ function ShowPayOrder() {
     $("#PayOrderModal").modal("toggle");
 }
 function PayOrder() {
+    var dataToSend = JSON.stringify({ "ID": $("#OrderInfo_ID").val(), "CompletionNotes": encodeURIComponent($("#CompletionNotes").val()), "To_From": $("#To_From option:selected").val(), "TransportID": encodeURIComponent($("#TransportID").val()), "TransportLocationStart": $("#TransportLocationStart").val(), "TransportLocationEnd": $("#TransportLocationEnd").val()});
     $.ajax({
         type: "POST",
+        contentType: "application/json; charset=utf-8",
         url: $("#UrlOrderPaid").val(),
-        data: {
-            "ID": $("#OrderInfo_ID").val(), "CompletionNotes": encodeURIComponent($("#CompletionNotes").val()), "To_From": $("#To_From option:selected").val(), "TransportID": encodeURIComponent($("#TransportID").val()), "TransportLocationStart": encodeURIComponent($("#TransportLocationStart").val()), "TransportLocationEnd": encodeURIComponent($("#TransportLocationEnd").val())
-        },
+        data: dataToSend,
         success: function (data) {
             if (data === "True") {
                 document.location.replace($("#UrlOrders").val());

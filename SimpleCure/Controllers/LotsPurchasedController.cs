@@ -65,7 +65,7 @@ namespace SimpleCure.Controllers
             var GenCustomers = _customerFunctions.GetCustomersList();
             if (ModelState.IsValid)
             {
-                var response = _lotsPurchasedFunctions.Add(new LotsPurchased_Models { BudTrim = model.GenericClass.BudTrim, BuyDate = model.GenericClass.BuyDate, CBD = model.GenericClass.CBD, Complete = false, Cost = model.GenericClass.Cost, EnterDate = DateTime.Now, Grams = model.GenericClass.Grams, IndPackages = model.GenericClass.IndPackages, Lot_Set = model.GenericClass.Lot_Set, Notes = model.GenericClass.Notes, Pounds = model.GenericClass.Pounds, PricePerGram = model.GenericClass.PricePerGram, PricePerPound = model.GenericClass.PricePerPound, Provider = model.GenericClass.Provider, SatPackages = model.GenericClass.SatPackages, Strains = model.GenericClass.Strains, IsSimpleCure = false, TransportID = model.GenericClass.TransportID, CompletedBy = string.Empty, CompletionDate = null, Split = model.GenericClass.Split, SplitNotes = model.GenericClass.SplitNotes, To_From = model.GenericClass.To_From, TransportLocationStart = model.GenericClass.TransportLocationStart, TransportLocationEnd = model.GenericClass.TransportLocationEnd });
+                var response = _lotsPurchasedFunctions.Add(new LotsPurchased_Models { BudTrim = model.GenericClass.BudTrim, BuyDate = model.GenericClass.BuyDate, CBD = model.GenericClass.CBD, Complete = false, Cost = model.GenericClass.Cost, EnterDate = DateTime.Now, Grams = model.GenericClass.Grams, IndPackages = model.GenericClass.IndPackages, Lot_Set = model.GenericClass.Lot_Set, Notes = model.GenericClass.Notes, Pounds = model.GenericClass.Pounds, PricePerGram = model.GenericClass.PricePerGram, PricePerPound = model.GenericClass.PricePerPound, Provider = model.GenericClass.Provider, SatPackages = model.GenericClass.SatPackages, Strains = model.GenericClass.Strains, IsSimpleCure = false, TransportID = model.GenericClass.TransportID, CompletedBy = string.Empty, CompletionDate = null, Split = model.GenericClass.Split, SplitNotes = model.GenericClass.SplitNotes, To_From = model.GenericClass.To_From, TransportLocationStart = model.GenericClass.TransportLocationStart, TransportLocationEnd = model.GenericClass.TransportLocationEnd, IndChocPackages = model.GenericClass.IndChocPackages ?? 0, SatChocPackages = model.GenericClass.SatChocPackages ?? 0 });
                 if (response.ResponseSuccess)
                 {
                     return RedirectToAction("LotsPurchased", new { ResponseMessage = response.ResponseMessage, ResponseSuccess = response.ResponseSuccess });
@@ -140,8 +140,21 @@ namespace SimpleCure.Controllers
             }
             else if (model != null)
             {
-                model.ResponseSuccess = true;
-            }
+                model = _IMapper.Map<Generic<LotsPurchased_ViewModel>>(_lotsPurchasedFunctions.GetAll());
+                if (model.ResponseSuccess && model.GenericClassList != null && model.GenericClassList.Count > 0)
+                {
+                    foreach (var item in model.GenericClassList)
+                    {
+                        var customer = _customerFunctions.GetByUserID(item.Provider ?? 0);
+                        if (customer.ResponseSuccess)
+                        {
+                            item.Customer.CompanyName = customer.GenericClass.Company;
+                            item.Customer.CustomerID = customer.GenericClass.ID;
+                            item.Customer.CustomerName = customer.GenericClass.Customer;
+                        }
+                    }
+                }
+            }          
             return View(model);
         }
 
@@ -155,7 +168,7 @@ namespace SimpleCure.Controllers
                 {
                     model.ResponseSuccess = true;
                 }
-                model.GenericClass = new ViewLotsPurchased_ViewModel { ID = LotPurchased.GenericClass.ID, BudTrim = LotPurchased.GenericClass.BudTrim, BuyDate = LotPurchased.GenericClass.BuyDate, CBD = LotPurchased.GenericClass.CBD, Complete = LotPurchased.GenericClass.Complete, Cost = LotPurchased.GenericClass.Cost, EnterDate = LotPurchased.GenericClass.EnterDate, Grams = LotPurchased.GenericClass.Grams, IndPackages = LotPurchased.GenericClass.IndPackages, Lot_Set = LotPurchased.GenericClass.Lot_Set, Notes = LotPurchased.GenericClass.Notes, Pounds = LotPurchased.GenericClass.Pounds, PricePerGram = LotPurchased.GenericClass.PricePerGram, PricePerPound = LotPurchased.GenericClass.PricePerPound, Provider = LotPurchased.GenericClass.Provider, SatPackages = LotPurchased.GenericClass.SatPackages, Strains = LotPurchased.GenericClass.Strains, Lot_Set_Orginal = LotPurchased.GenericClass.Lot_Set, CompletedBy = LotPurchased.GenericClass.CompletedBy, CompletionDate = LotPurchased.GenericClass.CompletionDate, IsSimpleCure = LotPurchased.GenericClass.IsSimpleCure, TransportID = LotPurchased.GenericClass.TransportID, To_From = LotPurchased.GenericClass.To_From, Split = LotPurchased.GenericClass.Split, SplitNotes = LotPurchased.GenericClass.SplitNotes, TransportLocationEnd = LotPurchased.GenericClass.TransportLocationEnd, TransportLocationStart = LotPurchased.GenericClass.TransportLocationStart };
+                model.GenericClass = new ViewLotsPurchased_ViewModel { ID = LotPurchased.GenericClass.ID, BudTrim = LotPurchased.GenericClass.BudTrim, BuyDate = LotPurchased.GenericClass.BuyDate, CBD = LotPurchased.GenericClass.CBD, Complete = LotPurchased.GenericClass.Complete, Cost = LotPurchased.GenericClass.Cost, EnterDate = LotPurchased.GenericClass.EnterDate, Grams = LotPurchased.GenericClass.Grams, IndPackages = LotPurchased.GenericClass.IndPackages, Lot_Set = LotPurchased.GenericClass.Lot_Set, Notes = LotPurchased.GenericClass.Notes, Pounds = LotPurchased.GenericClass.Pounds, PricePerGram = LotPurchased.GenericClass.PricePerGram, PricePerPound = LotPurchased.GenericClass.PricePerPound, Provider = LotPurchased.GenericClass.Provider, SatPackages = LotPurchased.GenericClass.SatPackages, Strains = LotPurchased.GenericClass.Strains, Lot_Set_Orginal = LotPurchased.GenericClass.Lot_Set, CompletedBy = LotPurchased.GenericClass.CompletedBy, CompletionDate = LotPurchased.GenericClass.CompletionDate, IsSimpleCure = LotPurchased.GenericClass.IsSimpleCure, TransportID = LotPurchased.GenericClass.TransportID, To_From = LotPurchased.GenericClass.To_From, Split = LotPurchased.GenericClass.Split, SplitNotes = LotPurchased.GenericClass.SplitNotes, TransportLocationEnd = LotPurchased.GenericClass.TransportLocationEnd, TransportLocationStart = LotPurchased.GenericClass.TransportLocationStart, IndChocPackages = LotPurchased.GenericClass.IndChocPackages, SatChocPackages = LotPurchased.GenericClass.SatChocPackages };
             }
 
             if (GenCustomers.ResponseSuccess && GenCustomers.GenericClassList != null && GenCustomers.GenericClassList.Count > 0)
@@ -203,7 +216,7 @@ namespace SimpleCure.Controllers
                 model.GenericClass.CompletionDate = null;
             }
 
-            var response = _lotsPurchasedFunctions.Update(new LotsPurchased_Models { BudTrim = model.GenericClass.BudTrim, BuyDate = model.GenericClass.BuyDate, CBD = model.GenericClass.CBD, Complete = model.GenericClass.Complete, Cost = model.GenericClass.Cost, EnterDate = DateTime.Now, Grams = model.GenericClass.Grams, IndPackages = model.GenericClass.IndPackages, Lot_Set = lotset, Notes = model.GenericClass.Notes, Pounds = model.GenericClass.Pounds, PricePerGram = model.GenericClass.PricePerGram, PricePerPound = model.GenericClass.PricePerPound, Provider = model.GenericClass.Provider, SatPackages = model.GenericClass.SatPackages, Strains = model.GenericClass.Strains, ID = model.GenericClass.ID, TransportID = model.GenericClass.TransportID, TransportLocationEnd = model.GenericClass.TransportLocationEnd, TransportLocationStart = model.GenericClass.TransportLocationEnd, Split = model.GenericClass.Split, SplitNotes = model.GenericClass.SplitNotes, To_From = model.GenericClass.To_From });
+            var response = _lotsPurchasedFunctions.Update(new LotsPurchased_Models { BudTrim = model.GenericClass.BudTrim, BuyDate = model.GenericClass.BuyDate, CBD = model.GenericClass.CBD, Complete = model.GenericClass.Complete, Cost = model.GenericClass.Cost, EnterDate = DateTime.Now, Grams = model.GenericClass.Grams, IndPackages = model.GenericClass.IndPackages, Lot_Set = lotset, Notes = model.GenericClass.Notes, Pounds = model.GenericClass.Pounds, PricePerGram = model.GenericClass.PricePerGram, PricePerPound = model.GenericClass.PricePerPound, Provider = model.GenericClass.Provider, SatPackages = model.GenericClass.SatPackages, Strains = model.GenericClass.Strains, ID = model.GenericClass.ID, TransportID = model.GenericClass.TransportID, TransportLocationEnd = model.GenericClass.TransportLocationEnd, TransportLocationStart = model.GenericClass.TransportLocationEnd, Split = model.GenericClass.Split, SplitNotes = model.GenericClass.SplitNotes, To_From = model.GenericClass.To_From, IndChocPackages = model.GenericClass.IndChocPackages ?? 0, SatChocPackages = model.GenericClass.SatChocPackages ?? 0 });
 
             if (response.ResponseSuccess)
             {

@@ -1,12 +1,15 @@
 ﻿$(document).ready(function () {
+
+    $('#LotsPurchasedTable').DataTable();
+
     $('#StartDateTime').datetimepicker();
     $('#EndDateTime').datetimepicker();
-    $("#SearchTerm").on("keyup", function () {
-        var value = $(this).val().toLowerCase();
-        $("#LotsPurchasedTbl tr").filter(function () {
-            $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1);
-        });
-    });
+    //$("#SearchTerm").on("keyup", function () {
+    //    var value = $(this).val().toLowerCase();
+    //    $("#LotsPurchasedTbl tr").filter(function () {
+    //        $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1);
+    //    });
+    //});
     $("#OpenSearchFilter").click(function () {
         //alert("I made it");
         $("#SearchDiv").toggle();

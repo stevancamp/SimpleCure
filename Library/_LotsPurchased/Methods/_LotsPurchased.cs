@@ -5,7 +5,6 @@ using Newtonsoft.Json;
 using System;
 using System.Data.Entity;
 using System.Linq;
-using System.Text.RegularExpressions;
 
 namespace Library._LotsPurchased.Methods
 {
@@ -30,11 +29,7 @@ namespace Library._LotsPurchased.Methods
             {
                 using (var ctx = new SimpleCureEntities())
                 {
-                    purchased.Lot_Set = purchased.Lot_Set.ToUpper();
-                    //var LotSetNumber = ctx.Tbl_Lots_Purchased.Where(s => s.Lot_Set.ToLower().Contains(purchased.Lot_Set.ToLower())).OrderByDescending(s => s.Lot_Set).FirstOrDefault().Lot_Set;
-                    //Regex regexObj = new Regex(@"[^\d]");
-                    //purchased.Lot_Set = (purchased.Lot_Set + " " + (Convert.ToInt32(regexObj.Replace(LotSetNumber, "")) + 1)).ToUpper();
-
+                    purchased.Lot_Set = purchased.Lot_Set.ToUpper();                  
                     ctx.Tbl_Lots_Purchased.Add(purchased);
                     var Added = ctx.SaveChanges();
 
@@ -79,14 +74,7 @@ namespace Library._LotsPurchased.Methods
             {
                 using (var ctx = new SimpleCureEntities())
                 {
-
-                    //var LotSetNumber = ctx.Tbl_Lots_Purchased.AsNoTracking().Where(s => s.ID == purchased.ID).FirstOrDefault().Lot_Set;
-                    //if (LotSetNumber.ToLower() != purchased.Lot_Set.ToLower())
-                    //{
-                    //    LotSetNumber = ctx.Tbl_Lots_Purchased.AsNoTracking().Where(s => s.Lot_Set.ToLower().Contains(purchased.Lot_Set.ToLower())).OrderByDescending(s => s.Lot_Set).FirstOrDefault().Lot_Set;
-                    //    Regex regexObj = new Regex(@"[^\d]");
-                    //    purchased.Lot_Set = (purchased.Lot_Set + " " + (Convert.ToInt32(regexObj.Replace(LotSetNumber, "")) + 1)).ToUpper();
-                    //}
+                 
                     purchased.Lot_Set = purchased.Lot_Set.ToUpper();
                     ctx.Entry(purchased).State = EntityState.Modified;
                     var updated = ctx.SaveChanges();

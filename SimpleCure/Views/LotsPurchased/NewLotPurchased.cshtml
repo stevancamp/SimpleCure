@@ -138,12 +138,20 @@
 
                                                     </div>
                                                     <div class="form-group">
-                                                        <label for="SatPackages">Sat Packages:</label>
+                                                        <label for="SatPackages">Sativa Gummy Packages:</label>
                                                         @Html.TextBoxFor(m => m.GenericClass.SatPackages, new { id = "SatPackages", @type = "number", @class = "form-control", @min = "0", @max = "999999", @Value = "0", @step = "1" })
                                                     </div>
                                                     <div class="form-group">
-                                                        <label for="IndPackages">Ind Packages:</label>
+                                                        <label for="SatChocPackages">Sativa Chocolate Packages:</label>
+                                                        @Html.TextBoxFor(m => m.GenericClass.SatChocPackages, new { id = "SatChocPackages", @type = "number", @class = "form-control", @min = "0", @max = "999999", @Value = "0", @step = "1" })
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="IndPackages">Indica Gummy Packages:</label>
                                                         @Html.TextBoxFor(m => m.GenericClass.IndPackages, new { id = "IndPackages", @type = "number", @class = "form-control", @min = "0", @max = "999999", @Value = "0", @step = "1" })
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="IndPackages">Indica Chocolate Packages:</label>
+                                                        @Html.TextBoxFor(m => m.GenericClass.IndChocPackages, new { id = "IndPackages", @type = "number", @class = "form-control", @min = "0", @max = "999999", @Value = "0", @step = "1" })
                                                     </div>
                                                     <div class="custom-control custom-checkbox">
                                                         @Html.CheckBoxFor(m => m.GenericClass.CBD, new { id = "CBDCB", @class = "custom-control-input" })

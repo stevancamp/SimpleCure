@@ -30,5 +30,7 @@ namespace BusinessLayer.Models.LotsPurchasedModels
         public string To_From { get; set; }
         public bool Split { get; set; }
         public string SplitNotes { get; set; }
+        public int SatChocPackages { get; set; }
+        public int IndChocPackages { get; set; }
     }
 }

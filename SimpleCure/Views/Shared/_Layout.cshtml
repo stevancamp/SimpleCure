@@ -21,6 +21,10 @@
     @*@Scripts.Render("~/bundles/modernizr")*@
     <script src="~/Scripts/modernizr-2.8.3.js"></script>
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" rel="stylesheet">
+
+
+    @*datatables*@
+    <link href="//cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css" rel="stylesheet" />
     @*<link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />*@
     <!-- Tweaks for older IEs-->
     <!--[if lt IE 9]>
@@ -263,6 +267,7 @@
     <script src="~/distribution/js/front.js"></script>
     <script src="~/distribution/vendor/moment/moment.js"></script>
     <script src="~/distribution/vendor/bootstrap-datetimepicker/bootstrap-4-datetimepicker.min.js"></script>
+    <script src="//cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
     @RenderSection("scripts", required: false)
 </body>
 </html>

@@ -34,6 +34,8 @@ namespace BusinessLayer.Mappings
             returnModel.SplitNotes = model.SplitNotes;
             returnModel.TransportLocationEnd = model.TransportLocationEnd;
             returnModel.TransportLocationStart = model.TransportLocationStart;
+            returnModel.SatChocPackages = model.SatChocPackages;
+            returnModel.IndChocPackages = model.IndChocPackages;
             return returnModel;
         }
 
@@ -66,6 +68,8 @@ namespace BusinessLayer.Mappings
             returnModel.SplitNotes = model.SplitNotes;
             returnModel.TransportLocationEnd = model.TransportLocationEnd;
             returnModel.TransportLocationStart = model.TransportLocationStart;
+            returnModel.SatChocPackages = model.SatChocPackages ?? 0;
+            returnModel.IndChocPackages = model.IndChocPackages ?? 0;
             return returnModel;
         }
     }

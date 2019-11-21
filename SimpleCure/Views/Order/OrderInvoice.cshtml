@@ -25,9 +25,14 @@
     <!--[if lt IE 9]>
     <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script><![endif]-->
+    <style>
+        tr {
+            page-break-inside: avoid;
+        }
+    </style>
 </head>
 <body class="d-flex flex-column h-100">
- 
+
     <main role="main" class="flex-shrink-0">
         <div class="container">
             <div class="row">
@@ -41,7 +46,7 @@
                                     <br />1109 N McMillan
                                     <br />Oklahoma City, OK 73127
                                     <br />www.simplecureok.com
-                                   
+
                                 </h1>
                             </div>
                         </div>
@@ -109,9 +114,14 @@
                                                 <td>
                                                     @Model.CustomerInfo.Company
                                                     <br />@Model.CustomerInfo.Customer
+                                                    <br />Address:
                                                     <br />@Model.CustomerInfo.Street1
                                                     <br />@Model.CustomerInfo.City, @Model.CustomerInfo.State @Model.CustomerInfo.Zip
-                                                    <br />@Model.CustomerInfo.OMMALicense
+                                                    <br />Main Phone: @Model.CustomerInfo.MainPhone
+                                                    <br />OMMA# @Model.CustomerInfo.OMMALicense
+                                                    @*<br />EIN# @Model.CustomerInfo.EIN*@
+                                                    <br />OBN# @Model.CustomerInfo.OBN
+
                                                 </td>
                                             </tr>
                                         </tbody>
@@ -141,6 +151,30 @@
                                 </div>
                             </div>
                         </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <table class="table table-bordered table-sm">
+                                <thead>
+                                    <tr>
+                                        <th>
+                                            Transport Information
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            Transport ID: @Model.OrderInfo.TransportID <br />
+                                            Transport Location Start: @Model.OrderInfo.TransportLocationStart<br />
+                                            Transport Location End: @Model.OrderInfo.TransportLocationEnd<br />
+                                            To/From Simple Cure: @Model.OrderInfo.To_From<br />
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
                     </div>
                     <div class="row">
                         <div class="col-md-12">
@@ -223,20 +257,19 @@
                             <p class="float-right"><b>Total</b> $@Convert.ToDecimal((Model.ListProducts.Sum(i => i.Total) - (Model.ListDiscounts.Sum(i => i.DiscountAmount)))).ToString("#,##0.00")  </p>
                         </div>
                     </div>
-                   
+
                 </div>
             </div>
         </div>
     </main>
-   
+
     <footer class="footer mt-auto py-3">
         <div class="container">
-            <p>Order Notes
-            <br />
-            @Model.OrderInfo.Notes
+            <p>
+                Order Notes
+                <br />
+                @Model.OrderInfo.Notes
             </p>
-
-
             <table class="table table-bordered table-sm text-center">
                 <thead>
                     <tr>

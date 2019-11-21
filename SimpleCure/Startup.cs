@@ -119,6 +119,59 @@ namespace SimpleCure
                     var addroleowner = UserManager.AddToRole(user.Id, "Owner");
                 }
             }
+
+
+
+            var CheckforSydney = UserManager.FindByEmail("Sydney@simplecureok.com");
+            if (CheckforSydney == null)
+            {
+                var user = new ApplicationUser();
+                user.UserName = "Sydney";
+                user.Email = "Sydney@simplecureok.com";
+                user.EmailConfirmed = true;
+                string userPWD = "Password";
+                var chkUser = UserManager.Create(user, userPWD);
+                if (chkUser.Succeeded)
+                {
+                    var addroleemployee = UserManager.AddToRole(user.Id, "Employee");
+                     
+                }
+            }
+
+
+            var CheckforJohnny = UserManager.FindByEmail("Johnny@simplecureok.com");
+            if (CheckforJohnny == null)
+            {
+                var user = new ApplicationUser();
+                user.UserName = "Johnny";
+                user.Email = "Johnny@simplecureok.com";
+                user.EmailConfirmed = true;
+                string userPWD = "Password";
+                var chkUser = UserManager.Create(user, userPWD);
+                if (chkUser.Succeeded)
+                {
+                    var addroleemployee = UserManager.AddToRole(user.Id, "Employee");
+
+                }
+            }
+
+            var CheckforLance = UserManager.FindByEmail("Lance@simplecureok.com");
+            if (CheckforLance == null)
+            {
+                var user = new ApplicationUser();
+                user.UserName = "Lance";
+                user.Email = "Lance@simplecureok.com";
+                user.EmailConfirmed = true;
+                string userPWD = "Password";
+                var chkUser = UserManager.Create(user, userPWD);
+                if (chkUser.Succeeded)
+                {
+                    var addroleemployee = UserManager.AddToRole(user.Id, "Employee");
+
+                }
+            }
+
+
         }
     }
 }

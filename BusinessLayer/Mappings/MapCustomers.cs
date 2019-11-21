@@ -36,6 +36,8 @@ namespace BusinessLayer.Mappings
             Customer.JenFirst = model.JenFirst;
             Customer.JenLast = model.JenLast;
             Customer.JenPhone = model.JenPhone;
+
+            Customer.IsActive = model.IsActive;
              
             return Customer;
         }
@@ -69,6 +71,8 @@ namespace BusinessLayer.Mappings
             Customer.JenFirst = model.JenFirst ?? string.Empty;
             Customer.JenLast = model.JenLast ?? string.Empty;
             Customer.JenPhone = model.JenPhone ?? string.Empty;
+
+            Customer.IsActive = model.IsActive;
 
             return Customer;
         }

@@ -3,9 +3,6 @@
 @{
     ViewBag.Title = "User Info";
 }
-@*<input type="hidden" value="@Url.Action("CreateBusinessType", "Admin")" id="UrlCreateBusinessType" />
-    <input type="hidden" value="@Url.Action("EditBusinessType", "Admin")" id="UrlEditBusinessType" />
-    <input type="hidden" value="@Url.Action("BusinessTypes", "Admin")" id="UrlBusinessTypes" />*@
 
 @if (Model.ResponseSuccess == false && Model.responseTypes == SimpleCure.Models.ResponseTypes.Failure)
 {
@@ -88,7 +85,7 @@
                                                                     {
                                                                     ID = Model.CustInfoModel.ID
                                                                     })
-                                                                         
+
                                                                 </li>
                                                                 <li>
                                                                     @Html.ActionLink(
@@ -134,16 +131,18 @@
                                                                         ID = Model.CustInfoModel.ID
                                                                         })
                                                                     }
-                                                                </li><li>
-                                                                       @Html.ActionLink(
-                                                                       " Remove Account",
-                                                                       "RemoveAccount",
-                                                                       "Admin",
-                                                                       new
-                                                                       {
-                                                                       ID = Model.CustInfoModel.ID
-                                                                       })
-</li></ul>
+                                                                </li>
+                                                                <li>
+                                                                    @Html.ActionLink(
+                                                                    " Remove Account",
+                                                                    "RemoveAccount",
+                                                                    "Admin",
+                                                                    new
+                                                                    {
+                                                                    ID = Model.CustInfoModel.ID
+                                                                    })
+                                                                </li>
+                                                            </ul>
                                                         }
                                                         else
                                                         {
@@ -154,7 +153,7 @@
                                                             new
                                                             {
                                                             ID = Model.CustInfoModel.ID
-                                                            })                                                          
+                                                            })
                                                         }
                                                     </p>
                                                 </div>
