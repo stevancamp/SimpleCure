@@ -221,6 +221,7 @@
     <Compile Include="_Order\Model\SearchPaidOrder.cs" />
     <Compile Include="_ProductGroup\Methods\_ProductGroup.cs" />
     <Compile Include="_Product\Methods\_Product.cs" />
+    <Compile Include="_SCSupply\Methods\_SCSupply.cs" />
     <Compile Include="_SuggestionStatus\Methods\_SuggestionStatus.cs" />
     <Compile Include="_Suggestions\Methods\_Suggestions.cs" />
     <Compile Include="_SuggestionWorkLog\Methods\_SuggestionWorkLog.cs" />
@@ -267,6 +268,8 @@
     <Folder Include="_ProductGroup\Model\" />
     <Folder Include="_Product\Classes\" />
     <Folder Include="_Product\Model\" />
+    <Folder Include="_SCSupply\Classes\" />
+    <Folder Include="_SCSupply\Model\" />
     <Folder Include="_SuggestionStatus\Classes\" />
     <Folder Include="_SuggestionStatus\Model\" />
     <Folder Include="_Suggestions\Classes\" />

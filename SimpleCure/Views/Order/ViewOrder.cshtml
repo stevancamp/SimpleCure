@@ -21,6 +21,7 @@
 <input type="hidden" value="@Url.Action("EmailInvoice", "Order")" id="UrlEmailInvoice" />
 <input type="hidden" value="@Url.Action("ViewEditOrderProduct", "Order")" id="UrlViewEditOrderProduct" />
 <input type="hidden" value="@Url.Action("SaveEditOrderProduct", "Order")" id="UrlSaveEditOrderProduct" />
+<input type="hidden" value="@Url.Action("SaveEditBillToAddress", "Order")" id="UrlSaveEditBillToAddress" />
 
 @if (Model.ResponseSuccess == false && Model.responseTypes == SimpleCure.Models.ResponseTypes.Failure)
 {

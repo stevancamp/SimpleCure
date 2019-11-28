@@ -1,249 +1,282 @@
 ﻿@model SimpleCure.Models.OrderModels.ViewOrderInfo_ViewModel
-<div class="col-md-6">
-    <div class="form-group">
-        @Html.LabelFor(m => m.CustomerInfo.Customer, new { @class = "form-control-label" })
-        @Html.TextBoxFor(m => m.CustomerInfo.Customer, new { @class = "form-control-plaintext", @readonly = "readonly" })
-    </div>
-    <div class="form-group">
-        @Html.LabelFor(m => m.CustomerInfo.Company, new { @class = "form-control-label" })
-        @Html.TextBoxFor(m => m.CustomerInfo.Company, new { @class = "form-control-plaintext", @readonly = "readonly" })
-    </div>
-    <div class="form-group">
-        @Html.LabelFor(m => m.OrderInfo.SubmissionDate, new { @class = "form-control-label" })
-        @Html.TextBoxFor(m => m.OrderInfo.SubmissionDate, new { @class = "form-control-plaintext", @readonly = "readonly" })
-    </div>
-    <div class="form-group">
-        @Html.LabelFor(m => m.OrderInfo.OrderStatus, new { @class = "form-control-label" })
-        @Html.TextBoxFor(m => m.OrderInfo.OrderStatus, new { @class = "form-control-plaintext", @readonly = "readonly" })
-    </div>
-</div>
-<div class="col-md-6">
-    <a id="CustomerInfoModalBTN" href="#CustomerInfoModal" role="button" data-toggle="modal" class="btn btn-sm btn-outline-primary">View  Customer Info</a> <br /><br />
-
-    <div class="modal fade" id="CustomerInfoModal" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="myModalLabel">
-                        Customer Information
-                    </h5>
-                    <button type="button" class="close" data-dismiss="modal">
-                        <span aria-hidden="true">×</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <div class="form-group">
-                        <label for="Company" class="label-material">Company</label>
-                        @Html.TextBoxFor(m => m.CustomerInfo.Company, new { @class = "form-control-plaintext", @readonly = "readonly" })
-
-                    </div>
-
-                    <div class="form-group">
-                        <label for="Customer" class="label-material">Customer Name</label>
-                        @Html.TextBoxFor(m => m.CustomerInfo.Customer, new { @class = "form-control-plaintext", @readonly = "readonly" })
-
-                    </div>
-
-                    <div class="form-group">
-                        <label for="MainPhone" class="label-material">Main Phone</label>
-                        @Html.TextBoxFor(m => m.CustomerInfo.MainPhone, new { @class = "form-control-plaintext", @readonly = "readonly" })
-
-                    </div>
-
-                    <div class="form-group">
-                        <label for="Mobile" class="label-material">Mobile</label>
-                        @Html.TextBoxFor(m => m.CustomerInfo.Mobile, new { @class = "form-control-plaintext", @readonly = "readonly" })
-
-                    </div>
-
-                    <div class="form-group">
-                        <label for="MainEmail" class="label-material">Main Email</label>
-                        @Html.TextBoxFor(m => m.CustomerInfo.MainEmail, new { @class = "form-control-plaintext", @readonly = "readonly" })
-
-                    </div>
-
-                    <div class="form-group">
-                        <label for="AltEmail1" class="label-material">Alt Email</label>
-                        @Html.TextBoxFor(m => m.CustomerInfo.AltEmail1, new { @class = "form-control-plaintext", @readonly = "readonly" })
-
-                    </div>
-
-                    <div class="form-group">
-                        <label for="Street1" class="label-material">Street Address</label>
-                        @Html.TextBoxFor(m => m.CustomerInfo.Street1, new { @class = "form-control-plaintext", @readonly = "readonly" })
-
-                    </div>
-
-                    <div class="form-group">
-                        <label for="City" class="label-material">City</label>
-                        @Html.TextBoxFor(m => m.CustomerInfo.City, new { @class = "form-control-plaintext", @readonly = "readonly" })
-
-                    </div>
-
-                    <div class="form-group">
-                        <label for="State" class="label-material">State</label>
-                        @Html.TextBoxFor(m => m.CustomerInfo.State, new { @class = "form-control-plaintext", @readonly = "readonly" })
-
-                    </div>
-
-                    <div class="form-group">
-                        <label for="Zip" class="label-material">Zip</label>
-                        @Html.TextBoxFor(m => m.CustomerInfo.Zip, new { @class = "form-control-plaintext", @readonly = "readonly" })
-
-                    </div>
-
-                    <div class="form-group">
-                        <label for="OMMALicense" class="label-material">OMMA License#</label>
-                        @Html.TextBoxFor(m => m.CustomerInfo.OMMALicense, new { @class = "form-control-plaintext", @readonly = "readonly" })
-
-                    </div>
-
-                    <div class="form-group">
-                        <label for="EIN" class="label-material">EIN#</label>
-                        @Html.TextBoxFor(m => m.CustomerInfo.EIN, new { @class = "form-control-plaintext", @readonly = "readonly" })
-
-                    </div>
-
-                    @*<div class="form-group">
-                            <label for="FEIN" class="label-material">FEIN#</label>
-                            @Html.TextBoxFor(m => m.CustomerInfo.FEIN, new { @class = "form-control-plaintext", @readonly = "readonly" })
-
-                        </div>*@
-
-                    <div class="form-group">
-                        <label for="OBN" class="label-material">OBN#</label>
-                        @Html.TextBoxFor(m => m.CustomerInfo.OBN, new { @class = "form-control-plaintext", @readonly = "readonly" })
-
-                    </div>
-
-                    <div class="form-group">
-                        @Html.LabelFor(m => m.CustomerInfo.IndustryType, "Business Type", new { @class = "form-control-label" })
-                        @Html.TextBoxFor(m => m.CustomerInfo.IndustryType, new { @class = "form-control-plaintext", @readonly = "readonly" })
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">
-                        Close
-                    </button>
-                </div>
-            </div>
-
+    <div class="col-md-6">
+        <div class="form-group">
+            @Html.LabelFor(m => m.CustomerInfo.Customer, new { @class = "form-control-label" })
+            @Html.TextBoxFor(m => m.CustomerInfo.Customer, new { @class = "form-control-plaintext", @readonly = "readonly" })
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(m => m.CustomerInfo.Company, new { @class = "form-control-label" })
+            @Html.TextBoxFor(m => m.CustomerInfo.Company, new { @class = "form-control-plaintext", @readonly = "readonly" })
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(m => m.OrderInfo.SubmissionDate, new { @class = "form-control-label" })
+            @Html.TextBoxFor(m => m.OrderInfo.SubmissionDate, new { @class = "form-control-plaintext", @readonly = "readonly" })
         </div>
 
+        <h3>Bill To:</h3>
+        <hr />
+        <div class="form-group">
+            @Html.LabelFor(m => m.OrderInfo.Street, new { @class = "form-control-label" })
+            @if (!string.IsNullOrEmpty(Model.OrderInfo.Street))
+            {
+                @Html.TextBoxFor(m => m.OrderInfo.Street, new { @class = "form-control" })
+            }
+            else
+            {
+                @Html.TextBoxFor(m => m.OrderInfo.Street, new { @class = "form-control", @Value = Model.CustomerInfo.Street1 })
+            }
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(m => m.OrderInfo.City, new { @class = "form-control-label" })
+
+            @if (!string.IsNullOrEmpty(Model.OrderInfo.City))
+            {
+                @Html.TextBoxFor(m => m.OrderInfo.City, new { @class = "form-control" })
+            }
+            else
+            {
+                @Html.TextBoxFor(m => m.OrderInfo.City, new { @class = "form-control", @Value = Model.CustomerInfo.City })
+            }
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(m => m.OrderInfo.State, new { @class = "form-control-label" })
+            @if (!string.IsNullOrEmpty(Model.OrderInfo.State))
+            {
+                @Html.TextBoxFor(m => m.OrderInfo.State, new { @class = "form-control" })
+            }
+            else
+            {
+                @Html.TextBoxFor(m => m.OrderInfo.State, new { @class = "form-control", @Value = Model.CustomerInfo.State })
+            }          
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(m => m.OrderInfo.ZIP, new { @class = "form-control-label" })
+            @if (!string.IsNullOrEmpty(Model.OrderInfo.ZIP))
+            {
+                @Html.TextBoxFor(m => m.OrderInfo.ZIP, new { @class = "form-control" })
+            }
+            else
+            {
+                @Html.TextBoxFor(m => m.OrderInfo.ZIP, new { @class = "form-control", @Value = Model.CustomerInfo.Zip })
+            }          
+        </div>
+        <div class="form-group">
+            <a href="#" class="btn btn-outline-primary" onclick="SaveEditOrderBillTo(@Model.OrderInfo.ID);">Save/Edit Bill To</a>
+            <p id="BillToErrorMessage"></p>
+        </div>       
     </div>
+    <div class="col-md-6">
 
-    <a id="OrderActivityModalBTN" href="#OrderActivityModal" role="button" data-toggle="modal" class="btn btn-sm btn-outline-primary">View Order Activity</a><br /><br />
+        <div class="form-group">
+            @Html.LabelFor(m => m.OrderInfo.OrderStatus, new { @class = "form-control-label" })
+            @Html.TextBoxFor(m => m.OrderInfo.OrderStatus, new { @class = "form-control-plaintext", @readonly = "readonly" })
+        </div>
 
-    <div class="modal fade" id="OrderActivityModal" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="myModalLabel">
-                        Order Activity
-                    </h5>
-                    <button type="button" class="close" data-dismiss="modal">
-                        <span aria-hidden="true">×</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    @foreach (var item in Model.OrderActivity)
-                    {
-                        <div class="row">
-                            <div class="col-4 date-holder text-right">
-                                <div class="icon"><i class="icon-clock"></i></div>
-                                <div>@item.Status</div>
-                                <div class="date"> <span>@item.ActivityDate</span><span class="text-info">@Convert.ToInt32((DateTime.Now - item.ActivityDate).TotalHours) hours ago</span></div>
-                            </div>
-                            <div class="col-8 content">
-                                <strong>Notes</strong>
-                                <p>@Html.Raw(HttpUtility.HtmlDecode(@item.Notes))</p>
-                            </div>
+        <a id="CustomerInfoModalBTN" href="#CustomerInfoModal" role="button" data-toggle="modal" class="btn btn-sm btn-outline-primary">View  Customer Info</a>
+        @if (string.IsNullOrEmpty(Model.CustomerInfo.Street1) || string.IsNullOrEmpty(Model.CustomerInfo.City) || string.IsNullOrEmpty(Model.CustomerInfo.State) || string.IsNullOrEmpty(Model.CustomerInfo.Zip))
+        {
+            <i class="fa fa-exclamation-circle" style="color:red;" aria-hidden="true"></i>
+        }
+        <br /><br />
+        <div class="modal fade" id="CustomerInfoModal" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="myModalLabel">
+                            Customer Information
+                        </h5>
+                        <button type="button" class="close" data-dismiss="modal">
+                            <span aria-hidden="true">×</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label for="Company" class="label-material">Company</label>
+                            @Html.TextBoxFor(m => m.CustomerInfo.Company, new { @class = "form-control-plaintext", @readonly = "readonly" })
+
                         </div>
-                    }
-                </div>
-                <div class="modal-footer">
 
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">
-                        Close
-                    </button>
+                        <div class="form-group">
+                            <label for="Customer" class="label-material">Customer Name</label>
+                            @Html.TextBoxFor(m => m.CustomerInfo.Customer, new { @class = "form-control-plaintext", @readonly = "readonly" })
+
+                        </div>
+
+                        <div class="form-group">
+                            <label for="MainPhone" class="label-material">Main Phone</label>
+                            @Html.TextBoxFor(m => m.CustomerInfo.MainPhone, new { @class = "form-control-plaintext", @readonly = "readonly" })
+
+                        </div>
+
+                        <div class="form-group">
+                            <label for="Mobile" class="label-material">Mobile</label>
+                            @Html.TextBoxFor(m => m.CustomerInfo.Mobile, new { @class = "form-control-plaintext", @readonly = "readonly" })
+
+                        </div>
+
+                        <div class="form-group">
+                            <label for="MainEmail" class="label-material">Main Email</label>
+                            @Html.TextBoxFor(m => m.CustomerInfo.MainEmail, new { @class = "form-control-plaintext", @readonly = "readonly" })
+
+                        </div>
+
+                        <div class="form-group">
+                            <label for="AltEmail1" class="label-material">Alt Email</label>
+                            @Html.TextBoxFor(m => m.CustomerInfo.AltEmail1, new { @class = "form-control-plaintext", @readonly = "readonly" })
+
+                        </div>
+
+                        <div class="form-group">
+                            <label for="Street1" class="label-material">Street Address</label>
+                            @Html.TextBoxFor(m => m.CustomerInfo.Street1, new { @class = "form-control-plaintext", @readonly = "readonly" })
+
+                        </div>
+
+                        <div class="form-group">
+                            <label for="City" class="label-material">City</label>
+                            @Html.TextBoxFor(m => m.CustomerInfo.City, new { @class = "form-control-plaintext", @readonly = "readonly" })
+
+                        </div>
+
+                        <div class="form-group">
+                            <label for="State" class="label-material">State</label>
+                            @Html.TextBoxFor(m => m.CustomerInfo.State, new { @class = "form-control-plaintext", @readonly = "readonly" })
+
+                        </div>
+
+                        <div class="form-group">
+                            <label for="Zip" class="label-material">Zip</label>
+                            @Html.TextBoxFor(m => m.CustomerInfo.Zip, new { @class = "form-control-plaintext", @readonly = "readonly" })
+
+                        </div>
+
+                        <div class="form-group">
+                            <label for="OMMALicense" class="label-material">OMMA License#</label>
+                            @Html.TextBoxFor(m => m.CustomerInfo.OMMALicense, new { @class = "form-control-plaintext", @readonly = "readonly" })
+
+                        </div>
+
+                        <div class="form-group">
+                            <label for="EIN" class="label-material">EIN#</label>
+                            @Html.TextBoxFor(m => m.CustomerInfo.EIN, new { @class = "form-control-plaintext", @readonly = "readonly" })
+
+                        </div> 
+                        <div class="form-group">
+                            <label for="OBN" class="label-material">OBN#</label>
+                            @Html.TextBoxFor(m => m.CustomerInfo.OBN, new { @class = "form-control-plaintext", @readonly = "readonly" })
+
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.CustomerInfo.IndustryType, "Business Type", new { @class = "form-control-label" })
+                            @Html.TextBoxFor(m => m.CustomerInfo.IndustryType, new { @class = "form-control-plaintext", @readonly = "readonly" })
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                            Close
+                        </button>
+                    </div>
                 </div>
+            </div>
+        </div>
+        <a id="OrderActivityModalBTN" href="#OrderActivityModal" role="button" data-toggle="modal" class="btn btn-sm btn-outline-primary">View Order Activity</a><br /><br />
+        <div class="modal fade" id="OrderActivityModal" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="myModalLabel">
+                            Order Activity
+                        </h5>
+                        <button type="button" class="close" data-dismiss="modal">
+                            <span aria-hidden="true">×</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        @foreach (var item in Model.OrderActivity)
+                        {
+                            <div class="row">
+                                <div class="col-4 date-holder text-right">
+                                    <div class="icon"><i class="icon-clock"></i></div>
+                                    <div>@item.Status</div>
+                                    <div class="date"> <span>@item.ActivityDate</span><span class="text-info">@Convert.ToInt32((DateTime.Now - item.ActivityDate).TotalHours) hours ago</span></div>
+                                </div>
+                                <div class="col-8 content">
+                                    <strong>Notes</strong>
+                                    <p>@Html.Raw(HttpUtility.HtmlDecode(@item.Notes))</p>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                    <div class="modal-footer">
+
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                            Close
+                        </button>
+                    </div>
+                </div>
+
             </div>
 
         </div>
-
-    </div>
-
-    <a href="@Url.Action("OrderInvoice", "Order", new { ID = Model.OrderInfo.ID })" target="_blank" class="btn btn-outline-primary btn-sm">View Invoice</a>
-    |
-    @*<a href="@Url.Action("EmailInvoice", "Order", new { ID = Model.OrderInfo.ID })" target="_blank" class="btn btn-outline-primary btn-sm">View Invoice</a>*@
-    @*<a href="#" class="btn btn-outline-primary btn-sm" onclick="EmailInvoice('@Model.CustomerInfo.MainEmail', @Model.OrderInfo.ID);">Email Invoice</a>*@
-
-    <a id="modal-490809" href="#SendEmailModel" role="button" class="btn btn-outline-primary" btn-sm data-toggle="modal">Email Invoice</a>
-
-    <div class="modal fade" id="SendEmailModel" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="myModalLabel">
-                        Confirm Email address and send
-                    </h5>
-                    <button type="button" class="close" data-dismiss="modal">
-                        <span aria-hidden="true">×</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <div class="form-group">
-
-                        <label for="EmailInput">
-                            Email address
-                        </label>
-                        <input type="email" class="form-control" id="EmailInput" value="@Model.CustomerInfo.MainEmail" />
+        <a href="@Url.Action("OrderInvoice", "Order", new { ID = Model.OrderInfo.ID })" target="_blank" class="btn btn-outline-primary btn-sm">View Invoice</a>
+        <a id="modal-490809" href="#SendEmailModel" role="button" class="btn btn-outline-primary" btn-sm data-toggle="modal">Email Invoice</a>
+        <div class="modal fade" id="SendEmailModel" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="myModalLabel">
+                            Confirm Email address and send
+                        </h5>
+                        <button type="button" class="close" data-dismiss="modal">
+                            <span aria-hidden="true">×</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label for="EmailInput">
+                                To:
+                            </label>
+                            <input type="email" class="form-control" id="EmailInput" value="@Model.CustomerInfo.MainEmail" />
+                        </div>
+                        <div class="form-group">
+                            <textarea class="form-control" id="EmailMessage"></textarea>
+                        </div>
                         <p class="text-danger" id="EmailErrorMessage"></p>
                     </div>
-                </div>
-                <div class="modal-footer">
-                    <a href="#" class="btn btn-outline-primary btn-sm" id="EmailInvoiceAnchor" onclick="EmailInvoice(@Model.OrderInfo.ID);">Email Invoice</a>
-
-                </div>
-            </div>
-
-        </div>
-
-    </div>
-
-
-
-    <br /><br />
-
-    <a id="modal-189233" href="#DeleteOrder" role="button" class="btn btn-outline-danger btn-sm" data-toggle="modal">Delete Order</a>
-
-    <div class="modal fade" id="DeleteOrder" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="myModalLabel">
-                        Delete Order
-                    </h5>
-                    <button type="button" class="close" data-dismiss="modal">
-                        <span aria-hidden="true">×</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    Are you sure you want to delete Order# @Model.OrderInfo.ID for Customer: @Model.CustomerInfo.Customer ? This will remove the order forever and you will not be able to retrieve any information about it.
-                </div>
-                <div class="modal-footer">
-
-                    <button type="button" class="btn btn-outline-danger" onclick="DeleteOrder(@Model.OrderInfo.ID);">
-                        Delete Order
-                    </button>
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">
-                        Close
-                    </button>
+                    <div class="modal-footer">
+                        <a href="#" class="btn btn-outline-primary btn-sm" id="EmailInvoiceAnchor" onclick="EmailInvoice(@Model.OrderInfo.ID);">Email Invoice</a>
+                    </div>
                 </div>
             </div>
-
         </div>
+        <br /><br />
+        <a id="modal-189233" href="#DeleteOrder" role="button" class="btn btn-outline-danger btn-sm" data-toggle="modal">Delete Order</a>
+        <div class="modal fade" id="DeleteOrder" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="myModalLabel">
+                            Delete Order
+                        </h5>
+                        <button type="button" class="close" data-dismiss="modal">
+                            <span aria-hidden="true">×</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        Are you sure you want to delete Order# @Model.OrderInfo.ID for Customer: @Model.CustomerInfo.Customer ? This will remove the order forever and you will not be able to retrieve any information about it.
+                    </div>
+                    <div class="modal-footer">
 
+                        <button type="button" class="btn btn-outline-danger" onclick="DeleteOrder(@Model.OrderInfo.ID);">
+                            Delete Order
+                        </button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                            Close
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
     </div>
-
-</div>

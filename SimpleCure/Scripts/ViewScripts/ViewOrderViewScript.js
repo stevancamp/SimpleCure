@@ -9,11 +9,14 @@ function ShowOrderStatus(OrderID) {
 }
 function SaveOrderStatus() {
 
+    var dataToSend = JSON.stringify({ "OrderActivityNotes": $('#Notes').val(), "OrderActivityStatus": $('#Status').val(), "OrderID": $("#OrderInfo_ID").val() });
+
     if ($('#Status').val() !== "0") {
         $.ajax({
             type: "POST",
+            contentType: "application/json; charset=utf-8",
             url: $("#UrlSaveOrderActivityStatus").val(),
-            data: { "OrderActivityNotes": $('#Notes').val(), "OrderActivityStatus": $('#Status').val(), "OrderID": $("#OrderInfo_ID").val() },
+            data: dataToSend,
             success: function (data) {
                 if (data === "True") {
                     ShowOrderStatus($("#OrderInfo_ID").val());
@@ -201,7 +204,7 @@ function ShowPayOrder() {
     $("#PayOrderModal").modal("toggle");
 }
 function PayOrder() {
-    var dataToSend = JSON.stringify({ "ID": $("#OrderInfo_ID").val(), "CompletionNotes": encodeURIComponent($("#CompletionNotes").val()), "To_From": $("#To_From option:selected").val(), "TransportID": encodeURIComponent($("#TransportID").val()), "TransportLocationStart": $("#TransportLocationStart").val(), "TransportLocationEnd": $("#TransportLocationEnd").val()});
+    var dataToSend = JSON.stringify({ "ID": $("#OrderInfo_ID").val(), "CompletionNotes": encodeURIComponent($("#CompletionNotes").val()), "To_From": $("#To_From option:selected").val(), "TransportID": encodeURIComponent($("#TransportID").val()), "TransportLocationStart": $("#TransportLocationStart").val(), "TransportLocationEnd": $("#TransportLocationEnd").val() });
     $.ajax({
         type: "POST",
         contentType: "application/json; charset=utf-8",
@@ -232,7 +235,7 @@ function SaveEditOrderProduct() {
         ErrorMessage += "You must enter a Quantity!\n";
     }
     var OrderProductStatus = "";
-    if ($("#EditOrderProductStatus option:selected").val() === "0") {      
+    if ($("#EditOrderProductStatus option:selected").val() === "0") {
         OrderProductStatus = $("#OriginalStatus").val();
     }
     else {
@@ -266,22 +269,22 @@ function SaveEditOrderProduct() {
     }
 
 }
- 
-
 function EmailInvoice(OrderID) {
-    //EmailInvoiceAnchor
     $("#EmailInvoiceAnchor").html("Loading <i class='fa fa-circle-o-notch fa-spin'></i>");
     var Email = $("#EmailInput").val();
-
+    var EmailMessage = $("#EmailMessage").val();
+    var dataToSend = JSON.stringify({ "EmailAddress": Email, "ID": OrderID, "EmailMessage": EmailMessage });
     if (Email === "" || Email === undefined || Email === null) {
         $("#EmailErrorMessage").html("You must enter a email address.");
     }
     else {
-      
+
         $.ajax({
             type: "POST",
             url: $("#UrlEmailInvoice").val(),
-            data: { "EmailAddress": Email, "ID": OrderID },
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            data: dataToSend,
             success: function (data) {
                 $("#EmailInvoiceAnchor").html("Email Invoice");
                 $("#EmailErrorMessage").html("");
@@ -290,7 +293,7 @@ function EmailInvoice(OrderID) {
                 $('body').removeClass('modal-open');
                 $('.modal-backdrop').remove();
 
-                if (data === "True") {
+                if (data) {
                     alert("The Email was sent successfully to " + Email);
                 }
                 else {
@@ -303,4 +306,48 @@ function EmailInvoice(OrderID) {
             }
         });
     }
+}
+
+function SaveEditOrderBillTo(ID) {
+
+    var ErrorMessage = "";
+    if ($("#OrderInfo_Street").val() === null || $("#OrderInfo_Street").val() === undefined || $("#OrderInfo_Street").val() === "") {
+        ErrorMessage += "You must enter a Street!\n";
+    }
+    if ($("#OrderInfo_City").val() === null || $("#OrderInfo_City").val() === undefined || $("#OrderInfo_City").val() === "") {
+        ErrorMessage += "You must enter a City!\n";
+    }
+    if ($("#OrderInfo_State").val() === null || $("#OrderInfo_State").val() === undefined || $("#OrderInfo_State").val() === "") {
+        ErrorMessage += "You must enter a State!\n";
+    }
+    if ($("#OrderInfo_ZIP").val() === null || $("#OrderInfo_ZIP").val() === undefined || $("#OrderInfo_ZIP").val() === "") {
+        ErrorMessage += "You must enter a ZIP!\n";
+    }
+    if (ErrorMessage === "") {
+
+        var dataToSend = JSON.stringify({ "ID": ID, "Street": $("#OrderInfo_Street").val(), "City": $("#OrderInfo_City").val(), "State": $("#OrderInfo_State").val(), "ZIP": $("#OrderInfo_ZIP").val() });
+
+        $.ajax({
+            type: "POST",
+            contentType: "application/json; charset=utf-8",
+            url: $("#UrlSaveEditBillToAddress").val(),
+            data: dataToSend,
+            success: function (data) {
+                if (data.ResponseSuccess) {
+                    ShowCustomerOrderInfo($("#OrderInfo_ID").val());
+                }
+                else {
+                    $("#BillToErrorMessage").text(data.ResponseMessage);
+                }
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                $("#BillToErrorMessage").text(errorThrown);
+            }
+        });
+    }
+    else {
+        $("#BillToErrorMessage").text(ErrorMessage);
+
+    }
+
 }

@@ -27,12 +27,10 @@ namespace Library._Order.Methods
         public ResponseBase Add(Order Order)
         {
             ResponseBase response = new ResponseBase();
-
             try
             {
                 using (var ctx = new SimpleCureEntities())
                 {
-
                     ctx.Orders.Add(Order);
                     var Added = ctx.SaveChanges();
 
@@ -49,8 +47,6 @@ namespace Library._Order.Methods
                         response.ResponseMessage = "Unable to add Order: " + JsonConvert.SerializeObject(Order);
                         response.responseTypes = ResponseTypes.Information;
                     }
-
-
                 }
             }
             catch (Exception ex)

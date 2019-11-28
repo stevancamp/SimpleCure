@@ -72,13 +72,17 @@ namespace SimpleCure.Controllers
         public int SaveOrder(string Notes, string CustomerID, List<ProductsList> ListProductsToSubmit, List<DiscountIDList> ListDiscountIDs)
         {
             ApplicationUser user = new ApplicationUser();
-
+            var Customer = _customerFunctions.GetByID(Convert.ToInt32(CustomerID));
             Order_Models order_Models = new Order_Models();
             order_Models.Notes = Notes;
             order_Models.OrderStatus = "Created";
             order_Models.SubmissionDate = DateTime.Now;
             order_Models.Tbl_CustomerID = Convert.ToInt32(CustomerID);
             order_Models.CompletionDate = null;
+            order_Models.Street = Customer.GenericClass.Street1;
+            order_Models.City = Customer.GenericClass.City;
+            order_Models.State = Customer.GenericClass.State;
+            order_Models.ZIP = Customer.GenericClass.Zip;
             var OrderAdd = _orderFunctions.Add(order_Models);
 
             OrderActivity_Models orderActivity_Models = new OrderActivity_Models();
@@ -167,12 +171,12 @@ namespace SimpleCure.Controllers
         [HttpPost]
         public bool SaveOrderActivityStatus(int OrderID, string OrderActivityStatus, string OrderActivityNotes)
         {
-            var AddedActivity = _orderActivityFunctions.Add(new OrderActivity_Models { ActivityBy = User.Identity.GetUserId(), ActivityDate = DateTime.Now, Notes = HttpUtility.HtmlEncode(OrderActivityNotes), OrderID = OrderID, Status = OrderActivityStatus });
+            var AddedActivity = _orderActivityFunctions.Add(new OrderActivity_Models { ActivityBy = User.Identity.GetUserId(), ActivityDate = DateTime.Now, Notes = OrderActivityNotes, OrderID = OrderID, Status = OrderActivityStatus });
 
             if (AddedActivity.ResponseSuccess)
             {
                 var Order = _orderFunctions.GetByID(OrderID);
-                var UpdatedOrderStatus = _orderFunctions.Update(new Order_Models { CompletionDate = Order.GenericClass.CompletionDate, ID = OrderID, Notes = Order.GenericClass.Notes, OrderStatus = OrderActivityStatus, SubmissionDate = Order.GenericClass.SubmissionDate, Tbl_CustomerID = Order.GenericClass.Tbl_CustomerID });
+                var UpdatedOrderStatus = _orderFunctions.Update(new Order_Models { CompletionDate = Order.GenericClass.CompletionDate, ID = OrderID, Notes = OrderActivityNotes, OrderStatus = OrderActivityStatus, SubmissionDate = Order.GenericClass.SubmissionDate, Tbl_CustomerID = Order.GenericClass.Tbl_CustomerID, Street = Order.GenericClass.Street, City = Order.GenericClass.City, State = Order.GenericClass.State, IsSimpleCure = Order.GenericClass.IsSimpleCure, To_From = Order.GenericClass.To_From, TransportID = Order.GenericClass.TransportID, TransportLocationEnd = Order.GenericClass.TransportLocationEnd, TransportLocationStart = Order.GenericClass.TransportLocationStart, ZIP = Order.GenericClass.ZIP });
                 if (UpdatedOrderStatus.ResponseSuccess)
                 {
                     return true;
@@ -186,7 +190,7 @@ namespace SimpleCure.Controllers
             var Order = _orderFunctions.GetByID(OrderID);
             if (Order.ResponseSuccess)
             {
-                var Updated = _orderFunctions.Update(new Order_Models { CompletionDate = Order.GenericClass.CompletionDate, ID = OrderID, Notes = Order.GenericClass.Notes, OrderStatus = Order.GenericClass.OrderStatus, SubmissionDate = Order.GenericClass.SubmissionDate, Tbl_CustomerID = CustomerID });
+                var Updated = _orderFunctions.Update(new Order_Models { CompletionDate = Order.GenericClass.CompletionDate, ID = OrderID, Notes = Order.GenericClass.Notes, OrderStatus = Order.GenericClass.OrderStatus, SubmissionDate = Order.GenericClass.SubmissionDate, Tbl_CustomerID = CustomerID, Street = Order.GenericClass.Street, City = Order.GenericClass.City, State = Order.GenericClass.State, IsSimpleCure = Order.GenericClass.IsSimpleCure, To_From = Order.GenericClass.To_From, TransportID = Order.GenericClass.TransportID, TransportLocationEnd = Order.GenericClass.TransportLocationEnd, TransportLocationStart = Order.GenericClass.TransportLocationStart, ZIP = Order.GenericClass.ZIP });
                 if (Updated.ResponseSuccess)
                 {
                     return true;
@@ -353,7 +357,7 @@ namespace SimpleCure.Controllers
                 var AddActivity = _orderActivityFunctions.Add(new OrderActivity_Models { ActivityBy = user.Id, ActivityDate = DateTime.Now, Notes = CompletionNotes, OrderID = ID, Status = "Paid" });
                 if (AddActivity.ResponseSuccess)
                 {
-                    var Paid = _orderFunctions.Update(new Order_Models { CompletionDate = DateTime.Now, ID = Order.GenericClass.ID, Notes = Order.GenericClass.Notes, OrderStatus = "Paid", SubmissionDate = Order.GenericClass.SubmissionDate, Tbl_CustomerID = Order.GenericClass.Tbl_CustomerID, To_From = To_From, TransportID = TransportID, TransportLocationEnd = TransportLocationEnd, TransportLocationStart = TransportLocationStart });
+                    var Paid = _orderFunctions.Update(new Order_Models { CompletionDate = DateTime.Now, ID = Order.GenericClass.ID, Notes = CompletionNotes, OrderStatus = Order.GenericClass.OrderStatus, SubmissionDate = Order.GenericClass.SubmissionDate, Tbl_CustomerID = Order.GenericClass.Tbl_CustomerID, Street = Order.GenericClass.Street, City = Order.GenericClass.City, State = Order.GenericClass.State, IsSimpleCure = Order.GenericClass.IsSimpleCure, To_From = To_From, TransportID = TransportID, TransportLocationEnd = TransportLocationEnd, TransportLocationStart = TransportLocationStart, ZIP = Order.GenericClass.ZIP });
                     if (Paid.ResponseSuccess)
                     {
                         return true;
@@ -471,7 +475,6 @@ namespace SimpleCure.Controllers
 
             return abc;
         }
-
         public ActionResult ViewEditOrderProduct(int OrderID, int OrderProductID)
         {
             var OrderProduct = _orderProductsFucntions.GetByID(OrderProductID);
@@ -485,7 +488,6 @@ namespace SimpleCure.Controllers
 
             return View("ViewOrder", new { ID = OrderID });
         }
-
         [HttpPost]
         public JsonResult SaveEditOrderProduct(int OrderProductID, int OrderID, int ProductID, string BatchID, int Quantity, string Status, string Description)
         {
@@ -493,9 +495,8 @@ namespace SimpleCure.Controllers
             var Updated = _orderProductsFucntions.Update(new OrderProducts_Models { BatchID = BatchID, EntryBy = User.Identity.ToString(), EntryDate = DateTime.Now, ID = OrderProductID, OrderID = OrderID, ProductID = ProductID, Quantity = Quantity, status = Status, Total = Quantity * Product.PricePerUnit, Description = Description });
             return Json(Updated, JsonRequestBehavior.AllowGet);
         }
-
         [HttpPost]
-        public bool EmailInvoice(string EmailAddress, int ID)
+        public JsonResult EmailInvoice(string EmailAddress, int ID, string EmailMessage)
         {
 
             bool MailSent = false;
@@ -525,7 +526,7 @@ namespace SimpleCure.Controllers
             var model = new OrderInvoice_ViewModel { CustomerInfo = CustomerInfo, OrderInfo = OrderInfo, ListDiscounts = ListOrderDiscounts, ListProducts = ListOrderProductProducts };
 
             var pdfResult = new ViewAsPdf("OrderInvoice", model) { PageOrientation = Rotativa.Options.Orientation.Portrait };
-            var binary = pdfResult.BuildFile(this.ControllerContext); 
+            var binary = pdfResult.BuildFile(this.ControllerContext);
             byte[] bytes = binary;
             ContentType ct2 = new ContentType()
             {
@@ -533,12 +534,11 @@ namespace SimpleCure.Controllers
                 Name = "SimpleCure Order Invoice.pdf"
             };
             Attachment att1 = new Attachment(new MemoryStream(bytes), ct2);
-            var success = _emailFunctions.SendMailWithAttachment(EmailAddress, "SimpleCure Invoice", "Attached is your invoice.", att1);
+            var success = _emailFunctions.SendMailWithAttachment(EmailAddress, "SimpleCure Invoice", $"Attached is your invoice. {Environment.NewLine}{Environment.NewLine} Simple Cure Message{Environment.NewLine}{EmailMessage}", att1);
             MailSent = success.ResponseSuccess;
-            return MailSent;
+            return Json(MailSent, JsonRequestBehavior.AllowGet);
 
         }
-
         public Byte[] InvoicePDFforMail(int ID)
         {
             try
@@ -567,6 +567,29 @@ namespace SimpleCure.Controllers
 
             //return new Byte[];
 
+        }
+
+        [HttpPost]
+        public bool SaveEditBillToAddress(int ID, string Street, string City, string State, string ZIP)
+        {
+            ApplicationUser user = new ApplicationUser();
+            var Order = _orderFunctions.GetByID(ID);
+            if (Order.ResponseSuccess)
+            {
+                var Update = _orderFunctions.Update(new Order_Models { CompletionDate = Order.GenericClass.CompletionDate, ID = Order.GenericClass.ID, Notes = Order.GenericClass.Notes, OrderStatus = Order.GenericClass.OrderStatus, SubmissionDate = Order.GenericClass.SubmissionDate, Tbl_CustomerID = Order.GenericClass.Tbl_CustomerID, Street = Street, City = City, State = State, IsSimpleCure = Order.GenericClass.IsSimpleCure, To_From = Order.GenericClass.To_From, TransportID = Order.GenericClass.TransportID, TransportLocationEnd = Order.GenericClass.TransportLocationEnd, TransportLocationStart = Order.GenericClass.TransportLocationStart, ZIP = ZIP });
+                if (Update.ResponseSuccess)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            else
+            {
+                return false;
+            }
         }
     }
 }

@@ -20,6 +20,10 @@ namespace BusinessLayer.Mappings
             returnModel.TransportID = model.TransportID;
             returnModel.TransportLocationEnd = model.TransportLocationEnd;
             returnModel.TransportLocationStart = model.TransportLocationStart;
+            returnModel.Street = model.Street;
+            returnModel.City = model.City;
+            returnModel.State = model.State;
+            returnModel.ZIP = model.ZIP;
             return returnModel;
         }
 
@@ -37,6 +41,10 @@ namespace BusinessLayer.Mappings
             returnModel.TransportID = model.TransportID;
             returnModel.TransportLocationEnd = model.TransportLocationEnd;
             returnModel.TransportLocationStart = model.TransportLocationStart;
+            returnModel.Street = model.Street;
+            returnModel.City = model.City;
+            returnModel.State = model.State;
+            returnModel.ZIP = model.ZIP;
             return returnModel;
         }
 

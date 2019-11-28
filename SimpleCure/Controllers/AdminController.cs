@@ -286,73 +286,72 @@ namespace SimpleCure.Controllers
         {
 
             Generic<UserMaintenance_ViewModel> model = new Generic<UserMaintenance_ViewModel>();
-            if (!string.IsNullOrEmpty(SearchTerm))
-            {
-                var CustInfo = _customerFunctions.SearchCustomers(SearchTerm);
+            //if (!string.IsNullOrEmpty(SearchTerm))
+            //{
+            //    var CustInfo = _customerFunctions.SearchCustomers(SearchTerm);
 
-                if (CustInfo.GenericClassList != null && CustInfo.GenericClassList.Count > 0)
+            //    if (CustInfo.GenericClassList != null && CustInfo.GenericClassList.Count > 0)
+            //    {
+            //        foreach (var item in CustInfo.GenericClassList)
+            //        {
+            //            UserMaintenance_ViewModel user = new UserMaintenance_ViewModel();
+            //            user.Company = item.Company;
+            //            user.CustomerName = item.Customer;
+            //            user.Email = item.MainEmail;
+            //            user.MainPhoneNumber = item.MainPhone;
+            //            user.StreetAddress = item.Street1;
+            //            user.ID = item.ID;
+            //            if (!string.IsNullOrEmpty(item.AspNetUsersID))
+            //            {
+            //                user.HasLogin = true;
+            //            }
+            //            else
+            //            {
+            //                user.HasLogin = false;
+            //            }
+            //            model.GenericClassList.Add(user);
+            //        }
+            //    }
+            //    else
+            //    {
+            //        model.GenericClassList = null;
+            //        model.ResponseMessage = CustInfo.ResponseMessage;
+            //        model.responseTypes = ResponseTypes.Information;
+            //    }
+            //}
+            //else
+            //{
+            var CustInfo = _customerFunctions.GetAll();
+
+            if (CustInfo.GenericClassList != null && CustInfo.GenericClassList.Count > 0)
+            {
+                foreach (var item in CustInfo.GenericClassList)
                 {
-                    foreach (var item in CustInfo.GenericClassList)
+                    UserMaintenance_ViewModel user = new UserMaintenance_ViewModel();
+                    user.Company = item.Company;
+                    user.CustomerName = item.Customer;
+                    user.Email = item.MainEmail;
+                    user.MainPhoneNumber = item.MainPhone;
+                    user.StreetAddress = item.Street1;
+                    user.ID = item.ID;
+                    if (!string.IsNullOrEmpty(item.AspNetUsersID))
                     {
-                        UserMaintenance_ViewModel user = new UserMaintenance_ViewModel();
-                        user.Company = item.Company;
-                        user.CustomerName = item.Customer;
-                        user.Email = item.MainEmail;
-                        user.MainPhoneNumber = item.MainPhone;
-                        user.StreetAddress = item.Street1;
-                        user.ID = item.ID;
-                        if (!string.IsNullOrEmpty(item.AspNetUsersID))
-                        {
-                            user.HasLogin = true;
-                        }
-                        else
-                        {
-                            user.HasLogin = false;
-                        }
-                        model.GenericClassList.Add(user);
+                        user.HasLogin = true;
                     }
-                }
-                else
-                {
-                    model.GenericClassList = null;
-                    model.ResponseMessage = CustInfo.ResponseMessage;
-                    model.responseTypes = ResponseTypes.Information;
+                    else
+                    {
+                        user.HasLogin = false;
+                    }
+                    model.GenericClassList.Add(user);
                 }
             }
             else
             {
-                //var CustInfo = _customerFunctions.GetAll();
-
-                //if (CustInfo.GenericClassList != null && CustInfo.GenericClassList.Count > 0)
-                //{
-                //    foreach (var item in CustInfo.GenericClassList)
-                //    {
-                //        UserMaintenance_ViewModel user = new UserMaintenance_ViewModel();
-                //        user.Company = item.Company;
-                //        user.CustomerName = item.Customer;
-                //        user.Email = item.MainEmail;
-                //        user.MainPhoneNumber = item.MainPhone;
-                //        user.StreetAddress = item.Street1;
-                //        user.ID = item.ID;
-                //        if (!string.IsNullOrEmpty(item.AspNetUsersID))
-                //        {
-                //            user.HasLogin = true;
-                //        }
-                //        else
-                //        {
-                //            user.HasLogin = false;
-                //        }
-                //        model.GenericClassList.Add(user);
-                //    }
-                //}
-                //else
-                //{
-                //    model.GenericClassList = null;
-                //    model.ResponseMessage = CustInfo.ResponseMessage;
-                //    model.responseTypes = ResponseTypes.Information;
-                //}
-
+                model.GenericClassList = null;
+                model.ResponseMessage = CustInfo.ResponseMessage;
+                model.responseTypes = ResponseTypes.Information;
             }
+            //}
 
             return View(model);
         }

@@ -114,209 +114,207 @@
                                                 <td>
                                                     @Model.CustomerInfo.Company
                                                     <br />@Model.CustomerInfo.Customer
-                                                    <br />Address:
-                                                    <br />@Model.CustomerInfo.Street1
-                                                    <br />@Model.CustomerInfo.City, @Model.CustomerInfo.State @Model.CustomerInfo.Zip
-                                                    <br />Main Phone: @Model.CustomerInfo.MainPhone
-                                                    <br />OMMA# @Model.CustomerInfo.OMMALicense
-                                                    @*<br />EIN# @Model.CustomerInfo.EIN*@
-                                                    <br />OBN# @Model.CustomerInfo.OBN
+                                                    <br />@if (!string.IsNullOrEmpty(Model.OrderInfo.Street)) {@Model.OrderInfo.Street} else { @Model.CustomerInfo.Street1}
+                                                    <br />@if (!string.IsNullOrEmpty(Model.OrderInfo.City)){@Model.OrderInfo.City}else{ @Model.CustomerInfo.City}, @if (!string.IsNullOrEmpty(Model.OrderInfo.State)){@Model.OrderInfo.State}else{ @Model.CustomerInfo.State} @if (!string.IsNullOrEmpty(Model.OrderInfo.ZIP)){@Model.OrderInfo.ZIP}else{ @Model.CustomerInfo.Zip}
+                                                <br />Main Phone: @Model.CustomerInfo.MainPhone
+                                                <br />OMMA# @Model.CustomerInfo.OMMALicense
+                                                <br />OBN# @Model.CustomerInfo.OBN
 
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <table class="table table-bordered table-sm">
-                                        <thead>
-                                            <tr>
-                                                <th>
-                                                    Status
-                                                </th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td>
-                                                    @Model.OrderInfo.OrderStatus
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col-md-12">
-                            <table class="table table-bordered table-sm">
-                                <thead>
-                                    <tr>
-                                        <th>
-                                            Transport Information
-                                        </th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>
-                                            Transport ID: @Model.OrderInfo.TransportID <br />
-                                            Transport Location Start: @Model.OrderInfo.TransportLocationStart<br />
-                                            Transport Location End: @Model.OrderInfo.TransportLocationEnd<br />
-                                            To/From Simple Cure: @Model.OrderInfo.To_From<br />
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                    <div class="col-md-6">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <table class="table table-bordered table-sm">
+                                    <thead>
+                                        <tr>
+                                            <th>
+                                                Status
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>
+                                                @Model.OrderInfo.OrderStatus
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
-
                     </div>
-                    <div class="row">
-                        <div class="col-md-12">
-                            <table class="table table-bordered text-center">
-                                <thead>
-                                    <tr>
-                                        <th>
-                                            Quantity
-                                        </th>
-                                        <th>
-                                            Description
-                                        </th>
-                                        <th>
-                                            Batch ID
-                                        </th>
-                                        <th>
-                                            Price Per Unit
-                                        </th>
-                                        <th>
-                                            Amount
-                                        </th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach (var item in Model.ListProducts)
-                                    {
-                                        <tr>
-                                            <td>
-                                                @item.Quantity
-                                            </td>
-                                            <td>
-                                                @item.ProductDescription
-                                            </td>
-                                            <td>
-                                                @item.BatchID
-                                            </td>
-                                            <td>
-                                                $@Convert.ToDecimal(item.PricePerUnit).ToString("#,##0.00")
-                                            </td>
-                                            <td>
-                                                $@Convert.ToDecimal(item.Total).ToString("#,##0.00")
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td></td>
-                                            <td>Additional Description Information:</td>
-                                            <td colspan="3">@item.OrderProductDescription</td>
-                                        </tr>
-                                    }
-                                </tbody>
-                            </table>
-                            @if (Model.ListDiscounts != null && Model.ListDiscounts.Count > 0)
-                            {
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <table class="table table-bordered text-center">
-                                            <thead>
-                                                <tr>
-                                                    <th>
-                                                        Discount Amount
-                                                    </th>
-
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                @foreach (var item in Model.ListDiscounts)
-                                                {
-                                                    <tr>
-                                                        <td>
-                                                            $@Convert.ToDecimal(item.DiscountAmount).ToString("#,##0.00")
-                                                        </td>
-                                                    </tr>
-                                                }
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                            }
-                            <br />
-                            <p class="float-right"><b>Total</b> $@Convert.ToDecimal((Model.ListProducts.Sum(i => i.Total) - (Model.ListDiscounts.Sum(i => i.DiscountAmount)))).ToString("#,##0.00")  </p>
-                        </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <table class="table table-bordered table-sm">
+                            <thead>
+                                <tr>
+                                    <th>
+                                        Transport Information
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        Transport ID: @Model.OrderInfo.TransportID <br />
+                                        Transport Location Start: @Model.OrderInfo.TransportLocationStart<br />
+                                        Transport Location End: @Model.OrderInfo.TransportLocationEnd<br />
+                                        To/From Simple Cure: @Model.OrderInfo.To_From<br />
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
 
                 </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <table class="table table-bordered text-center">
+                            <thead>
+                                <tr>
+                                    <th>
+                                        Quantity
+                                    </th>
+                                    <th>
+                                        Description
+                                    </th>
+                                    <th>
+                                        Batch ID
+                                    </th>
+                                    <th>
+                                        Price Per Unit
+                                    </th>
+                                    <th>
+                                        Amount
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model.ListProducts)
+                                {
+                                    <tr>
+                                        <td>
+                                            @item.Quantity
+                                        </td>
+                                        <td>
+                                            @item.ProductDescription
+                                        </td>
+                                        <td>
+                                            @item.BatchID
+                                        </td>
+                                        <td>
+                                            $@Convert.ToDecimal(item.PricePerUnit).ToString("#,##0.00")
+                                        </td>
+                                        <td>
+                                            $@Convert.ToDecimal(item.Total).ToString("#,##0.00")
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td></td>
+                                        <td>Additional Description Information:</td>
+                                        <td colspan="3">@item.OrderProductDescription</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                        @if (Model.ListDiscounts != null && Model.ListDiscounts.Count > 0)
+                        {
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <table class="table table-bordered text-center">
+                                        <thead>
+                                            <tr>
+                                                <th>
+                                                    Discount Amount
+                                                </th>
+
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach (var item in Model.ListDiscounts)
+                                            {
+                                                <tr>
+                                                    <td>
+                                                        $@Convert.ToDecimal(item.DiscountAmount).ToString("#,##0.00")
+                                                    </td>
+                                                </tr>
+                                            }
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        }
+                        <br />
+                        <p class="float-right"><b>Total</b> $@Convert.ToDecimal((Model.ListProducts.Sum(i => i.Total) - (Model.ListDiscounts.Sum(i => i.DiscountAmount)))).ToString("#,##0.00")  </p>
+                    </div>
+                </div>
+
             </div>
         </div>
-    </main>
+    </div>
+</main>
 
-    <footer class="footer mt-auto py-3">
-        <div class="container">
-            <p>
-                Order Notes
-                <br />
-                @Model.OrderInfo.Notes
-            </p>
-            <table class="table table-bordered table-sm text-center">
-                <thead>
-                    <tr>
-                        <th>
-                            Phone #
-                        </th>
-                        <th>
-                            Fax #
-                        </th>
-                        <th>
-                            E-Mail
-                        </th>
-                        <th>OMMA#</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>
-                            405-601-6867
+<footer class="footer mt-auto py-3">
+    <div class="container">
+        <p>
+            Order Notes
+            <br />
+            @Model.OrderInfo.Notes
+        </p>
+        <table class="table table-bordered table-sm text-center">
+            <thead>
+                <tr>
+                    <th>
+                        Phone #
+                    </th>
+                    <th>
+                        Fax #
+                    </th>
+                    <th>
+                        E-Mail
+                    </th>
+                    <th>OMMA#</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        405-601-6867
 
-                        </td>
-                        <td>
-                            EIN:83-1662069
+                    </td>
+                    <td>
+                        EIN:83-1662069
 
-                        </td>
-                        <td>
-                            orders@simplecureok.com
+                    </td>
+                    <td>
+                        orders@simplecureok.com
 
-                        </td>
-                        <td>
-                            PAAA-N1JE-51PR  OBN:59691
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-    </footer>
-    <script src="~/distribution/vendor/jquery/jquery.min.js"></script>
-    <script src="~/distribution/vendor/popper.js/umd/popper.min.js"></script>
-    <script src="~/distribution/vendor/bootstrap/js/bootstrap.min.js"></script>
-    <script src="~/distribution/js/grasp_mobile_progress_circle-1.0.0.min.js"></script>
-    <script src="~/distribution/vendor/jquery.cookie/jquery.cookie.js"></script>
-    <script src="~/distribution/vendor/jquery-validation/jquery.validate.min.js"></script>
-    <script src="~/distribution/vendor/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js"></script>
-    <script src="~/distribution/js/front.js"></script>
-    @section Scripts {
-        @Scripts.Render("~/bundles/jqueryval")
-    }
+                    </td>
+                    <td>
+                        PAAA-N1JE-51PR  OBN:59691
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</footer>
+<script src="~/distribution/vendor/jquery/jquery.min.js"></script>
+<script src="~/distribution/vendor/popper.js/umd/popper.min.js"></script>
+<script src="~/distribution/vendor/bootstrap/js/bootstrap.min.js"></script>
+<script src="~/distribution/js/grasp_mobile_progress_circle-1.0.0.min.js"></script>
+<script src="~/distribution/vendor/jquery.cookie/jquery.cookie.js"></script>
+<script src="~/distribution/vendor/jquery-validation/jquery.validate.min.js"></script>
+<script src="~/distribution/vendor/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js"></script>
+<script src="~/distribution/js/front.js"></script>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
 </body>
 </html>

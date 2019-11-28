@@ -160,6 +160,10 @@ warning 6002: The table/view 'SimpleCure.dbo.ALL' does not have a primary key de
           <Property Name="TransportLocationEnd" Type="varchar" MaxLength="1000" />
           <Property Name="To_From" Type="varchar" MaxLength="50" />
           <Property Name="IsSimpleCure" Type="bit" Nullable="false" />
+          <Property Name="Street" Type="varchar" MaxLength="2000" />
+          <Property Name="City" Type="varchar" MaxLength="2000" />
+          <Property Name="State" Type="varchar" MaxLength="200" />
+          <Property Name="ZIP" Type="varchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="OrderActivity">
           <Key>
@@ -1080,6 +1084,10 @@ warning 6002: The table/view 'SimpleCure.dbo.PaidOrders' does not have a primary
           <Property Name="TransportLocationStart" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
           <Property Name="TransportLocationEnd" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
           <Property Name="To_From" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Street" Type="String" MaxLength="2000" FixedLength="false" Unicode="false" />
+          <Property Name="City" Type="String" MaxLength="2000" FixedLength="false" Unicode="false" />
+          <Property Name="State" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="ZIP" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="OrderActivity">
           <Key>
@@ -1736,6 +1744,10 @@ warning 6002: The table/view 'SimpleCure.dbo.PaidOrders' does not have a primary
           <EntitySetMapping Name="Orders">
             <EntityTypeMapping TypeName="TestingModel.Order">
               <MappingFragment StoreEntitySet="Order">
+                <ScalarProperty Name="ZIP" ColumnName="ZIP" />
+                <ScalarProperty Name="State" ColumnName="State" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="Street" ColumnName="Street" />
                 <ScalarProperty Name="To_From" ColumnName="To_From" />
                 <ScalarProperty Name="TransportLocationEnd" ColumnName="TransportLocationEnd" />
                 <ScalarProperty Name="TransportLocationStart" ColumnName="TransportLocationStart" />
