@@ -26,7 +26,7 @@ namespace Library.Shared.Methods
             {
                 using (var ctx = new SimpleCureEntities())
                 {
-                    var sevendays = DateTime.Now.AddDays(-7);
+                    var sevendays = TimeZoneInfo.ConvertTime(DateTime.Now, TimeZoneInfo.FindSystemTimeZoneById("Central Standard Time")).AddDays(-7);
 
                     var CompletedOrders = (from s in ctx.Orders
                                                              where EntityFunctions.TruncateTime(s.CompletionDate) >= EntityFunctions.TruncateTime(sevendays)
@@ -64,7 +64,7 @@ namespace Library.Shared.Methods
                 string stacktrace = ex.StackTrace;
                 string targetsite = ex.TargetSite.ToString();
                 string error = ex.InnerException?.ToString() ?? ex.ToString();
-                string ErrorMessage = $"There was an error at {DateTime.Now} {Environment.NewLine} Method: {methodName} {Environment.NewLine} Source: {source} {Environment.NewLine} StackTrace: {stacktrace} {Environment.NewLine} TargetSite: {targetsite} {Environment.NewLine} Error: {error}{Environment.NewLine}";
+                string ErrorMessage = $"There was an error at {TimeZoneInfo.ConvertTime(DateTime.Now, TimeZoneInfo.FindSystemTimeZoneById("Central Standard Time"))} {Environment.NewLine} Method: {methodName} {Environment.NewLine} Source: {source} {Environment.NewLine} StackTrace: {stacktrace} {Environment.NewLine} TargetSite: {targetsite} {Environment.NewLine} Error: {error}{Environment.NewLine}";
                 _applicationError.Log(ErrorMessage, string.Empty);
 
                 response.ResponseMessage = "Unable to get the Index view information";

@@ -382,8 +382,8 @@ namespace SimpleCure.Controllers
             if (ID > 0)
             {
                 model.CustInfoModel = _customerFunctions.GetByID(ID).GenericClass;
-                model.AccountChangeList = _loginAttemptFunctions.GetAllAccountChangesByIDByLoginDate(model.CustInfoModel.AspNetUsersID, Date ?? DateTime.Now).GenericClassList;
-                model.LoginAttempts = _loginAttemptFunctions.GetAllAttemptsByIDByLoginDate(model.CustInfoModel.ID.ToString(), Date ?? DateTime.Now).GenericClassList;
+                model.AccountChangeList = _loginAttemptFunctions.GetAllAccountChangesByIDByLoginDate(model.CustInfoModel.AspNetUsersID, Date ?? TimeZoneInfo.ConvertTime(DateTime.Now, TimeZoneInfo.FindSystemTimeZoneById("Central Standard Time"))).GenericClassList;
+                model.LoginAttempts = _loginAttemptFunctions.GetAllAttemptsByIDByLoginDate(model.CustInfoModel.ID.ToString(), Date ?? TimeZoneInfo.ConvertTime(DateTime.Now, TimeZoneInfo.FindSystemTimeZoneById("Central Standard Time"))).GenericClassList;
                 if (!string.IsNullOrEmpty(model.CustInfoModel.AspNetUsersID))
                 {
                     model.userInfoModel = await UserManager.FindByIdAsync(model.CustInfoModel.AspNetUsersID);
@@ -413,7 +413,7 @@ namespace SimpleCure.Controllers
             {
                 AccountChangeLog_Model ChangeModel = new AccountChangeLog_Model();
                 ChangeModel.ChangedBy = User.Identity.GetUserId();
-                ChangeModel.ChangedDateTime = DateTime.Now;
+                ChangeModel.ChangedDateTime = TimeZoneInfo.ConvertTime(DateTime.Now, TimeZoneInfo.FindSystemTimeZoneById("Central Standard Time"));
                 ChangeModel.ChangeFrom = FromObj;
                 ChangeModel.ChangeTo = JsonConvert.SerializeObject(model);
                 ChangeModel.UserIDChanged = model.ID.ToString();
@@ -782,7 +782,7 @@ namespace SimpleCure.Controllers
                 cm.Customer = model.Customer;
                 cm.DocLink = null;
                 cm.EIN = model.EIN;
-                cm.EnterDate = DateTime.Now;
+                cm.EnterDate = TimeZoneInfo.ConvertTime(DateTime.Now, TimeZoneInfo.FindSystemTimeZoneById("Central Standard Time"));
                 cm.FEIN = model.EIN;
                 cm.IndustryType = model.IndustryType;
                 cm.MainEmail = model.MainEmail;
@@ -1512,7 +1512,7 @@ namespace SimpleCure.Controllers
             ApplicaitonLogs_ViewModel model = new ApplicaitonLogs_ViewModel();
             try
             {
-                var Logs = _loggerFunctions.GetByDate(dateTime ?? DateTime.Now);
+                var Logs = _loggerFunctions.GetByDate(dateTime ?? TimeZoneInfo.ConvertTime(DateTime.Now, TimeZoneInfo.FindSystemTimeZoneById("Central Standard Time")));
                 model.ResponseSuccess = Logs.ResponseSuccess;
                 model.ResponseMessage = Logs.ResponseMessage;
 

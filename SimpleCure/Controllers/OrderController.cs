@@ -22,7 +22,6 @@ using System.IO;
 using System.Linq;
 using System.Net.Mail;
 using System.Net.Mime;
-using System.Web;
 using System.Web.Mvc;
 
 namespace SimpleCure.Controllers
@@ -76,7 +75,7 @@ namespace SimpleCure.Controllers
             Order_Models order_Models = new Order_Models();
             order_Models.Notes = Notes;
             order_Models.OrderStatus = "Created";
-            order_Models.SubmissionDate = DateTime.Now;
+            order_Models.SubmissionDate = TimeZoneInfo.ConvertTime(DateTime.Now, TimeZoneInfo.FindSystemTimeZoneById("Central Standard Time"));
             order_Models.Tbl_CustomerID = Convert.ToInt32(CustomerID);
             order_Models.CompletionDate = null;
             order_Models.Street = Customer.GenericClass.Street1;
@@ -87,7 +86,7 @@ namespace SimpleCure.Controllers
 
             OrderActivity_Models orderActivity_Models = new OrderActivity_Models();
             orderActivity_Models.ActivityBy = user.Id;
-            orderActivity_Models.ActivityDate = DateTime.Now;
+            orderActivity_Models.ActivityDate = TimeZoneInfo.ConvertTime(DateTime.Now, TimeZoneInfo.FindSystemTimeZoneById("Central Standard Time"));
             orderActivity_Models.Notes = Notes;
             orderActivity_Models.OrderID = OrderAdd.ResponseInt;
             orderActivity_Models.Status = "Created";
@@ -98,13 +97,13 @@ namespace SimpleCure.Controllers
 
                 foreach (var item in ListProductsToSubmit)
                 {
-
+                    
                     var Product = _productFucntions.GetByID(item.ProductID).GenericClass;
 
                     OrderProducts_Models orderProducts_Models = new OrderProducts_Models();
                     orderProducts_Models.BatchID = item.BatchID;
                     orderProducts_Models.EntryBy = user.Id;
-                    orderProducts_Models.EntryDate = DateTime.Now;
+                    orderProducts_Models.EntryDate = TimeZoneInfo.ConvertTime(DateTime.Now, TimeZoneInfo.FindSystemTimeZoneById("Central Standard Time"));
                     orderProducts_Models.OrderID = OrderAdd.ResponseInt;
                     orderProducts_Models.ProductID = item.ProductID;
                     orderProducts_Models.Quantity = item.Quantity;
@@ -171,7 +170,7 @@ namespace SimpleCure.Controllers
         [HttpPost]
         public bool SaveOrderActivityStatus(int OrderID, string OrderActivityStatus, string OrderActivityNotes)
         {
-            var AddedActivity = _orderActivityFunctions.Add(new OrderActivity_Models { ActivityBy = User.Identity.GetUserId(), ActivityDate = DateTime.Now, Notes = OrderActivityNotes, OrderID = OrderID, Status = OrderActivityStatus });
+            var AddedActivity = _orderActivityFunctions.Add(new OrderActivity_Models { ActivityBy = User.Identity.GetUserId(), ActivityDate = TimeZoneInfo.ConvertTime(DateTime.Now, TimeZoneInfo.FindSystemTimeZoneById("Central Standard Time")), Notes = OrderActivityNotes, OrderID = OrderID, Status = OrderActivityStatus });
 
             if (AddedActivity.ResponseSuccess)
             {
@@ -246,7 +245,7 @@ namespace SimpleCure.Controllers
         public bool AddOrderProdcut(int OrderID, string BatchID, int Quantity, int ProductID, string Description)
         {
             ApplicationUser user = new ApplicationUser();
-            var Added = _orderProductsFucntions.Add(new OrderProducts_Models { BatchID = BatchID, EntryBy = user.Id, EntryDate = DateTime.Now, OrderID = OrderID, ProductID = ProductID, Quantity = Quantity, Total = _productFucntions.GetByID(ProductID).GenericClass.PricePerUnit * Quantity, Description = Description });
+            var Added = _orderProductsFucntions.Add(new OrderProducts_Models { BatchID = BatchID, EntryBy = user.Id, EntryDate = TimeZoneInfo.ConvertTime(DateTime.Now, TimeZoneInfo.FindSystemTimeZoneById("Central Standard Time")), OrderID = OrderID, ProductID = ProductID, Quantity = Quantity, Total = _productFucntions.GetByID(ProductID).GenericClass.PricePerUnit * Quantity, Description = Description });
             if (Added.ResponseSuccess)
             { return true; }
             else
@@ -354,10 +353,10 @@ namespace SimpleCure.Controllers
             var Order = _orderFunctions.GetByID(ID);
             if (Order.ResponseSuccess)
             {
-                var AddActivity = _orderActivityFunctions.Add(new OrderActivity_Models { ActivityBy = user.Id, ActivityDate = DateTime.Now, Notes = CompletionNotes, OrderID = ID, Status = "Paid" });
+                var AddActivity = _orderActivityFunctions.Add(new OrderActivity_Models { ActivityBy = user.Id, ActivityDate = TimeZoneInfo.ConvertTime(DateTime.Now, TimeZoneInfo.FindSystemTimeZoneById("Central Standard Time")), Notes = CompletionNotes, OrderID = ID, Status = "Paid" });
                 if (AddActivity.ResponseSuccess)
                 {
-                    var Paid = _orderFunctions.Update(new Order_Models { CompletionDate = DateTime.Now, ID = Order.GenericClass.ID, Notes = CompletionNotes, OrderStatus = Order.GenericClass.OrderStatus, SubmissionDate = Order.GenericClass.SubmissionDate, Tbl_CustomerID = Order.GenericClass.Tbl_CustomerID, Street = Order.GenericClass.Street, City = Order.GenericClass.City, State = Order.GenericClass.State, IsSimpleCure = Order.GenericClass.IsSimpleCure, To_From = To_From, TransportID = TransportID, TransportLocationEnd = TransportLocationEnd, TransportLocationStart = TransportLocationStart, ZIP = Order.GenericClass.ZIP });
+                    var Paid = _orderFunctions.Update(new Order_Models { CompletionDate = TimeZoneInfo.ConvertTime(DateTime.Now, TimeZoneInfo.FindSystemTimeZoneById("Central Standard Time")), ID = Order.GenericClass.ID, Notes = CompletionNotes, OrderStatus = "Paid", SubmissionDate = Order.GenericClass.SubmissionDate, Tbl_CustomerID = Order.GenericClass.Tbl_CustomerID, Street = Order.GenericClass.Street, City = Order.GenericClass.City, State = Order.GenericClass.State, IsSimpleCure = Order.GenericClass.IsSimpleCure, To_From = To_From, TransportID = TransportID, TransportLocationEnd = TransportLocationEnd, TransportLocationStart = TransportLocationStart, ZIP = Order.GenericClass.ZIP });
                     if (Paid.ResponseSuccess)
                     {
                         return true;
@@ -492,7 +491,7 @@ namespace SimpleCure.Controllers
         public JsonResult SaveEditOrderProduct(int OrderProductID, int OrderID, int ProductID, string BatchID, int Quantity, string Status, string Description)
         {
             var Product = _productFucntions.GetByID(ProductID).GenericClass;
-            var Updated = _orderProductsFucntions.Update(new OrderProducts_Models { BatchID = BatchID, EntryBy = User.Identity.ToString(), EntryDate = DateTime.Now, ID = OrderProductID, OrderID = OrderID, ProductID = ProductID, Quantity = Quantity, status = Status, Total = Quantity * Product.PricePerUnit, Description = Description });
+            var Updated = _orderProductsFucntions.Update(new OrderProducts_Models { BatchID = BatchID, EntryBy = User.Identity.ToString(), EntryDate = TimeZoneInfo.ConvertTime(DateTime.Now, TimeZoneInfo.FindSystemTimeZoneById("Central Standard Time")), ID = OrderProductID, OrderID = OrderID, ProductID = ProductID, Quantity = Quantity, status = Status, Total = Quantity * Product.PricePerUnit, Description = Description });
             return Json(Updated, JsonRequestBehavior.AllowGet);
         }
         [HttpPost]
@@ -560,7 +559,7 @@ namespace SimpleCure.Controllers
                 string stacktrace = ex.StackTrace;
                 string targetsite = ex.TargetSite.ToString();
                 string error = ex.InnerException?.ToString() ?? ex.ToString();
-                string ErrorMessage = $"There was an error at {DateTime.Now} {Environment.NewLine} Method: {methodName} {Environment.NewLine} Source: {source} {Environment.NewLine} StackTrace: {stacktrace} {Environment.NewLine} TargetSite: {targetsite} {Environment.NewLine} Order ID: {ID}{Environment.NewLine} Error: {error}";
+                string ErrorMessage = $"There was an error at {TimeZoneInfo.ConvertTime(DateTime.Now, TimeZoneInfo.FindSystemTimeZoneById("Central Standard Time"))} {Environment.NewLine} Method: {methodName} {Environment.NewLine} Source: {source} {Environment.NewLine} StackTrace: {stacktrace} {Environment.NewLine} TargetSite: {targetsite} {Environment.NewLine} Order ID: {ID}{Environment.NewLine} Error: {error}";
                 _loggerFunctions.Log(ErrorMessage, string.Empty);
                 return null;
             }

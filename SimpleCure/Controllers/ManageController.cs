@@ -432,7 +432,7 @@ namespace SimpleCure.Controllers
                             {
                                 AccountChangeLog_Model ChangeModel = new AccountChangeLog_Model();
                                 ChangeModel.ChangedBy = User.Identity.GetUserId();
-                                ChangeModel.ChangedDateTime = DateTime.Now;
+                                ChangeModel.ChangedDateTime = TimeZoneInfo.ConvertTime(DateTime.Now, TimeZoneInfo.FindSystemTimeZoneById("Central Standard Time"));
                                 ChangeModel.ChangeFrom = FromObj;
                                 ChangeModel.ChangeTo = JsonConvert.SerializeObject(user);
                                 ChangeModel.UserIDChanged = user.Id;
@@ -464,7 +464,7 @@ namespace SimpleCure.Controllers
                     {
                         AccountChangeLog_Model ChangeModel = new AccountChangeLog_Model();
                         ChangeModel.ChangedBy = User.Identity.GetUserId();
-                        ChangeModel.ChangedDateTime = DateTime.Now;
+                        ChangeModel.ChangedDateTime = TimeZoneInfo.ConvertTime(DateTime.Now, TimeZoneInfo.FindSystemTimeZoneById("Central Standard Time"));
                         ChangeModel.ChangeFrom = FromObj;
                         ChangeModel.ChangeTo = JsonConvert.SerializeObject(user);
                         ChangeModel.UserIDChanged = user.Id;
@@ -543,7 +543,7 @@ namespace SimpleCure.Controllers
                             {
                                 AccountChangeLog_Model ChangeModel = new AccountChangeLog_Model();
                                 ChangeModel.ChangedBy = User.Identity.GetUserId();
-                                ChangeModel.ChangedDateTime = DateTime.Now;
+                                ChangeModel.ChangedDateTime = TimeZoneInfo.ConvertTime(DateTime.Now, TimeZoneInfo.FindSystemTimeZoneById("Central Standard Time"));
                                 ChangeModel.ChangeFrom = FromObj;
                                 ChangeModel.ChangeTo = JsonConvert.SerializeObject(user);
                                 ChangeModel.UserIDChanged = user.Id;
@@ -575,7 +575,7 @@ namespace SimpleCure.Controllers
                     {
                         AccountChangeLog_Model ChangeModel = new AccountChangeLog_Model();
                         ChangeModel.ChangedBy = User.Identity.GetUserId();
-                        ChangeModel.ChangedDateTime = DateTime.Now;
+                        ChangeModel.ChangedDateTime = TimeZoneInfo.ConvertTime(DateTime.Now, TimeZoneInfo.FindSystemTimeZoneById("Central Standard Time"));
                         ChangeModel.ChangeFrom = FromObj;
                         ChangeModel.ChangeTo = JsonConvert.SerializeObject(user);
                         ChangeModel.UserIDChanged = user.Id;

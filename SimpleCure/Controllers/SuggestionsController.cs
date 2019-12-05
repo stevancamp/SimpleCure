@@ -43,7 +43,7 @@ namespace SimpleCure.Controllers
             if (ModelState.IsValid)
             {
 
-                var Added = _suggestionFunctions.Add(new BusinessLayer.Models.Suggestions.Suggestions_Model { EntryBy = User.Identity.Name, EntryDate = DateTime.Now, ID = 0, IsActive = true, Status = "Initial Entry", SuggestionComments = model.SuggestionComments, SuggestionTitle = model.SuggestionTitle });
+                var Added = _suggestionFunctions.Add(new BusinessLayer.Models.Suggestions.Suggestions_Model { EntryBy = User.Identity.Name, EntryDate = TimeZoneInfo.ConvertTime(DateTime.Now, TimeZoneInfo.FindSystemTimeZoneById("Central Standard Time")), ID = 0, IsActive = true, Status = "Initial Entry", SuggestionComments = model.SuggestionComments, SuggestionTitle = model.SuggestionTitle });
                 response.ResponseInt = Added.ResponseInt;
                 response.ResponseListInt = Added.ResponseListInt;
                 response.ResponseListString = Added.ResponseListString;
@@ -148,7 +148,7 @@ namespace SimpleCure.Controllers
         public JsonResult SaveSuggestionWorkLog(EnterSuggestionWorkLog_ViewModel model)
         {
             ResponseBase response = new ResponseBase();
-            var SavedWorkLogItem = _suggestionWorkLogFunctions.Add(new BusinessLayer.Models.SuggestionWorkLog.SuggestionWorkLog_Model { Comment = model.Comment, EndDateTime = model.EndDateTime, EntryBy = User.Identity.Name, EntryDateTime = DateTime.Now, StartDateTime = model.StartDateTime, SuggestionID = model.SuggestionID, ID = 0 });
+            var SavedWorkLogItem = _suggestionWorkLogFunctions.Add(new BusinessLayer.Models.SuggestionWorkLog.SuggestionWorkLog_Model { Comment = model.Comment, EndDateTime = model.EndDateTime, EntryBy = User.Identity.Name, EntryDateTime = TimeZoneInfo.ConvertTime(DateTime.Now, TimeZoneInfo.FindSystemTimeZoneById("Central Standard Time")), StartDateTime = model.StartDateTime, SuggestionID = model.SuggestionID, ID = 0 });
             if (SavedWorkLogItem.ResponseSuccess)
             {
                 var suggestion = _suggestionFunctions.GetByID(model.SuggestionID);

@@ -199,7 +199,7 @@
                                 <div class="col-4 date-holder text-right">
                                     <div class="icon"><i class="icon-clock"></i></div>
                                     <div>@item.Status</div>
-                                    <div class="date"> <span>@item.ActivityDate</span><span class="text-info">@Convert.ToInt32((DateTime.Now - item.ActivityDate).TotalHours) hours ago</span></div>
+                                    <div class="date"> <span>@item.ActivityDate</span><span class="text-info">@Convert.ToInt32((TimeZoneInfo.ConvertTime(DateTime.Now, TimeZoneInfo.FindSystemTimeZoneById("Central Standard Time")) - item.ActivityDate).TotalHours) hours ago</span></div>
                                 </div>
                                 <div class="col-8 content">
                                     <strong>Notes</strong>

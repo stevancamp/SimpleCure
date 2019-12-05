@@ -38,7 +38,7 @@ namespace SimpleCure.Controllers
             Generic<Index_ViewModel> model = new Generic<Index_ViewModel>();
             if (StartDate != null && EndDate != null)
             {
-                var RangeData = _scsupplyFunctions.GetAllByRange(StartDate ?? DateTime.Now.AddDays(-31), EndDate ?? DateTime.Now);
+                var RangeData = _scsupplyFunctions.GetAllByRange(StartDate ?? TimeZoneInfo.ConvertTime(DateTime.Now, TimeZoneInfo.FindSystemTimeZoneById("Central Standard Time")).AddDays(-31), EndDate ?? DateTime.Now);
 
                 if (RangeData.ResponseSuccess && RangeData.GenericClassList != null && RangeData.GenericClassList.Count > 0)
                 {

@@ -52,7 +52,7 @@ namespace BusinessLayer.Mappings
             Customer.Customer = model.Customer ?? string.Empty;
             Customer.DocLink = model.DocLink ?? string.Empty;
             Customer.EIN = model.EIN ?? string.Empty;
-            Customer.EnterDate = model.EnterDate ?? DateTime.Now;
+            Customer.EnterDate = model.EnterDate ?? TimeZoneInfo.ConvertTime(DateTime.Now, TimeZoneInfo.FindSystemTimeZoneById("Central Standard Time"));
             Customer.FEIN = model.FEIN ?? string.Empty;
             Customer.ID = model.ID;
             Customer.IndustryType = model.IndustryType ?? string.Empty;

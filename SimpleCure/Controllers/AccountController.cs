@@ -104,7 +104,7 @@ namespace SimpleCure.Controllers
                 AspNetUsersLoginAttempt_Model log = new AspNetUsersLoginAttempt_Model();
                 log.ASPNetUserID = user.Id;
                 log.IP_Address = _helper.GetIp();
-                log.LoginDatetime = DateTime.Now;
+                log.LoginDatetime = TimeZoneInfo.ConvertTime(DateTime.Now, TimeZoneInfo.FindSystemTimeZoneById("Central Standard Time"));
                 log.Message = result.ToString();
                 if (result == SignInStatus.Success)
                 { log.Success = true; }

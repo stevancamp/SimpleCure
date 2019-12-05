@@ -29,7 +29,7 @@ namespace Library.ErrorLogging.Methods
                     AppError error = new AppError();
 
                     error.ErrorMessage = ErrorMessage;
-                    error.ErrorTime = DateTime.Now;
+                    error.ErrorTime = TimeZoneInfo.ConvertTime(DateTime.Now, TimeZoneInfo.FindSystemTimeZoneById("Central Standard Time"));
                     error.IP_Address = IPAddress;
                     ctx.AppErrors.Add(error);
                     var Logged = ctx.SaveChanges();
@@ -42,7 +42,7 @@ namespace Library.ErrorLogging.Methods
                     }
                     else
                     {
-                        _emailMessage.SendMessage(ConfigurationManager.AppSettings["DeveloperEmail"], "Simple Cure Failure To Log", $"At {DateTime.Now} the Simple Cure application was unable to log error message {ErrorMessage} for IPAddress {IPAddress}");
+                        _emailMessage.SendMessage(ConfigurationManager.AppSettings["DeveloperEmail"], "Simple Cure Failure To Log", $"At {TimeZoneInfo.ConvertTime(DateTime.Now, TimeZoneInfo.FindSystemTimeZoneById("Central Standard Time"))} the Simple Cure application was unable to log error message {ErrorMessage} for IPAddress {IPAddress}");
                         response.ResponseMessage = "Failed to log error message!";
                         response.responseTypes = ResponseTypes.Information;
                     }
@@ -50,7 +50,7 @@ namespace Library.ErrorLogging.Methods
             }
             catch (Exception ex)
             {               
-                _emailMessage.SendMessage(ConfigurationManager.AppSettings["DeveloperEmail"], "Simple Cure Failure To Log", $"At {DateTime.Now} the Simple Cure application was unable to log error message {ErrorMessage} for IPAddress {IPAddress} Catch exception is {ex.ToString()}");
+                _emailMessage.SendMessage(ConfigurationManager.AppSettings["DeveloperEmail"], "Simple Cure Failure To Log", $"At {TimeZoneInfo.ConvertTime(DateTime.Now, TimeZoneInfo.FindSystemTimeZoneById("Central Standard Time"))} the Simple Cure application was unable to log error message {ErrorMessage} for IPAddress {IPAddress} Catch exception is {ex.ToString()}");
 
                 response.ResponseMessage = ex.ToString();
                 response.responseTypes = ResponseTypes.Failure;
@@ -89,7 +89,7 @@ namespace Library.ErrorLogging.Methods
                 string stacktrace = ex.StackTrace;
                 string targetsite = ex.TargetSite.ToString();
                 string error = ex.InnerException?.ToString() ?? ex.ToString();
-                string ErrorMessage = $"There was an error at {DateTime.Now} {Environment.NewLine} Method: {methodName} {Environment.NewLine} Source: {source} {Environment.NewLine} StackTrace: {stacktrace} {Environment.NewLine} TargetSite: {targetsite} {Environment.NewLine} Error: {error}{Environment.NewLine}";
+                string ErrorMessage = $"There was an error at {TimeZoneInfo.ConvertTime(DateTime.Now, TimeZoneInfo.FindSystemTimeZoneById("Central Standard Time"))} {Environment.NewLine} Method: {methodName} {Environment.NewLine} Source: {source} {Environment.NewLine} StackTrace: {stacktrace} {Environment.NewLine} TargetSite: {targetsite} {Environment.NewLine} Error: {error}{Environment.NewLine}";
                 errors.Log(ErrorMessage, string.Empty);
 
                 response.ResponseMessage = "Unable to Get All Application Errors";
@@ -129,7 +129,7 @@ namespace Library.ErrorLogging.Methods
                 string stacktrace = ex.StackTrace;
                 string targetsite = ex.TargetSite.ToString();
                 string error = ex.InnerException?.ToString() ?? ex.ToString();
-                string ErrorMessage = $"There was an error at {DateTime.Now} {Environment.NewLine} Method: {methodName} {Environment.NewLine} Source: {source} {Environment.NewLine} StackTrace: {stacktrace} {Environment.NewLine} TargetSite: {targetsite} {Environment.NewLine} Error: {error}{Environment.NewLine} For Error ID: {ID} {Environment.NewLine}";
+                string ErrorMessage = $"There was an error at {TimeZoneInfo.ConvertTime(DateTime.Now, TimeZoneInfo.FindSystemTimeZoneById("Central Standard Time"))} {Environment.NewLine} Method: {methodName} {Environment.NewLine} Source: {source} {Environment.NewLine} StackTrace: {stacktrace} {Environment.NewLine} TargetSite: {targetsite} {Environment.NewLine} Error: {error}{Environment.NewLine} For Error ID: {ID} {Environment.NewLine}";
                 errors.Log(ErrorMessage, string.Empty);
                 response.ResponseMessage = "Unable to get Application Error Information for ID " + ID;
                 response.responseTypes = ResponseTypes.Failure;
@@ -169,7 +169,7 @@ namespace Library.ErrorLogging.Methods
                 string stacktrace = ex.StackTrace;
                 string targetsite = ex.TargetSite.ToString();
                 string error = ex.InnerException?.ToString() ?? ex.ToString();
-                string ErrorMessage = $"There was an error at {DateTime.Now} {Environment.NewLine} Method: {methodName} {Environment.NewLine} Source: {source} {Environment.NewLine} StackTrace: {stacktrace} {Environment.NewLine} TargetSite: {targetsite} {Environment.NewLine} Error: {error}{Environment.NewLine} For Error Date: {Date} {Environment.NewLine}";
+                string ErrorMessage = $"There was an error at {TimeZoneInfo.ConvertTime(DateTime.Now, TimeZoneInfo.FindSystemTimeZoneById("Central Standard Time"))} {Environment.NewLine} Method: {methodName} {Environment.NewLine} Source: {source} {Environment.NewLine} StackTrace: {stacktrace} {Environment.NewLine} TargetSite: {targetsite} {Environment.NewLine} Error: {error}{Environment.NewLine} For Error Date: {Date} {Environment.NewLine}";
                 errors.Log(ErrorMessage, string.Empty);
                 response.responseTypes = ResponseTypes.Failure;
             }
